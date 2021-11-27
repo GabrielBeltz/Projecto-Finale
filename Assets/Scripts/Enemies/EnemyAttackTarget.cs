@@ -38,7 +38,7 @@ public class EnemyAttackTarget : MonoBehaviour
             }
         }
 
-        if (hitSound.Length > 0)
+        if (hitSound.Length > 0 && audioSource != null)
         {
             onAttackReceived += PlayHitSound;
         }
@@ -52,7 +52,7 @@ public class EnemyAttackTarget : MonoBehaviour
             onDeath -= DefaultDeath;
         }
 
-        if (hitSound.Length > 0)
+        if (hitSound.Length > 0 && audioSource != null)
         {
             onAttackReceived -= PlayHitSound;
         }
