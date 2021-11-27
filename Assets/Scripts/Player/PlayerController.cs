@@ -262,7 +262,7 @@ public class PlayerController : MonoBehaviour
         if (hasJumped)
         {
             float newjumpSpeed = Mathf.Clamp(rb.velocity.y, minJumpSpeed, initialJumpSpeed);
-            // Se o jogador segurar o espaço, o pulo continua normalmente. Se não, aplica força pra diminuir o pulo dele.
+            // Se o jogador segurar o espaï¿½o, o pulo continua normalmente. Se nï¿½o, aplica forï¿½a pra diminuir o pulo dele.
             if (!(Input.GetKey(KeyCode.Space) && Time.time < timeLeftGrounded + extraJumpTime + jumpTime))
             {
                 if (Time.time > timeLeftGrounded + jumpTime)
