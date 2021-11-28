@@ -35,7 +35,8 @@ public class InteractionManager : MonoBehaviour
 [System.Serializable]
 public class Interaction
 {
-    public int indexMod;
+    // Por padrão deixei 1, mas deixando em 0 no editor impede a interação de automaticamente passar para a próxima
+    public int indexMod = 1;
     public UnityEvent[] events;
     // keys que desbloqueiam essa interação. por enquanto elas tem somente comportamento OR,
     // qualquer uma delas que retornar como verdadeiras desbloqueia a interação
