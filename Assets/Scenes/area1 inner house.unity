@@ -931,7 +931,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 325628625}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.4528008, y: -0.5, z: 0}
+  m_LocalPosition: {x: 3.4528008, y: 4.93, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1633471655}
@@ -1265,7 +1265,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &587872025
 GameObject:
@@ -1892,7 +1892,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 941362825}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18.3, y: 4.4458, z: 0}
+  m_LocalPosition: {x: 18.3, y: 4.4458, z: 0.05}
   m_LocalScale: {x: 0.71628237, y: 10.955335, z: 3}
   m_Children:
   - {fileID: 1641349118}
@@ -2165,9 +2165,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1014545720}
+  - component: {fileID: 1014545721}
   - component: {fileID: 1014545723}
   - component: {fileID: 1014545722}
-  - component: {fileID: 1014545721}
   - component: {fileID: 1014545724}
   m_Layer: 8
   m_Name: velho
@@ -2204,7 +2204,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionIndex: 0
   interactions:
-  - events:
+  - indexMod: 1
+    events:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 529635985}
@@ -2219,7 +2220,10 @@ MonoBehaviour:
             m_StringArgument: change da worl
             m_BoolArgument: 0
           m_CallState: 2
-  - events:
+    getKeys: []
+    setKeys: []
+  - indexMod: 1
+    events:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 529635985}
@@ -2234,7 +2238,10 @@ MonoBehaviour:
             m_StringArgument: my final message
             m_BoolArgument: 0
           m_CallState: 2
-  - events:
+    getKeys: []
+    setKeys: []
+  - indexMod: 1
+    events:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 529635985}
@@ -2249,7 +2256,10 @@ MonoBehaviour:
             m_StringArgument: goodbye
             m_BoolArgument: 0
           m_CallState: 2
-  - events:
+    getKeys: []
+    setKeys: []
+  - indexMod: 1
+    events:
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 1014545719}
@@ -2264,6 +2274,8 @@ MonoBehaviour:
             m_StringArgument: goodbye
             m_BoolArgument: 0
           m_CallState: 2
+    getKeys: []
+    setKeys: []
   onExitInteraction:
     m_PersistentCalls:
       m_Calls:
@@ -2664,99 +2676,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1136455663
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1136455665}
-  - component: {fileID: 1136455664}
-  m_Layer: 0
-  m_Name: InteractableTest
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1136455664
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1136455663}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67209ce492f13f7409bc4029c8e3a488, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactionIndex: 0
-  interactions:
-  - events:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 529635985}
-          m_TargetAssemblyTypeName: TextDisplayer, Assembly-CSharp
-          m_MethodName: DisplayText
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: kkkkkkk bobao
-            m_BoolArgument: 0
-          m_CallState: 2
-  - events:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 529635985}
-          m_TargetAssemblyTypeName: TextDisplayer, Assembly-CSharp
-          m_MethodName: DisplayText
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: "lkkkkk boc\xF3"
-            m_BoolArgument: 0
-          m_CallState: 2
-  - events:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 529635985}
-          m_TargetAssemblyTypeName: TextDisplayer, Assembly-CSharp
-          m_MethodName: DisplayText
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: sai mano kkkkk
-            m_BoolArgument: 0
-          m_CallState: 2
-  onExitInteraction:
-    m_PersistentCalls:
-      m_Calls: []
---- !u!4 &1136455665
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1136455663}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1180421946
 GameObject:
   m_ObjectHideFlags: 0
@@ -3849,7 +3768,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1575835150}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.0082, y: 4.4458, z: 0}
+  m_LocalPosition: {x: -7.0082, y: 4.4458, z: 0.05}
   m_LocalScale: {x: 1.2248187, y: 11.207821, z: 3}
   m_Children:
   - {fileID: 1289115498}
@@ -4087,6 +4006,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsInLimboMode: 0
+  limboDurationMod: 0
+  limboTimer: 0
   SpriteMaksObj: {fileID: 1250237476}
 --- !u!81 &1633471654
 AudioListener:
@@ -4790,8 +4711,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2069821368}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.3223, y: 3.7115, z: 3.3}
-  m_LocalScale: {x: 49.81004, y: 11.917987, z: 3}
+  m_LocalPosition: {x: 17.3223, y: 3.8, z: 1.95}
+  m_LocalScale: {x: 49.81004, y: 11.917987, z: 1.2}
   m_Children:
   - {fileID: 220565053}
   m_Father: {fileID: 1774677439}
@@ -4804,7 +4725,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2069821368}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
