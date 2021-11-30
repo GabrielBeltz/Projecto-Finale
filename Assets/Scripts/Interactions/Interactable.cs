@@ -37,10 +37,7 @@ public class Interactable : MonoBehaviour
             interactionIndex = overrideIndex;
         }
 
-        for (int j = 0; j < interactions[interactionIndex].events.Length; j++)
-        {
-            interactions[interactionIndex].events[j]?.Invoke();
-        }
+        interactions[interactionIndex].events?.Invoke();
 
         if (interactions[interactionIndex].setKeys.Length > 0)
         {
