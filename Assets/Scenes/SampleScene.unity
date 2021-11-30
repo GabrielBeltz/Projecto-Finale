@@ -3650,66 +3650,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionIndex: 0
   interactions:
-  - events:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 529635985}
-          m_TargetAssemblyTypeName: TextDisplayer, Assembly-CSharp
-          m_MethodName: DisplayText
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: change da worl
-            m_BoolArgument: 0
-          m_CallState: 2
-  - events:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 529635985}
-          m_TargetAssemblyTypeName: TextDisplayer, Assembly-CSharp
-          m_MethodName: DisplayText
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: my final message
-            m_BoolArgument: 0
-          m_CallState: 2
-  - events:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 529635985}
-          m_TargetAssemblyTypeName: TextDisplayer, Assembly-CSharp
-          m_MethodName: DisplayText
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: goodbye
-            m_BoolArgument: 0
-          m_CallState: 2
-  - events:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1014545719}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: goodbye
-            m_BoolArgument: 0
-          m_CallState: 2
+  - indexMod: 1
+    events:
+      m_PersistentCalls:
+        m_Calls: []
+    getKeys: []
+    setKeys: []
+  - indexMod: 1
+    events:
+      m_PersistentCalls:
+        m_Calls: []
+    getKeys: []
+    setKeys: []
+  - indexMod: 1
+    events:
+      m_PersistentCalls:
+        m_Calls: []
+    getKeys: []
+    setKeys: []
+  - indexMod: 1
+    events:
+      m_PersistentCalls:
+        m_Calls: []
+    getKeys: []
+    setKeys: []
   onExitInteraction:
     m_PersistentCalls:
       m_Calls:
@@ -3847,51 +3811,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionIndex: 0
   interactions:
-  - events:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 529635985}
-          m_TargetAssemblyTypeName: TextDisplayer, Assembly-CSharp
-          m_MethodName: DisplayText
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: kkkkkkk bobao
-            m_BoolArgument: 0
-          m_CallState: 2
-  - events:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 529635985}
-          m_TargetAssemblyTypeName: TextDisplayer, Assembly-CSharp
-          m_MethodName: DisplayText
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: "lkkkkk boc\xF3"
-            m_BoolArgument: 0
-          m_CallState: 2
-  - events:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 529635985}
-          m_TargetAssemblyTypeName: TextDisplayer, Assembly-CSharp
-          m_MethodName: DisplayText
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: sai mano kkkkk
-            m_BoolArgument: 0
-          m_CallState: 2
+  - indexMod: 1
+    events:
+      m_PersistentCalls:
+        m_Calls: []
+    getKeys: []
+    setKeys: []
+  - indexMod: 1
+    events:
+      m_PersistentCalls:
+        m_Calls: []
+    getKeys: []
+    setKeys: []
+  - indexMod: 1
+    events:
+      m_PersistentCalls:
+        m_Calls: []
+    getKeys: []
+    setKeys: []
   onExitInteraction:
     m_PersistentCalls:
       m_Calls:
@@ -4218,6 +4155,63 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1049153961}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &1066221061
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1069645600207294985, guid: 537978f3dc6869847b3a2b21a4efecf5, type: 3}
+      propertyPath: m_Name
+      value: flyingEnemyPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 1069645600207294988, guid: 537978f3dc6869847b3a2b21a4efecf5, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1069645600207294988, guid: 537978f3dc6869847b3a2b21a4efecf5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -12.957417
+      objectReference: {fileID: 0}
+    - target: {fileID: 1069645600207294988, guid: 537978f3dc6869847b3a2b21a4efecf5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1069645600207294988, guid: 537978f3dc6869847b3a2b21a4efecf5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1069645600207294988, guid: 537978f3dc6869847b3a2b21a4efecf5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1069645600207294988, guid: 537978f3dc6869847b3a2b21a4efecf5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1069645600207294988, guid: 537978f3dc6869847b3a2b21a4efecf5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1069645600207294988, guid: 537978f3dc6869847b3a2b21a4efecf5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1069645600207294988, guid: 537978f3dc6869847b3a2b21a4efecf5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1069645600207294988, guid: 537978f3dc6869847b3a2b21a4efecf5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1069645600207294988, guid: 537978f3dc6869847b3a2b21a4efecf5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 537978f3dc6869847b3a2b21a4efecf5, type: 3}
 --- !u!1 &1094858586
 GameObject:
   m_ObjectHideFlags: 0
@@ -4285,51 +4279,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   interactionIndex: 0
   interactions:
-  - events:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 529635985}
-          m_TargetAssemblyTypeName: TextDisplayer, Assembly-CSharp
-          m_MethodName: DisplayText
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: kkkkkkk bobao
-            m_BoolArgument: 0
-          m_CallState: 2
-  - events:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 529635985}
-          m_TargetAssemblyTypeName: TextDisplayer, Assembly-CSharp
-          m_MethodName: DisplayText
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: "lkkkkk boc\xF3"
-            m_BoolArgument: 0
-          m_CallState: 2
-  - events:
-    - m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 529635985}
-          m_TargetAssemblyTypeName: TextDisplayer, Assembly-CSharp
-          m_MethodName: DisplayText
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: sai mano kkkkk
-            m_BoolArgument: 0
-          m_CallState: 2
+  - indexMod: 1
+    events:
+      m_PersistentCalls:
+        m_Calls: []
+    getKeys: []
+    setKeys: []
+  - indexMod: 1
+    events:
+      m_PersistentCalls:
+        m_Calls: []
+    getKeys: []
+    setKeys: []
+  - indexMod: 1
+    events:
+      m_PersistentCalls:
+        m_Calls: []
+    getKeys: []
+    setKeys: []
   onExitInteraction:
     m_PersistentCalls:
       m_Calls: []
@@ -6635,6 +6602,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsInLimboMode: 0
+  limboDurationMod: 0
+  limboTimer: 0
   SpriteMaksObj: {fileID: 1250237476}
 --- !u!81 &1633471654
 AudioListener:
