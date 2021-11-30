@@ -6,6 +6,9 @@ using UnityEngine.Events;
 public class InteractionManager : MonoBehaviour
 {
     static public InteractionManager Instance;
+    public List<InteractionKey> loadedKeys;
+    [Header("Needed to Work")]
+    public KeysList keyList;
 
     private void Start()
     {
@@ -17,18 +20,18 @@ public class InteractionManager : MonoBehaviour
         {
             Instance = this;
         }
-    }
 
-    public List<InteractionKey> keys;
+        loadedKeys = keyList.keys;
+    }
 
     public bool GetKey(InteractionKey interactionKey)
     {
-        return keys.Find(key => key.name == interactionKey.name).value == interactionKey.value;
+        return loadedKeys.Find(key => key.name == interactionKey.name).value == interactionKey.value;
     }
 
     public void SetKey(InteractionKey interactionKey)
     {
-        keys.Find(key => key.name == interactionKey.name).value = interactionKey.value;
+        loadedKeys.Find(key => key.name == interactionKey.name).value = interactionKey.value;
     }
 }
 

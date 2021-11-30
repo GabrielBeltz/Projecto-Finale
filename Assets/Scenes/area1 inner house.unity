@@ -2189,11 +2189,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18b097b1c10321f4eab288ed6fb39836, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keys:
-  - name: casaDoVelhoDesbloqueada
-    value: 0
-  - name: 
-    value: 0
+  loadedKeys: []
+  keyList: {fileID: 11400000, guid: a0bad3bc5e0f81f4891f092c1a3b4aa3, type: 2}
 --- !u!4 &1188663156
 Transform:
   m_ObjectHideFlags: 0
@@ -3516,6 +3513,7 @@ MonoBehaviour:
   limboController: {fileID: 1633471653}
   audioclips:
   - {fileID: 8300000, guid: 8781f5a6891be9949bd3c2e6c4d311d5, type: 3}
+  inventory: {fileID: 0}
 --- !u!70 &1633471651
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
