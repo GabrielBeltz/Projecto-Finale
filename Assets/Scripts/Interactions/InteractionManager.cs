@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class InteractionManager : MonoBehaviour
 {
     static public InteractionManager Instance;
+    // Carrega a lista de keys do scriptable object
     public List<InteractionKey> loadedKeys;
     [Header("Needed to Work")]
     public KeysList keyList;
