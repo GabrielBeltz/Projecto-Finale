@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keys:
   - name: casaDoVelhoDesbloqueada
-    value: 1
+    value: 0
+  - name: "port\xE3oDaVilaDesbloqueado"
+    value: 0

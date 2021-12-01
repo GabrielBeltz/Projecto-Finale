@@ -15,4 +15,7 @@ MonoBehaviour:
   list:
   - cameFrom: area1 inner house
     goingTo: area1
-    position: {x: -26.26, y: -0.86, z: 0}
+    position: {x: -26.26, y: -0.86}
+  - cameFrom: area1
+    goingTo: area1 inner house
+    position: {x: -5, y: 1}
