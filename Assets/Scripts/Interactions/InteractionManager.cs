@@ -22,6 +22,7 @@ public class InteractionManager : MonoBehaviour
             Instance = this;
         }
 
+        GameObject.DontDestroyOnLoad(this.gameObject);
         loadedKeys = keyList.keys;
     }
 

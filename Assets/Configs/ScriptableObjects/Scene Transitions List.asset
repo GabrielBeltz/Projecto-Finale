@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbeebe96ce2f8ca4b88ac67579c21b2a, type: 3}
+  m_Name: Scene Transitions List
+  m_EditorClassIdentifier: 
+  list:
+  - cameFrom: area1 inner house
+    goingTo: area1
+    position: {x: -26.26, y: -0.86, z: 0}
