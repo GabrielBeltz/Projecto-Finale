@@ -91,6 +91,8 @@ public class PlayerController : MonoBehaviour
     private float timeStartedDash, lastXInput;
     private Vector3 dashDir;
 
+    public Inventory inventory;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -110,7 +112,7 @@ public class PlayerController : MonoBehaviour
 
             HandleJumping();
 
-            HandleDashing();
+            //HandleDashing();
         }
     }
 
@@ -294,7 +296,7 @@ public class PlayerController : MonoBehaviour
 
     #region Dash
 
-    private void HandleDashing()
+    public void HandleDashing()
     {
         if (dashCooldownTimer < Time.time)
         {
