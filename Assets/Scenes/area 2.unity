@@ -397,6 +397,108 @@ MonoBehaviour:
   rdr: {fileID: 4704904}
   rb: {fileID: 0}
   audioSource: {fileID: 0}
+--- !u!1 &29077102
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 29077106}
+  - component: {fileID: 29077105}
+  - component: {fileID: 29077104}
+  - component: {fileID: 29077103}
+  m_Layer: 0
+  m_Name: EnterArea3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!61 &29077103
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29077102}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.5758635}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2.1517267}
+  m_EdgeRadius: 0
+--- !u!114 &29077104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29077102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0921238faf35e840876cf2169af57b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &29077105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29077102}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07c04a0beddc0554a8e86c316c408d2c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interaction:
+    indexMod: 0
+    events:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 29077104}
+          m_TargetAssemblyTypeName: CommonInteractionsEvents, Assembly-CSharp
+          m_MethodName: LoadScene
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: area 3
+            m_BoolArgument: 0
+          m_CallState: 2
+    getKeys: []
+    setKeys: []
+--- !u!4 &29077106
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29077102}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 49.1, y: -9.2, z: 0}
+  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &103607542
 GameObject:
   m_ObjectHideFlags: 0
@@ -3230,7 +3332,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.9744455, y: 1}
+    m_SensorSize: {x: 2.3947368, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3247,7 +3349,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 587872025}
   m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: -47.3, y: 14.854102, z: -6.660253}
+  m_LocalPosition: {x: -48.42, y: 14.854102, z: -6.660253}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1784280400}
@@ -3263,7 +3365,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5568,7 +5670,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6578,7 +6680,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6824,7 +6926,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.07606012}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -6835,7 +6937,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 1.1521201}
   m_EdgeRadius: 0
 --- !u!114 &1482344196
 MonoBehaviour:
@@ -6875,7 +6977,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: area1
+            m_StringArgument: area 1
             m_BoolArgument: 0
           m_CallState: 2
     getKeys: []
@@ -6888,7 +6990,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1482344194}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -56.2, y: 8.2, z: 0}
+  m_LocalPosition: {x: -56.2, y: 7.79, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -7603,7 +7705,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1069645600207294988, guid: 537978f3dc6869847b3a2b21a4efecf5, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1069645600207294988, guid: 537978f3dc6869847b3a2b21a4efecf5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -8000,7 +8102,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687258581}
   m_LocalRotation: {x: 0.2588191, y: -0, z: -0, w: 0.9659258}
-  m_LocalPosition: {x: -47.3, y: 14.854102, z: -6.660253}
+  m_LocalPosition: {x: -48.42, y: 14.854102, z: -6.660253}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1401744168}
@@ -10245,7 +10347,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1154210218694514585, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -47.3
+      value: -48.42
       objectReference: {fileID: 0}
     - target: {fileID: 1154210218694514585, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
       propertyPath: m_LocalPosition.y
