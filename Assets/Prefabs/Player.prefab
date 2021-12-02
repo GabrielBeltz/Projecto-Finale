@@ -319,19 +319,19 @@ MonoBehaviour:
     m_Bits: 136
   grounderOffset: -1
   grounderRadius: 0.2
-  IsGrounded: 0
-  initialJumpSpeed: 30
-  minJumpSpeed: 15
-  fallingAcceleration: 20
+  IsGrounded: 1
+  initialJumpSpeed: 25
+  minJumpSpeed: 5
+  fallingAcceleration: 40
   timeUntilMaxFallingSpeed: 2
   coyoteTime: 0.15
-  jumpTime: 0.1
-  extraJumpTime: 0.15
+  jumpTime: 0.15
+  extraJumpTime: 0.2
   hasJumped: 0
   walkSpeed: 8
-  _acceleration: 2
+  _acceleration: 5000
   maxWalkingPenalty: 0.5
-  currentWalkingPenalty: 0
+  currentWalkingPenalty: 0.5
   jumpManeuverabilityPercentage: 0.9
   dashLength: 0.2
   dashCooldown: 3
@@ -348,7 +348,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 77639c4dde859fd4f9432ea4a110260f, type: 2}
   - {fileID: 11400000, guid: 252fda0541908804cb00862c6c2425d9, type: 2}
   - {fileID: 11400000, guid: f7cf13109c001c74ab445f6fea9309a5, type: 2}
-  timeOfLastAttack: 0
+  timeOfLastAttack: 599.60516
   attackLayerMask:
     serializedVersion: 2
     m_Bits: 72
@@ -362,7 +362,7 @@ MonoBehaviour:
   limboController: {fileID: 1154210218694514587}
   audioclips:
   - {fileID: 8300000, guid: 8781f5a6891be9949bd3c2e6c4d311d5, type: 3}
-  inventory: {fileID: 0}
+  inventory: {fileID: 11400000, guid: e80e98bbbdc5f794e82326767e9b3205, type: 2}
 --- !u!114 &1154210218694514587
 MonoBehaviour:
   m_ObjectHideFlags: 0
