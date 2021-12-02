@@ -14,7 +14,7 @@ TagManager:
   - ReceivesPlayerAttack
   - LimboLayer
   - Interactable
-  - LimboTrigger
+  - IgnoreLimboTrigger
   - 
   - 
   - 
