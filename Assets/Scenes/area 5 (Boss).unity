@@ -283,6 +283,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -673,6 +676,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
   DamageReceived: 1
   selfKnockbackReceived: 0
   defaultDeath: 1
@@ -1114,6 +1120,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: normal enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 6648228603245617245, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
+      propertyPath: onDeathEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6648228603245617245, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
+      propertyPath: onDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6648228603245617245, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
+      propertyPath: onDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 712830872}
+    - target: {fileID: 6648228603245617245, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
+      propertyPath: onDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6648228603245617245, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
+      propertyPath: onDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetKeyTrue
+      objectReference: {fileID: 0}
+    - target: {fileID: 6648228603245617245, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
+      propertyPath: onDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CommonInteractionsEvents, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6648228603245617245, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
+      propertyPath: onDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: bossMorto
+      objectReference: {fileID: 0}
+    - target: {fileID: 6648228603245617245, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
+      propertyPath: onDeathEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
 --- !u!1 &415649485
@@ -1148,6 +1186,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
   DamageReceived: 1
   selfKnockbackReceived: 0
   defaultDeath: 1
@@ -1495,6 +1536,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -1815,6 +1859,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &712830871 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 471734861260073887, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
+  m_PrefabInstance: {fileID: 400620885}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &712830872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712830871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0921238faf35e840876cf2169af57b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &752359285
 GameObject:
   m_ObjectHideFlags: 0
@@ -2117,6 +2178,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
   DamageReceived: 1
   selfKnockbackReceived: 0
   defaultDeath: 1
@@ -2292,6 +2356,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -2619,6 +2686,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -2993,6 +3063,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
   DamageReceived: 1
   selfKnockbackReceived: 0
   defaultDeath: 1
@@ -3056,7 +3129,7 @@ GameObject:
   - component: {fileID: 1482344196}
   - component: {fileID: 1482344195}
   m_Layer: 0
-  m_Name: EnterArea1
+  m_Name: EnterArea4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3126,7 +3199,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: area1
+            m_StringArgument: area 4
             m_BoolArgument: 0
           m_CallState: 2
     getKeys: []
@@ -3139,8 +3212,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1482344194}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -56.2, y: 8.2, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalPosition: {x: -68.8, y: 15, z: 0}
+  m_LocalScale: {x: 5, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 9
@@ -3270,6 +3343,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -3650,6 +3726,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0

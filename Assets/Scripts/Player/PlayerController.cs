@@ -95,6 +95,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        timeOfLastAttack = 0;
         rb = GetComponent<Rigidbody2D>();
         //animator = GetComponent<Animator>();
         lastAttack = defaultAttack;
