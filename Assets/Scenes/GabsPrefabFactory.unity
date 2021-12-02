@@ -375,6 +375,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -509,6 +513,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -971,6 +979,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 0
   defaultDeath: 1
@@ -1430,6 +1442,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 0
   defaultDeath: 1
@@ -1606,6 +1622,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -2553,6 +2573,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -2973,6 +2997,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -3436,6 +3464,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 0
   defaultDeath: 1
@@ -4480,6 +4512,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 1.5
   defaultDeath: 1
@@ -4658,6 +4694,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -4831,6 +4871,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 4
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 1
   defaultDeath: 1
@@ -5149,6 +5193,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -5563,6 +5611,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 0
   defaultDeath: 1
@@ -5870,6 +5922,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 1.5
   defaultDeath: 1
@@ -6961,6 +7017,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 1.5
   defaultDeath: 1

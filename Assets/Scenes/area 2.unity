@@ -251,6 +251,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -388,6 +389,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -754,6 +756,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -890,6 +893,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -1315,6 +1319,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -1486,6 +1491,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -1504,7 +1510,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 261992747}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sprites
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1718,6 +1724,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 0
   defaultDeath: 1
@@ -2220,6 +2227,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -2357,6 +2365,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -2401,6 +2410,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 0
   defaultDeath: 1
@@ -2579,6 +2589,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -2760,6 +2771,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -3277,6 +3289,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -3332,7 +3345,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 2.3947368, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -3732,6 +3745,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -4091,7 +4105,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 837294604}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LimboTests
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4242,6 +4256,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -4506,6 +4521,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -4643,6 +4659,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -4798,6 +4815,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 0
   defaultDeath: 1
@@ -6546,6 +6564,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -6565,7 +6584,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1400707093}
   - component: {fileID: 1400707094}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DarkForest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6823,6 +6842,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 0
   defaultDeath: 1
@@ -7124,6 +7144,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -7282,6 +7303,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -7419,6 +7441,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -7556,6 +7579,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -7886,6 +7910,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -8023,6 +8048,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -8529,6 +8555,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -8811,6 +8838,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -8948,6 +8976,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -9212,6 +9241,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -9349,6 +9379,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -9613,6 +9644,7 @@ MonoBehaviour:
   onDeathEvent:
     m_PersistentCalls:
       m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
