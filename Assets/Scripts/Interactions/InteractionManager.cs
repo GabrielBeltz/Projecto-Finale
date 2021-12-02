@@ -31,6 +31,11 @@ public class InteractionManager : MonoBehaviour
         return loadedKeys.Find(key => key.name == interactionKey.name).value == interactionKey.value;
     }
 
+    public bool GetKey(string keyName)
+    {
+        return loadedKeys.Find(key => key.name == keyName).value;
+    }
+
     public void SetKey(InteractionKey interactionKey)
     {
         loadedKeys.Find(key => key.name == interactionKey.name).value = interactionKey.value;

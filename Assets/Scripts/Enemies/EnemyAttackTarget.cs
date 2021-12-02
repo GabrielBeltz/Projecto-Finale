@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEditor;
 
 public class EnemyAttackTarget : MonoBehaviour
 {
@@ -11,6 +8,7 @@ public class EnemyAttackTarget : MonoBehaviour
     [Header("Stats")]
     public float TotalHealth;
     public float currentHealth;
+    public UnityEvent onDeathEvent;
     [Header("Multiplicadores")]
     public float DamageReceived;
     public float selfKnockbackReceived;
@@ -68,7 +66,10 @@ public class EnemyAttackTarget : MonoBehaviour
         currentHealth -= playerMeleeAttack.damage * DamageReceived;
 
         if (currentHealth <= 0)
+        {
             onDeath?.Invoke();
+            onDeathEvent?.Invoke();
+        }
     }
 
     void DefaultDeath()

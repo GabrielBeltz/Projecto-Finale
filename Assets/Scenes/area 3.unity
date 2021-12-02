@@ -151,7 +151,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1633471655}
-  - {fileID: 1279148158}
+  - {fileID: 1246773335}
   - {fileID: 225659083}
   - {fileID: 1774677439}
   - {fileID: 1401744168}
@@ -539,6 +539,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
   DamageReceived: 1
   selfKnockbackReceived: 0
   defaultDeath: 1
@@ -818,6 +821,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
   DamageReceived: 1
   selfKnockbackReceived: 0
   defaultDeath: 1
@@ -868,6 +874,140 @@ Transform:
   m_Father: {fileID: 225659083}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &418795128
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 418795131}
+  - component: {fileID: 418795130}
+  - component: {fileID: 418795129}
+  m_Layer: 5
+  m_Name: Text (TMP)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &418795129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418795128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 50
+  m_fontSizeBase: 50
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 0
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 256
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &418795130
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418795128}
+  m_CullTransparentMesh: 1
+--- !u!224 &418795131
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 418795128}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 783985890}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.05, y: 0.1}
+  m_AnchorMax: {x: 0.95, y: 0.9}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &458458820
 GameObject:
   m_ObjectHideFlags: 0
@@ -878,7 +1018,7 @@ GameObject:
   m_Component:
   - component: {fileID: 458458821}
   - component: {fileID: 458458822}
-  m_Layer: 3
+  m_Layer: 8
   m_Name: AudioEmitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1024,8 +1164,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3424c4462b90d57459b666eadaeee3c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogBox: {fileID: 0}
-  textMeshUGUI: {fileID: 0}
+  dialogBox: {fileID: 783985889}
+  textMeshUGUI: {fileID: 418795129}
 --- !u!4 &529635986
 Transform:
   m_ObjectHideFlags: 0
@@ -1165,6 +1305,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -1237,7 +1380,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 587872025}
   m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: -47.3, y: 16.464102, z: -6.6602535}
+  m_LocalPosition: {x: -2.3, y: 14.864102, z: -6.6602535}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1784280400}
@@ -1257,8 +1400,11 @@ GameObject:
   - component: {fileID: 612984703}
   - component: {fileID: 612984702}
   - component: {fileID: 612984701}
-  m_Layer: 3
-  m_Name: GroundTest (25)
+  - component: {fileID: 612984706}
+  - component: {fileID: 612984705}
+  - component: {fileID: 612984707}
+  m_Layer: 8
+  m_Name: "Port\xE3o"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1369,6 +1515,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -1378,6 +1527,99 @@ MonoBehaviour:
   rdr: {fileID: 612984702}
   rb: {fileID: 0}
   audioSource: {fileID: 0}
+--- !u!114 &612984705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 612984699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0921238faf35e840876cf2169af57b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &612984706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 612984699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67209ce492f13f7409bc4029c8e3a488, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionIndex: 0
+  interactions:
+  - indexMod: 0
+    events:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 529635985}
+          m_TargetAssemblyTypeName: TextDisplayer, Assembly-CSharp
+          m_MethodName: DisplayText
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: trancado tiozera
+            m_BoolArgument: 0
+          m_CallState: 2
+    getKeys: []
+    setKeys: []
+  - indexMod: 0
+    events:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 612984705}
+          m_TargetAssemblyTypeName: CommonInteractionsEvents, Assembly-CSharp
+          m_MethodName: LoadScene
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: area 4
+            m_BoolArgument: 0
+          m_CallState: 2
+    getKeys:
+    - name: "port\xE3oDaVilaDesbloqueado"
+      value: 1
+    setKeys: []
+  onExitInteraction:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!61 &612984707
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 612984699}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 5}
+  m_EdgeRadius: 0
 --- !u!1 &653260035
 GameObject:
   m_ObjectHideFlags: 0
@@ -1746,6 +1988,82 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &783985889
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 783985890}
+  - component: {fileID: 783985892}
+  - component: {fileID: 783985891}
+  m_Layer: 5
+  m_Name: DialogBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &783985890
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783985889}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 418795131}
+  m_Father: {fileID: 1076424908}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0.2}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &783985891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783985889}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 0.1
+--- !u!222 &783985892
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 783985889}
+  m_CullTransparentMesh: 1
 --- !u!1 &837294603
 GameObject:
   m_ObjectHideFlags: 0
@@ -1921,6 +2239,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
   DamageReceived: 1
   selfKnockbackReceived: 0
   defaultDeath: 1
@@ -1971,6 +2292,42 @@ Transform:
   m_Father: {fileID: 225659083}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1076424907
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1076424908}
+  m_Layer: 5
+  m_Name: UI Scaler
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1076424908
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1076424907}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 783985890}
+  m_Father: {fileID: 1691574821}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 960, y: 540}
+  m_SizeDelta: {x: 1920, y: 1080}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1081683968
 GameObject:
   m_ObjectHideFlags: 0
@@ -2307,7 +2664,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1279148157
+--- !u!1 &1246773330
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2315,28 +2672,252 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1279148158}
-  m_Layer: 0
-  m_Name: Enemies
+  - component: {fileID: 1246773335}
+  - component: {fileID: 1246773334}
+  - component: {fileID: 1246773333}
+  - component: {fileID: 1246773332}
+  - component: {fileID: 1246773331}
+  m_Layer: 8
+  m_Name: Velho Zangado
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1279148158
+--- !u!61 &1246773331
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246773330}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2}
+  m_EdgeRadius: 0
+--- !u!114 &1246773332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246773330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67209ce492f13f7409bc4029c8e3a488, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  interactionIndex: 0
+  interactions:
+  - indexMod: 1
+    events:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 529635985}
+          m_TargetAssemblyTypeName: TextDisplayer, Assembly-CSharp
+          m_MethodName: DisplayText
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: "Ia\xCA, aqui quem fala \xE9 o zangado"
+            m_BoolArgument: 0
+          m_CallState: 2
+    getKeys: []
+    setKeys: []
+  - indexMod: 1
+    events:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 529635985}
+          m_TargetAssemblyTypeName: TextDisplayer, Assembly-CSharp
+          m_MethodName: DisplayText
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: "tive q vazar da minha vila pq tem um esp\xEDrito de
+              uma garota chorona l\xE1"
+            m_BoolArgument: 0
+          m_CallState: 2
+    getKeys: []
+    setKeys: []
+  - indexMod: 1
+    events:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 529635985}
+          m_TargetAssemblyTypeName: TextDisplayer, Assembly-CSharp
+          m_MethodName: DisplayText
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: "q?????? vc quer ir l\xE1? que babaquice"
+            m_BoolArgument: 0
+          m_CallState: 2
+    getKeys: []
+    setKeys: []
+  - indexMod: 1
+    events:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 529635985}
+          m_TargetAssemblyTypeName: TextDisplayer, Assembly-CSharp
+          m_MethodName: DisplayText
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: "s\xE9rio q ideia horr\xEDvel"
+            m_BoolArgument: 0
+          m_CallState: 2
+    getKeys: []
+    setKeys: []
+  - indexMod: 0
+    events:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 529635985}
+          m_TargetAssemblyTypeName: TextDisplayer, Assembly-CSharp
+          m_MethodName: DisplayText
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: "mas ta, destranquei o portao da vila pra tu magicamente,
+              sou foda n\xE9"
+            m_BoolArgument: 0
+          m_CallState: 2
+    getKeys: []
+    setKeys:
+    - name: "port\xE3oDaVilaDesbloqueado"
+      value: 1
+  - indexMod: 0
+    events:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 529635985}
+          m_TargetAssemblyTypeName: TextDisplayer, Assembly-CSharp
+          m_MethodName: DisplayText
+          m_Mode: 5
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: "eu sei q vc s\xF3 falou cmg pra desbloquear o port\xE3o,
+              agora vaza"
+            m_BoolArgument: 0
+          m_CallState: 2
+    getKeys:
+    - name: "port\xE3oDaVilaDesbloqueado"
+      value: 1
+    setKeys: []
+  onExitInteraction:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 783985889}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!23 &1246773333
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246773330}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 8af7c3d86a0f1794d8c9ae65ef409b5b, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &1246773334
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1246773330}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1246773335
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1279148157}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_GameObject: {fileID: 1246773330}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -22.57, y: 6.43, z: 0.54}
+  m_LocalScale: {x: 2, y: 1, z: 0.35}
   m_Children: []
   m_Father: {fileID: 141759292}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1 &1400707092
 GameObject:
   m_ObjectHideFlags: 0
@@ -2529,6 +3110,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
   DamageReceived: 1
   selfKnockbackReceived: 0
   defaultDeath: 1
@@ -2592,7 +3176,7 @@ GameObject:
   - component: {fileID: 1482344196}
   - component: {fileID: 1482344195}
   m_Layer: 0
-  m_Name: EnterArea1
+  m_Name: EnterArea2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2662,7 +3246,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: area1
+            m_StringArgument: area 2
             m_BoolArgument: 0
           m_CallState: 2
     getKeys: []
@@ -2675,8 +3259,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1482344194}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -56.2, y: 8.2, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalPosition: {x: -64.6, y: 7.9, z: 0}
+  m_LocalScale: {x: 5, y: 10, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8
@@ -2806,6 +3390,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -2890,7 +3477,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687258581}
   m_LocalRotation: {x: 0.2588191, y: -0, z: -0, w: 0.9659258}
-  m_LocalPosition: {x: -47.3, y: 16.464102, z: -6.6602535}
+  m_LocalPosition: {x: -2.3, y: 14.864102, z: -6.6602535}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1401744168}
@@ -2991,7 +3578,8 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
-  m_Children: []
+  m_Children:
+  - {fileID: 1076424908}
   m_Father: {fileID: 1232676429}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3186,6 +3774,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -3787,11 +4378,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1154210218694514585, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -47.3
+      value: -2.3
       objectReference: {fileID: 0}
     - target: {fileID: 1154210218694514585, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8
+      value: 6.4
       objectReference: {fileID: 0}
     - target: {fileID: 1154210218694514585, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
       propertyPath: m_LocalPosition.z

@@ -153,7 +153,6 @@ Transform:
   - {fileID: 1014545720}
   - {fileID: 1050079427}
   - {fileID: 378323266}
-  - {fileID: 1403293132}
   m_Father: {fileID: 141759292}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -282,6 +281,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -723,6 +725,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -1205,6 +1210,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -1751,6 +1759,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -2488,272 +2499,6 @@ Transform:
   m_Father: {fileID: 141759292}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1403293131
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1403293132}
-  - component: {fileID: 1403293136}
-  - component: {fileID: 1403293135}
-  - component: {fileID: 1403293134}
-  - component: {fileID: 1403293133}
-  m_Layer: 8
-  m_Name: Velho Zangado
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1403293132
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1403293131}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.01, y: 1.27, z: 0.54}
-  m_LocalScale: {x: 2, y: 1, z: 0.35}
-  m_Children: []
-  m_Father: {fileID: 43254632}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
---- !u!61 &1403293133
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1403293131}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 2}
-  m_EdgeRadius: 0
---- !u!114 &1403293134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1403293131}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67209ce492f13f7409bc4029c8e3a488, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  interactionIndex: 0
-  interactions:
-  - indexMod: 1
-    events:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 529635985}
-          m_TargetAssemblyTypeName: TextDisplayer, Assembly-CSharp
-          m_MethodName: DisplayText
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: "Ia\xCA, aqui quem fala \xE9 o zangado"
-            m_BoolArgument: 0
-          m_CallState: 2
-    getKeys: []
-    setKeys: []
-  - indexMod: 1
-    events:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 529635985}
-          m_TargetAssemblyTypeName: TextDisplayer, Assembly-CSharp
-          m_MethodName: DisplayText
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: "tive q vazar da minha vila pq tem um esp\xEDrito de
-              uma garota chorona l\xE1"
-            m_BoolArgument: 0
-          m_CallState: 2
-    getKeys: []
-    setKeys: []
-  - indexMod: 1
-    events:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 529635985}
-          m_TargetAssemblyTypeName: TextDisplayer, Assembly-CSharp
-          m_MethodName: DisplayText
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: "q?????? vc quer ir l\xE1? que babaquice"
-            m_BoolArgument: 0
-          m_CallState: 2
-    getKeys: []
-    setKeys: []
-  - indexMod: 1
-    events:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 529635985}
-          m_TargetAssemblyTypeName: TextDisplayer, Assembly-CSharp
-          m_MethodName: DisplayText
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: "s\xE9rio q ideia horr\xEDvel"
-            m_BoolArgument: 0
-          m_CallState: 2
-    getKeys: []
-    setKeys: []
-  - indexMod: 0
-    events:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 529635985}
-          m_TargetAssemblyTypeName: TextDisplayer, Assembly-CSharp
-          m_MethodName: DisplayText
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: "mas ta, destranquei o portao da vila pra tu magicamente,
-              sou foda n\xE9"
-            m_BoolArgument: 0
-          m_CallState: 2
-    getKeys: []
-    setKeys:
-    - name: "port\xE3oDaVilaDesbloqueado"
-      value: 1
-  - indexMod: 0
-    events:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 529635985}
-          m_TargetAssemblyTypeName: TextDisplayer, Assembly-CSharp
-          m_MethodName: DisplayText
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: "eu sei q vc s\xF3 falou cmg pra desbloquear o port\xE3o,
-              agora vaza"
-            m_BoolArgument: 0
-          m_CallState: 2
-    getKeys:
-    - name: "port\xE3oDaVilaDesbloqueado"
-      value: 1
-    setKeys: []
-  onExitInteraction:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TextDisplayer, Assembly-CSharp
-        m_MethodName: DisplayText
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!23 &1403293135
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1403293131}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 8af7c3d86a0f1794d8c9ae65ef409b5b, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1403293136
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1403293131}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1441287653
 GameObject:
   m_ObjectHideFlags: 0
@@ -2894,7 +2639,7 @@ MonoBehaviour:
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 0
-            m_StringArgument: area1
+            m_StringArgument: area 1
             m_BoolArgument: 0
           m_CallState: 2
     getKeys:
@@ -3079,6 +2824,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -3855,6 +3603,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0

@@ -13,15 +13,24 @@ MonoBehaviour:
   m_Name: Scene Transitions List
   m_EditorClassIdentifier: 
   list:
-  - cameFrom: area1 inner house
-    goingTo: area1
+  - cameFrom: area 1 inner house
+    goingTo: area 1
     position: {x: -26.26, y: -0.86}
-  - cameFrom: area1
-    goingTo: area1 inner house
+  - cameFrom: area 1
+    goingTo: area 1 inner house
     position: {x: -5, y: 1}
-  - cameFrom: area1
-    goingTo: area2
+  - cameFrom: area 1
+    goingTo: area 2
     position: {x: -47.3, y: 8}
-  - cameFrom: area2
-    goingTo: area1
-    position: {x: -47.3, y: 8}
+  - cameFrom: area 2
+    goingTo: area 1
+    position: {x: 15.5, y: 23}
+  - cameFrom: area 3
+    goingTo: area 2
+    position: {x: 50, y: -9}
+  - cameFrom: area 3
+    goingTo: area 4
+    position: {x: -53.6, y: 6.4}
+  - cameFrom: area 4
+    goingTo: area 3
+    position: {x: -2.3, y: 6.4}
