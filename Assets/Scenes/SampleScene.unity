@@ -6559,7 +6559,7 @@ MonoBehaviour:
   maxWalkingPenalty: 0.5
   currentWalkingPenalty: 0
   jumpManeuverabilityPercentage: 0.9
-  dashLength: 0.3
+  dashLength: 0.25
   dashCooldown: 3
   TotalHealth: 6
   currentHealth: 6
