@@ -248,9 +248,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -385,9 +382,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -649,9 +643,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -785,9 +776,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -1210,9 +1198,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -1381,9 +1366,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -1613,9 +1595,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 1
   selfKnockbackReceived: 0
   defaultDeath: 1
@@ -2115,9 +2094,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -2252,9 +2228,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -2296,9 +2269,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 1
   selfKnockbackReceived: 0
   defaultDeath: 1
@@ -2474,9 +2444,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -2655,9 +2622,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -3172,9 +3136,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -3247,86 +3208,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 587872025}
   m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: -47.3, y: 14.854102, z: -6.660253}
+  m_LocalPosition: {x: -47.3, y: 16.464102, z: -6.6602535}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1784280400}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
---- !u!1001 &597508940
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_RootOrder
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -41.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 17.56
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073884, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: speed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073884, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: goingRight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073887, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_Name
-      value: normal enemy (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 2472450295857266664, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_GravityScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2472450295857266664, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_CollisionDetection
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
 --- !u!1 &622928298
 GameObject:
   m_ObjectHideFlags: 0
@@ -3627,9 +3515,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -4116,9 +4001,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -4380,9 +4262,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -4517,9 +4396,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -4672,9 +4548,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 1
   selfKnockbackReceived: 0
   defaultDeath: 1
@@ -5538,75 +5411,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1001 &1175899425
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_RootOrder
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 9.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073884, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: speed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073884, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: goingRight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073887, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_Name
-      value: normal enemy (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 2472450295857266664, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_CollisionDetection
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
 --- !u!1 &1190126200
 GameObject:
   m_ObjectHideFlags: 0
@@ -6420,9 +6224,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -6548,79 +6349,6 @@ Transform:
   m_Father: {fileID: 141759292}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1437759796
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_RootOrder
-      value: 11
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 28
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 21.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.15
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073884, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: speed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073884, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: goingRight
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073887, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_Name
-      value: normal enemy (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 2472450295857266664, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_GravityScale
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2472450295857266664, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_CollisionDetection
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
 --- !u!1 &1441287653
 GameObject:
   m_ObjectHideFlags: 0
@@ -6697,9 +6425,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 1
   selfKnockbackReceived: 0
   defaultDeath: 1
@@ -6750,27 +6475,6 @@ Transform:
   m_Father: {fileID: 225659083}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1463935009 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 471734861260073887, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-  m_PrefabInstance: {fileID: 1175899425}
-  m_PrefabAsset: {fileID: 0}
---- !u!70 &1463935010
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1463935009}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
-  m_Direction: 0
 --- !u!1 &1482344194
 GameObject:
   m_ObjectHideFlags: 0
@@ -6998,9 +6702,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -7010,27 +6711,6 @@ MonoBehaviour:
   rdr: {fileID: 1485215439}
   rb: {fileID: 0}
   audioSource: {fileID: 0}
---- !u!1 &1514664894 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 471734861260073887, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-  m_PrefabInstance: {fileID: 1437759796}
-  m_PrefabAsset: {fileID: 0}
---- !u!70 &1514664895
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1514664894}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
-  m_Direction: 0
 --- !u!1 &1539915995
 GameObject:
   m_ObjectHideFlags: 0
@@ -7156,9 +6836,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -7293,9 +6970,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -7430,9 +7104,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -7569,67 +7240,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1001 &1624783304
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1069645600207294985, guid: 537978f3dc6869847b3a2b21a4efecf5, type: 3}
-      propertyPath: m_Name
-      value: flyingEnemyPrefab
-      objectReference: {fileID: 0}
-    - target: {fileID: 1069645600207294988, guid: 537978f3dc6869847b3a2b21a4efecf5, type: 3}
-      propertyPath: m_RootOrder
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1069645600207294988, guid: 537978f3dc6869847b3a2b21a4efecf5, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -37.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 1069645600207294988, guid: 537978f3dc6869847b3a2b21a4efecf5, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 35
-      objectReference: {fileID: 0}
-    - target: {fileID: 1069645600207294988, guid: 537978f3dc6869847b3a2b21a4efecf5, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1069645600207294988, guid: 537978f3dc6869847b3a2b21a4efecf5, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1069645600207294988, guid: 537978f3dc6869847b3a2b21a4efecf5, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1069645600207294988, guid: 537978f3dc6869847b3a2b21a4efecf5, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1069645600207294988, guid: 537978f3dc6869847b3a2b21a4efecf5, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1069645600207294988, guid: 537978f3dc6869847b3a2b21a4efecf5, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1069645600207294988, guid: 537978f3dc6869847b3a2b21a4efecf5, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1069645600207294988, guid: 537978f3dc6869847b3a2b21a4efecf5, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1925182230095577923, guid: 537978f3dc6869847b3a2b21a4efecf5, type: 3}
-      propertyPath: m_CollisionDetection
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 537978f3dc6869847b3a2b21a4efecf5, type: 3}
 --- !u!4 &1633471655 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1154210218694514585, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
@@ -7760,9 +7370,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -7897,9 +7504,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -7979,7 +7583,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687258581}
   m_LocalRotation: {x: 0.2588191, y: -0, z: -0, w: 0.9659258}
-  m_LocalPosition: {x: -47.3, y: 14.854102, z: -6.660253}
+  m_LocalPosition: {x: -47.3, y: 16.464102, z: -6.6602535}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1401744168}
@@ -8403,9 +8007,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -8685,9 +8286,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -8822,9 +8420,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -9086,9 +8681,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -9223,9 +8815,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -9487,9 +9076,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
@@ -10228,7 +9814,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1154210218694514585, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 6.39
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1154210218694514585, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
       propertyPath: m_LocalPosition.z
