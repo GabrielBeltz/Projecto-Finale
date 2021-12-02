@@ -34,3 +34,9 @@ MonoBehaviour:
   - cameFrom: area 4
     goingTo: area 3
     position: {x: -2.3, y: 6.4}
+  - cameFrom: area 4
+    goingTo: area 5
+    position: {x: 62.8, y: 12.67}
+  - cameFrom: area 5
+    goingTo: area 4
+    position: {x: 206, y: 63.2}
