@@ -10,22 +10,32 @@ public class flyingEnemyBehaviour : MonoBehaviour
 
     Collider2D[] objects; 
     Transform target;
+    MeshRenderer meshRenderer;
 
     [Header("Atack Variables")]
     public float atackTime;
     public GameObject ProjectilePrefab;
     bool canAtack = true;
-    
+
+    public bool isDead 
+    {
+        get
+        {
+            return !meshRenderer.enabled;
+        }
+    }
 
     void Start()
     {
+        meshRenderer = GetComponent<MeshRenderer>();
         originalPos = transform.position;
         Patrol();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        if (isDead) return;
+
         CheckIfTarget();
 
         if (transform.position.x < newPos.x + threshold && transform.position.x > newPos.x - threshold)

@@ -14,7 +14,9 @@ GameObject:
   - component: {fileID: 471734861260073885}
   - component: {fileID: 471734861260073884}
   - component: {fileID: 471734861260073882}
-  m_Layer: 0
+  - component: {fileID: 6648228603245617245}
+  - component: {fileID: 2472450295857266664}
+  m_Layer: 6
   m_Name: normal enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -136,3 +138,46 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 1
   playerKnockback: 700
+--- !u!114 &6648228603245617245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471734861260073887}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87214f58d37669e4aa28d0a13bcfc264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TotalHealth: 3
+  currentHealth: 3
+  DamageReceived: 1
+  selfKnockbackReceived: 1
+  defaultDeath: 1
+  hitSound: []
+  col: {fileID: 471734861260073885}
+  rdr: {fileID: 471734861260073883}
+  rb: {fileID: 2472450295857266664}
+  audioSource: {fileID: 0}
+--- !u!50 &2472450295857266664
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471734861260073887}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4

@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 1069645600207294990}
   - component: {fileID: 1069645600207294991}
   - component: {fileID: 1069645600207294984}
+  - component: {fileID: 7264298940956998324}
+  - component: {fileID: 1925182230095577923}
   m_Layer: 6
   m_Name: flyingEnemyPrefab
   m_TagString: Untagged
@@ -130,3 +132,46 @@ MonoBehaviour:
   magnitude: 0
   atackTime: 3
   ProjectilePrefab: {fileID: 2634410906272665942, guid: 9ca44c107f3192f48ba9a63034d6b25e, type: 3}
+--- !u!114 &7264298940956998324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1069645600207294985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87214f58d37669e4aa28d0a13bcfc264, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TotalHealth: 1
+  currentHealth: 1
+  DamageReceived: 1
+  selfKnockbackReceived: 1
+  defaultDeath: 1
+  hitSound: []
+  col: {fileID: 1069645600207294991}
+  rdr: {fileID: 1069645600207294990}
+  rb: {fileID: 0}
+  audioSource: {fileID: 0}
+--- !u!50 &1925182230095577923
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1069645600207294985}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
