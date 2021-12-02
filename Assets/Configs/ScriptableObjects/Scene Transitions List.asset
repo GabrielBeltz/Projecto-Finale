@@ -19,3 +19,9 @@ MonoBehaviour:
   - cameFrom: area1
     goingTo: area1 inner house
     position: {x: -5, y: 1}
+  - cameFrom: area1
+    goingTo: area2
+    position: {x: -47.3, y: 8}
+  - cameFrom: area2
+    goingTo: area1
+    position: {x: -47.3, y: 8}
