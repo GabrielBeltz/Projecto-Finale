@@ -50,7 +50,7 @@ public class CommonEnemyBehaviour : MonoBehaviour
 
         if (target != null)
         {
-            if (Vector3.Distance(transform.position, target.position) > 30)
+            if (Vector3.Distance(transform.position, target.position) > 15)
             {
                 if (!isAtacking)
                 {
