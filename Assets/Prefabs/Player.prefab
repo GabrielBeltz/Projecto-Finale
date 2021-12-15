@@ -1267,7 +1267,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2758338673421538073}
-  m_LocalRotation: {x: 0.2588191, y: -0, z: -0, w: 0.9659258}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 8.000001, z: -8.660253}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1709,7 +1709,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3501740111014345659}
   - component: {fileID: 7009607746363591997}
-  - component: {fileID: 2784893020019537672}
   m_Layer: 0
   m_Name: personagem principalblockTPose
   m_TagString: Untagged
@@ -1741,7 +1740,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4310928628974051585}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 981cb7f32c63ec74297b572d05c7ce92, type: 2}
   m_CullingMode: 0
@@ -1752,22 +1751,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!111 &2784893020019537672
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4310928628974051585}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: -203655887218126122, guid: 3f587ecd904b9f14f9bed90b776eef2e, type: 3}
-  m_Animations:
-  - {fileID: -203655887218126122, guid: 3f587ecd904b9f14f9bed90b776eef2e, type: 3}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!1 &4791881907922687171
 GameObject:
   m_ObjectHideFlags: 0
