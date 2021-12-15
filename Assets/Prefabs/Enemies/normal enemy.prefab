@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 471734861260073882}
   - component: {fileID: 6648228603245617245}
   - component: {fileID: 2472450295857266664}
+  - component: {fileID: 3951691173306117793}
   m_Layer: 6
   m_Name: normal enemy
   m_TagString: Untagged
@@ -116,6 +117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0ae17a2a253a0242bcb5bb7b91ed594, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myAnimator: {fileID: 5991193244279502972}
   target: {fileID: 0}
   sideWalkingDistance: 5
   speed: 2
@@ -180,12 +182,28 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!70 &3951691173306117793
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 471734861260073887}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 1, y: 2}
+  m_Direction: 0
 --- !u!95 &5991193244279502972
 Animator:
   serializedVersion: 3
@@ -196,7 +214,7 @@ Animator:
   m_GameObject: {fileID: 6360314897843537605}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 92cfa6d5de3e16f49882171d7d16b62b, type: 2}
+  m_Controller: {fileID: 9100000, guid: caaeb093cf100764b8a3d99e24e047a4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -217,12 +235,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c49a63e89bb6da6419a2a5c297feca57, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c49a63e89bb6da6419a2a5c297feca57, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c49a63e89bb6da6419a2a5c297feca57, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: c49a63e89bb6da6419a2a5c297feca57, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.06
+      value: -2.78
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c49a63e89bb6da6419a2a5c297feca57, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.81
+      value: -0.98
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c49a63e89bb6da6419a2a5c297feca57, type: 3}
       propertyPath: m_LocalPosition.z

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CommonEnemyBehaviour : MonoBehaviour
 {
+    public Animator myAnimator;
     public Transform target;
     Collider2D[] objects;
 
@@ -19,19 +20,54 @@ public class CommonEnemyBehaviour : MonoBehaviour
         initialPos = transform.position;
         initialTimerToAttack = timerToAttack;
     }
+
     void Update()
     {
+        float rotation;
         if (target == null)
         {
+            myAnimator.SetTrigger("Walk");
             Patrol();
+
+            if (goingRight)
+            {
+                rotation = 0;
+            }
+            else
+            {
+                rotation = 180;
+            }
         }
         else
         {
+            if (target.transform.position.x > transform.position.x)
+            {
+                targetIsOnRight = true;
+            }
+            else
+            {
+                targetIsOnRight = false;
+            }
+
+            if (targetIsOnRight)
+            {
+                rotation = 0;
+            }
+            else
+            {
+                rotation = 180;
+            }
+
+            myAnimator.SetTrigger("Attack");
             ChaseTarget();
         }
 
+
+        this.transform.rotation = Quaternion.Euler(0, rotation, 0);
+
         CheckIfTarget();
     }
+
     void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, 10);
@@ -50,14 +86,11 @@ public class CommonEnemyBehaviour : MonoBehaviour
 
         if (target != null)
         {
-            if (Vector3.Distance(transform.position, target.position) > 15)
+            if (Vector3.Distance(transform.position, target.position) > 10)
             {
-                if (!isAtacking)
-                {
-                    target = null;
-                    initialPos = transform.position;
-                    Patrol();
-                }
+                target = null;
+                initialPos = transform.position;
+                Patrol();
             }
         }
     }
@@ -67,14 +100,7 @@ public class CommonEnemyBehaviour : MonoBehaviour
         rightLocation = new Vector3(initialPos.x + sideWalkingDistance, transform.position.y, transform.position.z);
         leftLocation = new Vector3(initialPos.x - sideWalkingDistance, transform.position.y, transform.position.z);
 
-        if (goingRight)
-        {
-            transform.position += transform.right * speed * Time.deltaTime;
-        }
-        else
-        {
-            transform.position -= transform.right * speed * Time.deltaTime;
-        }
+        transform.position += transform.right * speed * Time.deltaTime;
 
         if (transform.position.x < leftLocation.x)
         {
@@ -100,35 +126,15 @@ public class CommonEnemyBehaviour : MonoBehaviour
             Invoke("Attack", 0);
         }
         
-        if (target.position.x < transform.position.x)
+        if (!isAtacking)
         {
-            if (!isAtacking)
+            if (Vector3.Distance(transform.position, target.position) >= 5)
             {
-                if (Vector3.Distance(transform.position, target.position) >= 5)
-                {
-                    transform.position -= transform.right * speed * 2 * Time.deltaTime;
-                }
-                else
-                {
-                    targetIsOnRight = false;
-                    isAtacking = true;
-                }
+                transform.position += transform.right * speed * 2 * Time.deltaTime;
             }
-        }
-        else
-        {
-            if (!isAtacking)
+            else
             {
-                if (Vector3.Distance(transform.position, target.position) >= 5)
-                {
-                    transform.position += transform.right * speed * 2 * Time.deltaTime;
-                }
-                else
-                {
-                    targetIsOnRight = true;
-                    isAtacking = true;
-                }
-                
+                isAtacking = true;
             }
         }
     }
@@ -138,20 +144,7 @@ public class CommonEnemyBehaviour : MonoBehaviour
         timerToAttack -= Time.deltaTime;
         if (timerToAttack <= 0)
         {
-            isDashing = true;
-
-                if (isDashing)
-                {
-                    StartCoroutine(DashtimerToAttack());
-                    if (!targetIsOnRight)
-                    {
-                        transform.position -= transform.right * dashSpeed * Time.deltaTime;
-                    }
-                    else
-                    {
-                        transform.position += transform.right * dashSpeed * Time.deltaTime;
-                    }
-                }
+            transform.position += transform.right * dashSpeed * Time.deltaTime;
         }
     }
 
