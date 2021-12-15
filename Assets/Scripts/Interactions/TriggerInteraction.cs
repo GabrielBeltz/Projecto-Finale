@@ -10,7 +10,7 @@ public class TriggerInteraction : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            interaction.events?.Invoke();
+            interaction.events.Invoke();
         }
     }
 }

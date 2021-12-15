@@ -9,6 +9,7 @@ public class EnemyAttackTarget : MonoBehaviour
     public float TotalHealth;
     public float currentHealth;
     public UnityEvent onDeathEvent;
+    public AttackDirection receivedAttackDirection;
     [Header("Multiplicadores")]
     public float DamageReceived;
     public float selfKnockbackReceived;
@@ -63,12 +64,15 @@ public class EnemyAttackTarget : MonoBehaviour
 
     void ReceiveDamage(PlayerMeleeAttack playerMeleeAttack, Vector3 pos)
     {
-        currentHealth -= playerMeleeAttack.damage * DamageReceived;
-
-        if (currentHealth <= 0)
+        if (playerMeleeAttack.direction == receivedAttackDirection || receivedAttackDirection == AttackDirection.Front)
         {
-            onDeath?.Invoke();
-            onDeathEvent?.Invoke();
+            currentHealth -= playerMeleeAttack.damage * DamageReceived;
+
+            if (currentHealth <= 0)
+            {
+                onDeath?.Invoke();
+                onDeathEvent?.Invoke();
+            }
         }
     }
 

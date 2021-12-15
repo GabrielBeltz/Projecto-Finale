@@ -1,5 +1,4 @@
 using UnityEngine;
-
 // Classe criada pra evitar referências diretas de GameObjects que não existem em algumas cenas mas são marcados como DontDestroyOnLoad
 public class CommonInteractionsEvents : MonoBehaviour
 {

@@ -1,11 +1,14 @@
 using UnityEngine;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 
 public class LimboController : MonoBehaviour
 {
     public bool IsInLimboMode = false;
-    public float limboDurationMod, limboTimer;
-    private float limboDuration = 3f;
+    private float t = 0f, timeInLimbo = 10f;
     [SerializeField] private GameObject SpriteMaksObj;
+    Coroutine limboGeneration;
 
     void Start()
     {
@@ -14,28 +17,47 @@ public class LimboController : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.L) && limboTimer < limboDuration + limboDurationMod - 0.5f)
+        if(Input.GetKeyDown(KeyCode.L))
         {
-            LimboMode();
+            IsInLimboMode = !IsInLimboMode;
         }
 
-        if (IsInLimboMode)
-        {
-            limboTimer += Time.deltaTime;
-            if (limboTimer > limboDuration + limboDurationMod)
-            {
-                LimboMode();
-            }
-        }
-        else
-        {
-            limboTimer = Mathf.Max(limboTimer - Time.deltaTime, 0);
-        }
+        LimboMode();
     }
 
     private void LimboMode()
     {
-        IsInLimboMode = !IsInLimboMode;
-        SpriteMaksObj.SetActive(IsInLimboMode);
+        if(limboGeneration != null)
+        {
+            StopCoroutine(limboGeneration);
+        }
+
+        limboGeneration = StartCoroutine(GeneratingMask());
+    }
+
+    private IEnumerator GeneratingMask()
+    {
+        switch(IsInLimboMode)
+        {
+            case true:
+                SpriteMaksObj.SetActive(true);
+                while(!(t > 1))
+                {
+                    yield return new WaitForEndOfFrame();
+                    t += Time.deltaTime;
+                    SpriteMaksObj.transform.localScale = new Vector3(Mathf.Lerp(0.5f, 800, t / 1f), Mathf.Lerp(0.5f, 800, t / 1f), 0);
+                }
+                break;
+            case false:
+                while(!(t < 0))
+                {
+                    yield return new WaitForEndOfFrame();
+                    t -= Time.deltaTime * 3;
+                    SpriteMaksObj.transform.localScale = new Vector3(Mathf.Lerp(0.5f, 800, t / 1f), Mathf.Lerp(0.5f, 800, t / 1f), 0);
+                }
+                SpriteMaksObj.SetActive(false);
+                break;
+        }
+
     }
 }

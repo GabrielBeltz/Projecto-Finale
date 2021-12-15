@@ -11,19 +11,19 @@ public class LimboTriggerRadiusController : MonoBehaviour
         limboLayer = 7;
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if(other.gameObject.layer == limboLayer)
+        if(collision.gameObject.layer == limboLayer)
         {
-            other.gameObject.GetComponent<SphereCollider>().enabled = true;
+            collision.gameObject.GetComponent<CircleCollider2D>().enabled = true;
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if(other.gameObject.layer == limboLayer)
+        if(collision.gameObject.layer == limboLayer)
         {
-            other.gameObject.GetComponent<SphereCollider>().enabled = false;
+            collision.gameObject.GetComponent<CircleCollider2D>().enabled = false;
         }
     }
 }

@@ -113,7 +113,7 @@ public class PlayerController : MonoBehaviour
 
             HandleJumping();
 
-            HandleDashing();
+            //HandleDashing();
         }
     }
 
@@ -297,7 +297,7 @@ public class PlayerController : MonoBehaviour
 
     #region Dash
 
-    private void HandleDashing()
+    public void HandleDashing()
     {
         if (dashCooldownTimer < Time.time)
         {
