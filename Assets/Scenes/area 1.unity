@@ -123,67 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &92119026
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_RootOrder
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -6.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 8.37
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073881, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073884, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: sideWalkingDistance
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 471734861260073887, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
-      propertyPath: m_Name
-      value: normal enemy
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: f0320a33ba5e31b44bdca639b3ffd753, type: 3}
 --- !u!1 &116529973
 GameObject:
   m_ObjectHideFlags: 0
@@ -316,6 +255,7 @@ MonoBehaviour:
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
+  deactivateSelfOnDeath: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 116529974}
@@ -618,6 +558,7 @@ MonoBehaviour:
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
+  deactivateSelfOnDeath: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 177930593}
@@ -885,6 +826,7 @@ MonoBehaviour:
   DamageReceived: 1
   selfKnockbackReceived: 0
   defaultDeath: 1
+  deactivateSelfOnDeath: 0
   hitSound:
   - {fileID: 8300000, guid: dc9cbde9a64f216408c26d2322d553de, type: 3}
   col: {fileID: 280015988}
@@ -1261,6 +1203,7 @@ MonoBehaviour:
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
+  deactivateSelfOnDeath: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 339253541}
@@ -1399,6 +1342,7 @@ MonoBehaviour:
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
+  deactivateSelfOnDeath: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 341059297}
@@ -1537,6 +1481,7 @@ MonoBehaviour:
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
+  deactivateSelfOnDeath: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 343076671}
@@ -1582,6 +1527,7 @@ MonoBehaviour:
   DamageReceived: 1
   selfKnockbackReceived: 0
   defaultDeath: 1
+  deactivateSelfOnDeath: 0
   hitSound:
   - {fileID: 8300000, guid: dc9cbde9a64f216408c26d2322d553de, type: 3}
   col: {fileID: 415649487}
@@ -1761,6 +1707,7 @@ MonoBehaviour:
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
+  deactivateSelfOnDeath: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 521855014}
@@ -1944,6 +1891,7 @@ MonoBehaviour:
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
+  deactivateSelfOnDeath: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 534316638}
@@ -2082,6 +2030,7 @@ MonoBehaviour:
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
+  deactivateSelfOnDeath: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 552961662}
@@ -2220,6 +2169,7 @@ MonoBehaviour:
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
+  deactivateSelfOnDeath: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 554761511}
@@ -2853,6 +2803,7 @@ MonoBehaviour:
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
+  deactivateSelfOnDeath: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 827613563}
@@ -3023,6 +2974,7 @@ MonoBehaviour:
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
+  deactivateSelfOnDeath: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 867226477}
@@ -3306,6 +3258,7 @@ MonoBehaviour:
   DamageReceived: 1
   selfKnockbackReceived: 0
   defaultDeath: 1
+  deactivateSelfOnDeath: 0
   hitSound:
   - {fileID: 8300000, guid: dc9cbde9a64f216408c26d2322d553de, type: 3}
   col: {fileID: 989652934}
@@ -3918,6 +3871,7 @@ MonoBehaviour:
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
+  deactivateSelfOnDeath: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 1138380684}
@@ -4333,6 +4287,7 @@ MonoBehaviour:
   DamageReceived: 1
   selfKnockbackReceived: 0
   defaultDeath: 1
+  deactivateSelfOnDeath: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 1266028708}
@@ -5022,6 +4977,7 @@ MonoBehaviour:
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
+  deactivateSelfOnDeath: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 1325860734}
@@ -5497,6 +5453,7 @@ MonoBehaviour:
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
+  deactivateSelfOnDeath: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 1386134770}
@@ -5701,6 +5658,7 @@ MonoBehaviour:
   DamageReceived: 1
   selfKnockbackReceived: 0
   defaultDeath: 1
+  deactivateSelfOnDeath: 0
   hitSound:
   - {fileID: 8300000, guid: dc9cbde9a64f216408c26d2322d553de, type: 3}
   col: {fileID: 1463757658}
@@ -6134,6 +6092,7 @@ MonoBehaviour:
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
+  deactivateSelfOnDeath: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 1558061941}
@@ -6504,6 +6463,7 @@ MonoBehaviour:
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
+  deactivateSelfOnDeath: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 1709729114}
@@ -6769,6 +6729,7 @@ MonoBehaviour:
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
+  deactivateSelfOnDeath: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 1756710462}
@@ -6955,6 +6916,7 @@ MonoBehaviour:
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
+  deactivateSelfOnDeath: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 1823230701}

@@ -13,8 +13,9 @@ public class EnemyAttackTarget : MonoBehaviour
     [Header("Multiplicadores")]
     public float DamageReceived;
     public float selfKnockbackReceived;
-    [Header("Configs")]
+    [Header("Mortes")]
     public bool defaultDeath;
+    public bool deactivateSelfOnDeath;
     public AudioClip[] hitSound;
 
     [Header("Needed to Work")]
@@ -37,6 +38,11 @@ public class EnemyAttackTarget : MonoBehaviour
             }
         }
 
+        if (deactivateSelfOnDeath)
+        {
+            onDeath += DeactivateSelf;
+        }
+
         if (hitSound.Length > 0 && audioSource != null)
         {
             onAttackReceived += PlayHitSound;
@@ -49,6 +55,11 @@ public class EnemyAttackTarget : MonoBehaviour
         if (defaultDeath)
         {
             onDeath -= DefaultDeath;
+        }
+
+        if (deactivateSelfOnDeath)
+        {
+            onDeath -= DeactivateSelf;
         }
 
         if (hitSound.Length > 0 && audioSource != null)
@@ -84,6 +95,11 @@ public class EnemyAttackTarget : MonoBehaviour
         {
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
         }
+    }
+
+    void DeactivateSelf()
+    {
+        this.gameObject.SetActive(false);
     }
 
     void PlayHitSound(PlayerMeleeAttack playerMeleeAttack, Vector3 pos)

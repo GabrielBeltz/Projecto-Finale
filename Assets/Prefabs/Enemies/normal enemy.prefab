@@ -161,7 +161,8 @@ MonoBehaviour:
   receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 1
-  defaultDeath: 1
+  defaultDeath: 0
+  deactivateSelfOnDeath: 1
   hitSound: []
   col: {fileID: 471734861260073885}
   rdr: {fileID: 471734861260073883}
