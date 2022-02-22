@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -14,26 +12,43 @@ public class Interactable : MonoBehaviour
     {
         if (Input.GetButtonDown("Fire1"))
         {
-            onExitInteraction?.Invoke();
+             onExitInteraction?.Invoke();
         }
     }
 
     public virtual void Interact()
     {
-        for (int j = 0; j < interactions[interactionIndex].events.Length; j++)
+        int overrideIndex = 0;
+        bool overrideInteraction = false;
+        for (int i = 0; i < interactions.Length; i++)
         {
-            interactions[interactionIndex].events[j]?.Invoke();
+            if (interactions[i].getKeys.Length > 0)
+            {
+                for (int j = 0; j < interactions[i].getKeys.Length; j++)
+                {
+                    overrideInteraction = InteractionManager.Instance.GetKey(interactions[i].getKeys[j]);
+                    overrideIndex = i;
+                }
+            }
         }
+
+        if (overrideInteraction)
+        {
+            interactionIndex = overrideIndex;
+        }
+
+        interactions[interactionIndex].events?.Invoke();
+
+        if (interactions[interactionIndex].setKeys.Length > 0)
+        {
+            for (int i = 0; i < interactions[interactionIndex].setKeys.Length; i++)
+            {
+                InteractionManager.Instance.SetKey(interactions[interactionIndex].setKeys[i]);
+            }
+        }
+
         OnInteract?.Invoke();
 
-        interactionIndex = Mathf.Min(interactionIndex + 1, interactions.Length - 1);
+        interactionIndex = Mathf.Min(interactionIndex + interactions[interactionIndex].indexMod, interactions.Length - 1);
     }
-
-
-}
-
-[System.Serializable]
-public class Interaction
-{
-    public UnityEvent[] events;
 }

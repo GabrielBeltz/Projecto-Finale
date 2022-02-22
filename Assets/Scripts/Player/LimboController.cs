@@ -1,12 +1,12 @@
+using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Events;
 
 public class LimboController : MonoBehaviour
 {
     public bool IsInLimboMode = false;
-    private float t = 0;
+    private float t = 0f, timeInLimbo = 10f;
     [SerializeField] private GameObject SpriteMaksObj;
     Coroutine limboGeneration;
 
@@ -27,7 +27,7 @@ public class LimboController : MonoBehaviour
 
     private void LimboMode()
     {
-        if (limboGeneration != null)
+        if(limboGeneration != null)
         {
             StopCoroutine(limboGeneration);
         }
@@ -37,11 +37,11 @@ public class LimboController : MonoBehaviour
 
     private IEnumerator GeneratingMask()
     {
-        switch (IsInLimboMode)
+        switch(IsInLimboMode)
         {
             case true:
                 SpriteMaksObj.SetActive(true);
-                while (!(t > 1))
+                while(!(t > 1))
                 {
                     yield return new WaitForEndOfFrame();
                     t += Time.deltaTime;
@@ -49,7 +49,7 @@ public class LimboController : MonoBehaviour
                 }
                 break;
             case false:
-                while (!(t < 0))
+                while(!(t < 0))
                 {
                     yield return new WaitForEndOfFrame();
                     t -= Time.deltaTime * 3;

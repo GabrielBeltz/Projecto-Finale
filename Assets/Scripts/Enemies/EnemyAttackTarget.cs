@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEditor;
 
 public class EnemyAttackTarget : MonoBehaviour
 {
@@ -11,11 +8,14 @@ public class EnemyAttackTarget : MonoBehaviour
     [Header("Stats")]
     public float TotalHealth;
     public float currentHealth;
+    public UnityEvent onDeathEvent;
+    public AttackDirection receivedAttackDirection;
     [Header("Multiplicadores")]
     public float DamageReceived;
     public float selfKnockbackReceived;
-    [Header("Configs")]
+    [Header("Mortes")]
     public bool defaultDeath;
+    public bool deactivateSelfOnDeath;
     public AudioClip[] hitSound;
 
     [Header("Needed to Work")]
@@ -38,7 +38,12 @@ public class EnemyAttackTarget : MonoBehaviour
             }
         }
 
-        if (hitSound.Length > 0)
+        if (deactivateSelfOnDeath)
+        {
+            onDeath += DeactivateSelf;
+        }
+
+        if (hitSound.Length > 0 && audioSource != null)
         {
             onAttackReceived += PlayHitSound;
         }
@@ -52,7 +57,12 @@ public class EnemyAttackTarget : MonoBehaviour
             onDeath -= DefaultDeath;
         }
 
-        if (hitSound.Length > 0)
+        if (deactivateSelfOnDeath)
+        {
+            onDeath -= DeactivateSelf;
+        }
+
+        if (hitSound.Length > 0 && audioSource != null)
         {
             onAttackReceived -= PlayHitSound;
         }
@@ -65,10 +75,16 @@ public class EnemyAttackTarget : MonoBehaviour
 
     void ReceiveDamage(PlayerMeleeAttack playerMeleeAttack, Vector3 pos)
     {
-        currentHealth -= playerMeleeAttack.damage * DamageReceived;
+        if (playerMeleeAttack.direction == receivedAttackDirection || receivedAttackDirection == AttackDirection.Front)
+        {
+            currentHealth -= playerMeleeAttack.damage * DamageReceived;
 
-        if (currentHealth <= 0)
-            onDeath?.Invoke();
+            if (currentHealth <= 0)
+            {
+                onDeath?.Invoke();
+                onDeathEvent?.Invoke();
+            }
+        }
     }
 
     void DefaultDeath()
@@ -79,6 +95,11 @@ public class EnemyAttackTarget : MonoBehaviour
         {
             rb.constraints = RigidbodyConstraints2D.FreezeAll;
         }
+    }
+
+    void DeactivateSelf()
+    {
+        this.gameObject.SetActive(false);
     }
 
     void PlayHitSound(PlayerMeleeAttack playerMeleeAttack, Vector3 pos)

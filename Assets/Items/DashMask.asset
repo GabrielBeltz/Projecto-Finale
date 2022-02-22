@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd84c5a527f270478c91e8e78325a17, type: 3}
   m_Name: DashMask
   m_EditorClassIdentifier: 
-  prefab: {fileID: 5130276546473384809, guid: 0b71466f720fea743afe4d7ef61fcd2d, type: 3}
+  prefab: {fileID: 5413157978937063790, guid: ee6c998799008c04995ba5b3d739ed12, type: 3}
   type: 0
   discriprion: 
   habilities: 0
