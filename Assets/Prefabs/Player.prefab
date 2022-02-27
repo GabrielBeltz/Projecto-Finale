@@ -294,7 +294,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1154210218571004442}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -394,56 +394,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca91dc028459d4e4fb5d543d5a9cd288, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  limboTrigger: {fileID: 0}
-  groundMask:
+  _groundMask:
     serializedVersion: 2
-    m_Bits: 136
-  grounderOffset: -1
-  grounderRadius: 0.2
+    m_Bits: 8
+  _grounderOffset: -1
+  _grounderRadius: 0.2
   IsGrounded: 1
-  initialJumpSpeed: 25
-  minJumpSpeed: 5
-  fallingAcceleration: 40
-  timeUntilMaxFallingSpeed: 2
-  coyoteTime: 0.15
-  jumpTime: 0.15
-  extraJumpTime: 0.2
-  hasJumped: 0
-  walkSpeed: 8
+  _initialJumpSpeed: 20
+  _minJumpSpeed: 15
+  _fallingAcceleration: 7.5
+  _timeUntilMaxFallingSpeed: 2
+  _coyoteTime: 0.2
+  _jumpTime: 0.25
+  _extraJumpTime: 0.25
+  _hasJumped: 0
+  _walkSpeed: 8
   _acceleration: 5000
-  maxWalkingPenalty: 0.5
-  currentWalkingPenalty: 0.5
-  jumpManeuverabilityPercentage: 0.9
-  dashLength: 0.2
-  dashCooldown: 3
+  _maxWalkingPenalty: 0.1
+  _currentWalkingPenalty: 0
+  _jumpManeuverabilityPercentage: 1
+  _dashLength: 0.2
+  _dashCooldown: 3
+  _dashSpeed: 30
+  _attackLayerMask:
+    serializedVersion: 2
+    m_Bits: 72
   TotalHealth: 6
-  currentHealth: 6
-  knockbackTime: 0.2
-  selfKnockBackTime: 0.3
-  groundImpactKnockbackTime: 1
-  extraUngroundedKnockbackTime: 0.2
-  defaultAttack: {fileID: 11400000, guid: 1d957a92dec18a84d9498d3938502dbe, type: 2}
-  playerAttacks:
+  CurrentHealth: 6
+  _knockbackTime: 1
+  _selfKnockBackTime: 1
+  _groundImpactKnockbackTime: 1
+  _extraUngroundedKnockbackTime: 1
+  _defaultAttack: {fileID: 11400000, guid: 1d957a92dec18a84d9498d3938502dbe, type: 2}
+  _playerAttacks:
   - {fileID: 11400000, guid: 1d957a92dec18a84d9498d3938502dbe, type: 2}
   - {fileID: 11400000, guid: 8246970d06e193a4e9882187cf016a65, type: 2}
   - {fileID: 11400000, guid: 77639c4dde859fd4f9432ea4a110260f, type: 2}
-  - {fileID: 11400000, guid: 252fda0541908804cb00862c6c2425d9, type: 2}
   - {fileID: 11400000, guid: f7cf13109c001c74ab445f6fea9309a5, type: 2}
-  timeOfLastAttack: 599.60516
-  attackLayerMask:
-    serializedVersion: 2
-    m_Bits: 72
-  attackFeedback: {fileID: 1154210218571004440}
-  interactionRadius: 2
-  interactionLayer:
+  - {fileID: 11400000, guid: 252fda0541908804cb00862c6c2425d9, type: 2}
+  _timeOfLastAttack: 10
+  _attackFeedback: {fileID: 1154210218571004440}
+  InteractionRadius: 2
+  InteractionLayer:
     serializedVersion: 2
     m_Bits: 256
-  myAnimator: {fileID: 7009607746363591997}
-  soundEmitter: {fileID: 1154210220103111485}
-  limboController: {fileID: 0}
-  audioclips:
+  _myAnimator: {fileID: 7009607746363591997}
+  _soundEmitter: {fileID: 1154210220103111485}
+  Audioclips:
   - {fileID: 8300000, guid: 8781f5a6891be9949bd3c2e6c4d311d5, type: 3}
-  inventory: {fileID: 11400000, guid: e80e98bbbdc5f794e82326767e9b3205, type: 2}
+  Inventory: {fileID: 11400000, guid: e80e98bbbdc5f794e82326767e9b3205, type: 2}
 --- !u!81 &1154210218694514584
 AudioListener:
   m_ObjectHideFlags: 0
@@ -1086,7 +1085,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2758338673421538073}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.0000002, z: -10}
+  m_LocalPosition: {x: 0, y: 3, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6769784237216478911}
@@ -1904,7 +1903,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7643427063636187243}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.0000002, z: -10}
+  m_LocalPosition: {x: 0, y: 3, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1154210218694514585}

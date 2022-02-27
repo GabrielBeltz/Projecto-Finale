@@ -16,28 +16,31 @@ public class PlayerController : MonoBehaviour
     private readonly Collider2D[] _ground = new Collider2D[1];
 
     [Header("Jumping")]
-    [SerializeField] private float _initialJumpSpeed = 20, _minJumpSpeed = 15, _fallingAcceleration = 7.5f, _timeUntilMaxFallingSpeed = 2, _coyoteTime = 0.2f, _jumpTime, _extraJumpTime;
+    [SerializeField] private float _initialJumpSpeed = 20;
+    [SerializeField] private float _minJumpSpeed = 15, _fallingAcceleration = 7.5f, _timeUntilMaxFallingSpeed = 2, _coyoteTime = 0.2f, _jumpTime, _extraJumpTime;
     [SerializeField] private bool _hasJumped;
     private float _maxFallSpeed => -_minJumpSpeed - (_fallingAcceleration * _timeUntilMaxFallingSpeed);
     float _timeLeftGrounded;
     public static event Action OnJump;
 
     [Header("Walking")]
-    [SerializeField] private float _walkSpeed = 8f, _acceleration = 2f, _maxWalkingPenalty = 0.1f, _currentWalkingPenalty, _jumpManeuverabilityPercentage;
+    [SerializeField] private float _walkSpeed = 8f;
+    [SerializeField] private float _acceleration = 2f, _maxWalkingPenalty = 0.1f, _currentWalkingPenalty, _jumpManeuverabilityPercentage;
     float _currentMovementLerpSpeed = 100;
 
     [Header("Dashing")]
-    [SerializeField] private float _dashLength = 0.2f, _dashCooldown = 3f, _dashSpeed = 30;
+    [SerializeField] private float _dashLength = 0.2f;
+    [SerializeField] private float _dashCooldown = 3f, _dashSpeed = 30;
     float _dashCooldownTimer;
     public static event Action OnStartDashing, OnStopDashing;
 
     [Header("Combat")]
+    [SerializeField] LayerMask _attackLayerMask;
     public int TotalHealth, CurrentHealth;
     [SerializeField] private float _knockbackTime, _selfKnockBackTime, _groundImpactKnockbackTime, _extraUngroundedKnockbackTime;
     [SerializeField] private PlayerMeleeAttack _defaultAttack;
     [SerializeField] private List<PlayerMeleeAttack> _playerAttacks;
     [SerializeField] private float _timeOfLastAttack = 10f;
-    [SerializeField] LayerMask _attackLayerMask;
     [SerializeField] AttackFeedback _attackFeedback;
     PlayerMeleeAttack _lastAttack;
     float _knockbackTimer;
@@ -247,7 +250,6 @@ public class PlayerController : MonoBehaviour
             _rb.gravityScale = 1;
             float fallVelocity = Mathf.Clamp(-_minJumpSpeed - ((Time.time - _timeLeftGrounded) * _fallingAcceleration), _maxFallSpeed, -_minJumpSpeed);
             _rb.velocity = new Vector2(_rb.velocity.x, fallVelocity);
-            ;
         }
     }
 
