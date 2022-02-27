@@ -12,13 +12,9 @@ TagManager:
   - Water
   - UI
   - ReceivesPlayerAttack
-  - LimboLayer
+  - 
   - Interactable
-<<<<<<< HEAD
-  - LimboTrigger
-=======
-  - IgnoreLimboTrigger
->>>>>>> origin/toy
+  - 
   - 
   - 
   - 
