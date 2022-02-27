@@ -8,13 +8,17 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
+  - ReceivesPlayerAttack
+  - LimboLayer
+  - Interactable
+<<<<<<< HEAD
+  - LimboTrigger
+=======
+  - IgnoreLimboTrigger
+>>>>>>> origin/toy
   - 
   - 
   - 
