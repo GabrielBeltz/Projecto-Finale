@@ -288,6 +288,7 @@ MonoBehaviour:
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
+  deactivateSelfOnDeath: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 116529974}
@@ -733,6 +734,7 @@ MonoBehaviour:
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
+  deactivateSelfOnDeath: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 378323267}
@@ -1174,6 +1176,7 @@ MonoBehaviour:
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
+  deactivateSelfOnDeath: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 941362827}
@@ -1724,6 +1727,7 @@ MonoBehaviour:
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
+  deactivateSelfOnDeath: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 1050079428}
@@ -2789,6 +2793,7 @@ MonoBehaviour:
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
+  deactivateSelfOnDeath: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 1575835152}
@@ -3317,6 +3322,7 @@ MonoBehaviour:
   DamageReceived: 0
   selfKnockbackReceived: 0.1
   defaultDeath: 0
+  deactivateSelfOnDeath: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 2069821370}

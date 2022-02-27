@@ -196,6 +196,10 @@ public class PlayerController : MonoBehaviour
 
     private void HandleJumping()
     {
+        if(IsGrounded)
+        { 
+            _myAnimator.SetBool("Jump", false);
+        }
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
@@ -213,7 +217,7 @@ public class PlayerController : MonoBehaviour
             _rb.velocity = new Vector2(_rb.velocity.x, _initialJumpSpeed);
             PlaySound(Audioclips.Find(audioClip => audioClip.name == "Jump"));
             _hasJumped = true;
-            _myAnimator.SetTrigger("Jump");
+            _myAnimator.SetBool("Jump", true);
             OnJump?.Invoke();
             _timeLeftGrounded = Time.time;
         }
@@ -236,12 +240,12 @@ public class PlayerController : MonoBehaviour
                 else
                 {
                     _rb.gravityScale = 1;
-                    _rb.velocity = new Vector2(_rb.velocity.x, newjumpSpeed);
+                    //_rb.velocity = new Vector2(_rb.velocity.x, newjumpSpeed);
                 }
             }
             else
             {
-                _rb.velocity = new Vector2(_rb.velocity.x, newjumpSpeed);
+                //_rb.velocity = new Vector2(_rb.velocity.x, newjumpSpeed);
                 _rb.gravityScale = 1;
             }
         }

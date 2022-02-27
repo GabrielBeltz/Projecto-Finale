@@ -401,12 +401,12 @@ MonoBehaviour:
   _grounderRadius: 0.2
   IsGrounded: 1
   _initialJumpSpeed: 20
-  _minJumpSpeed: 15
-  _fallingAcceleration: 7.5
+  _minJumpSpeed: 5
+  _fallingAcceleration: 10
   _timeUntilMaxFallingSpeed: 2
   _coyoteTime: 0.2
-  _jumpTime: 0.25
-  _extraJumpTime: 0.25
+  _jumpTime: 0.2
+  _extraJumpTime: 0.2
   _hasJumped: 0
   _walkSpeed: 8
   _acceleration: 5000
