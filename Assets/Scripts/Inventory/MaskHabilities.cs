@@ -1,22 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MaskHabilities : MonoBehaviour
 {
     private PlayerController playerController;
-    private LimboController limboController;
     [SerializeField] private bool hasDashMask = false;
 
     void Start()
     {
         playerController = GetComponent<PlayerController>();
-        limboController = GetComponent<LimboController>();
     }
 
     void Update()
     {
-        if(hasDashMask && limboController.IsInLimboMode)
+        if(hasDashMask)
         {
             playerController.HandleDashing();
         }

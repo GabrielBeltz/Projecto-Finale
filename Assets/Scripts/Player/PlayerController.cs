@@ -1,104 +1,71 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    //private Animator animator;
-    private FrameInputs inputs;
-    private Vector3 dir;
-    private bool facingLeft;
-    [SerializeField] private Collider2D limboTrigger;
+    Rigidbody2D _rb;
+    private FrameInputs _inputs;
+    private Vector3 _dir;
 
     [Header("CollisorDetections")]
-    [SerializeField] private LayerMask groundMask;
-    [SerializeField] private float grounderOffset = -1, grounderRadius = 0.2f;
+    [SerializeField] private LayerMask _groundMask;
+    [SerializeField] private float _grounderOffset = -1, _grounderRadius = 0.2f;
     public bool IsGrounded;
     public static event Action OnTouchedGround;
     private readonly Collider2D[] _ground = new Collider2D[1];
 
     [Header("Jumping")]
-    [SerializeField] private float initialJumpSpeed = 20;
-    [SerializeField] private float minJumpSpeed = 15;
-    private float maxFallSpeed
-    {
-        get
-        {
-            return -minJumpSpeed - (fallingAcceleration * timeUntilMaxFallingSpeed);
-        }
-    }
-    [SerializeField] private float fallingAcceleration = 7.5f;
-    [SerializeField] private float timeUntilMaxFallingSpeed = 2;
-    [SerializeField] private float coyoteTime = 0.2f;
-    [SerializeField] private float jumpTime;
-    [SerializeField] private float extraJumpTime;
-    float timeLeftGrounded;
-    [SerializeField] private bool hasJumped;
+    [SerializeField] private float _initialJumpSpeed = 20, _minJumpSpeed = 15, _fallingAcceleration = 7.5f, _timeUntilMaxFallingSpeed = 2, _coyoteTime = 0.2f, _jumpTime, _extraJumpTime;
+    [SerializeField] private bool _hasJumped;
+    private float _maxFallSpeed => -_minJumpSpeed - (_fallingAcceleration * _timeUntilMaxFallingSpeed);
+    float _timeLeftGrounded;
     public static event Action OnJump;
 
     [Header("Walking")]
-    [SerializeField] private float walkSpeed = 8f;
-    [SerializeField] private float _acceleration = 2f;
-    [SerializeField] private float maxWalkingPenalty = 0.1f;
-    float currentMovementLerpSpeed = 100;
-    [SerializeField] private float currentWalkingPenalty;
-    [SerializeField] private float jumpManeuverabilityPercentage;
+    [SerializeField] private float _walkSpeed = 8f, _acceleration = 2f, _maxWalkingPenalty = 0.1f, _currentWalkingPenalty, _jumpManeuverabilityPercentage;
+    float _currentMovementLerpSpeed = 100;
 
     [Header("Dashing")]
-    [SerializeField] private float dashLength = 0.2f;
-    [SerializeField] private float dashCooldown = 3f;
-    float dashSpeed = 30, dashCooldownTimer;
+    [SerializeField] private float _dashLength = 0.2f, _dashCooldown = 3f, _dashSpeed = 30;
+    float _dashCooldownTimer;
     public static event Action OnStartDashing, OnStopDashing;
 
     [Header("Combat")]
-    public int TotalHealth;
-    public int currentHealth;
-    [SerializeField] private float knockbackTime, selfKnockBackTime, groundImpactKnockbackTime;
-    [SerializeField] private float extraUngroundedKnockbackTime;
-    [SerializeField] private PlayerMeleeAttack defaultAttack;
-    [SerializeField] private List<PlayerMeleeAttack> playerAttacks;
-    [SerializeField] private float timeOfLastAttack = 10f;
-    [SerializeField] LayerMask attackLayerMask;
-    [SerializeField] AttackFeedback attackFeedback;
-    PlayerMeleeAttack lastAttack;
-    float knockbackTimer;
-    bool downwardAttack;
-    public bool isKnockbacked
-    {
-        get
-        {
-            return knockbackTimer > Time.time;
-        }
-    }
+    public int TotalHealth, CurrentHealth;
+    [SerializeField] private float _knockbackTime, _selfKnockBackTime, _groundImpactKnockbackTime, _extraUngroundedKnockbackTime;
+    [SerializeField] private PlayerMeleeAttack _defaultAttack;
+    [SerializeField] private List<PlayerMeleeAttack> _playerAttacks;
+    [SerializeField] private float _timeOfLastAttack = 10f;
+    [SerializeField] LayerMask _attackLayerMask;
+    [SerializeField] AttackFeedback _attackFeedback;
+    PlayerMeleeAttack _lastAttack;
+    float _knockbackTimer;
+    bool _downwardAttack;
+    public bool IsKnockbacked  => _knockbackTimer > Time.time;
 
     [Header("Interactions")]
-    public float interactionRadius;
-    public LayerMask interactionLayer;
+    public float InteractionRadius;
+    public LayerMask InteractionLayer;
     
     [Header("Scene References")]
-    [SerializeField] Animator myAnimator;
-    [SerializeField] AudioSource soundEmitter;
-    [SerializeField] LimboController limboController;
+    [SerializeField] Animator _myAnimator;
+    [SerializeField] AudioSource _soundEmitter;
 
     [Header("Audios")]
-    public List<AudioClip> audioclips;
+    public List<AudioClip> Audioclips;
 
-    private bool hasDashed;
-    private bool dashing;
-    private float timeStartedDash, lastXInput;
-    private Vector3 dashDir;
+    private bool _hasDashed, _dashing;
+    private float _timeStartedDash;
+    private Vector3 _dashDir;
 
-    public Inventory inventory;
+    public Inventory Inventory;
 
     void Start()
     {
-        timeOfLastAttack = 0;
-        rb = GetComponent<Rigidbody2D>();
-        //animator = GetComponent<Animator>();
-        lastAttack = defaultAttack;
+        _timeOfLastAttack = 0;
+        _rb = GetComponent<Rigidbody2D>();
+        _lastAttack = _defaultAttack;
     }
 
     void Update()
@@ -107,7 +74,7 @@ public class PlayerController : MonoBehaviour
 
         HandleGrounding();
         
-        if (!isKnockbacked)
+        if (!IsKnockbacked)
         {
             HandleWalking();
 
@@ -119,7 +86,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (downwardAttack && Input.GetButton("Fire1"))
+        if (_downwardAttack && Input.GetButton("Fire1"))
         {
             Attack();
         }
@@ -127,24 +94,24 @@ public class PlayerController : MonoBehaviour
 
     private void GatherInputs()
     {
-        inputs.RawX = (int)Input.GetAxisRaw("Horizontal");
-        inputs.X = Input.GetAxis("Horizontal");
+        _inputs.RawX = (int)Input.GetAxisRaw("Horizontal");
+        _inputs.X = Input.GetAxis("Horizontal");
 
-        if (inputs.X != lastXInput)
+        if (_inputs.X != 0)
         {
-            SetFacingDirection(inputs.X < 0);
+            SetFacingDirection(_inputs.X < 0);
         }
 
-        dir = new Vector3(inputs.RawX, 0, 0);
+        _dir = new Vector3(_inputs.RawX, 0, 0);
 
-        if (Input.GetButtonDown("Fire1") && !isKnockbacked && !limboController.IsInLimboMode)
+        if (Input.GetButtonDown("Fire1") && !IsKnockbacked)
         {
             ExecuteAttack();
         }
 
-        if (downwardAttack && Input.GetButtonUp("Fire1"))
+        if (_downwardAttack && Input.GetButtonUp("Fire1"))
         {
-            downwardAttack = false;
+            _downwardAttack = false;
             Attack();
         }
 
@@ -152,11 +119,6 @@ public class PlayerController : MonoBehaviour
         {
             ExecuteInteraction();   
         }
-
-        //if(dir != Vector3.zero) animator.transform.forward = _dir;
-        //animator.SetInteger("RawY", (int)inputs.RawY);
-
-        //facingLeft = inputs.RawX != 1 && (inputs.RawX == -1 || facingLeft);
     }
 
     private void SetFacingDirection(bool left)
@@ -168,29 +130,25 @@ public class PlayerController : MonoBehaviour
 
     private void HandleGrounding()
     {
-        var grounded = Physics2D.OverlapCircleNonAlloc(transform.position + new Vector3(0, grounderOffset), grounderRadius, _ground, groundMask) > 0;
+        var grounded = Physics2D.OverlapCircleNonAlloc(transform.position + new Vector3(0, _grounderOffset), _grounderRadius, _ground, _groundMask) > 0;
 
         if(!IsGrounded && grounded)
         {
-            if (Mathf.Approximately( Mathf.Round(rb.velocity.y), maxFallSpeed))
+            if (Mathf.Approximately( Mathf.Round(_rb.velocity.y), _maxFallSpeed))
             {
-                knockbackTimer = Time.time + groundImpactKnockbackTime;
+                _knockbackTimer = Time.time + _groundImpactKnockbackTime;
             }
 
             IsGrounded = true;
-            hasDashed = false;
-            hasJumped = false;
-            currentMovementLerpSpeed = 100;
-            //animator.SetBool("Grounded", true);
+            _hasDashed = false;
+            _hasJumped = false;
+            _currentMovementLerpSpeed = 100;
             OnTouchedGround?.Invoke();
-            //transform.SetParent(_ground[0].transform);
         }
         else if(IsGrounded && !grounded)
         {
             IsGrounded = false;
-            timeLeftGrounded = Time.time;
-            //animator.SetBool("Grounded", false);
-            //transform.SetParent(null);
+            _timeLeftGrounded = Time.time;
         }
     }
 
@@ -200,33 +158,33 @@ public class PlayerController : MonoBehaviour
 
     private void HandleWalking()
     {
-        var normalizedDir = dir.normalized;
+        var normalizedDir = _dir.normalized;
 
-        if(dir != Vector3.zero)
+        if(_dir != Vector3.zero)
         {
-            currentWalkingPenalty += _acceleration * Time.deltaTime;
+            _currentWalkingPenalty += _acceleration * Time.deltaTime;
         }
         else
         {
-            currentWalkingPenalty -= maxWalkingPenalty * Time.deltaTime;
+            _currentWalkingPenalty -= _maxWalkingPenalty * Time.deltaTime;
         }
-        currentWalkingPenalty = Mathf.Clamp(currentWalkingPenalty, maxWalkingPenalty, 2f);
+        _currentWalkingPenalty = Mathf.Clamp(_currentWalkingPenalty, _maxWalkingPenalty, 2f);
 
-        var targetVel = new Vector3(normalizedDir.x * currentWalkingPenalty * walkSpeed, rb.velocity.y, normalizedDir.z);
+        var targetVel = new Vector3(normalizedDir.x * _currentWalkingPenalty * _walkSpeed, _rb.velocity.y, normalizedDir.z);
 
-        var idealVel = new Vector3(targetVel.x, rb.velocity.y, targetVel.z);
+        var idealVel = new Vector3(targetVel.x, _rb.velocity.y, targetVel.z);
 
         if (IsGrounded)
         {
-            rb.velocity = Vector3.MoveTowards(rb.velocity, idealVel, currentMovementLerpSpeed * Time.deltaTime);
+            _rb.velocity = Vector3.MoveTowards(_rb.velocity, idealVel, _currentMovementLerpSpeed * Time.deltaTime);
         }
         else
         {
-            Vector3 jumpIdealVel = new Vector3(idealVel.x * jumpManeuverabilityPercentage, idealVel.y, idealVel.z * jumpManeuverabilityPercentage);
-            rb.velocity = Vector3.MoveTowards(rb.velocity, jumpIdealVel, currentMovementLerpSpeed * Time.deltaTime);
+            Vector3 jumpIdealVel = new Vector3(idealVel.x * _jumpManeuverabilityPercentage, idealVel.y, idealVel.z * _jumpManeuverabilityPercentage);
+            _rb.velocity = Vector3.MoveTowards(_rb.velocity, jumpIdealVel, _currentMovementLerpSpeed * Time.deltaTime);
         }
 
-        myAnimator.SetFloat("Speed", Mathf.Abs(targetVel.x));
+        _myAnimator.SetFloat("Speed", Mathf.Abs(targetVel.x));
     }
 
     #endregion
@@ -238,57 +196,57 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            if(IsGrounded || Time.time < timeLeftGrounded + coyoteTime)
+            if(IsGrounded || Time.time < _timeLeftGrounded + _coyoteTime)
             {
-                if(!hasJumped)
+                if(!_hasJumped)
                 {
-                    ExecuteJump(new Vector2(rb.velocity.x, minJumpSpeed));
+                    ExecuteJump(new Vector2(_rb.velocity.x, _minJumpSpeed));
                 }
             }
         }
 
         void ExecuteJump(Vector3 dir)
         {
-            rb.velocity = new Vector2(rb.velocity.x, initialJumpSpeed);
-            PlaySound(audioclips.Find(audioClip => audioClip.name == "Jump"));
-            hasJumped = true;
-            myAnimator.SetTrigger("Jump");
+            _rb.velocity = new Vector2(_rb.velocity.x, _initialJumpSpeed);
+            PlaySound(Audioclips.Find(audioClip => audioClip.name == "Jump"));
+            _hasJumped = true;
+            _myAnimator.SetTrigger("Jump");
             OnJump?.Invoke();
-            timeLeftGrounded = Time.time;
+            _timeLeftGrounded = Time.time;
         }
 
-        if (Mathf.Approximately(rb.velocity.y, 0) && !IsGrounded)
+        if (Mathf.Approximately(_rb.velocity.y, 0) && !IsGrounded)
         {
-            hasJumped = false;
+            _hasJumped = false;
         }
 
-        if (hasJumped)
+        if (_hasJumped)
         {
-            float newjumpSpeed = Mathf.Clamp(rb.velocity.y, minJumpSpeed, initialJumpSpeed);
+            float newjumpSpeed = Mathf.Clamp(_rb.velocity.y, _minJumpSpeed, _initialJumpSpeed);
             // Se o jogador segurar o espa�o, o pulo continua normalmente. Se n�o, aplica for�a pra diminuir o pulo dele.
-            if (!(Input.GetKey(KeyCode.Space) && Time.time < timeLeftGrounded + extraJumpTime + jumpTime))
+            if (!(Input.GetKey(KeyCode.Space) && Time.time < _timeLeftGrounded + _extraJumpTime + _jumpTime))
             {
-                if (Time.time > timeLeftGrounded + jumpTime)
+                if (Time.time > _timeLeftGrounded + _jumpTime)
                 {
-                    hasJumped = false;
+                    _hasJumped = false;
                 }
                 else
                 {
-                    rb.gravityScale = 1;
-                    rb.velocity = new Vector2(rb.velocity.x, newjumpSpeed);
+                    _rb.gravityScale = 1;
+                    _rb.velocity = new Vector2(_rb.velocity.x, newjumpSpeed);
                 }
             }
             else
             {
-                rb.velocity = new Vector2(rb.velocity.x, newjumpSpeed);
-                rb.gravityScale = 1;
+                _rb.velocity = new Vector2(_rb.velocity.x, newjumpSpeed);
+                _rb.gravityScale = 1;
             }
         }
-        else if(!isKnockbacked)
+        else if(!IsKnockbacked)
         {
-            rb.gravityScale = 1;
-            float fallVelocity = Mathf.Clamp(-minJumpSpeed - ((Time.time - timeLeftGrounded) * fallingAcceleration), maxFallSpeed, -minJumpSpeed);
-            rb.velocity = new Vector2(rb.velocity.x, fallVelocity);
+            _rb.gravityScale = 1;
+            float fallVelocity = Mathf.Clamp(-_minJumpSpeed - ((Time.time - _timeLeftGrounded) * _fallingAcceleration), _maxFallSpeed, -_minJumpSpeed);
+            _rb.velocity = new Vector2(_rb.velocity.x, fallVelocity);
             ;
         }
     }
@@ -299,32 +257,31 @@ public class PlayerController : MonoBehaviour
 
     public void HandleDashing()
     {
-        if (dashCooldownTimer < Time.time)
+        if (_dashCooldownTimer < Time.time)
         {
-            if (Input.GetKeyDown(KeyCode.E) && !hasDashed && dir.x != 0)
+            if (Input.GetKeyDown(KeyCode.E) && !_hasDashed && _dir.x != 0)
             {
-                dashDir = new Vector3(inputs.RawX, 0, 0).normalized;
-                //if(dashDir == Vector3.zero) dashDir = animator.transform.forward;
+                _dashDir = new Vector3(_inputs.RawX, 0, 0).normalized;
 
-                dashCooldownTimer = Time.time + dashCooldown;
-                hasDashed = true;
-                dashing = true;
-                timeStartedDash = Time.time;
-                rb.gravityScale = 0;
+                _dashCooldownTimer = Time.time + _dashCooldown;
+                _hasDashed = true;
+                _dashing = true;
+                _timeStartedDash = Time.time;
+                _rb.gravityScale = 0;
                 OnStartDashing?.Invoke();
             }
         }
 
-        if(dashing)
+        if(_dashing)
         {
-            rb.velocity = dashDir * dashSpeed;
+            _rb.velocity = _dashDir * _dashSpeed;
 
-            if(Time.time >= timeStartedDash + dashLength)
+            if(Time.time >= _timeStartedDash + _dashLength)
             {
-                dashing = false;
-                rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y > 3 ? 3 : rb.velocity.y);
-                rb.gravityScale = 1;
-                if(IsGrounded) hasDashed = false;
+                _dashing = false;
+                _rb.velocity = new Vector3(_rb.velocity.x, _rb.velocity.y > 3 ? 3 : _rb.velocity.y);
+                _rb.gravityScale = 1;
+                if(IsGrounded) _hasDashed = false;
                 OnStopDashing?.Invoke();
             }
         }
@@ -335,12 +292,12 @@ public class PlayerController : MonoBehaviour
 
     public void ExecuteAttack()
     {
-        if (timeOfLastAttack < Time.time)
+        if (_timeOfLastAttack < Time.time)
         {
-            downwardAttack = false;
+            _downwardAttack = false;
             Vector2 attackInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-            lastAttack = GetNextAttack(attackInput);
-            timeOfLastAttack = Time.time + lastAttack.cooldown;
+            _lastAttack = GetNextAttack(attackInput);
+            _timeOfLastAttack = Time.time + _lastAttack.cooldown;
             Attack();
         }
     }
@@ -348,133 +305,112 @@ public class PlayerController : MonoBehaviour
     public Vector3 GetAttackDirection()
     {
         float rawY = Input.GetAxisRaw("Vertical");
-        if (rawY != 0)
-        {
-            if (rawY > 0)
-            {
-                return this.transform.up;
-            }
-            else
-            {
-                return -this.transform.up;
-            }
-        }
-        else
-        {
-            return this.transform.right * -this.transform.localScale.x;
-        }
+        return rawY != 0 ? rawY > 0 ? this.transform.up : -this.transform.up : this.transform.right * -this.transform.localScale.x;
     }
 
     public void Attack()
     {
-        Vector3 attackPos = this.transform.position + ((GetAttackDirection() * (lastAttack.range /2)));
+        Vector3 attackPos = this.transform.position + ((GetAttackDirection() * (_lastAttack.range /2)));
         float attackRotation = Quaternion.LookRotation(GetAttackDirection(), GetAttackDirection()).eulerAngles.x;
-        Vector3 attackSize = new Vector3(0.25f, 0.75f, lastAttack.range / 2);
-        RaycastHit2D attackCollider = Physics2D.BoxCast(attackPos, attackSize, attackRotation, GetAttackDirection(), lastAttack.range/2, attackLayerMask);
-        bool playSound = !downwardAttack;
+        Vector3 attackSize = new Vector3(0.25f, 0.75f, _lastAttack.range / 2);
+        RaycastHit2D attackCollider = Physics2D.BoxCast(attackPos, attackSize, attackRotation, GetAttackDirection(), _lastAttack.range/2, _attackLayerMask);
+        bool playSound = !_downwardAttack;
 
         if (attackCollider)
         {
             attackSize = new Vector3(attackSize.x, attackSize.y, Vector2.Distance(attackPos, attackCollider.point));
-            downwardAttack = false;
-            playSound = !downwardAttack;
+            _downwardAttack = false;
+            playSound = !_downwardAttack;
             float selfKnockbackReceived = 0;
             EnemyAttackTarget target = attackCollider.transform.GetComponent<EnemyAttackTarget>();
             if (target != null)
             {
-                target.ReceiveAttack(lastAttack, this.transform.position);
+                target.ReceiveAttack(_lastAttack, this.transform.position);
                 selfKnockbackReceived = target.selfKnockbackReceived;
             }
 
             if (selfKnockbackReceived != 0)
             {
-                rb.velocity = Vector3.zero;
+                _rb.velocity = Vector3.zero;
                 float multiplier = Mathf.Clamp(selfKnockbackReceived, 0, 1);
-                knockbackTimer = Time.time + (selfKnockBackTime * multiplier);
+                _knockbackTimer = Time.time + (_selfKnockBackTime * multiplier);
             }
-            rb.AddForce(-GetAttackDirection() * lastAttack.selfKnockback * selfKnockbackReceived, ForceMode2D.Force);
+            _rb.AddForce(_lastAttack.selfKnockback * selfKnockbackReceived * -GetAttackDirection(), ForceMode2D.Force);
         }
         else
         {
             if (GetAttackDirection() == Vector3.down)
             {
-                downwardAttack = true;
+                _downwardAttack = true;
             }
 
-            if (Mathf.Approximately(inputs.X, 0f))
+            if (Mathf.Approximately(_inputs.X, 0f))
             {
-                rb.AddForce(GetAttackDirection() * lastAttack.selfKnockback, ForceMode2D.Force);
+                _rb.AddForce(GetAttackDirection() * _lastAttack.selfKnockback, ForceMode2D.Force);
             }
         }
 
-        soundEmitter.Stop();
+        _soundEmitter.Stop();
 
         if (playSound)
         {
-            PlaySound(lastAttack.sound);
+            PlaySound(_lastAttack.sound);
         }
 
-        attackFeedback.CallFeedback(attackSize, attackPos, attackRotation, lastAttack.cooldown);
-        myAnimator.SetTrigger(lastAttack.animatorTrigger);
+        _attackFeedback.CallFeedback(attackSize, attackPos, attackRotation, _lastAttack.cooldown);
+        _myAnimator.SetTrigger(_lastAttack.animatorTrigger);
     }
 
     public PlayerMeleeAttack GetNextAttack(Vector2 input)
     {
         if (input.x >= 0 && input.y == 0)
         {
-            PlayerMeleeAttack foundAttack = playerAttacks.Find(attck => attck.comboInfo.previousAttack == lastAttack.name);
+            PlayerMeleeAttack foundAttack = _playerAttacks.Find(attck => attck.comboInfo.previousAttack == _lastAttack.name);
             if (foundAttack == null)
             {
-                return defaultAttack;
+                return _defaultAttack;
             }
-            else if (timeOfLastAttack - lastAttack.cooldown + foundAttack.comboInfo.timeBetween < Time.time)
+            else if (_timeOfLastAttack - _lastAttack.cooldown + foundAttack.comboInfo.timeBetween < Time.time)
             {
                 return foundAttack;
             }
         }
         else if (input.y > 0)
         {
-            PlayerMeleeAttack foundAttack = playerAttacks.Find(attck => attck.comboInfo.previousAttack == lastAttack.name && attck.direction == AttackDirection.Up);
+            PlayerMeleeAttack foundAttack = _playerAttacks.Find(attck => attck.comboInfo.previousAttack == _lastAttack.name && attck.direction == AttackDirection.Up);
             if (foundAttack == null)
             {
-                foundAttack = playerAttacks.Find(attck => attck.direction == AttackDirection.Up);
+                foundAttack = _playerAttacks.Find(attck => attck.direction == AttackDirection.Up);
                 return foundAttack;
             }
-            else if (timeOfLastAttack - lastAttack.cooldown + foundAttack.comboInfo.timeBetween < Time.time)
+            else if (_timeOfLastAttack - _lastAttack.cooldown + foundAttack.comboInfo.timeBetween < Time.time)
             {
                 return foundAttack;
             }
         }
         else if (input.y < 0)
         {
-            PlayerMeleeAttack foundAttack = playerAttacks.Find(attck => attck.comboInfo.previousAttack == lastAttack.name && attck.direction == AttackDirection.Down);
+            PlayerMeleeAttack foundAttack = _playerAttacks.Find(attck => attck.comboInfo.previousAttack == _lastAttack.name && attck.direction == AttackDirection.Down);
             if (foundAttack == null)
             {
-                foundAttack = playerAttacks.Find(attck => attck.direction == AttackDirection.Down);
+                foundAttack = _playerAttacks.Find(attck => attck.direction == AttackDirection.Down);
                 return foundAttack;
             }
-            else if (timeOfLastAttack - lastAttack.cooldown + foundAttack.comboInfo.timeBetween < Time.time)
+            else if (_timeOfLastAttack - _lastAttack.cooldown + foundAttack.comboInfo.timeBetween < Time.time)
             {
                 return foundAttack;
             }
         }
 
-        return defaultAttack;
+        return _defaultAttack;
     }
 
     public void ReceiveDamage(int damage, Vector3 knockback)
     {
-        currentHealth -= damage;
-        rb.velocity = Vector3.zero;
-        rb.AddForce(new Vector2(knockback.x, knockback.y/2), ForceMode2D.Force);
-        if (IsGrounded)
-        {
-            knockbackTimer = Time.time + knockbackTime;
-        }
-        else
-        {
-            knockbackTimer = Time.time + knockbackTime + extraUngroundedKnockbackTime;
-        }
+        CurrentHealth -= damage;
+        _rb.velocity = Vector3.zero;
+        _rb.AddForce(new Vector2(knockback.x, knockback.y/2), ForceMode2D.Force);
+        _knockbackTimer = IsGrounded ? Time.time + _knockbackTime : Time.time + _knockbackTime + _extraUngroundedKnockbackTime;
     }
 
     #endregion
@@ -483,7 +419,7 @@ public class PlayerController : MonoBehaviour
 
     void ExecuteInteraction()
     {
-        Collider2D[] interactionColliders = Physics2D.OverlapCircleAll(this.transform.position, interactionRadius, interactionLayer);
+        Collider2D[] interactionColliders = Physics2D.OverlapCircleAll(this.transform.position, InteractionRadius, InteractionLayer);
 
         foreach (Collider2D col in interactionColliders)
         {
@@ -495,13 +431,13 @@ public class PlayerController : MonoBehaviour
 
     public void PlaySound(AudioClip clipToPlay)
     {
-        if (soundEmitter.isPlaying)
+        if (_soundEmitter.isPlaying)
         {
-            soundEmitter.Stop();
+            _soundEmitter.Stop();
         }
 
-        soundEmitter.clip = clipToPlay;
-        soundEmitter.Play();
+        _soundEmitter.clip = clipToPlay;
+        _soundEmitter.Play();
     }
 
     private struct FrameInputs
@@ -515,13 +451,13 @@ public class PlayerController : MonoBehaviour
         var item = collision.GetComponent<Item>();
         if(item)
         {
-            inventory.AddItem(item.item, 1);
+            Inventory.AddItem(item.item, 1);
             Destroy(collision.gameObject);
         }
     }
 
     private void OnApplicationQuit()
     {
-        inventory.Container.Clear();
+        Inventory.Container.Clear();
     }
 }
