@@ -294,7 +294,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1154210218571004442}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -401,14 +401,14 @@ MonoBehaviour:
   _grounderRadius: 0.2
   IsGrounded: 1
   _initialJumpSpeed: 20
-  _minJumpSpeed: 5
-  _fallingAcceleration: 10
+  _minJumpSpeed: 0
+  _fallingAcceleration: 20
   _timeUntilMaxFallingSpeed: 2
   _coyoteTime: 0.2
-  _jumpTime: 0.2
+  _jumpTime: 0.05
   _extraJumpTime: 0.2
   _hasJumped: 0
-  _walkSpeed: 8
+  _walkSpeed: 5
   _acceleration: 5000
   _maxWalkingPenalty: 0.1
   _currentWalkingPenalty: 0
