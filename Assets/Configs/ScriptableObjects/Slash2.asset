@@ -17,8 +17,8 @@ MonoBehaviour:
   damage: 2
   cooldown: 0.2
   range: 2.5
-  knockback: 525
-  selfKnockback: 350
+  knockback: 600
+  selfKnockback: 600
   animatorTrigger: Slash2
   comboInfo:
     timeBetween: 0.3

@@ -421,10 +421,10 @@ MonoBehaviour:
     m_Bits: 72
   TotalHealth: 6
   CurrentHealth: 6
-  _knockbackTime: 1
-  _selfKnockBackTime: 1
-  _groundImpactKnockbackTime: 1
-  _extraUngroundedKnockbackTime: 1
+  _knockbackTime: 0.1
+  _selfKnockBackTime: 0.2
+  _groundImpactKnockbackTime: 0.2
+  _extraUngroundedKnockbackTime: 0.2
   _defaultAttack: {fileID: 11400000, guid: 1d957a92dec18a84d9498d3938502dbe, type: 2}
   _playerAttacks:
   - {fileID: 11400000, guid: 1d957a92dec18a84d9498d3938502dbe, type: 2}
@@ -1085,7 +1085,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2758338673421538073}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: -10}
+  m_LocalPosition: {x: 0, y: 3.0000002, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6769784237216478911}
@@ -1903,7 +1903,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7643427063636187243}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: -10}
+  m_LocalPosition: {x: 0, y: 3.0000002, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1154210218694514585}
@@ -1918,8 +1918,8 @@ Camera:
   m_GameObject: {fileID: 7643427063636187243}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0, g: 0.32423684, b: 0.5283019, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.43543077, g: 0.63619757, b: 0.9716981, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
