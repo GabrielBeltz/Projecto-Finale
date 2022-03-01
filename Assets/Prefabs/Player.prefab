@@ -1113,9 +1113,9 @@ MonoBehaviour:
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 1154210218694514585}
   m_Lens:
-    FieldOfView: 60
+    FieldOfView: 90
     OrthographicSize: 10
-    NearClipPlane: 0.01
+    NearClipPlane: 0.001
     FarClipPlane: 300
     Dutch: 0
     ModeOverride: 0
@@ -1349,6 +1349,7 @@ GameObject:
   - component: {fileID: 7348713333269854417}
   - component: {fileID: 3231582536139951707}
   - component: {fileID: 5999975531726844989}
+  - component: {fileID: 974986336}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -1452,6 +1453,23 @@ MonoBehaviour:
   m_MaximumFOV: 60
   m_MinimumOrthoSize: 1
   m_MaximumOrthoSize: 5000
+--- !u!114 &974986336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3900494083514205660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+  m_PivotOffset: {x: 0, y: 0, z: 0}
+  m_AmplitudeGain: 1
+  m_FrequencyGain: 0
+  mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &3977384905928315561
 GameObject:
   m_ObjectHideFlags: 0
@@ -1934,8 +1952,8 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 300
-  field of view: 60
-  orthographic: 1
+  field of view: 90
+  orthographic: 0
   orthographic size: 10
   m_Depth: -1
   m_CullingMask:
