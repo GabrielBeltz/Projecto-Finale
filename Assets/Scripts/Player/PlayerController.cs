@@ -237,20 +237,16 @@ public class PlayerController : MonoBehaviour
         {
             float newjumpSpeed = Mathf.Clamp(_rb.velocity.y, _minJumpSpeed, _initialJumpSpeed);
             // Se o jogador segurar o espa�o, o pulo continua normalmente. Se n�o, aplica for�a pra diminuir o pulo dele.
-            if (!(Input.GetKey(KeyCode.Space) && Time.time < _timeLeftGrounded + _extraJumpTime + _jumpTime))
+            if ((Input.GetKey(KeyCode.Space) && Time.time < _timeLeftGrounded + _extraJumpTime + _jumpTime))
+            {
+                _rb.gravityScale = 0;
+            }
+            else
             {
                 if (Time.time > _timeLeftGrounded + _jumpTime)
                 {
                     _hasJumped = false;
                 }
-                else
-                {
-                    _rb.gravityScale = 10;
-                }
-            }
-            else
-            {
-                _rb.gravityScale = 0;
             }
         }
         else
@@ -310,11 +306,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public Vector3 GetAttackDirection()
-    {
-        float rawY = Input.GetAxisRaw("Vertical");
-        return rawY != 0 ? rawY > 0 ? this.transform.up : -this.transform.up : this.transform.right * -this.transform.localScale.x;
-    }
+    public Vector3 GetAttackDirection() => Input.GetAxisRaw("Vertical") != 0 ? Input.GetAxisRaw("Vertical") > 0 ? this.transform.up : -this.transform.up : this.transform.right * -this.transform.localScale.x;
 
     public void Attack()
     {
@@ -342,8 +334,8 @@ public class PlayerController : MonoBehaviour
                 _rb.velocity = Vector3.zero;
                 float multiplier = Mathf.Clamp(selfKnockbackReceived, 0, 1);
                 _knockbackTimer = Time.time + (_selfKnockBackTime * multiplier);
+                _rb.AddForce(_lastAttack.selfKnockback * selfKnockbackReceived * -GetAttackDirection(), ForceMode2D.Force);
             }
-            _rb.AddForce(_lastAttack.selfKnockback * selfKnockbackReceived * -GetAttackDirection(), ForceMode2D.Force);
         }
         else
         {

@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  playerKnockback: 700
+  playerKnockback: 1500
 --- !u!114 &8505685576588254485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,9 +285,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 2
   currentHealth: 2
+  onDeathEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 1
   defaultDeath: 1
+  deactivateSelfOnDeath: 0
   hitSound:
   - {fileID: 8300000, guid: 8495341369f80d24592aa1a35b6d47c7, type: 3}
   - {fileID: 8300000, guid: 98c262d4a67a21d4c8ac462eaacfe917, type: 3}
