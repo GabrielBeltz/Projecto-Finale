@@ -1,12 +1,14 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class Interactable : MonoBehaviour
 {
-    public int InteractionIndex = 0;
+    public int InteractionIndex = 0, lastIndex;
     public Interaction[] Interactions;
-    public UnityAction OnInteract;
+    public Action<bool> OnInteract;
     public UnityEvent OnExitInteraction;
+    bool _interacting;
 
     private void Start()
     {
@@ -15,17 +17,15 @@ public class Interactable : MonoBehaviour
             Debug.LogWarning($"Interações não setadas. [Clique aqui para achar o objeto na hierarquia]", this);
             enabled = false;
         }
+        else
+        {
+            OnInteract += SetInteracting;
+        }
     }
 
     public virtual void Interact()
     {
         CheckOverridingInteraction();
-
-        if(Interactions[InteractionIndex].indexMod == 0)
-        { 
-            OnExitInteraction?.Invoke();
-            return;
-        }
 
         Interactions[InteractionIndex].events?.Invoke();
 
@@ -37,9 +37,28 @@ public class Interactable : MonoBehaviour
             }
         }
 
-        OnInteract?.Invoke();
+        int nextInteractionIndex = Mathf.Min(InteractionIndex + Interactions[InteractionIndex].indexMod, Interactions.Length - 1);
 
-        InteractionIndex = Mathf.Min(InteractionIndex + Interactions[InteractionIndex].indexMod, Interactions.Length - 1);
+        if(nextInteractionIndex == lastIndex && _interacting)
+        {
+            OnInteract?.Invoke(false);
+        }
+        else
+        {
+            OnInteract?.Invoke(true);
+            lastIndex = InteractionIndex;
+            InteractionIndex = nextInteractionIndex;
+        }
+    }
+
+    void SetInteracting(bool value)
+    {
+        _interacting = value;
+
+        if(!value)
+        {
+            OnExitInteraction?.Invoke();
+        }
     }
 
     void CheckOverridingInteraction()
