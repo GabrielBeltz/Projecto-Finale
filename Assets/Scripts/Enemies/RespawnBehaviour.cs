@@ -1,54 +1,48 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(EnemyAttackTarget))]
 public class RespawnBehaviour : MonoBehaviour
 {
+    [Header("Configs")]
     public Vector3 originalPosition;
 
-    public bool Respawns;
+    [Tooltip("Se deixado em 0 ou menos nunca respawna.")]
     public float respawningTime;
-    float respawningTimer;
     EnemyAttackTarget enemyAttackTarget;
-    public Collider2D col;
-    public Renderer rdr;
-    public Rigidbody2D rb;
+    [Header("Needed to Work")]
+    public Collider2D Collider;
+    public Renderer Renderer;
+    [Header("Optional")]
+    public Rigidbody2D RigidBody;
     RigidbodyConstraints2D constraints;
+
+    private void Awake() => enabled = respawningTime > 0;
 
     private void Start()
     {
         enemyAttackTarget = this.GetComponent<EnemyAttackTarget>();
-        if (rb != null)
-        {
-            constraints = rb.constraints;
-        }
+        enemyAttackTarget.onDeath += CallRespawn;
+        if (RigidBody != null) constraints = RigidBody.constraints;
     }
 
-    private void Update()
+    public void CallRespawn()
     {
-        if (enemyAttackTarget.currentHealth <= 0)
-        {
-            respawningTimer += Time.deltaTime;
-            if (respawningTimer > respawningTime)
-            {
-                if (Respawns)
-                {
-                    Respawn();
-                }
-            }
-        }
+        StopAllCoroutines();
+        StartCoroutine(WaitRespawn());
+    }
+
+    IEnumerator WaitRespawn()
+    {
+        yield return new WaitForSeconds(respawningTime);
+        Respawn();
     }
 
     void Respawn()
     {
-        respawningTimer = 0;
-        col.enabled = true;
-        rdr.enabled = true;
+        Collider.enabled = true;
+        Renderer.enabled = true;
         enemyAttackTarget.currentHealth = enemyAttackTarget.TotalHealth;
-        if (rb != null)
-        {
-            rb.constraints = constraints;
-        }
+        if(RigidBody != null) RigidBody.constraints = constraints;
     }
 }

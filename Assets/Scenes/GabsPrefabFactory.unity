@@ -375,14 +375,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
-  defaultDeath: 0
-  deactivateSelfOnDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 53619099}
@@ -514,14 +510,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
-  defaultDeath: 0
-  deactivateSelfOnDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 116529974}
@@ -946,14 +938,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 0
-  defaultDeath: 1
-  deactivateSelfOnDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: dc9cbde9a64f216408c26d2322d553de, type: 3}
   col: {fileID: 280015988}
@@ -1242,14 +1230,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 0
-  defaultDeath: 1
-  deactivateSelfOnDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: dc9cbde9a64f216408c26d2322d553de, type: 3}
   col: {fileID: 415649487}
@@ -1423,14 +1407,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
-  defaultDeath: 0
-  deactivateSelfOnDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 465044978}
@@ -1785,10 +1765,6 @@ PrefabInstance:
     - target: {fileID: 6316516566706879897, guid: 61dadd3fb8ab447498812d44a719021f, type: 3}
       propertyPath: m_Name
       value: Patrulheiro Escalador de Paredes (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6871864164816524321, guid: 61dadd3fb8ab447498812d44a719021f, type: 3}
-      propertyPath: m_Constraints
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8505685576588254485, guid: 61dadd3fb8ab447498812d44a719021f, type: 3}
       propertyPath: backtracking
@@ -2205,14 +2181,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
-  defaultDeath: 0
-  deactivateSelfOnDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 752172346}
@@ -2694,14 +2666,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
-  defaultDeath: 0
-  deactivateSelfOnDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 867226477}
@@ -3090,14 +3058,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 0
-  defaultDeath: 1
-  deactivateSelfOnDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: dc9cbde9a64f216408c26d2322d553de, type: 3}
   col: {fileID: 989652934}
@@ -4006,14 +3970,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 1.5
-  defaultDeath: 1
-  deactivateSelfOnDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: dc9cbde9a64f216408c26d2322d553de, type: 3}
   col: {fileID: 1203855547}
@@ -4059,11 +4019,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   originalPosition: {x: 18.439999, y: 4.2699995, z: -1.2}
-  Respawns: 1
   respawningTime: 3
-  col: {fileID: 1203855547}
-  rdr: {fileID: 1654018164}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
 --- !u!1 &1219498834
 GameObject:
   m_ObjectHideFlags: 0
@@ -4189,14 +4148,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
-  defaultDeath: 0
-  deactivateSelfOnDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 1219498836}
@@ -4367,14 +4322,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 4
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 1
-  defaultDeath: 1
-  deactivateSelfOnDeath: 0
+  DeathType: 0
   hitSound: []
   col: {fileID: 1221236383}
   rdr: {fileID: 1221236381}
@@ -4393,11 +4344,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   originalPosition: {x: -35.52, y: 1.26, z: 0}
-  Respawns: 1
   respawningTime: 10
-  col: {fileID: 1221236383}
-  rdr: {fileID: 1221236381}
-  rb: {fileID: 1221236384}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
 --- !u!1 &1232676428
 GameObject:
   m_ObjectHideFlags: 0
@@ -4689,14 +4639,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
-  defaultDeath: 0
-  deactivateSelfOnDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   col: {fileID: 1260303437}
@@ -5214,14 +5160,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 0
-  defaultDeath: 1
-  deactivateSelfOnDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: dc9cbde9a64f216408c26d2322d553de, type: 3}
   col: {fileID: 1463757658}
@@ -5507,11 +5449,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   originalPosition: {x: -6.0299997, y: 3.9, z: -1.2}
-  Respawns: 1
   respawningTime: 3
-  col: {fileID: 1485075092}
-  rdr: {fileID: 701227781}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
 --- !u!114 &1485075091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5526,14 +5467,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 1.5
-  defaultDeath: 1
-  deactivateSelfOnDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: dc9cbde9a64f216408c26d2322d553de, type: 3}
   col: {fileID: 1485075092}
@@ -6371,14 +6308,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 1.5
-  defaultDeath: 1
-  deactivateSelfOnDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: dc9cbde9a64f216408c26d2322d553de, type: 3}
   col: {fileID: 1852986585}
@@ -6424,11 +6357,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   originalPosition: {x: 7.63, y: 3.9, z: -1.14}
-  Respawns: 1
   respawningTime: 3
-  col: {fileID: 1852986585}
-  rdr: {fileID: 1049153963}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
 --- !u!4 &1852986588
 Transform:
   m_ObjectHideFlags: 0

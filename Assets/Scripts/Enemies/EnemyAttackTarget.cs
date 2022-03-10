@@ -8,14 +8,12 @@ public class EnemyAttackTarget : MonoBehaviour
     [Header("Stats")]
     public float TotalHealth;
     public float currentHealth;
-    public UnityEvent onDeathEvent;
     public AttackDirection receivedAttackDirection;
     [Header("Multiplicadores")]
     public float DamageReceived;
     public float selfKnockbackReceived;
     [Header("Mortes")]
-    public bool defaultDeath;
-    public bool deactivateSelfOnDeath;
+    public EnemyDeathType DeathType;
     public AudioClip[] hitSound;
 
     [Header("Needed to Work")]
@@ -29,49 +27,49 @@ public class EnemyAttackTarget : MonoBehaviour
     {
         currentHealth = TotalHealth;
         onAttackReceived += ReceiveDamage;
-        if (defaultDeath)
+
+        switch(DeathType)
         {
-            onDeath += DefaultDeath;
-            if (rb != null)
-            {
-                constraints = rb.constraints;
-            }
+            case EnemyDeathType.DisableRendererAndCollider:
+                onDeath += DefaultDeath;
+
+                if(rb == null) break;
+                
+                if(constraints == RigidbodyConstraints2D.None)
+                {
+                    constraints = rb.constraints;
+                }
+                else
+                {
+                    rb.constraints = constraints;
+                }
+                break;
+            case EnemyDeathType.DeactivateSelf:
+                onDeath += DeactivateSelf;
+                break;
         }
 
-        if (deactivateSelfOnDeath)
-        {
-            onDeath += DeactivateSelf;
-        }
-
-        if (hitSound.Length > 0 && audioSource != null)
-        {
-            onAttackReceived += PlayHitSound;
-        }
+        if (hitSound.Length > 0 && audioSource != null) onAttackReceived += PlayHitSound;
     }
 
     private void OnDisable()
     {
         onAttackReceived -= ReceiveDamage;
-        if (defaultDeath)
+
+        switch(DeathType)
         {
-            onDeath -= DefaultDeath;
+            case EnemyDeathType.DisableRendererAndCollider:
+                onDeath -= DefaultDeath;
+                break;
+            case EnemyDeathType.DeactivateSelf:
+                onDeath -= DeactivateSelf;
+                break;
         }
 
-        if (deactivateSelfOnDeath)
-        {
-            onDeath -= DeactivateSelf;
-        }
-
-        if (hitSound.Length > 0 && audioSource != null)
-        {
-            onAttackReceived -= PlayHitSound;
-        }
+        if (hitSound.Length > 0 && audioSource != null) onAttackReceived -= PlayHitSound;
     }
 
-    public void ReceiveAttack(PlayerMeleeAttack playerMeleeAttack, Vector3 pos)
-    {
-        onAttackReceived?.Invoke(playerMeleeAttack, pos);
-    }
+    public void ReceiveAttack(PlayerMeleeAttack playerMeleeAttack, Vector3 pos) => onAttackReceived?.Invoke(playerMeleeAttack, pos);
 
     void ReceiveDamage(PlayerMeleeAttack playerMeleeAttack, Vector3 pos)
     {
@@ -79,11 +77,7 @@ public class EnemyAttackTarget : MonoBehaviour
         {
             currentHealth -= playerMeleeAttack.damage * DamageReceived;
 
-            if (currentHealth <= 0)
-            {
-                onDeath?.Invoke();
-                onDeathEvent?.Invoke();
-            }
+            if (currentHealth <= 0) onDeath?.Invoke();
         }
     }
 
@@ -91,28 +85,25 @@ public class EnemyAttackTarget : MonoBehaviour
     {
         col.enabled = false;
         rdr.enabled = false;
-        if (rb != null)
-        {
-            rb.constraints = RigidbodyConstraints2D.FreezeAll;
-        }
+
+        if(rb == null) return;
+
+        rb.constraints = RigidbodyConstraints2D.FreezeAll;
     }
 
-    void DeactivateSelf()
-    {
-        this.gameObject.SetActive(false);
-    }
+    void DeactivateSelf() => this.gameObject.SetActive(false);
 
     void PlayHitSound(PlayerMeleeAttack playerMeleeAttack, Vector3 pos)
     {
         Vector3 soundPosition = col.ClosestPoint(pos);
         audioSource.transform.position = soundPosition;
 
-        if (audioSource.isPlaying)
-        {
-            audioSource.Stop();
-        }
+        if (audioSource.isPlaying) audioSource.Stop();
 
         audioSource.clip = hitSound[Random.Range(0, hitSound.Length)];
         audioSource.Play();
     }
+
 }
+
+public enum EnemyDeathType { DisableRendererAndCollider, DeactivateSelf }

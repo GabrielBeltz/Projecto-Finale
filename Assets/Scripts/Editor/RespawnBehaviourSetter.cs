@@ -19,19 +19,19 @@ public class RespawnBehaviourSetter : Editor
                 Collider2D c = obj.GetComponent<Collider2D>();
                 if (c != null)
                 {
-                    thisScript.col = c;
+                    thisScript.Collider = c;
                 }
 
                 Rigidbody2D r = obj.GetComponent<Rigidbody2D>();
                 if (r != null)
                 {
-                    thisScript.rb = r;
+                    thisScript.RigidBody = r;
                 }
 
                 Renderer rd = obj.GetComponent<Renderer>();
                 if (rd)
                 {
-                    thisScript.rdr = rd;
+                    thisScript.Renderer = rd;
                 }
             }
         }

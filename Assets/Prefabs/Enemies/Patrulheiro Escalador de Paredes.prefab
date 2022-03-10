@@ -291,8 +291,7 @@ MonoBehaviour:
   receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 1
-  defaultDeath: 1
-  deactivateSelfOnDeath: 0
+  DeathType: 1
   hitSound:
   - {fileID: 8300000, guid: 8495341369f80d24592aa1a35b6d47c7, type: 3}
   - {fileID: 8300000, guid: 98c262d4a67a21d4c8ac462eaacfe917, type: 3}
