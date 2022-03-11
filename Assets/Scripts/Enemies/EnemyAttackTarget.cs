@@ -15,8 +15,10 @@ public class EnemyAttackTarget : MonoBehaviour
     [Header("Mortes")]
     public EnemyDeathType DeathType;
     public AudioClip[] hitSound;
+    bool hasRespawnBehaviour;
 
     [Header("Needed to Work")]
+    [Help("Se esses ficarem nulos o script pega do próprio gameObject ou o primeiro que encontrar nos filhos.", UnityEditor.MessageType.Info)]
     public Collider2D Collider;
     public Renderer Renderer;
     public Rigidbody2D RigidBody;
@@ -26,17 +28,34 @@ public class EnemyAttackTarget : MonoBehaviour
     private void Awake()
     {
         if(Collider == null)
-            if(!TryGetComponent<Collider2D>(out Collider)) 
+            if(!TryGetComponent(out Collider)) 
                 Collider = GetComponentInChildren<Collider2D>();
         if(Renderer == null)
-            if(!TryGetComponent<Renderer>(out Renderer)) 
+            if(!TryGetComponent(out Renderer)) 
                 Renderer = GetComponentInChildren<Renderer>();
+        if(RigidBody == null)
+            if(!TryGetComponent(out RigidBody))
+            {
+                var rb = GetComponentInChildren<Rigidbody2D>();
+                RigidBody = rb != null ? rb : null;
+            }
+        if(audioSource == null)
+            if(!TryGetComponent(out audioSource)) 
+            {
+                var aS = GetComponentInChildren<AudioSource>();
+                audioSource = aS != null ? aS : null;
+            }
+
+        hasRespawnBehaviour = TryGetComponent(out RespawnBehaviour respawn);
+        if(respawn != null) hasRespawnBehaviour &= respawn.respawningTime > 0;
     }
 
     private void OnEnable()
     {
         currentHealth = TotalHealth;
         onAttackReceived += ReceiveDamage;
+
+        if(hasRespawnBehaviour) DeathType = EnemyDeathType.DisableRendererAndCollider;
 
         switch(DeathType)
         {

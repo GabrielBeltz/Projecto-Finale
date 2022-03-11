@@ -10,6 +10,7 @@ public class RespawnBehaviour : MonoBehaviour
     [Tooltip("Se deixado em 0 ou menos nunca respawna.")]
     public float respawningTime;
     EnemyAttackTarget enemyAttackTarget;
+    [Help("Se esses ficarem nulos o script pega do EnemyAttackTarget.", UnityEditor.MessageType.Info)]
     [Header("Needed to Work")]
     public Collider2D Collider;
     public Renderer Renderer;
@@ -24,8 +25,9 @@ public class RespawnBehaviour : MonoBehaviour
         enemyAttackTarget = this.GetComponent<EnemyAttackTarget>();
         enemyAttackTarget.onDeath += CallRespawn;
         constraints = RigidBody != null ? RigidBody.constraints : RigidbodyConstraints2D.None;
-        Collider ??= enemyAttackTarget.Collider;
-        Renderer ??= enemyAttackTarget.Renderer;
+        Collider = Collider != null ? Collider : enemyAttackTarget.Collider;
+        Renderer = Renderer != null ? Renderer : enemyAttackTarget.Renderer;
+        RigidBody = RigidBody != null ? RigidBody : enemyAttackTarget.RigidBody != null ? enemyAttackTarget.RigidBody : null;
     }
 
     public void CallRespawn()
