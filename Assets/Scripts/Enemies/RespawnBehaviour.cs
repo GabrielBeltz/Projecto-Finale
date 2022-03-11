@@ -23,7 +23,9 @@ public class RespawnBehaviour : MonoBehaviour
     {
         enemyAttackTarget = this.GetComponent<EnemyAttackTarget>();
         enemyAttackTarget.onDeath += CallRespawn;
-        if (RigidBody != null) constraints = RigidBody.constraints;
+        constraints = RigidBody != null ? RigidBody.constraints : RigidbodyConstraints2D.None;
+        Collider ??= enemyAttackTarget.Collider;
+        Renderer ??= enemyAttackTarget.Renderer;
     }
 
     public void CallRespawn()

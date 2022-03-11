@@ -17,9 +17,9 @@ public class EnemyAttackTarget : MonoBehaviour
     public AudioClip[] hitSound;
 
     [Header("Needed to Work")]
-    public Collider2D col;
-    public Renderer rdr;
-    public Rigidbody2D rb;
+    public Collider2D Collider;
+    public Renderer Renderer;
+    public Rigidbody2D RigidBody;
     public AudioSource audioSource;
     RigidbodyConstraints2D constraints;
 
@@ -33,15 +33,15 @@ public class EnemyAttackTarget : MonoBehaviour
             case EnemyDeathType.DisableRendererAndCollider:
                 onDeath += DefaultDeath;
 
-                if(rb == null) break;
+                if(RigidBody == null) break;
                 
                 if(constraints == RigidbodyConstraints2D.None)
                 {
-                    constraints = rb.constraints;
+                    constraints = RigidBody.constraints;
                 }
                 else
                 {
-                    rb.constraints = constraints;
+                    RigidBody.constraints = constraints;
                 }
                 break;
             case EnemyDeathType.DeactivateSelf:
@@ -83,19 +83,19 @@ public class EnemyAttackTarget : MonoBehaviour
 
     void DefaultDeath()
     {
-        col.enabled = false;
-        rdr.enabled = false;
+        Collider.enabled = false;
+        Renderer.enabled = false;
 
-        if(rb == null) return;
+        if(RigidBody == null) return;
 
-        rb.constraints = RigidbodyConstraints2D.FreezeAll;
+        RigidBody.constraints = RigidbodyConstraints2D.FreezeAll;
     }
 
     void DeactivateSelf() => this.gameObject.SetActive(false);
 
     void PlayHitSound(PlayerMeleeAttack playerMeleeAttack, Vector3 pos)
     {
-        Vector3 soundPosition = col.ClosestPoint(pos);
+        Vector3 soundPosition = Collider.ClosestPoint(pos);
         audioSource.transform.position = soundPosition;
 
         if (audioSource.isPlaying) audioSource.Stop();
