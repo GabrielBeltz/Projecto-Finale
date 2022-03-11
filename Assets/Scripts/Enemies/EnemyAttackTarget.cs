@@ -23,6 +23,16 @@ public class EnemyAttackTarget : MonoBehaviour
     public AudioSource audioSource;
     RigidbodyConstraints2D constraints;
 
+    private void Awake()
+    {
+        if(Collider == null)
+            if(!TryGetComponent<Collider2D>(out Collider)) 
+                Collider = GetComponentInChildren<Collider2D>();
+        if(Renderer == null)
+            if(!TryGetComponent<Renderer>(out Renderer)) 
+                Renderer = GetComponentInChildren<Renderer>();
+    }
+
     private void OnEnable()
     {
         currentHealth = TotalHealth;
