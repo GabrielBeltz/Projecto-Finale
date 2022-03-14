@@ -1,5 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!244 &-6762671176759726639
+AudioMixerEffectController:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: 
+  m_EffectID: b86d47f666f5e9b4a8327b43b4734560
+  m_EffectName: Send
+  m_MixLevel: c7571ab947c313749aa548c60f0c8b3f
+  m_Parameters: []
+  m_SendTarget: {fileID: 0}
+  m_EnableWetMix: 0
+  m_Bypass: 0
 --- !u!241 &24100000
 AudioMixerController:
   m_ObjectHideFlags: 0
@@ -15,7 +29,9 @@ AudioMixerController:
   m_SuspendThreshold: -80
   m_EnableSuspend: 1
   m_UpdateMode: 0
-  m_ExposedParameters: []
+  m_ExposedParameters:
+  - guid: ca57ce035a0f16749b6a9a703854161a
+    name: VolumeExposed
   m_AudioMixerGroupViews:
   - guids:
     - fda44ad1b2c9fc941ae350b3445b6bec
@@ -64,5 +80,6 @@ AudioMixerSnapshotController:
   m_Name: Snapshot
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: c19ee741c245c954794e1d3a68dce3d2
-  m_FloatValues: {}
+  m_FloatValues:
+    ca57ce035a0f16749b6a9a703854161a: -0.02577656
   m_TransitionOverrides: {}
