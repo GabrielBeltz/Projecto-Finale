@@ -31,7 +31,7 @@ public class MainMenuButtonController : MonoBehaviour
 
         if(isOptionsOn)
         {
-            isOptionsOn = false;
+            isOptionsOn = true;
             optionsPanel.SetActive(isOptionsOn);
         }
 
