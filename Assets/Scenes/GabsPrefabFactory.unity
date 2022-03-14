@@ -381,9 +381,9 @@ MonoBehaviour:
   DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  col: {fileID: 53619099}
-  rdr: {fileID: 53619100}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 768045833}
 --- !u!1 &116529973
 GameObject:
@@ -516,9 +516,9 @@ MonoBehaviour:
   DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  col: {fileID: 116529974}
-  rdr: {fileID: 116529975}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 768045833}
 --- !u!1 &118477141
 GameObject:
@@ -944,9 +944,9 @@ MonoBehaviour:
   DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: dc9cbde9a64f216408c26d2322d553de, type: 3}
-  col: {fileID: 280015988}
-  rdr: {fileID: 1599919513}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 1844111420}
 --- !u!1 &291744089
 GameObject:
@@ -1236,9 +1236,9 @@ MonoBehaviour:
   DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: dc9cbde9a64f216408c26d2322d553de, type: 3}
-  col: {fileID: 415649487}
-  rdr: {fileID: 657154191}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 752359287}
 --- !u!61 &415649487
 BoxCollider2D:
@@ -1413,9 +1413,9 @@ MonoBehaviour:
   DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  col: {fileID: 465044978}
-  rdr: {fileID: 465044979}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 768045833}
 --- !u!1 &529635984
 GameObject:
@@ -1427,6 +1427,7 @@ GameObject:
   m_Component:
   - component: {fileID: 529635986}
   - component: {fileID: 529635985}
+  - component: {fileID: 529635987}
   m_Layer: 0
   m_Name: TextDisplayer
   m_TagString: Untagged
@@ -1462,6 +1463,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &529635987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 529635984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bfbd43c4fd7eca4ab3a757a44843887, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cena: 0
 --- !u!1 &557586925
 GameObject:
   m_ObjectHideFlags: 0
@@ -2187,9 +2201,9 @@ MonoBehaviour:
   DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  col: {fileID: 752172346}
-  rdr: {fileID: 752172347}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 768045833}
 --- !u!1 &752359285
 GameObject:
@@ -2672,9 +2686,9 @@ MonoBehaviour:
   DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  col: {fileID: 867226477}
-  rdr: {fileID: 867226478}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 768045833}
 --- !u!1 &919076110
 GameObject:
@@ -3064,9 +3078,9 @@ MonoBehaviour:
   DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: dc9cbde9a64f216408c26d2322d553de, type: 3}
-  col: {fileID: 989652934}
-  rdr: {fileID: 1439915567}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 172194136}
 --- !u!61 &989652934
 BoxCollider2D:
@@ -3976,9 +3990,9 @@ MonoBehaviour:
   DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: dc9cbde9a64f216408c26d2322d553de, type: 3}
-  col: {fileID: 1203855547}
-  rdr: {fileID: 1654018164}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 1475176158}
 --- !u!61 &1203855547
 BoxCollider2D:
@@ -4154,9 +4168,9 @@ MonoBehaviour:
   DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  col: {fileID: 1219498836}
-  rdr: {fileID: 1219498837}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 768045833}
 --- !u!1 &1221236379
 GameObject:
@@ -4327,9 +4341,9 @@ MonoBehaviour:
   selfKnockbackReceived: 1
   DeathType: 0
   hitSound: []
-  col: {fileID: 1221236383}
-  rdr: {fileID: 1221236381}
-  rb: {fileID: 1221236384}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!114 &1221236387
 MonoBehaviour:
@@ -4645,9 +4659,9 @@ MonoBehaviour:
   DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  col: {fileID: 1260303437}
-  rdr: {fileID: 1260303438}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 768045833}
 --- !u!1 &1279148157
 GameObject:
@@ -5166,9 +5180,9 @@ MonoBehaviour:
   DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: dc9cbde9a64f216408c26d2322d553de, type: 3}
-  col: {fileID: 1463757658}
-  rdr: {fileID: 118477143}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 711296438}
 --- !u!61 &1463757658
 BoxCollider2D:
@@ -5473,9 +5487,9 @@ MonoBehaviour:
   DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: dc9cbde9a64f216408c26d2322d553de, type: 3}
-  col: {fileID: 1485075092}
-  rdr: {fileID: 701227781}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 412336682}
 --- !u!61 &1485075092
 BoxCollider2D:
@@ -6314,9 +6328,9 @@ MonoBehaviour:
   DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: dc9cbde9a64f216408c26d2322d553de, type: 3}
-  col: {fileID: 1852986585}
-  rdr: {fileID: 1049153963}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 974642614}
 --- !u!61 &1852986585
 BoxCollider2D:

@@ -5,10 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainMenu.unity
     guid: 5c842c6d9e90ba94bbc2cd17f813b47a
   - enabled: 1
     path: Assets/Scenes/FlowTest.unity
     guid: b16b0ccdef9ba844abc8bc3630624f72
+  - enabled: 1
+    path: Assets/Scenes/GabsPrefabFactory.unity
+    guid: 27a04fe0f0fde5d4faa9210bbe0f724a
   m_configObjects: {}
