@@ -221,11 +221,11 @@ public class PlayerController : MonoBehaviour
 
         void ExecuteJump(Vector3 dir)
         {
+            _timeLeftGrounded = Time.time;
+            _hasJumped = true;
             _rb.velocity = new Vector2(_rb.velocity.x, _initialJumpSpeed);
             PlaySound(Audioclips.Find(audioClip => audioClip.name == "Jump"));
-            _hasJumped = true;
             OnJump?.Invoke();
-            _timeLeftGrounded = Time.time;
         }
 
         if (Mathf.Approximately(_rb.velocity.y, 0) && !IsGrounded)
