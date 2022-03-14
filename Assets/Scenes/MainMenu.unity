@@ -607,6 +607,96 @@ MonoBehaviour:
     source: {fileID: 0}
     rolloffMode: 0
     maxDistance: 0
+  - soundName: 
+    soundIndex: 0
+    audioClip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+    rolloffMode: 0
+    maxDistance: 0
+  - soundName: 
+    soundIndex: 0
+    audioClip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+    rolloffMode: 0
+    maxDistance: 0
+  - soundName: 
+    soundIndex: 0
+    audioClip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+    rolloffMode: 0
+    maxDistance: 0
+  - soundName: 
+    soundIndex: 0
+    audioClip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+    rolloffMode: 0
+    maxDistance: 0
+  - soundName: 
+    soundIndex: 0
+    audioClip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+    rolloffMode: 0
+    maxDistance: 0
+  - soundName: 
+    soundIndex: 0
+    audioClip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+    rolloffMode: 0
+    maxDistance: 0
+  - soundName: 
+    soundIndex: 0
+    audioClip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+    rolloffMode: 0
+    maxDistance: 0
+  - soundName: 
+    soundIndex: 0
+    audioClip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+    rolloffMode: 0
+    maxDistance: 0
+  - soundName: 
+    soundIndex: 0
+    audioClip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+    rolloffMode: 0
+    maxDistance: 0
+  - soundName: 
+    soundIndex: 0
+    audioClip: {fileID: 0}
+    volume: 0
+    pitch: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+    rolloffMode: 0
+    maxDistance: 0
   audioMixer: {fileID: 24300002, guid: f096cc8a90319844fb297b7b4ce869a3, type: 2}
 --- !u!4 &1108900123
 Transform:
