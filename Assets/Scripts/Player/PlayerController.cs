@@ -89,7 +89,7 @@ public class PlayerController : MonoBehaviour
         HandleAnimation();
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         if (_downwardAttack && Input.GetButton("Fire1"))
         {
@@ -97,39 +97,22 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void GatherInputs()
+    void GatherInputs()
     {
         _inputs.RawX = (int)Input.GetAxisRaw("Horizontal");
         _inputs.X = Input.GetAxis("Horizontal");
-
-        if (_inputs.X != 0)
-        {
-            SetFacingDirection(_inputs.X < 0);
-        }
-
         _dir = new Vector3(_inputs.RawX, 0, 0);
 
-        if (Input.GetButtonDown("Fire1") && !IsKnockbacked)
-        {
-            ExecuteAttack();
-        }
-
-        if (_downwardAttack && Input.GetButtonUp("Fire1"))
-        {
-            _downwardAttack = false;
-            Attack();
-        }
-
-        if (Input.GetButtonDown("Fire2"))
-        {
-            ExecuteInteraction();   
-        }
+        if (_inputs.X != 0) SetFacingDirection(_inputs.X < 0);
+        
+        if (Input.GetButtonDown("Fire1") && !IsKnockbacked) ExecuteAttack();
+        
+        if (_downwardAttack && Input.GetButtonUp("Fire1")) _downwardAttack = false;
+        
+        if (Input.GetButtonDown("Fire2")) ExecuteInteraction(); 
     }
 
-    private void SetFacingDirection(bool left)
-    {
-        this.transform.localScale = left ? new Vector3(1, 1, 1) : new Vector3(-1, 1, 1);
-    }
+    void SetFacingDirection(bool left) => this.transform.localScale = left ? new Vector3(1, 1, 1) : new Vector3(-1, 1, 1);
 
     #region ColisorDetections
 
@@ -310,6 +293,8 @@ public class PlayerController : MonoBehaviour
 
     public void Attack()
     {
+        if(_downwardAttack && GetAttackDirection() != -this.transform.up) return;
+
         Vector3 attackPos = this.transform.position + ((GetAttackDirection() * (_lastAttack.range /2)));
         float attackRotation = Quaternion.LookRotation(GetAttackDirection(), GetAttackDirection()).eulerAngles.x;
         Vector3 attackSize = new Vector3(0.25f, 0.75f, _lastAttack.range / 2);
@@ -339,23 +324,14 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            if (GetAttackDirection() == Vector3.down)
-            {
-                _downwardAttack = true;
-            }
+            if (GetAttackDirection() == Vector3.down) _downwardAttack = true;
 
-            if (Mathf.Approximately(_inputs.X, 0f))
-            {
-                _rb.AddForce(GetAttackDirection() * _lastAttack.selfKnockback, ForceMode2D.Force);
-            }
+            if (Mathf.Approximately(_inputs.X, 0f)) _rb.AddForce(GetAttackDirection() * (_downwardAttack ? _lastAttack.selfKnockback * 0.01f : _lastAttack.selfKnockback), ForceMode2D.Force);
         }
 
         _soundEmitter.Stop();
 
-        if (playSound)
-        {
-            PlaySound(_lastAttack.sound);
-        }
+        if (playSound) PlaySound(_lastAttack.sound);
 
         _attackFeedback.CallFeedback(attackSize, attackPos, attackRotation, _lastAttack.cooldown);
         _myAnimator.SetTrigger(_lastAttack.animatorTrigger);
@@ -366,40 +342,23 @@ public class PlayerController : MonoBehaviour
         if (input.x >= 0 && input.y == 0)
         {
             PlayerMeleeAttack foundAttack = _playerAttacks.Find(attck => attck.comboInfo.previousAttack == _lastAttack.name);
-            if (foundAttack == null)
-            {
-                return _defaultAttack;
-            }
-            else if (_timeOfLastAttack - _lastAttack.cooldown + foundAttack.comboInfo.timeBetween < Time.time)
-            {
-                return foundAttack;
-            }
+
+            if (foundAttack == null) return _defaultAttack;
+            else if (_timeOfLastAttack - _lastAttack.cooldown + foundAttack.comboInfo.timeBetween < Time.time) return foundAttack;
         }
         else if (input.y > 0)
         {
             PlayerMeleeAttack foundAttack = _playerAttacks.Find(attck => attck.comboInfo.previousAttack == _lastAttack.name && attck.direction == AttackDirection.Up);
-            if (foundAttack == null)
-            {
-                foundAttack = _playerAttacks.Find(attck => attck.direction == AttackDirection.Up);
-                return foundAttack;
-            }
-            else if (_timeOfLastAttack - _lastAttack.cooldown + foundAttack.comboInfo.timeBetween < Time.time)
-            {
-                return foundAttack;
-            }
+
+            if (foundAttack == null) return _playerAttacks.Find(attck => attck.direction == AttackDirection.Up);
+            else if (_timeOfLastAttack - _lastAttack.cooldown + foundAttack.comboInfo.timeBetween < Time.time) return foundAttack;
         }
         else if (input.y < 0)
         {
             PlayerMeleeAttack foundAttack = _playerAttacks.Find(attck => attck.comboInfo.previousAttack == _lastAttack.name && attck.direction == AttackDirection.Down);
-            if (foundAttack == null)
-            {
-                foundAttack = _playerAttacks.Find(attck => attck.direction == AttackDirection.Down);
-                return foundAttack;
-            }
-            else if (_timeOfLastAttack - _lastAttack.cooldown + foundAttack.comboInfo.timeBetween < Time.time)
-            {
-                return foundAttack;
-            }
+
+            if(foundAttack == null) return _playerAttacks.Find(attck => attck.direction == AttackDirection.Down);
+            else if(_timeOfLastAttack - _lastAttack.cooldown + foundAttack.comboInfo.timeBetween < Time.time) return foundAttack;
         }
 
         return _defaultAttack;
@@ -431,10 +390,7 @@ public class PlayerController : MonoBehaviour
 
     public void PlaySound(AudioClip clipToPlay)
     {
-        if (_soundEmitter.isPlaying)
-        {
-            _soundEmitter.Stop();
-        }
+        if (_soundEmitter.isPlaying) _soundEmitter.Stop();
 
         _soundEmitter.clip = clipToPlay;
         _soundEmitter.Play();
@@ -449,15 +405,11 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         var item = collision.GetComponent<Item>();
-        if(item)
-        {
-            Inventory.AddItem(item.item, 1);
-            Destroy(collision.gameObject);
-        }
+     
+        if(item == null) return;
+        Inventory.AddItem(item.item, 1);
+        Destroy(collision.gameObject);
     }
 
-    private void OnApplicationQuit()
-    {
-        Inventory.Container.Clear();
-    }
+    private void OnApplicationQuit() => Inventory.Container.Clear();
 }

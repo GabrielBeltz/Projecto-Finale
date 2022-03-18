@@ -57,25 +57,28 @@ public class EnemyAttackTarget : MonoBehaviour
 
         if(hasRespawnBehaviour) DeathType = EnemyDeathType.DisableRendererAndCollider;
 
-        switch(DeathType)
+        if(DamageReceived > 0)
         {
-            case EnemyDeathType.DisableRendererAndCollider:
-                onDeath += DefaultDeath;
+            switch(DeathType)
+            {
+                case EnemyDeathType.DisableRendererAndCollider:
+                    onDeath += DefaultDeath;
 
-                if(RigidBody == null) break;
+                    if(RigidBody == null) break;
                 
-                if(constraints == RigidbodyConstraints2D.None)
-                {
-                    constraints = RigidBody.constraints;
-                }
-                else
-                {
-                    RigidBody.constraints = constraints;
-                }
-                break;
-            case EnemyDeathType.DeactivateSelf:
-                onDeath += DeactivateSelf;
-                break;
+                    if(constraints == RigidbodyConstraints2D.None)
+                    {
+                        constraints = RigidBody.constraints;
+                    }
+                    else
+                    {
+                        RigidBody.constraints = constraints;
+                    }
+                    break;
+                case EnemyDeathType.DeactivateSelf:
+                    onDeath += DeactivateSelf;
+                    break;
+            }
         }
 
         if (hitSound.Length > 0 && audioSource != null) onAttackReceived += PlayHitSound;

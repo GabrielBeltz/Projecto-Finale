@@ -176,7 +176,7 @@ GameObject:
   - component: {fileID: 6871864164816524321}
   - component: {fileID: 6208125088740829603}
   m_Layer: 6
-  m_Name: Patrulheiro Escalador de Paredes
+  m_Name: Wallwalking Patrol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -266,11 +266,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   originalPosition: {x: 24.26, y: 9.42, z: 0}
-  Respawns: 0
   respawningTime: 0
-  col: {fileID: 6208125088740829603}
-  rdr: {fileID: 6316516566706879895}
-  rb: {fileID: 6871864164816524321}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
 --- !u!114 &6316516566706879890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -285,9 +284,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 2
   currentHealth: 2
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 1
@@ -295,9 +291,9 @@ MonoBehaviour:
   hitSound:
   - {fileID: 8300000, guid: 8495341369f80d24592aa1a35b6d47c7, type: 3}
   - {fileID: 8300000, guid: 98c262d4a67a21d4c8ac462eaacfe917, type: 3}
-  col: {fileID: 6208125088740829603}
-  rdr: {fileID: 6316516566706879895}
-  rb: {fileID: 6871864164816524321}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 5087293631567823256}
 --- !u!114 &6316516566706879891
 MonoBehaviour:
