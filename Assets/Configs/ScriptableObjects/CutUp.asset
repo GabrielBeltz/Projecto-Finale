@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   direction: 2
   up: 0
-  damage: 2
+  damage: 1
   cooldown: 0.2
   range: 2.5
   knockback: 525
