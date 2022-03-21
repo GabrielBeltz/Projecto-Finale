@@ -264,7 +264,7 @@ public class PlayerController : MonoBehaviour
         {
             _rb.velocity = _dashDir * _dashSpeed;
 
-            if(Time.time >= _timeStartedDash + _dashLength)
+            if(Time.time >= _timeStartedDash + (_dashLength * StatsManager.Instance.DashLength.totalValue))
             {
                 _dashing = false;
                 _rb.velocity = new Vector3(_rb.velocity.x, _rb.velocity.y > 3 ? 3 : _rb.velocity.y);
@@ -367,10 +367,11 @@ public class PlayerController : MonoBehaviour
 
     public void ReceiveDamage(int damage, Vector3 knockback)
     {
+        float knockbackResistance = StatsManager.Instance.KnockbackResistance.totalValue;
         CurrentHealth -= damage;
         _rb.velocity = Vector3.zero;
-        _rb.AddForce(new Vector2(knockback.x, knockback.y/2), ForceMode2D.Force);
-        _knockbackTimer = IsGrounded ? Time.time + _knockbackTime : Time.time + _knockbackTime + _extraUngroundedKnockbackTime;
+        _rb.AddForce(new Vector2(knockback.x, knockback.y / 2) * knockbackResistance, ForceMode2D.Force);
+        _knockbackTimer = IsGrounded ? Time.time + (_knockbackTime * knockbackResistance) : Time.time + ((_knockbackTime + _extraUngroundedKnockbackTime) * knockbackResistance);
     }
 
     #endregion
