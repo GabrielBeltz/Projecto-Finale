@@ -107,7 +107,9 @@ public class EnemyAttackTarget : MonoBehaviour
     {
         if (playerMeleeAttack.direction == receivedAttackDirection || receivedAttackDirection == AttackDirection.Front)
         {
-            currentHealth -= playerMeleeAttack.damage * DamageReceived;
+            currentHealth -= (playerMeleeAttack.damage * StatsManager.Instance.Damage.totalValue) * DamageReceived;
+
+            Debug.Log($"{gameObject.name} recebeu {(playerMeleeAttack.damage * StatsManager.Instance.Damage.totalValue) * DamageReceived} de dano.");
 
             if (currentHealth <= 0) onDeath?.Invoke();
         }

@@ -24,9 +24,10 @@ public class PlayerController : MonoBehaviour
     public static event Action OnJump;
 
     [Header("Walking")]
-    [SerializeField] private float _walkSpeed = 8f;
+    [SerializeField] private float _baseWalkSpeed = 8f;
     [SerializeField] private float _acceleration = 2f, _maxWalkingPenalty = 0.1f, _currentWalkingPenalty, _jumpManeuverabilityPercentage;
     float _currentMovementLerpSpeed = 100;
+    float _moddedWalkSpeed { get => StatsManager.Instance.MoveSpeed.totalValue * _baseWalkSpeed; }
 
     [Header("Dashing")]
     [SerializeField] private float _dashLength = 0.2f;
@@ -168,7 +169,7 @@ public class PlayerController : MonoBehaviour
         }
         _currentWalkingPenalty = Mathf.Clamp(_currentWalkingPenalty, _maxWalkingPenalty, 2f);
 
-        var targetVel = new Vector3(normalizedDir.x * _currentWalkingPenalty * _walkSpeed, _rb.velocity.y, normalizedDir.z);
+        var targetVel = new Vector3(normalizedDir.x * _currentWalkingPenalty * _moddedWalkSpeed, _rb.velocity.y, normalizedDir.z);
 
         var idealVel = new Vector3(targetVel.x, _rb.velocity.y, targetVel.z);
 
