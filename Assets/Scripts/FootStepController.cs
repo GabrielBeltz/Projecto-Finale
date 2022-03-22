@@ -5,7 +5,7 @@ using UnityEngine.Audio;
 
 public class FootStepController : MonoBehaviour
 {
-    public AudioClip[] solidGroundClip, woodGroundClip, grassGroundClip;
+    public AudioClip[] solidGroundClip, woodGroundClip, grassGroundClip, jumpClip;
     private AudioSource audioSource;
     [Range(-3f, 3f)] public float pitch;
     [Space]
@@ -23,6 +23,12 @@ public class FootStepController : MonoBehaviour
     {
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * deploymentHeight, Color.yellow);
         hit = Physics2D.Raycast(transform.position, -Vector2.up * deploymentHeight);
+    }
+
+    public void Jump()
+    {
+        AudioClip jumpingClip = JumpingClip();
+        audioSource.PlayOneShot(jumpClip[0]);
     }
 
     public void Step()
@@ -68,6 +74,11 @@ public class FootStepController : MonoBehaviour
     private AudioClip RandomWoodClip()
     {
         return woodGroundClip[Random.Range(0, woodGroundClip.Length)];
+    }
+
+    private AudioClip JumpingClip()
+    {
+        return jumpClip[Random.Range(0, jumpClip.Length)];
     }
 
 }

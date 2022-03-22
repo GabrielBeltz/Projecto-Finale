@@ -208,7 +208,7 @@ public class PlayerController : MonoBehaviour
             _timeLeftGrounded = Time.time;
             _hasJumped = true;
             _rb.velocity = new Vector2(_rb.velocity.x, _initialJumpSpeed);
-            PlaySound(Audioclips.Find(audioClip => audioClip.name == "Jump"));
+            //PlaySound(Audioclips.Find(audioClip => audioClip.name == "Jump"));
             OnJump?.Invoke();
         }
 

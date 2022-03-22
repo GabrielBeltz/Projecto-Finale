@@ -4906,8 +4906,10 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 12f67de00329d2649a3129573815af67, type: 3}
   - {fileID: 8300000, guid: 23a46dba8be101b488e1275cf92b2bc7, type: 3}
   - {fileID: 0}
+  jumpClip:
+  - {fileID: 8300000, guid: 8781f5a6891be9949bd3c2e6c4d311d5, type: 3}
   pitch: 1
-  deploymentHeight: 1
+  deploymentHeight: 0.5
   groundLayer:
     serializedVersion: 2
     m_Bits: 264
