@@ -28,7 +28,6 @@ public class EnemyPatrolWalls : MonoBehaviour
 
     private void Start()
     {
-
         if (direction == MoveDirection.left)
         {
             floorOffset = -floorOffset;
@@ -48,8 +47,6 @@ public class EnemyPatrolWalls : MonoBehaviour
         // Se o upperRotation detectar um chão, é quase ctz q uma parede vai entrar na frente do caminho, então não faz sentido continuar movendo
         // Se o Move for válido, é quase ctz que executar a rotação vai fazer o movimento entrar dentro do chão
 
-        RaycastHit2D[] raycastHitsFrontWall = Physics2D.RaycastAll(upperRotationFeet.position, -upperRotationFeet.transform.up, 0.25f, groundLayerMask);
-        bool hitsFrontWall = raycastHitsFrontWall.Length > 0;
         if (Physics2D.Raycast(upperRotationFeet.position, -upperRotationFeet.transform.up, contactFilter, hit, 0.25f) > 0 && !justBackTracked)
         {
             if (neverRotates)
@@ -57,6 +54,7 @@ public class EnemyPatrolWalls : MonoBehaviour
                 Backtrack();
                 return;
             }
+
             Rotate(false);
         }
         else if (Physics2D.Raycast(frontFeet.position, -this.transform.up, contactFilter, hit, 1f) > 0)
@@ -70,6 +68,7 @@ public class EnemyPatrolWalls : MonoBehaviour
                 Backtrack();
                 return;
             }
+
             Rotate(true);
         }
         else if(backtracking)

@@ -41,8 +41,8 @@ ModelImporter:
       name: Jumping Up
       takeName: mixamo.com
       internalID: 0
-      firstFrame: 33
-      lastFrame: 37.5
+      firstFrame: 26
+      lastFrame: 50
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -61,7 +61,14 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.029598722
+        functionName: Jump
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 588bfba2ac1a13e41bf079ace1289562, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -70,7 +77,7 @@ ModelImporter:
       name: Falling
       takeName: mixamo.com
       internalID: 0
-      firstFrame: 37.5
+      firstFrame: 48
       lastFrame: 50
       wrapMode: 0
       orientationOffsetY: 0
