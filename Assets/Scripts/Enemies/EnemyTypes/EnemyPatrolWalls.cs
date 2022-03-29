@@ -38,10 +38,7 @@ public class EnemyPatrolWalls : MonoBehaviour
     {
         modifiedSpeed = speed;
 
-        if (target.isKnockbacked)
-        {
-            modifiedSpeed = 0;
-        }
+        if (target.isKnockbacked) modifiedSpeed = 0;
 
         // A prioridade é UpperRotation > Move > Rotation > Backtrack
         // Se o upperRotation detectar um chão, é quase ctz q uma parede vai entrar na frente do caminho, então não faz sentido continuar movendo
@@ -158,7 +155,7 @@ public class EnemyPatrolWalls : MonoBehaviour
         }
     }
 
-    void Backtrack()
+    public void Backtrack()
     {
         this.transform.localScale = new Vector3(-this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
         speed = -speed;
