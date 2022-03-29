@@ -53,7 +53,7 @@ public class FootStepController : MonoBehaviour
                 audioSource.PlayOneShot(woodGroundClip);
             }
 
-            Debug.Log("Did Hit a Ground Tag: " + hit.collider.tag);
+            //Debug.Log("Did Hit a Ground Tag: " + hit.collider.tag);
         }
         else
         {
