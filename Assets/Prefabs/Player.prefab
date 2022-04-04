@@ -156,8 +156,8 @@ MonoBehaviour:
   IsGrounded: 1
   _initialJumpSpeed: 18
   _minJumpSpeed: 0
-  _fallingAcceleration: 5
-  _timeUntilMaxFallingSpeed: 5
+  _fallingAcceleration: 0
+  _timeUntilMaxFallingSpeed: 1
   _coyoteTime: 0.2
   _jumpTime: 0.05
   _extraJumpTime: 0.2

@@ -21,16 +21,13 @@ public class FootStepController : MonoBehaviour
 
     public void Step()
     {
-        if(hit[0].collider != null)
-        {
-            if(hit[0].collider.tag == "GrassGround") audioSource.PlayOneShot(RandomGrassClip());
-            else if(hit[0].collider.tag == "SolidGround") audioSource.PlayOneShot(RandomSolidClip());
-            else if(hit[0].collider.tag == "WoodGround") audioSource.PlayOneShot(RandomWoodClip());
-        }
+        if(hit[0].collider == null) return;
+        if(hit[0].collider.tag == "GrassGround") audioSource.PlayOneShot(RandomGrassClip());
+        else if(hit[0].collider.tag == "SolidGround") audioSource.PlayOneShot(RandomSolidClip());
+        else if(hit[0].collider.tag == "WoodGround") audioSource.PlayOneShot(RandomWoodClip());
     }
 
     private AudioClip RandomGrassClip() => grassGroundClip[Random.Range(0, grassGroundClip.Length)];
     private AudioClip RandomSolidClip() => solidGroundClip[Random.Range(0, solidGroundClip.Length)];
     private AudioClip RandomWoodClip() => woodGroundClip[Random.Range(0, woodGroundClip.Length)];
-    private AudioClip JumpingClip() => jumpClip[Random.Range(0, jumpClip.Length)];
 }
