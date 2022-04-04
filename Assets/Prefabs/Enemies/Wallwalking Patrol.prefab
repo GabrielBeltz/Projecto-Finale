@@ -269,14 +269,17 @@ MonoBehaviour:
   receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 1
-  DeathType: 1
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 8495341369f80d24592aa1a35b6d47c7, type: 3}
   - {fileID: 8300000, guid: 98c262d4a67a21d4c8ac462eaacfe917, type: 3}
-  Collider: {fileID: 0}
-  Renderer: {fileID: 0}
-  RigidBody: {fileID: 0}
+  Collider: {fileID: 6208125088740829603}
+  Renderer: {fileID: 6316516566706879895}
+  RigidBody: {fileID: 6871864164816524321}
   audioSource: {fileID: 5087293631567823256}
+  BehavioursToDisable:
+  - {fileID: 6316516566706879891}
+  - {fileID: 8505685576588254485}
 --- !u!114 &6316516566706879891
 MonoBehaviour:
   m_ObjectHideFlags: 0

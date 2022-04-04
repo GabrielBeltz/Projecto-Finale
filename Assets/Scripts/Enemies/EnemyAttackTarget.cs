@@ -23,6 +23,7 @@ public class EnemyAttackTarget : MonoBehaviour
     public Renderer Renderer;
     public Rigidbody2D RigidBody;
     public AudioSource audioSource;
+    public MonoBehaviour[] BehavioursToDisable;
     RigidbodyConstraints2D constraints;
 
     private void Awake()
@@ -55,14 +56,14 @@ public class EnemyAttackTarget : MonoBehaviour
         currentHealth = TotalHealth;
         onAttackReceived += ReceiveDamage;
 
-        if(hasRespawnBehaviour) DeathType = EnemyDeathType.DisableRendererAndCollider;
+        if(hasRespawnBehaviour) DeathType = EnemyDeathType.DisableAllButAudio;
 
         if(DamageReceived > 0)
         {
             switch(DeathType)
             {
-                case EnemyDeathType.DisableRendererAndCollider:
-                    onDeath += DefaultDeath;
+                case EnemyDeathType.DisableAllButAudio:
+                    onDeath += DisableAllButAudio;
 
                     if(RigidBody == null) break;
                 
@@ -90,8 +91,8 @@ public class EnemyAttackTarget : MonoBehaviour
 
         switch(DeathType)
         {
-            case EnemyDeathType.DisableRendererAndCollider:
-                onDeath -= DefaultDeath;
+            case EnemyDeathType.DisableAllButAudio:
+                onDeath -= DisableAllButAudio;
                 break;
             case EnemyDeathType.DeactivateSelf:
                 onDeath -= DeactivateSelf;
@@ -115,10 +116,15 @@ public class EnemyAttackTarget : MonoBehaviour
         }
     }
 
-    void DefaultDeath()
+    void DisableAllButAudio()
     {
         Collider.enabled = false;
         Renderer.enabled = false;
+
+        foreach(MonoBehaviour behav in BehavioursToDisable)
+        {
+            behav.enabled = false;
+        }
 
         if(RigidBody == null) return;
 
@@ -140,4 +146,4 @@ public class EnemyAttackTarget : MonoBehaviour
 
 }
 
-public enum EnemyDeathType { DisableRendererAndCollider, DeactivateSelf }
+public enum EnemyDeathType { DisableAllButAudio, DeactivateSelf }

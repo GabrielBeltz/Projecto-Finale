@@ -258,6 +258,7 @@ MonoBehaviour:
   Renderer: {fileID: 0}
   RigidBody: {fileID: 0}
   audioSource: {fileID: 0}
+  BehavioursToDisable: []
 --- !u!1 &141759291
 GameObject:
   m_ObjectHideFlags: 0
