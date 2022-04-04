@@ -249,8 +249,8 @@ MonoBehaviour:
   groundLayerMask:
     serializedVersion: 2
     m_Bits: 8
-  rotationFeet: {fileID: 1923148513974575335}
-  upperRotationFeet: {fileID: 5612225134543327112}
+  rotaDown: {fileID: 1923148513974575335}
+  rotaUp: {fileID: 5612225134543327112}
   frontFeet: {fileID: 7122912228403170251}
   target: {fileID: 6316516566706879891}
 --- !u!114 &6316516566706879889
