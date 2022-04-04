@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1156973141050903399}
   m_Layer: 3
   m_Name: Platform 3
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  playerKnockback: 300
+  playerKnockback: 1000
 --- !u!114 &8505685576588254485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,7 +228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartsGoingLeft: 0
   neverRotates: 0
-  speed: 2
+  speed: 1.5
   floorOffset: 0.6
   contactFilter:
     useTriggers: 0
@@ -264,11 +264,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87214f58d37669e4aa28d0a13bcfc264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TotalHealth: 2
-  currentHealth: 2
+  TotalHealth: 5
+  currentHealth: 5
   receivedAttackDirection: 0
   DamageReceived: 1
-  selfKnockbackReceived: 1
+  selfKnockbackReceived: 2
   DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 8495341369f80d24592aa1a35b6d47c7, type: 3}

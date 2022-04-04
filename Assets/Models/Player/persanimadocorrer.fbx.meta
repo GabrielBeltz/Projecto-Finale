@@ -1,11 +1,17 @@
 fileFormatVersion: 2
-guid: 06c0a4ebac834f041ab9aa284650c444
+guid: 3effdf60874db634496f2e67a25a7e4c
 ModelImporter:
   serializedVersion: 21100
   internalIDToNameTable:
   - first:
-      74: -203655887218126122
-    second: Dash
+      74: -5656226686376687864
+    second: PlayerRun
+  - first:
+      74: 3055631123038368653
+    second: metarig|rigfy_attack1
+  - first:
+      74: -1742863887088739597
+    second: PlayerRun
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -35,18 +41,18 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Dash
-      takeName: mixamo.com
+      name: PlayerRun
+      takeName: metarig|rigfy_run
       internalID: 0
       firstFrame: 0
-      lastFrame: 38
+      lastFrame: 21
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -58,7 +64,21 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.30864197
+        functionName: Step
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 588bfba2ac1a13e41bf079ace1289562, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.7663636
+        functionName: Step
+        data: 
+        objectReferenceParameter: {fileID: 11500000, guid: 588bfba2ac1a13e41bf079ace1289562, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

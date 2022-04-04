@@ -83,8 +83,6 @@ public class PlayerController : MonoBehaviour
             HandleWalking();
 
             HandleJumping();
-
-            //HandleDashing();
         }
 
         HandleAnimation();
@@ -245,6 +243,8 @@ public class PlayerController : MonoBehaviour
 
     public void HandleDashing()
     {
+        if(IsKnockbacked) return;
+
         if (_dashCooldownTimer < Time.time)
         {
             if (Input.GetKeyDown(KeyCode.E) && !_hasDashed && _dir.x != 0)
@@ -370,7 +370,7 @@ public class PlayerController : MonoBehaviour
         float knockbackResistance = StatsManager.Instance.KnockbackResistance.totalValue;
         CurrentHealth -= damage;
         _rb.velocity = Vector3.zero;
-        _rb.AddForce(new Vector2(knockback.x, knockback.y / 2) * knockbackResistance, ForceMode2D.Force);
+        _rb.AddForce(new Vector2(knockback.x, knockback.y * 1.5f) * knockbackResistance, ForceMode2D.Force);
         _knockbackTimer = IsGrounded ? Time.time + (_knockbackTime * knockbackResistance) : Time.time + ((_knockbackTime + _extraUngroundedKnockbackTime) * knockbackResistance);
     }
 
