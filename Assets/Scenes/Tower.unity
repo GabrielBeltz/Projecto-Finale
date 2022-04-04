@@ -551,6 +551,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a2e07278962939c4d8cf6ff2faeba544, type: 2}
   - {fileID: 11400000, guid: a2e07278962939c4d8cf6ff2faeba544, type: 2}
   - {fileID: 11400000, guid: a2e07278962939c4d8cf6ff2faeba544, type: 2}
+  - {fileID: 11400000, guid: ca82136a696274c49ab990ddf4450f6c, type: 2}
   - {fileID: 11400000, guid: a2e07278962939c4d8cf6ff2faeba544, type: 2}
   - {fileID: 11400000, guid: a2e07278962939c4d8cf6ff2faeba544, type: 2}
   - {fileID: 11400000, guid: a2e07278962939c4d8cf6ff2faeba544, type: 2}
@@ -596,8 +597,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: a2e07278962939c4d8cf6ff2faeba544, type: 2}
   - {fileID: 11400000, guid: a2e07278962939c4d8cf6ff2faeba544, type: 2}
   - {fileID: 11400000, guid: a2e07278962939c4d8cf6ff2faeba544, type: 2}
-  - {fileID: 11400000, guid: a2e07278962939c4d8cf6ff2faeba544, type: 2}
-  FloorHeight: 22
+  FloorHeight: 21.5
   CurrentFloor: 0
   _player: {fileID: 758481785}
 --- !u!4 &953779364

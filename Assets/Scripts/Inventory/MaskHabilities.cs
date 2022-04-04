@@ -24,11 +24,12 @@ public class MaskHabilities : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.name == "DashMask")
+        Item item;
+        if(collision.gameObject.TryGetComponent<Item>(out item))
         {
+            if(item.item.name == "DashMask")
             hasDashMask = true;
             Destroy(collision.gameObject);
         }
     }
-
 }
