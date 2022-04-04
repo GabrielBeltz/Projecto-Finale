@@ -19,6 +19,7 @@ public class EnemyPatrolWalls : MonoBehaviour
 
     private void Start()
     {
+        if(transform.lossyScale.x < 0) speed = -speed;
         if(StartsGoingLeft) Backtrack();
     }
 

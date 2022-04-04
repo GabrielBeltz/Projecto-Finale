@@ -248,18 +248,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
-  defaultDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  col: {fileID: 116529974}
-  rdr: {fileID: 116529975}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!1 &141759291
 GameObject:
@@ -549,18 +546,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
-  defaultDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  col: {fileID: 177930593}
-  rdr: {fileID: 177930594}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!1 &225659082
 GameObject:
@@ -816,18 +810,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 0
-  defaultDeath: 1
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: dc9cbde9a64f216408c26d2322d553de, type: 3}
-  col: {fileID: 280015988}
-  rdr: {fileID: 0}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 1844111420}
 --- !u!1 &309398998
 GameObject:
@@ -1192,18 +1183,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
-  defaultDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  col: {fileID: 339253541}
-  rdr: {fileID: 339253542}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!1 &341059295
 GameObject:
@@ -1330,18 +1318,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
-  defaultDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  col: {fileID: 341059297}
-  rdr: {fileID: 341059298}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!1 &343076669
 GameObject:
@@ -1468,18 +1453,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
-  defaultDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  col: {fileID: 343076671}
-  rdr: {fileID: 343076672}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!1 &415649485
 GameObject:
@@ -1513,18 +1495,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 0
-  defaultDeath: 1
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: dc9cbde9a64f216408c26d2322d553de, type: 3}
-  col: {fileID: 415649487}
-  rdr: {fileID: 0}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 752359287}
 --- !u!61 &415649487
 BoxCollider2D:
@@ -1692,18 +1671,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
-  defaultDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  col: {fileID: 521855014}
-  rdr: {fileID: 521855015}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!1 &529635984
 GameObject:
@@ -1875,18 +1851,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
-  defaultDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  col: {fileID: 534316638}
-  rdr: {fileID: 534316639}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!1 &552961660
 GameObject:
@@ -2013,18 +1986,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
-  defaultDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  col: {fileID: 552961662}
-  rdr: {fileID: 552961663}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!1 &554761509
 GameObject:
@@ -2151,18 +2121,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
-  defaultDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  col: {fileID: 554761511}
-  rdr: {fileID: 554761512}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!1 &587872025
 GameObject:
@@ -2210,7 +2177,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.3333334, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -2854,18 +2821,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
-  defaultDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  col: {fileID: 827613563}
-  rdr: {fileID: 827613564}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!1 &837294603
 GameObject:
@@ -3024,18 +2988,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
-  defaultDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  col: {fileID: 867226477}
-  rdr: {fileID: 867226478}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!1 &910551133
 GameObject:
@@ -3307,18 +3268,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 0
-  defaultDeath: 1
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: dc9cbde9a64f216408c26d2322d553de, type: 3}
-  col: {fileID: 989652934}
-  rdr: {fileID: 0}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 172194136}
 --- !u!61 &989652934
 BoxCollider2D:
@@ -3852,18 +3810,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
-  defaultDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  col: {fileID: 1111579724}
-  rdr: {fileID: 1111579725}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!1 &1136455663
 GameObject:
@@ -3894,27 +3849,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67209ce492f13f7409bc4029c8e3a488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionIndex: 0
-  interactions:
-  - indexMod: 1
-    events:
-      m_PersistentCalls:
-        m_Calls: []
-    getKeys: []
-    setKeys: []
-  - indexMod: 1
-    events:
-      m_PersistentCalls:
-        m_Calls: []
-    getKeys: []
-    setKeys: []
-  - indexMod: 1
-    events:
-      m_PersistentCalls:
-        m_Calls: []
-    getKeys: []
-    setKeys: []
-  onExitInteraction:
+  InteractionIndex: 0
+  lastIndex: 0
+  Interactions: []
+  OnExitInteraction:
     m_PersistentCalls:
       m_Calls: []
 --- !u!4 &1136455665
@@ -4057,18 +3995,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
-  defaultDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  col: {fileID: 1138380684}
-  rdr: {fileID: 1138380685}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!1 &1190126200
 GameObject:
@@ -4472,18 +4407,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 3
   DamageReceived: 1
   selfKnockbackReceived: 0
-  defaultDeath: 1
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  col: {fileID: 1266028708}
-  rdr: {fileID: 1266028709}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!1 &1273046428
 GameObject:
@@ -4725,63 +4657,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67209ce492f13f7409bc4029c8e3a488, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactionIndex: 0
-  interactions:
-  - indexMod: 0
-    events:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 529635985}
-          m_TargetAssemblyTypeName: TextDisplayer, Assembly-CSharp
-          m_MethodName: DisplayText
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: tu vai entrar na area1 inner house
-            m_BoolArgument: 0
-          m_CallState: 2
-    getKeys:
-    - name: casaDoVelhoDesbloqueada
-      value: 1
-    setKeys: []
-  - indexMod: 0
-    events:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1289479802}
-          m_TargetAssemblyTypeName: CommonInteractionsEvents, Assembly-CSharp
-          m_MethodName: LoadScene
-          m_Mode: 5
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: area 1 inner house
-            m_BoolArgument: 0
-          m_CallState: 2
-    getKeys:
-    - name: casaDoVelhoDesbloqueada
-      value: 1
-    setKeys: []
-  onExitInteraction:
+  InteractionIndex: 0
+  lastIndex: 0
+  Interactions: []
+  OnExitInteraction:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1315655276
 GameObject:
   m_ObjectHideFlags: 0
@@ -5161,18 +5042,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
-  defaultDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  col: {fileID: 1325860734}
-  rdr: {fileID: 1325860735}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!1 &1336688881
 GameObject:
@@ -5553,18 +5431,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
-  defaultDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  col: {fileID: 1386134770}
-  rdr: {fileID: 1386134771}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!1 &1400707092
 GameObject:
@@ -5758,18 +5633,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 1
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 0
-  defaultDeath: 1
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: dc9cbde9a64f216408c26d2322d553de, type: 3}
-  col: {fileID: 1463757658}
-  rdr: {fileID: 0}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 711296438}
 --- !u!61 &1463757658
 BoxCollider2D:
@@ -6318,18 +6190,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
-  defaultDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  col: {fileID: 1558061941}
-  rdr: {fileID: 1558061942}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!1 &1568145140
 GameObject:
@@ -6830,18 +6699,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
-  defaultDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  col: {fileID: 1709729114}
-  rdr: {fileID: 1709729115}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!1 &1725030744
 GameObject:
@@ -7095,18 +6961,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
-  defaultDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  col: {fileID: 1756710462}
-  rdr: {fileID: 1756710463}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!1 &1774677438
 GameObject:
@@ -7369,18 +7232,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 0
   currentHealth: 0
-  onDeathEvent:
-    m_PersistentCalls:
-      m_Calls: []
   receivedAttackDirection: 0
   DamageReceived: 0
   selfKnockbackReceived: 0.1
-  defaultDeath: 0
+  DeathType: 0
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  col: {fileID: 1823230701}
-  rdr: {fileID: 1823230702}
-  rb: {fileID: 0}
+  Collider: {fileID: 0}
+  Renderer: {fileID: 0}
+  RigidBody: {fileID: 0}
   audioSource: {fileID: 0}
 --- !u!1 &1844111418
 GameObject:
@@ -7595,6 +7455,7 @@ MonoBehaviour:
             m_StringArgument: area 2
             m_BoolArgument: 0
           m_CallState: 2
+    getKeysMode: 0
     getKeys: []
     setKeys: []
 --- !u!4 &1871858334
@@ -8627,6 +8488,38 @@ PrefabInstance:
     - target: {fileID: 1154210218694514591, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 1672024945556933721, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
+      propertyPath: field of view
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 1672024945556933721, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
+      propertyPath: near clip plane
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 1672024945556933721, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
+      propertyPath: orthographic size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259206447251639621, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259206447251639621, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 8.464102
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259206447251639621, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.660253
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259206447251639621, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9659258
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259206447251639621, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.2588191
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}

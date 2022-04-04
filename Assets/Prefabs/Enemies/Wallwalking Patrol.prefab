@@ -168,13 +168,13 @@ GameObject:
   - component: {fileID: 6316516566706879896}
   - component: {fileID: 6414420016722338308}
   - component: {fileID: 8505685576588254485}
-  - component: {fileID: 6316516566706879889}
   - component: {fileID: 6316516566706879890}
   - component: {fileID: 6316516566706879891}
   - component: {fileID: 6316516566706879894}
   - component: {fileID: 6316516566706879895}
   - component: {fileID: 6871864164816524321}
   - component: {fileID: 6208125088740829603}
+  - component: {fileID: 8813706117982784071}
   m_Layer: 6
   m_Name: Wallwalking Patrol
   m_TagString: Untagged
@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  playerKnockback: 1500
+  playerKnockback: 300
 --- !u!114 &8505685576588254485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -226,11 +226,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fbc1eed3e3d7cb41a2f8ea77bc2b311, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 0
+  StartsGoingLeft: 0
+  neverRotates: 0
   speed: 2
   floorOffset: 0.6
-  backtracking: 0
-  neverRotates: 0
   contactFilter:
     useTriggers: 0
     useLayerMask: 1
@@ -253,23 +252,6 @@ MonoBehaviour:
   rotaUp: {fileID: 5612225134543327112}
   frontFeet: {fileID: 7122912228403170251}
   target: {fileID: 6316516566706879891}
---- !u!114 &6316516566706879889
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6316516566706879897}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e83e57fbcdba434a90a83006afdf06b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  originalPosition: {x: 24.26, y: 9.42, z: 0}
-  respawningTime: 0
-  Collider: {fileID: 0}
-  Renderer: {fileID: 0}
-  RigidBody: {fileID: 0}
 --- !u!114 &6316516566706879890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -408,6 +390,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 2}
   m_EdgeRadius: 0
+--- !u!114 &8813706117982784071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6316516566706879897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8351924a1bc15d243b52eb608537554d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BaseChance: 10
+  ChancePerFloor: 5
 --- !u!1 &7795057724915705268
 GameObject:
   m_ObjectHideFlags: 0

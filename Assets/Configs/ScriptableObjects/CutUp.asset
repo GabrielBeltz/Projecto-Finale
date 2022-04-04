@@ -18,7 +18,7 @@ MonoBehaviour:
   cooldown: 0.2
   range: 2.5
   knockback: 525
-  selfKnockback: 500
+  selfKnockback: 150
   animatorTrigger: CutUp
   comboInfo:
     timeBetween: 0
