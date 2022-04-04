@@ -54,7 +54,7 @@ public class EnemyPatrolWalls : MonoBehaviour
 
             Rotate(false);
         }
-        else if (Physics2D.Raycast(frontFeet.position, -this.transform.up, contactFilter, hit, 1f) > 0)
+        else if (Physics2D.Raycast(frontFeet.position, -this.transform.up, contactFilter, hit, 0.15f) > 0)
         {
             Move();
         }

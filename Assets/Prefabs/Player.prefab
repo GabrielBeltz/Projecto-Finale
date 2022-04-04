@@ -399,7 +399,7 @@ MonoBehaviour:
   _grounderOffset: -1
   _grounderRadius: 0.2
   IsGrounded: 1
-  _initialJumpSpeed: 20
+  _initialJumpSpeed: 18
   _minJumpSpeed: 0
   _fallingAcceleration: 20
   _timeUntilMaxFallingSpeed: 2
@@ -939,7 +939,7 @@ MonoBehaviour:
   m_Follow: {fileID: 1154210218694514585}
   m_Lens:
     FieldOfView: 90
-    OrthographicSize: 10
+    OrthographicSize: 12
     NearClipPlane: 0.001
     FarClipPlane: 300
     Dutch: 0
@@ -1890,8 +1890,8 @@ Camera:
   m_GameObject: {fileID: 7643427063636187243}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.43543077, g: 0.63619757, b: 0.9716981, a: 0}
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.8773585, g: 0.8773585, b: 0.8773585, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -1904,11 +1904,11 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.01
+  near clip plane: 0.001
   far clip plane: 300
   field of view: 90
-  orthographic: 0
-  orthographic size: 10
+  orthographic: 1
+  orthographic size: 12
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
