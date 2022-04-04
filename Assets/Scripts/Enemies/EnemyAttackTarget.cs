@@ -18,12 +18,15 @@ public class EnemyAttackTarget : MonoBehaviour
     bool hasRespawnBehaviour;
 
     [Header("Needed to Work")]
+#if UNITY_EDITOR
     [Help("Se esses ficarem nulos o script pega do próprio gameObject ou o primeiro que encontrar nos filhos.", UnityEditor.MessageType.Info)]
+#endif
     public Collider2D Collider;
     public Renderer Renderer;
     public Rigidbody2D RigidBody;
     public AudioSource audioSource;
     public MonoBehaviour[] BehavioursToDisable;
+    public GameObject[] GameObjectsToDeactivate;
     RigidbodyConstraints2D constraints;
 
     private void Awake()
@@ -124,6 +127,11 @@ public class EnemyAttackTarget : MonoBehaviour
         foreach(MonoBehaviour behav in BehavioursToDisable)
         {
             behav.enabled = false;
+        }
+
+        foreach(var gObj in GameObjectsToDeactivate)
+        {
+            gObj.SetActive(false);
         }
 
         if(RigidBody == null) return;

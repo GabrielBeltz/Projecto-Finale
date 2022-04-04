@@ -10,7 +10,9 @@ public class RespawnBehaviour : MonoBehaviour
     [Tooltip("Se deixado em 0 ou menos nunca respawna.")]
     public float respawningTime;
     EnemyAttackTarget enemyAttackTarget;
+#if UNITY_EDITOR
     [Help("Se esses ficarem nulos o script pega do EnemyAttackTarget.", UnityEditor.MessageType.Info)]
+#endif
     [Header("Needed to Work")]
     public Collider2D Collider;
     public Renderer Renderer;
