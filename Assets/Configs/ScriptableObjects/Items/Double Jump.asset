@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2dd84c5a527f270478c91e8e78325a17, type: 3}
-  m_Name: DashMask
+  m_Name: Double Jump
   m_EditorClassIdentifier: 
-  prefab: {fileID: 3612854815055149199, guid: b3f89fd6ee7f54245a908b5229468bfa, type: 3}
+  prefab: {fileID: 6869077346341479488, guid: 4e23a9125ddf152408010533451974a4, type: 3}
   type: 0
   discriprion: 
-  habilities: 0
+  habilities: 1
   maskDiscriprion: 

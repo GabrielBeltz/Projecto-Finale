@@ -16,11 +16,11 @@ public class PlayerController : MonoBehaviour
     private readonly Collider2D[] _ground = new Collider2D[1];
 
     [Header("Jumping")]
-    [SerializeField] private float _initialJumpSpeed = 20;
-    [SerializeField] private float _minJumpSpeed = 15, _fallingAcceleration = 7.5f, _timeUntilMaxFallingSpeed = 2, _coyoteTime = 0.2f, _jumpTime, _extraJumpTime;
+    public int ExtraJumpsMax;
+    [SerializeField] private float _initialJumpSpeed = 20, _minJumpSpeed = 15, _fallingAcceleration = 7.5f, _timeUntilMaxFallingSpeed = 2, _coyoteTime = 0.2f, _jumpTime, _extraJumpTime;
     [SerializeField] private bool _hasJumped;
     private float _maxFallSpeed => -_minJumpSpeed - (_fallingAcceleration * _timeUntilMaxFallingSpeed);
-    float _timeLeftGrounded;
+    float _timeLeftGrounded, _extraJumpsCharged;
     public static event Action OnJump;
 
     [Header("Walking")]
@@ -70,6 +70,7 @@ public class PlayerController : MonoBehaviour
         _timeOfLastAttack = 0;
         _rb = GetComponent<Rigidbody2D>();
         _lastAttack = _defaultAttack;
+        _extraJumpsCharged = ExtraJumpsMax;
     }
 
     void Update()
@@ -126,6 +127,7 @@ public class PlayerController : MonoBehaviour
                 _knockbackTimer = Time.time + _groundImpactKnockbackTime;
             }
 
+            _extraJumpsCharged = ExtraJumpsMax;
             IsGrounded = true;
             _hasDashed = false;
             _hasJumped = false;
@@ -199,6 +201,11 @@ public class PlayerController : MonoBehaviour
                     ExecuteJump(new Vector2(_rb.velocity.x, _minJumpSpeed));
                 }
             }
+            else if(_extraJumpsCharged > 0)
+            {
+                _extraJumpsCharged--;
+                ExecuteJump(new Vector2(_rb.velocity.x, _minJumpSpeed));
+            }
         }
 
         void ExecuteJump(Vector3 dir)
@@ -241,7 +248,7 @@ public class PlayerController : MonoBehaviour
 
     #region Dash
 
-    public void HandleDashing()
+    public void HandleDashing(int rank)
     {
         if(IsKnockbacked) return;
 
