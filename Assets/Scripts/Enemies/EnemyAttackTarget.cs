@@ -70,14 +70,9 @@ public class EnemyAttackTarget : MonoBehaviour
 
                     if(RigidBody == null) break;
                 
-                    if(constraints == RigidbodyConstraints2D.None)
-                    {
-                        constraints = RigidBody.constraints;
-                    }
-                    else
-                    {
-                        RigidBody.constraints = constraints;
-                    }
+                    if(constraints == RigidbodyConstraints2D.None) constraints = RigidBody.constraints;
+                    else RigidBody.constraints = constraints;
+
                     break;
                 case EnemyDeathType.DeactivateSelf:
                     onDeath += DeactivateSelf;
@@ -110,13 +105,8 @@ public class EnemyAttackTarget : MonoBehaviour
     void ReceiveDamage(PlayerMeleeAttack playerMeleeAttack, Vector3 pos)
     {
         if (playerMeleeAttack.direction == receivedAttackDirection || receivedAttackDirection == AttackDirection.Front)
-        {
-            currentHealth -= (playerMeleeAttack.damage * StatsManager.Instance.Damage.totalValue) * DamageReceived;
-
-            Debug.Log($"{gameObject.name} recebeu {(playerMeleeAttack.damage * StatsManager.Instance.Damage.totalValue) * DamageReceived} de dano.");
-
-            if (currentHealth <= 0) onDeath?.Invoke();
-        }
+        currentHealth -= (playerMeleeAttack.damage * StatsManager.Instance.Damage.totalValue) * DamageReceived;
+        if (currentHealth <= 0) onDeath?.Invoke();
     }
 
     void DisableAllButAudio()
@@ -151,7 +141,6 @@ public class EnemyAttackTarget : MonoBehaviour
         audioSource.clip = hitSound[Random.Range(0, hitSound.Length)];
         audioSource.Play();
     }
-
 }
 
 public enum EnemyDeathType { DisableAllButAudio, DeactivateSelf }

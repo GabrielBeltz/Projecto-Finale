@@ -10,10 +10,11 @@ public class TowerController : MonoBehaviour
     public int CurrentFloor;
     [Header("Needed to Work")]
     public Transform _player;
+    Transform _tower;
     float _baseHeight;
     int _lastLevel = 0, _newLevel;
 
-    List<GameObject> _spawnedLevels;
+    GameObject[] _spawnedLevels;
 
     void Awake()
     {
@@ -24,32 +25,30 @@ public class TowerController : MonoBehaviour
 
     private void Start()
     {
-         _spawnedLevels = new List<GameObject>();
+        _tower = new GameObject("Tower").transform;
+        _spawnedLevels = new GameObject[LevelPools.Count];
         NewLevel();
     }
 
     void Update()
     {
-        _newLevel = Mathf.FloorToInt((_player.position.y - _baseHeight) / FloorHeight);
+        _newLevel = Mathf.Clamp(Mathf.FloorToInt((_player.position.y + 1 - _baseHeight) / FloorHeight), 0, 100) + 1;
         CurrentFloor = _newLevel;
-        _newLevel = Mathf.Clamp(_newLevel, 0, 100) + 1;
-        if(_lastLevel != _newLevel && _lastLevel < _newLevel)
-        {
-            NewLevel();
-            _lastLevel = _newLevel;
-        }
-        
-        if(_spawnedLevels.Count > _newLevel + 1) 
-        {
-            Destroy(_spawnedLevels[_newLevel + 1]);
-            _spawnedLevels.RemoveAt(_newLevel + 1);
-            _lastLevel--;
-        } 
+
+        if(_lastLevel != _newLevel && _lastLevel < _newLevel) NewLevel();
+
+        if(_spawnedLevels[_newLevel + 1] == null || LevelPools[_newLevel + 1].IsFixed) return;
+
+        Destroy(_spawnedLevels[_newLevel + 1]);
+        _spawnedLevels[_newLevel + 1] = null;
+        _lastLevel = _newLevel;
     }
 
     void NewLevel()
     {
-        _spawnedLevels.Add(Instantiate(LevelPools[_newLevel].GetLevel(), new Vector3(0, 4 + (FloorHeight * _newLevel)), Quaternion.identity, null));
-        if(Random.Range(1, 3) == 2) _spawnedLevels[_spawnedLevels.Count - 1].transform.localScale = new Vector3(-1, 1, 1);
+        _lastLevel = _newLevel;
+        if(_spawnedLevels[_newLevel] != null) return;
+        _spawnedLevels[_newLevel] = Instantiate(LevelPools[_newLevel].GetLevel(), new Vector3(0, 4 + (FloorHeight * _newLevel)), Quaternion.identity, _tower);
+        if(Random.Range(1, 3) == 2) _spawnedLevels[_newLevel].transform.localScale = new Vector3(-1, 1, 1);
     }
 }

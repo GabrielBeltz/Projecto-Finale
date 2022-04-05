@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e360a9444ee07f42878313ea3bdb424, type: 3}
   m_Name: Level 5 Fixed
   m_EditorClassIdentifier: 
+  IsFixed: 1
   Prefabs:
   - {fileID: 5139997471819653147, guid: f46dea972f4e6df489f9ce69348eaffe, type: 3}
