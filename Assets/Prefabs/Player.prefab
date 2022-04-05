@@ -154,14 +154,16 @@ MonoBehaviour:
   _grounderOffset: -1
   _grounderRadius: 0.2
   IsGrounded: 1
+  ExtraJumpsMax: 0
   _initialJumpSpeed: 18
-  _minJumpSpeed: 0
-  _fallingAcceleration: 0
-  _timeUntilMaxFallingSpeed: 1
+  _minJumpSpeed: 15
+  _fallingAcceleration: 20
+  _timeUntilMaxFallingSpeed: 2
   _coyoteTime: 0.2
   _jumpTime: 0.05
   _extraJumpTime: 0.2
   _hasJumped: 0
+  _fallImpact: 0
   _baseWalkSpeed: 8
   _acceleration: 5000
   _maxWalkingPenalty: 0.1
@@ -177,7 +179,7 @@ MonoBehaviour:
   CurrentHealth: 6
   _knockbackTime: 0.1
   _selfKnockBackTime: 0.2
-  _groundImpactKnockbackTime: 0.2
+  _groundImpactKnockbackTime: 0.5
   _extraUngroundedKnockbackTime: 0.2
   _defaultAttack: {fileID: 11400000, guid: 1d957a92dec18a84d9498d3938502dbe, type: 2}
   _playerAttacks:
@@ -278,7 +280,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bb6ff3d1717b5f478846fdd94361606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hasDashMask: 0
+  hasDash1: 0
+  hasDash2: 0
+  hasDash3: 0
 --- !u!1 &1154210220103111487
 GameObject:
   m_ObjectHideFlags: 0
@@ -572,9 +576,9 @@ MonoBehaviour:
   m_LookaheadTime: 0
   m_LookaheadSmoothing: 0
   m_LookaheadIgnoreY: 0
-  m_XDamping: 1
-  m_YDamping: 1
-  m_ZDamping: 1
+  m_XDamping: 0
+  m_YDamping: 0
+  m_ZDamping: 0
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5

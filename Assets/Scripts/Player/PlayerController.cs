@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     [Header("Jumping")]
     public int ExtraJumpsMax;
     [SerializeField] private float _initialJumpSpeed = 20, _minJumpSpeed = 15, _fallingAcceleration = 7.5f, _timeUntilMaxFallingSpeed = 2, _coyoteTime = 0.2f, _jumpTime, _extraJumpTime;
-    [SerializeField] private bool _hasJumped;
+    [SerializeField] private bool _hasJumped, _fallImpact;
     private float _maxFallSpeed => -_minJumpSpeed - (_fallingAcceleration * _timeUntilMaxFallingSpeed);
     float _timeLeftGrounded, _extraJumpsCharged;
     public static event Action OnJump;
@@ -122,12 +122,10 @@ public class PlayerController : MonoBehaviour
 
         if(!IsGrounded && grounded)
         {
-            if (Mathf.Approximately( Mathf.Round(_rb.velocity.y), _maxFallSpeed))
-            {
-                _knockbackTimer = Time.time + _groundImpactKnockbackTime;
-            }
+            if (_fallImpact) _knockbackTimer = Time.time + _groundImpactKnockbackTime;
 
             _extraJumpsCharged = ExtraJumpsMax;
+            _fallImpact = false;
             IsGrounded = true;
             _hasDashed = false;
             _hasJumped = false;
@@ -196,19 +194,16 @@ public class PlayerController : MonoBehaviour
         {
             if(IsGrounded || Time.time < _timeLeftGrounded + _coyoteTime)
             {
-                if(!_hasJumped)
-                {
-                    ExecuteJump(new Vector2(_rb.velocity.x, _minJumpSpeed));
-                }
+                if(!_hasJumped) ExecuteJump();
             }
             else if(_extraJumpsCharged > 0)
             {
                 _extraJumpsCharged--;
-                ExecuteJump(new Vector2(_rb.velocity.x, _minJumpSpeed));
+                ExecuteJump();
             }
         }
 
-        void ExecuteJump(Vector3 dir)
+        void ExecuteJump()
         {
             _timeLeftGrounded = Time.time;
             _hasJumped = true;
@@ -221,7 +216,13 @@ public class PlayerController : MonoBehaviour
         {
             _hasJumped = false;
         }
+            
 
+        if(_rb.velocity.y < 0) _rb.velocity = new Vector2(_rb.velocity.x, Mathf.Clamp(_rb.velocity.y, _maxFallSpeed, 0));
+        if(_rb.velocity.y == _maxFallSpeed) _fallImpact = true;
+
+        Debug.Log($"Impact: {_fallImpact}, velocity: {_rb.velocity.y}, maxFallSpeed: {_maxFallSpeed}");
+        
         if (_hasJumped)
         {
             float newjumpSpeed = Mathf.Clamp(_rb.velocity.y, _minJumpSpeed, _initialJumpSpeed);
