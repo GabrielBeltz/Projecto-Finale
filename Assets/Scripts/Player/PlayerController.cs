@@ -17,9 +17,9 @@ public class PlayerController : MonoBehaviour
 
     [Header("Jumping")]
     public int ExtraJumpsMax;
-    [SerializeField] private float _initialJumpSpeed = 20, _minJumpSpeed = 15, _fallingAcceleration = 7.5f, _timeUntilMaxFallingSpeed = 2, _coyoteTime = 0.2f, _jumpTime, _extraJumpTime;
+    [SerializeField] private float _initialJumpSpeed = 20, _fallingAcceleration = 7.5f, _timeUntilMaxFallingSpeed = 2, _coyoteTime = 0.2f, _jumpTime, _extraJumpTime;
     [SerializeField] private bool _hasJumped, _fallImpact;
-    private float _maxFallSpeed => -_minJumpSpeed - (_fallingAcceleration * _timeUntilMaxFallingSpeed);
+    private float _maxFallSpeed => -_initialJumpSpeed - (_fallingAcceleration * _timeUntilMaxFallingSpeed);
     float _timeLeftGrounded, _extraJumpsCharged;
     public static event Action OnJump;
 
@@ -45,8 +45,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AttackFeedback _attackFeedback;
     PlayerMeleeAttack _lastAttack;
     float _knockbackTimer;
-    bool _downwardAttack;
     public bool IsKnockbacked  => _knockbackTimer > Time.time;
+    public static Action OnPlayerDeath;
 
     [Header("Interactions")]
     public float InteractionRadius;
@@ -89,14 +89,6 @@ public class PlayerController : MonoBehaviour
         HandleAnimation();
     }
 
-    void FixedUpdate()
-    {
-        if (_downwardAttack && Input.GetButton("Fire1"))
-        {
-            Attack();
-        }
-    }
-
     void GatherInputs()
     {
         _inputs.RawX = (int)Input.GetAxisRaw("Horizontal");
@@ -106,8 +98,6 @@ public class PlayerController : MonoBehaviour
         if (_inputs.X != 0) SetFacingDirection(_inputs.X < 0);
         
         if (Input.GetButtonDown("Fire1") && !IsKnockbacked) ExecuteAttack();
-        
-        if (_downwardAttack && Input.GetButtonUp("Fire1")) _downwardAttack = false;
         
         if (Input.GetButtonDown("Fire2")) ExecuteInteraction(); 
     }
@@ -208,7 +198,6 @@ public class PlayerController : MonoBehaviour
             _timeLeftGrounded = Time.time;
             _hasJumped = true;
             _rb.velocity = new Vector2(_rb.velocity.x, _initialJumpSpeed);
-            //PlaySound(Audioclips.Find(audioClip => audioClip.name == "Jump"));
             OnJump?.Invoke();
         }
 
@@ -225,8 +214,6 @@ public class PlayerController : MonoBehaviour
         
         if (_hasJumped)
         {
-            float newjumpSpeed = Mathf.Clamp(_rb.velocity.y, _minJumpSpeed, _initialJumpSpeed);
-            // Se o jogador segurar o espa�o, o pulo continua normalmente. Se n�o, aplica for�a pra diminuir o pulo dele.
             if ((Input.GetKey(KeyCode.Space) && Time.time < _timeLeftGrounded + _extraJumpTime + _jumpTime))
             {
                 _rb.gravityScale = 0;
@@ -290,7 +277,6 @@ public class PlayerController : MonoBehaviour
     {
         if (_timeOfLastAttack < Time.time)
         {
-            _downwardAttack = false;
             Vector2 attackInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             _lastAttack = GetNextAttack(attackInput);
             _timeOfLastAttack = Time.time + _lastAttack.cooldown;
@@ -302,41 +288,32 @@ public class PlayerController : MonoBehaviour
 
     public void Attack()
     {
-        if(_downwardAttack && GetAttackDirection() != -this.transform.up) return;
-
         Vector3 attackPos = this.transform.position + ((GetAttackDirection() * (_lastAttack.range /2)));
         float attackRotation = Quaternion.LookRotation(GetAttackDirection(), GetAttackDirection()).eulerAngles.x;
         Vector3 attackSize = new Vector3(0.25f, 0.75f, _lastAttack.range / 2);
         RaycastHit2D attackCollider = Physics2D.BoxCast(attackPos, attackSize, attackRotation, GetAttackDirection(), _lastAttack.range/2, _attackLayerMask);
-        bool playSound = !_downwardAttack;
+        bool playSound = true;
 
         if (attackCollider)
         {
             attackSize = new Vector3(attackSize.x, attackSize.y, Vector2.Distance(attackPos, attackCollider.point));
-            _downwardAttack = false;
-            playSound = !_downwardAttack;
             float selfKnockbackReceived = 0;
             EnemyAttackTarget target = attackCollider.transform.GetComponent<EnemyAttackTarget>();
             if (target != null)
             {
-                target.ReceiveAttack(_lastAttack, this.transform.position);
+                target.ReceiveAttack(_lastAttack, transform.position);
                 selfKnockbackReceived = target.selfKnockbackReceived;
             }
 
             if (selfKnockbackReceived != 0)
-            {
+            { 
                 _rb.velocity = Vector3.zero;
                 float multiplier = Mathf.Clamp(selfKnockbackReceived, 0, 1);
                 _knockbackTimer = Time.time + (_selfKnockBackTime * multiplier);
                 _rb.AddForce(_lastAttack.selfKnockback * selfKnockbackReceived * -GetAttackDirection(), ForceMode2D.Force);
             }
         }
-        else
-        {
-            if (GetAttackDirection() == Vector3.down) _downwardAttack = true;
-
-            if (Mathf.Approximately(_inputs.X, 0f)) _rb.AddForce(GetAttackDirection() * (_downwardAttack ? _lastAttack.selfKnockback * 0.01f : _lastAttack.selfKnockback), ForceMode2D.Force);
-        }
+        else if (Mathf.Approximately(_inputs.X, 0f)) _rb.AddForce(GetAttackDirection() * _lastAttack.selfKnockback, ForceMode2D.Force);
 
         _soundEmitter.Stop();
 
@@ -380,6 +357,8 @@ public class PlayerController : MonoBehaviour
         _rb.velocity = Vector3.zero;
         _rb.AddForce(new Vector2(knockback.x, knockback.y * 1.5f) * knockbackResistance, ForceMode2D.Force);
         _knockbackTimer = IsGrounded ? Time.time + (_knockbackTime * knockbackResistance) : Time.time + ((_knockbackTime + _extraUngroundedKnockbackTime) * knockbackResistance);
+
+        if(CurrentHealth < 1) OnPlayerDeath?.Invoke();
     }
 
     #endregion
