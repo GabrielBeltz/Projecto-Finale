@@ -50,6 +50,6 @@ public class TowerController : MonoBehaviour
     void NewLevel()
     {
         _spawnedLevels.Add(Instantiate(LevelPools[_newLevel].GetLevel(), new Vector3(0, 4 + (FloorHeight * _newLevel)), Quaternion.identity, null));
-        if(Random.Range(1, 3) == 2) _spawnedLevels[_spawnedLevels.Count - 1].transform.localScale = new Vector2(-1, 1);
+        if(Random.Range(1, 3) == 2) _spawnedLevels[_spawnedLevels.Count - 1].transform.localScale = new Vector3(-1, 1, 1);
     }
 }

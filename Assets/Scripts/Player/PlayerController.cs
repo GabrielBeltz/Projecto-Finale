@@ -147,14 +147,9 @@ public class PlayerController : MonoBehaviour
     {
         var normalizedDir = _dir.normalized;
 
-        if(_dir != Vector3.zero)
-        {
-            _currentWalkingPenalty += _acceleration * Time.deltaTime;
-        }
-        else
-        {
-            _currentWalkingPenalty -= _maxWalkingPenalty * Time.deltaTime;
-        }
+        if(_dir != Vector3.zero)  _currentWalkingPenalty += _acceleration * Time.deltaTime;
+        else _currentWalkingPenalty -= _maxWalkingPenalty * Time.deltaTime;
+
         _currentWalkingPenalty = Mathf.Clamp(_currentWalkingPenalty, _maxWalkingPenalty, 2f);
 
         var targetVel = new Vector3(normalizedDir.x * _currentWalkingPenalty * _moddedWalkSpeed, _rb.velocity.y, normalizedDir.z);
@@ -201,16 +196,9 @@ public class PlayerController : MonoBehaviour
             OnJump?.Invoke();
         }
 
-        if (Mathf.Approximately(_rb.velocity.y, 0) && !IsGrounded)
-        {
-            _hasJumped = false;
-        }
-            
-
+        if (Mathf.Approximately(_rb.velocity.y, 0) && !IsGrounded) _hasJumped = false;
         if(_rb.velocity.y < 0) _rb.velocity = new Vector2(_rb.velocity.x, Mathf.Clamp(_rb.velocity.y, _maxFallSpeed, 0));
         if(_rb.velocity.y == _maxFallSpeed) _fallImpact = true;
-
-        Debug.Log($"Impact: {_fallImpact}, velocity: {_rb.velocity.y}, maxFallSpeed: {_maxFallSpeed}");
         
         if (_hasJumped)
         {
@@ -218,18 +206,9 @@ public class PlayerController : MonoBehaviour
             {
                 _rb.gravityScale = 0;
             }
-            else
-            {
-                if (Time.time > _timeLeftGrounded + _jumpTime)
-                {
-                    _hasJumped = false;
-                }
-            }
+            else if (Time.time > _timeLeftGrounded + _jumpTime) _hasJumped = false;
         }
-        else
-        {
-            _rb.gravityScale = 10;
-        }
+        else if(!_dashing) _rb.gravityScale = 10;
     }
 
     #endregion
@@ -255,18 +234,18 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if(_dashing)
-        {
-            _rb.velocity = _dashDir * _dashSpeed;
+        if(!_dashing) return; 
+        
+        _rb.velocity = _dashDir * _dashSpeed;
+        _rb.gravityScale = 0;
 
-            if(Time.time >= _timeStartedDash + (_dashLength * StatsManager.Instance.DashLength.totalValue))
-            {
-                _dashing = false;
-                _rb.velocity = new Vector3(_rb.velocity.x, _rb.velocity.y > 3 ? 3 : _rb.velocity.y);
-                _rb.gravityScale = 1;
-                if(IsGrounded) _hasDashed = false;
-                OnStopDashing?.Invoke();
-            }
+        if(Time.time >= _timeStartedDash + (_dashLength * StatsManager.Instance.DashLength.totalValue))
+        {
+            _dashing = false;
+            _rb.velocity = new Vector3(Mathf.Clamp(_rb.velocity.x, 0, _currentWalkingPenalty * _moddedWalkSpeed), _rb.velocity.y > 3 ? 3 : _rb.velocity.y);
+            _rb.gravityScale = 10;
+            if(IsGrounded) _hasDashed = false;
+            OnStopDashing?.Invoke();
         }
     }
     #endregion
@@ -275,13 +254,11 @@ public class PlayerController : MonoBehaviour
 
     public void ExecuteAttack()
     {
-        if (_timeOfLastAttack < Time.time)
-        {
-            Vector2 attackInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-            _lastAttack = GetNextAttack(attackInput);
-            _timeOfLastAttack = Time.time + _lastAttack.cooldown;
-            Attack();
-        }
+        if(_timeOfLastAttack > Time.time) return;
+        Vector2 attackInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        _lastAttack = GetNextAttack(attackInput);
+        _timeOfLastAttack = Time.time + _lastAttack.cooldown;
+        Attack();
     }
 
     public Vector3 GetAttackDirection() => Input.GetAxisRaw("Vertical") != 0 ? Input.GetAxisRaw("Vertical") > 0 ? this.transform.up : -this.transform.up : this.transform.right * -this.transform.localScale.x;
