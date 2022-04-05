@@ -64,6 +64,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 _dashDir;
 
     public Inventory Inventory;
+    FootStepController FootStepController;
 
     void Start()
     {
@@ -71,18 +72,17 @@ public class PlayerController : MonoBehaviour
         _rb = GetComponent<Rigidbody2D>();
         _lastAttack = _defaultAttack;
         _extraJumpsCharged = ExtraJumpsMax;
+        FootStepController = GetComponentInChildren<FootStepController>();
     }
 
     void Update()
     {
         GatherInputs();
-
         HandleGrounding();
         
-        if (!IsKnockbacked)
+        if (!IsKnockbacked || !_myAnimator.GetBool("FellDown"))
         {
             HandleWalking();
-
             HandleJumping();
         }
 
@@ -96,9 +96,9 @@ public class PlayerController : MonoBehaviour
         _dir = new Vector3(_inputs.RawX, 0, 0);
 
         if (_inputs.X != 0) SetFacingDirection(_inputs.X < 0);
-        
-        if (Input.GetButtonDown("Fire1") && !IsKnockbacked) ExecuteAttack();
-        
+
+        if(IsKnockbacked || _myAnimator.GetBool("FellDown")) return;
+        if (Input.GetButtonDown("Fire1")) ExecuteAttack();
         if (Input.GetButtonDown("Fire2")) ExecuteInteraction(); 
     }
 
@@ -112,7 +112,16 @@ public class PlayerController : MonoBehaviour
 
         if(!IsGrounded && grounded)
         {
-            if (_fallImpact) _knockbackTimer = Time.time + _groundImpactKnockbackTime;
+            if(_fallImpact) 
+            {
+                _knockbackTimer = Time.time + _groundImpactKnockbackTime;
+                _myAnimator.SetBool("FellDown", true);
+                PlaySound(Audioclips[1]);
+            }
+            else
+            {
+                FootStepController.PlayOneShot(FootStepController.RandomSolidClip(), 0.5f);
+            }
 
             _extraJumpsCharged = ExtraJumpsMax;
             _fallImpact = false;
@@ -145,6 +154,8 @@ public class PlayerController : MonoBehaviour
 
     private void HandleWalking()
     {
+        if(_dir.x != 0) _myAnimator.SetBool("FellDown", false);
+
         var normalizedDir = _dir.normalized;
 
         if(_dir != Vector3.zero)  _currentWalkingPenalty += _acceleration * Time.deltaTime;
@@ -190,6 +201,7 @@ public class PlayerController : MonoBehaviour
 
         void ExecuteJump()
         {
+            _myAnimator.SetBool("FellDown", false);
             _timeLeftGrounded = Time.time;
             _hasJumped = true;
             _rb.velocity = new Vector2(_rb.velocity.x, _initialJumpSpeed);
@@ -269,7 +281,6 @@ public class PlayerController : MonoBehaviour
         float attackRotation = Quaternion.LookRotation(GetAttackDirection(), GetAttackDirection()).eulerAngles.x;
         Vector3 attackSize = new Vector3(0.25f, 0.75f, _lastAttack.range / 2);
         RaycastHit2D attackCollider = Physics2D.BoxCast(attackPos, attackSize, attackRotation, GetAttackDirection(), _lastAttack.range/2, _attackLayerMask);
-        bool playSound = true;
 
         if (attackCollider)
         {
@@ -294,7 +305,7 @@ public class PlayerController : MonoBehaviour
 
         _soundEmitter.Stop();
 
-        if (playSound) PlaySound(_lastAttack.sound);
+        PlaySound(_lastAttack.sound);
 
         _attackFeedback.CallFeedback(attackSize, attackPos, attackRotation, _lastAttack.cooldown);
         _myAnimator.SetTrigger(_lastAttack.animatorTrigger);
@@ -354,13 +365,7 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-    public void PlaySound(AudioClip clipToPlay)
-    {
-        if (_soundEmitter.isPlaying) _soundEmitter.Stop();
-
-        _soundEmitter.clip = clipToPlay;
-        _soundEmitter.Play();
-    }
+    public void PlaySound(AudioClip clipToPlay) => _soundEmitter.PlayOneShot(clipToPlay);
 
     private struct FrameInputs
     {
