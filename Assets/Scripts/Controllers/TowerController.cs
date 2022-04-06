@@ -15,7 +15,7 @@ public class TowerController : MonoBehaviour
     int _lastLevel = 0, _newLevel, _lastIndex = 0;
     [HideInInspector] public PlayerController PlayerController;
     [HideInInspector] public MaskHabilities MaskHabilities;
-    Level lastLevel, lastLastLevel;
+    List<Level> lastLevels;
 
     GameObject[] _spawnedLevels;
 
@@ -27,12 +27,12 @@ public class TowerController : MonoBehaviour
 
         PlayerController = FindObjectOfType<PlayerController>();
         MaskHabilities = FindObjectOfType<MaskHabilities>();
-
     }
 
     private void Start()
     {
         _tower = new GameObject("Tower").transform;
+        lastLevels = new List<Level>();
         _spawnedLevels = new GameObject[LevelPools.Count];
         NewLevel();
     }
@@ -49,8 +49,7 @@ public class TowerController : MonoBehaviour
         Destroy(_spawnedLevels[_newLevel + 1]);
         _spawnedLevels[_newLevel + 1] = null;
         _lastLevel = _newLevel;
-        _lastIndex = lastLastLevel.ID;
-        lastLevel = lastLastLevel;
+        lastLevels.RemoveAt(_newLevel + 1);
     }
 
     void NewLevel()
@@ -66,12 +65,11 @@ public class TowerController : MonoBehaviour
         else
         {
             level = LevelPools[_newLevel].GetLevelWeighted(_lastIndex);
-            Debug.Log($"Last index {_lastIndex}, new ID: {level.ID}");
             _spawnedLevels[_newLevel] = Instantiate(level.Prefab, new Vector3(0, 4 + (FloorHeight * _newLevel)), Quaternion.identity, _tower);
-            _lastIndex = lastLevel != null ? lastLevel.ID : 0;
-            if(lastLevel != null) lastLastLevel = lastLevel;
-            lastLevel = level;
+            _lastIndex = lastLevels[_newLevel - 1].ID;
         }
+
+        lastLevels.Add(level);
 
         if(Random.Range(1, 3) == 2) _spawnedLevels[_newLevel].transform.localScale = new Vector3(-1, 1, 1);
     }

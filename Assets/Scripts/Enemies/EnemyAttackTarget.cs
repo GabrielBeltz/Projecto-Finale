@@ -22,7 +22,8 @@ public class EnemyAttackTarget : MonoBehaviour
     [Help("Se esses ficarem nulos o script pega do próprio gameObject ou o primeiro que encontrar nos filhos.", UnityEditor.MessageType.Info)]
 #endif
     public Collider2D Collider;
-    public Renderer Renderer;
+    public ParticleSystem ParticleSystem;
+    public Renderer[] Renderer;
     public Rigidbody2D RigidBody;
     public AudioSource audioSource;
     public MonoBehaviour[] BehavioursToDisable;
@@ -36,7 +37,7 @@ public class EnemyAttackTarget : MonoBehaviour
                 Collider = GetComponentInChildren<Collider2D>();
         if(Renderer == null)
             if(!TryGetComponent(out Renderer)) 
-                Renderer = GetComponentInChildren<Renderer>();
+                Renderer = GetComponentsInChildren<Renderer>();
         if(RigidBody == null)
             if(!TryGetComponent(out RigidBody))
             {
@@ -112,7 +113,14 @@ public class EnemyAttackTarget : MonoBehaviour
     void DisableAllButAudio()
     {
         Collider.enabled = false;
-        Renderer.enabled = false;
+
+        if(ParticleSystem != null) ParticleSystem.Play();
+
+        foreach(var rdrdrdr in Renderer)
+        {
+            if(rdrdrdr != null)
+            rdrdrdr.enabled = false;
+        }
 
         foreach(MonoBehaviour behav in BehavioursToDisable)
         {

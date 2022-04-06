@@ -15,7 +15,7 @@ public class RespawnBehaviour : MonoBehaviour
 #endif
     [Header("Needed to Work")]
     public Collider2D Collider;
-    public Renderer Renderer;
+    public Renderer[] Renderer;
     [Header("Optional")]
     public Rigidbody2D RigidBody;
     RigidbodyConstraints2D constraints;
@@ -47,7 +47,12 @@ public class RespawnBehaviour : MonoBehaviour
     void Respawn()
     {
         Collider.enabled = true;
-        Renderer.enabled = true;
+
+        foreach(var rdrdrdr in Renderer)
+        {
+            rdrdrdr.enabled = true;
+        }
+
         enemyAttackTarget.currentHealth = enemyAttackTarget.TotalHealth;
         if(RigidBody != null) RigidBody.constraints = constraints;
     }
