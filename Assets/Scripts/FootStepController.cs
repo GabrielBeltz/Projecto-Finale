@@ -25,6 +25,7 @@ public class FootStepController : MonoBehaviour
 
     public void PlayOneShot(AudioClip audio, float capiTCHE)
     {
+        if(audioSource.isPlaying) audioSource.Stop();
         audioSource.pitch = capiTCHE;
         audioSource.PlayOneShot(audio);
     }

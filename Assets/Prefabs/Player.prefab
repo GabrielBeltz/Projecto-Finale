@@ -165,7 +165,7 @@ MonoBehaviour:
   _fallImpact: 0
   _baseWalkSpeed: 8
   _acceleration: 5000
-  _maxWalkingPenalty: 0.1
+  _maxWalkingPenalty: 1
   _currentWalkingPenalty: 0
   _jumpManeuverabilityPercentage: 1
   _dashLength: 0.1
@@ -249,8 +249,8 @@ Rigidbody2D:
   m_GravityScale: 1
   m_Material: {fileID: 6200000, guid: a35afb39ac262bb499859729d9066a9b, type: 2}
   m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_SleepingMode: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!70 &1154210218694514589
 CapsuleCollider2D:
