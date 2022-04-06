@@ -12,7 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e360a9444ee07f42878313ea3bdb424, type: 3}
   m_Name: Level 1 - 20 Pool
   m_EditorClassIdentifier: 
-  Prefabs:
-  - {fileID: 5139997471819653147, guid: e0a7ecb513a6e0f47a9812100d989067, type: 3}
-  - {fileID: 5139997471819653147, guid: 9d531b5df38df474f84ddce62d6ff555, type: 3}
-  - {fileID: 5139997471819653147, guid: db9b57726220dfd44bdfb57be89153ee, type: 3}
+  IsFixed: 0
+  Levels:
+  - ID: 0
+    Prefab: {fileID: 5139997471819653147, guid: e0a7ecb513a6e0f47a9812100d989067, type: 3}
+  - ID: 1
+    Prefab: {fileID: 5139997471819653147, guid: 9d531b5df38df474f84ddce62d6ff555, type: 3}
+  - ID: 2
+    Prefab: {fileID: 5139997471819653147, guid: db9b57726220dfd44bdfb57be89153ee, type: 3}
+  - ID: 3
+    Prefab: {fileID: 5139997471819653147, guid: acbcbbe6e806f26499a5a148dc9c04e9, type: 3}

@@ -347,6 +347,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1154210218694514588, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
+      propertyPath: _maxWalkingPenalty
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1154210218694514591, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
       propertyPath: m_Name
       value: Player
@@ -601,6 +605,8 @@ MonoBehaviour:
   FloorHeight: 21.5
   CurrentFloor: 0
   _player: {fileID: 758481785}
+  PlayerController: {fileID: 0}
+  MaskHabilities: {fileID: 0}
 --- !u!4 &953779364
 Transform:
   m_ObjectHideFlags: 0

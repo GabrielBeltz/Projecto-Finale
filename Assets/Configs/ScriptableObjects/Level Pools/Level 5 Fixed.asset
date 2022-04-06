@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Level 5 Fixed
   m_EditorClassIdentifier: 
   IsFixed: 1
-  Prefabs:
-  - {fileID: 5139997471819653147, guid: f46dea972f4e6df489f9ce69348eaffe, type: 3}
+  Levels:
+  - ID: 0
+    Prefab: {fileID: 5139997471819653147, guid: f46dea972f4e6df489f9ce69348eaffe, type: 3}

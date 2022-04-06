@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     float _moddedWalkSpeed { get => StatsManager.Instance.MoveSpeed.totalValue * _baseWalkSpeed; }
 
     [Header("Dashing")]
+    public int DashRank;
     [SerializeField] private float _dashLength = 0.2f;
     [SerializeField] private float _dashCooldown = 3f, _dashSpeed = 30;
     float _dashCooldownTimer;
@@ -84,6 +85,7 @@ public class PlayerController : MonoBehaviour
         {
             HandleWalking();
             HandleJumping();
+            HandleDashing(DashRank);
         }
 
         HandleAnimation();
@@ -229,7 +231,7 @@ public class PlayerController : MonoBehaviour
 
     public void HandleDashing(int rank)
     {
-        if(IsKnockbacked) return;
+        if(rank < 1) return;
 
         if (_dashCooldownTimer < Time.time)
         {
@@ -246,20 +248,32 @@ public class PlayerController : MonoBehaviour
             }
         }
 
+
         if(!_dashing) return; 
+        if(Time.time >= _timeStartedDash + (_dashLength * StatsManager.Instance.DashLength.totalValue)) EndDash();
         
+        if(!_dashing) return; 
         _rb.velocity = _dashDir * _dashSpeed;
         _rb.gravityScale = 0;
 
-        if(Time.time >= _timeStartedDash + (_dashLength * StatsManager.Instance.DashLength.totalValue))
-        {
-            _dashing = false;
-            _rb.velocity = new Vector3(Mathf.Clamp(_rb.velocity.x, 0, _currentWalkingPenalty * _moddedWalkSpeed), _rb.velocity.y > 3 ? 3 : _rb.velocity.y);
-            _rb.gravityScale = 10;
-            if(IsGrounded) _hasDashed = false;
-            OnStopDashing?.Invoke();
-        }
+        if(rank < 2) return;
+        
+        //Rank 2 do Dash
+
+        if(rank < 3) return;
+    
+        //Rank 3 do Dash
     }
+
+    void EndDash() 
+    {
+        _dashing = false;
+        _rb.velocity = new Vector3(Mathf.Clamp(_rb.velocity.x, 0, _dir.normalized.x * _currentWalkingPenalty * _moddedWalkSpeed), _rb.velocity.y > 3 ? 3 : _rb.velocity.y);
+        _rb.gravityScale = 10;
+        if(IsGrounded) _hasDashed = false;
+        OnStopDashing?.Invoke();
+    }
+
     #endregion
 
     #region Combat
@@ -340,6 +354,8 @@ public class PlayerController : MonoBehaviour
 
     public void ReceiveDamage(int damage, Vector3 knockback)
     {
+        if(_dashing) EndDash();
+
         float knockbackResistance = StatsManager.Instance.KnockbackResistance.totalValue;
         CurrentHealth -= damage;
         _rb.velocity = Vector3.zero;
@@ -371,15 +387,6 @@ public class PlayerController : MonoBehaviour
     {
         public float X;
         public int RawX;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        var item = collision.GetComponent<Item>();
-     
-        if(item == null) return;
-        Inventory.AddItem(item.item, 1);
-        Destroy(collision.gameObject);
     }
 
     private void OnApplicationQuit() => Inventory.Container.Clear();

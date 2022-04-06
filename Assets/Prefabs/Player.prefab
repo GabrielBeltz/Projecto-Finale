@@ -168,6 +168,7 @@ MonoBehaviour:
   _maxWalkingPenalty: 1
   _currentWalkingPenalty: 0
   _jumpManeuverabilityPercentage: 1
+  DashRank: 0
   _dashLength: 0.1
   _dashCooldown: 3
   _dashSpeed: 60
@@ -176,8 +177,8 @@ MonoBehaviour:
     m_Bits: 72
   TotalHealth: 6
   CurrentHealth: 6
-  _knockbackTime: 0.1
-  _selfKnockBackTime: 0.2
+  _knockbackTime: 0.3
+  _selfKnockBackTime: 0.1
   _groundImpactKnockbackTime: 0.5
   _extraUngroundedKnockbackTime: 0.2
   _defaultAttack: {fileID: 11400000, guid: 1d957a92dec18a84d9498d3938502dbe, type: 2}

@@ -5,7 +5,22 @@ using System.Collections.Generic;
 public class LevelPool : ScriptableObject
 {
     public bool IsFixed;
-    [SerializeField] List<GameObject> Prefabs = new List<GameObject>();
+    public List<Level> Levels = new List<Level>();
 
-    public GameObject GetLevel() => Prefabs[Random.Range(0, Prefabs.Count)];
+    public Level GetLevelWeighted(int index) 
+    {
+        if(Levels.Count == 1 || index < 0) return GetLevel();
+        List<Level> temp = new List<Level>(Levels);
+        temp.RemoveAt(index);
+        return temp[Random.Range(0, temp.Count)];
+    }
+
+    public Level GetLevel() => Levels[Random.Range(0, Levels.Count)];
+}
+
+[System.Serializable]
+public class Level
+{
+    public int ID;
+    public GameObject Prefab;
 }

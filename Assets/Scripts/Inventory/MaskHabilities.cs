@@ -7,13 +7,6 @@ public class MaskHabilities : MonoBehaviour
 
     void Awake() => playerController = GetComponent<PlayerController>();
 
-    void Update()
-    {
-        if(hasDash3) playerController.HandleDashing(3);
-        else if(hasDash2) playerController.HandleDashing(2);
-        else if(hasDash1) playerController.HandleDashing(1);
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         Item item;
@@ -32,19 +25,10 @@ public class MaskHabilities : MonoBehaviour
             }
         }
 
-        Destroy(collision.gameObject);
+        item.Deactivate();
     }
 
-    void ActivateDash()
-    {
-        if(hasDash1)
-            if(hasDash2) hasDash3 = true;
-            else hasDash2 = true;
-        else hasDash1 = true;
-    }
+    void ActivateDash() => playerController.DashRank++;
 
-    void ActivateDoubleJump()
-    {
-        playerController.ExtraJumpsMax++;
-    }
+    void ActivateDoubleJump() => playerController.ExtraJumpsMax++;
 }
