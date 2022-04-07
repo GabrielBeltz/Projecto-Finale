@@ -17,7 +17,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6045124622631876989
 Transform:
@@ -136,7 +136,9 @@ MonoBehaviour:
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   Collider: {fileID: 0}
-  Renderer: {fileID: 0}
+  ParticleSystem: {fileID: 0}
+  Renderer:
+  - {fileID: 0}
   RigidBody: {fileID: 0}
   audioSource: {fileID: 0}
   BehavioursToDisable: []
@@ -282,7 +284,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &5452352689688138236
 Transform:
@@ -590,7 +592,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &8563689334215813939
 Transform:
@@ -709,7 +711,9 @@ MonoBehaviour:
   hitSound:
   - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
   Collider: {fileID: 0}
-  Renderer: {fileID: 0}
+  ParticleSystem: {fileID: 0}
+  Renderer:
+  - {fileID: 0}
   RigidBody: {fileID: 0}
   audioSource: {fileID: 0}
   BehavioursToDisable: []
