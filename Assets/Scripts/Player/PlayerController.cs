@@ -16,11 +16,11 @@ public class PlayerController : MonoBehaviour
     private readonly Collider2D[] _ground = new Collider2D[1];
 
     [Header("Jumping")]
-    [SerializeField] private float _initialJumpSpeed = 20;
-    [SerializeField] private float _minJumpSpeed = 15, _fallingAcceleration = 7.5f, _timeUntilMaxFallingSpeed = 2, _coyoteTime = 0.2f, _jumpTime, _extraJumpTime;
-    [SerializeField] private bool _hasJumped;
-    private float _maxFallSpeed => -_minJumpSpeed - (_fallingAcceleration * _timeUntilMaxFallingSpeed);
-    float _timeLeftGrounded;
+    public int ExtraJumpsMax;
+    [SerializeField] private float _initialJumpSpeed = 20, _fallingAcceleration = 7.5f, _timeUntilMaxFallingSpeed = 2, _coyoteTime = 0.2f, _jumpTime, _extraJumpTime;
+    [SerializeField] private bool _hasJumped, _fallImpact;
+    private float _maxFallSpeed => -_initialJumpSpeed - (_fallingAcceleration * _timeUntilMaxFallingSpeed);
+    float _timeLeftGrounded, _extraJumpsCharged;
     public static event Action OnJump;
 
     [Header("Walking")]
@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     float _moddedWalkSpeed { get => StatsManager.Instance.MoveSpeed.totalValue * _baseWalkSpeed; }
 
     [Header("Dashing")]
+    public int DashRank;
     [SerializeField] private float _dashLength = 0.2f;
     [SerializeField] private float _dashCooldown = 3f, _dashSpeed = 30;
     float _dashCooldownTimer;
@@ -45,8 +46,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AttackFeedback _attackFeedback;
     PlayerMeleeAttack _lastAttack;
     float _knockbackTimer;
-    bool _downwardAttack;
     public bool IsKnockbacked  => _knockbackTimer > Time.time;
+    public static Action OnPlayerDeath;
 
     [Header("Interactions")]
     public float InteractionRadius;
@@ -64,38 +65,30 @@ public class PlayerController : MonoBehaviour
     private Vector3 _dashDir;
 
     public Inventory Inventory;
+    FootStepController FootStepController;
 
     void Start()
     {
         _timeOfLastAttack = 0;
         _rb = GetComponent<Rigidbody2D>();
         _lastAttack = _defaultAttack;
+        _extraJumpsCharged = ExtraJumpsMax;
+        FootStepController = GetComponentInChildren<FootStepController>();
     }
 
     void Update()
     {
         GatherInputs();
-
         HandleGrounding();
         
-        if (!IsKnockbacked)
+        if (!IsKnockbacked || !_myAnimator.GetBool("FellDown"))
         {
             HandleWalking();
-
             HandleJumping();
-
-            //HandleDashing();
+            HandleDashing(DashRank);
         }
 
         HandleAnimation();
-    }
-
-    void FixedUpdate()
-    {
-        if (_downwardAttack && Input.GetButton("Fire1"))
-        {
-            Attack();
-        }
     }
 
     void GatherInputs()
@@ -105,11 +98,9 @@ public class PlayerController : MonoBehaviour
         _dir = new Vector3(_inputs.RawX, 0, 0);
 
         if (_inputs.X != 0) SetFacingDirection(_inputs.X < 0);
-        
-        if (Input.GetButtonDown("Fire1") && !IsKnockbacked) ExecuteAttack();
-        
-        if (_downwardAttack && Input.GetButtonUp("Fire1")) _downwardAttack = false;
-        
+
+        if(IsKnockbacked || _myAnimator.GetBool("FellDown")) return;
+        if (Input.GetButtonDown("Fire1")) ExecuteAttack();
         if (Input.GetButtonDown("Fire2")) ExecuteInteraction(); 
     }
 
@@ -123,11 +114,19 @@ public class PlayerController : MonoBehaviour
 
         if(!IsGrounded && grounded)
         {
-            if (Mathf.Approximately( Mathf.Round(_rb.velocity.y), _maxFallSpeed))
+            if(_fallImpact) 
             {
                 _knockbackTimer = Time.time + _groundImpactKnockbackTime;
+                _myAnimator.SetBool("FellDown", true);
+                PlaySound(Audioclips[1]);
+            }
+            else
+            {
+                FootStepController.PlayOneShot(FootStepController.RandomSolidClip(), 0.5f);
             }
 
+            _extraJumpsCharged = ExtraJumpsMax;
+            _fallImpact = false;
             IsGrounded = true;
             _hasDashed = false;
             _hasJumped = false;
@@ -157,16 +156,13 @@ public class PlayerController : MonoBehaviour
 
     private void HandleWalking()
     {
+        if(_dir.x != 0) _myAnimator.SetBool("FellDown", false);
+
         var normalizedDir = _dir.normalized;
 
-        if(_dir != Vector3.zero)
-        {
-            _currentWalkingPenalty += _acceleration * Time.deltaTime;
-        }
-        else
-        {
-            _currentWalkingPenalty -= _maxWalkingPenalty * Time.deltaTime;
-        }
+        if(_dir != Vector3.zero)  _currentWalkingPenalty += _acceleration * Time.deltaTime;
+        else _currentWalkingPenalty -= _maxWalkingPenalty * Time.deltaTime;
+
         _currentWalkingPenalty = Mathf.Clamp(_currentWalkingPenalty, _maxWalkingPenalty, 2f);
 
         var targetVel = new Vector3(normalizedDir.x * _currentWalkingPenalty * _moddedWalkSpeed, _rb.velocity.y, normalizedDir.z);
@@ -196,55 +192,47 @@ public class PlayerController : MonoBehaviour
         {
             if(IsGrounded || Time.time < _timeLeftGrounded + _coyoteTime)
             {
-                if(!_hasJumped)
-                {
-                    ExecuteJump(new Vector2(_rb.velocity.x, _minJumpSpeed));
-                }
+                if(!_hasJumped) ExecuteJump();
+            }
+            else if(_extraJumpsCharged > 0)
+            {
+                _extraJumpsCharged--;
+                ExecuteJump();
             }
         }
 
-        void ExecuteJump(Vector3 dir)
+        void ExecuteJump()
         {
+            _myAnimator.SetBool("FellDown", false);
             _timeLeftGrounded = Time.time;
             _hasJumped = true;
             _rb.velocity = new Vector2(_rb.velocity.x, _initialJumpSpeed);
-            //PlaySound(Audioclips.Find(audioClip => audioClip.name == "Jump"));
             OnJump?.Invoke();
         }
 
-        if (Mathf.Approximately(_rb.velocity.y, 0) && !IsGrounded)
-        {
-            _hasJumped = false;
-        }
-
+        if (Mathf.Approximately(_rb.velocity.y, 0) && !IsGrounded) _hasJumped = false;
+        if(_rb.velocity.y < 0) _rb.velocity = new Vector2(_rb.velocity.x, Mathf.Clamp(_rb.velocity.y, _maxFallSpeed, 0));
+        if(_rb.velocity.y == _maxFallSpeed) _fallImpact = true;
+        
         if (_hasJumped)
         {
-            float newjumpSpeed = Mathf.Clamp(_rb.velocity.y, _minJumpSpeed, _initialJumpSpeed);
-            // Se o jogador segurar o espa�o, o pulo continua normalmente. Se n�o, aplica for�a pra diminuir o pulo dele.
             if ((Input.GetKey(KeyCode.Space) && Time.time < _timeLeftGrounded + _extraJumpTime + _jumpTime))
             {
                 _rb.gravityScale = 0;
             }
-            else
-            {
-                if (Time.time > _timeLeftGrounded + _jumpTime)
-                {
-                    _hasJumped = false;
-                }
-            }
+            else if (Time.time > _timeLeftGrounded + _jumpTime) _hasJumped = false;
         }
-        else
-        {
-            _rb.gravityScale = 10;
-        }
+        else if(!_dashing) _rb.gravityScale = 10;
     }
 
     #endregion
 
     #region Dash
 
-    public void HandleDashing()
+    public void HandleDashing(int rank)
     {
+        if(rank < 1) return;
+
         if (_dashCooldownTimer < Time.time)
         {
             if (Input.GetKeyDown(KeyCode.E) && !_hasDashed && _dir.x != 0)
@@ -260,79 +248,78 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if(_dashing)
-        {
-            _rb.velocity = _dashDir * _dashSpeed;
 
-            if(Time.time >= _timeStartedDash + (_dashLength * StatsManager.Instance.DashLength.totalValue))
-            {
-                _dashing = false;
-                _rb.velocity = new Vector3(_rb.velocity.x, _rb.velocity.y > 3 ? 3 : _rb.velocity.y);
-                _rb.gravityScale = 1;
-                if(IsGrounded) _hasDashed = false;
-                OnStopDashing?.Invoke();
-            }
-        }
+        if(!_dashing) return; 
+        if(Time.time >= _timeStartedDash + (_dashLength * StatsManager.Instance.DashLength.totalValue)) EndDash();
+        
+        if(!_dashing) return; 
+        _rb.velocity = _dashDir * _dashSpeed;
+        _rb.gravityScale = 0;
+
+        if(rank < 2) return;
+        
+        //Rank 2 do Dash
+
+        if(rank < 3) return;
+    
+        //Rank 3 do Dash
     }
+
+    void EndDash() 
+    {
+        _dashing = false;
+        _rb.velocity = new Vector3(Mathf.Clamp(_rb.velocity.x, 0, _dir.normalized.x * _currentWalkingPenalty * _moddedWalkSpeed), _rb.velocity.y > 3 ? 3 : _rb.velocity.y);
+        _rb.gravityScale = 10;
+        if(IsGrounded) _hasDashed = false;
+        OnStopDashing?.Invoke();
+    }
+
     #endregion
 
     #region Combat
 
     public void ExecuteAttack()
     {
-        if (_timeOfLastAttack < Time.time)
-        {
-            _downwardAttack = false;
-            Vector2 attackInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
-            _lastAttack = GetNextAttack(attackInput);
-            _timeOfLastAttack = Time.time + _lastAttack.cooldown;
-            Attack();
-        }
+        if(_timeOfLastAttack > Time.time) return;
+        Vector2 attackInput = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
+        _lastAttack = GetNextAttack(attackInput);
+        _timeOfLastAttack = Time.time + _lastAttack.cooldown;
+        Attack();
     }
 
     public Vector3 GetAttackDirection() => Input.GetAxisRaw("Vertical") != 0 ? Input.GetAxisRaw("Vertical") > 0 ? this.transform.up : -this.transform.up : this.transform.right * -this.transform.localScale.x;
 
     public void Attack()
     {
-        if(_downwardAttack && GetAttackDirection() != -this.transform.up) return;
-
         Vector3 attackPos = this.transform.position + ((GetAttackDirection() * (_lastAttack.range /2)));
         float attackRotation = Quaternion.LookRotation(GetAttackDirection(), GetAttackDirection()).eulerAngles.x;
         Vector3 attackSize = new Vector3(0.25f, 0.75f, _lastAttack.range / 2);
         RaycastHit2D attackCollider = Physics2D.BoxCast(attackPos, attackSize, attackRotation, GetAttackDirection(), _lastAttack.range/2, _attackLayerMask);
-        bool playSound = !_downwardAttack;
 
         if (attackCollider)
         {
             attackSize = new Vector3(attackSize.x, attackSize.y, Vector2.Distance(attackPos, attackCollider.point));
-            _downwardAttack = false;
-            playSound = !_downwardAttack;
             float selfKnockbackReceived = 0;
             EnemyAttackTarget target = attackCollider.transform.GetComponent<EnemyAttackTarget>();
             if (target != null)
             {
-                target.ReceiveAttack(_lastAttack, this.transform.position);
+                target.ReceiveAttack(_lastAttack, transform.position);
                 selfKnockbackReceived = target.selfKnockbackReceived;
             }
 
             if (selfKnockbackReceived != 0)
-            {
+            { 
                 _rb.velocity = Vector3.zero;
                 float multiplier = Mathf.Clamp(selfKnockbackReceived, 0, 1);
                 _knockbackTimer = Time.time + (_selfKnockBackTime * multiplier);
                 _rb.AddForce(_lastAttack.selfKnockback * selfKnockbackReceived * -GetAttackDirection(), ForceMode2D.Force);
             }
         }
-        else
-        {
-            if (GetAttackDirection() == Vector3.down) _downwardAttack = true;
-
-            if (Mathf.Approximately(_inputs.X, 0f)) _rb.AddForce(GetAttackDirection() * (_downwardAttack ? _lastAttack.selfKnockback * 0.01f : _lastAttack.selfKnockback), ForceMode2D.Force);
-        }
+        else if (Mathf.Approximately(_inputs.X, 0f)) _rb.AddForce(GetAttackDirection() * _lastAttack.selfKnockback, ForceMode2D.Force);
 
         _soundEmitter.Stop();
 
-        if (playSound) PlaySound(_lastAttack.sound);
+        PlaySound(_lastAttack.sound);
 
         _attackFeedback.CallFeedback(attackSize, attackPos, attackRotation, _lastAttack.cooldown);
         _myAnimator.SetTrigger(_lastAttack.animatorTrigger);
@@ -367,11 +354,15 @@ public class PlayerController : MonoBehaviour
 
     public void ReceiveDamage(int damage, Vector3 knockback)
     {
+        if(_dashing) EndDash();
+
         float knockbackResistance = StatsManager.Instance.KnockbackResistance.totalValue;
         CurrentHealth -= damage;
         _rb.velocity = Vector3.zero;
-        _rb.AddForce(new Vector2(knockback.x, knockback.y / 2) * knockbackResistance, ForceMode2D.Force);
+        _rb.AddForce(new Vector2(knockback.x, knockback.y * 1.5f) * knockbackResistance, ForceMode2D.Force);
         _knockbackTimer = IsGrounded ? Time.time + (_knockbackTime * knockbackResistance) : Time.time + ((_knockbackTime + _extraUngroundedKnockbackTime) * knockbackResistance);
+
+        if(CurrentHealth < 1) OnPlayerDeath?.Invoke();
     }
 
     #endregion
@@ -390,27 +381,12 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
-    public void PlaySound(AudioClip clipToPlay)
-    {
-        if (_soundEmitter.isPlaying) _soundEmitter.Stop();
-
-        _soundEmitter.clip = clipToPlay;
-        _soundEmitter.Play();
-    }
+    public void PlaySound(AudioClip clipToPlay) => _soundEmitter.PlayOneShot(clipToPlay);
 
     private struct FrameInputs
     {
         public float X;
         public int RawX;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        var item = collision.GetComponent<Item>();
-     
-        if(item == null) return;
-        Inventory.AddItem(item.item, 1);
-        Destroy(collision.gameObject);
     }
 
     private void OnApplicationQuit() => Inventory.Container.Clear();

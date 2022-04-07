@@ -18,11 +18,16 @@ public class EnemyAttackTarget : MonoBehaviour
     bool hasRespawnBehaviour;
 
     [Header("Needed to Work")]
+#if UNITY_EDITOR
     [Help("Se esses ficarem nulos o script pega do próprio gameObject ou o primeiro que encontrar nos filhos.", UnityEditor.MessageType.Info)]
+#endif
     public Collider2D Collider;
-    public Renderer Renderer;
+    public ParticleSystem ParticleSystem;
+    public Renderer[] Renderer;
     public Rigidbody2D RigidBody;
     public AudioSource audioSource;
+    public MonoBehaviour[] BehavioursToDisable;
+    public GameObject[] GameObjectsToDeactivate;
     RigidbodyConstraints2D constraints;
 
     private void Awake()
@@ -32,7 +37,7 @@ public class EnemyAttackTarget : MonoBehaviour
                 Collider = GetComponentInChildren<Collider2D>();
         if(Renderer == null)
             if(!TryGetComponent(out Renderer)) 
-                Renderer = GetComponentInChildren<Renderer>();
+                Renderer = GetComponentsInChildren<Renderer>();
         if(RigidBody == null)
             if(!TryGetComponent(out RigidBody))
             {
@@ -55,25 +60,20 @@ public class EnemyAttackTarget : MonoBehaviour
         currentHealth = TotalHealth;
         onAttackReceived += ReceiveDamage;
 
-        if(hasRespawnBehaviour) DeathType = EnemyDeathType.DisableRendererAndCollider;
+        if(hasRespawnBehaviour) DeathType = EnemyDeathType.DisableAllButAudio;
 
         if(DamageReceived > 0)
         {
             switch(DeathType)
             {
-                case EnemyDeathType.DisableRendererAndCollider:
-                    onDeath += DefaultDeath;
+                case EnemyDeathType.DisableAllButAudio:
+                    onDeath += DisableAllButAudio;
 
                     if(RigidBody == null) break;
                 
-                    if(constraints == RigidbodyConstraints2D.None)
-                    {
-                        constraints = RigidBody.constraints;
-                    }
-                    else
-                    {
-                        RigidBody.constraints = constraints;
-                    }
+                    if(constraints == RigidbodyConstraints2D.None) constraints = RigidBody.constraints;
+                    else RigidBody.constraints = constraints;
+
                     break;
                 case EnemyDeathType.DeactivateSelf:
                     onDeath += DeactivateSelf;
@@ -90,8 +90,8 @@ public class EnemyAttackTarget : MonoBehaviour
 
         switch(DeathType)
         {
-            case EnemyDeathType.DisableRendererAndCollider:
-                onDeath -= DefaultDeath;
+            case EnemyDeathType.DisableAllButAudio:
+                onDeath -= DisableAllButAudio;
                 break;
             case EnemyDeathType.DeactivateSelf:
                 onDeath -= DeactivateSelf;
@@ -106,19 +106,31 @@ public class EnemyAttackTarget : MonoBehaviour
     void ReceiveDamage(PlayerMeleeAttack playerMeleeAttack, Vector3 pos)
     {
         if (playerMeleeAttack.direction == receivedAttackDirection || receivedAttackDirection == AttackDirection.Front)
-        {
-            currentHealth -= (playerMeleeAttack.damage * StatsManager.Instance.Damage.totalValue) * DamageReceived;
-
-            Debug.Log($"{gameObject.name} recebeu {(playerMeleeAttack.damage * StatsManager.Instance.Damage.totalValue) * DamageReceived} de dano.");
-
-            if (currentHealth <= 0) onDeath?.Invoke();
-        }
+        currentHealth -= (playerMeleeAttack.damage * StatsManager.Instance.Damage.totalValue) * DamageReceived;
+        if (currentHealth <= 0) onDeath?.Invoke();
     }
 
-    void DefaultDeath()
+    void DisableAllButAudio()
     {
         Collider.enabled = false;
-        Renderer.enabled = false;
+
+        if(ParticleSystem != null) ParticleSystem.Play();
+
+        foreach(var rdrdrdr in Renderer)
+        {
+            if(rdrdrdr != null)
+            rdrdrdr.enabled = false;
+        }
+
+        foreach(MonoBehaviour behav in BehavioursToDisable)
+        {
+            behav.enabled = false;
+        }
+
+        foreach(var gObj in GameObjectsToDeactivate)
+        {
+            gObj.SetActive(false);
+        }
 
         if(RigidBody == null) return;
 
@@ -137,7 +149,6 @@ public class EnemyAttackTarget : MonoBehaviour
         audioSource.clip = hitSound[Random.Range(0, hitSound.Length)];
         audioSource.Play();
     }
-
 }
 
-public enum EnemyDeathType { DisableRendererAndCollider, DeactivateSelf }
+public enum EnemyDeathType { DisableAllButAudio, DeactivateSelf }

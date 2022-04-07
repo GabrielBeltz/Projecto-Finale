@@ -1,84 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Audio;
 
 public class FootStepController : MonoBehaviour
 {
     public AudioClip[] solidGroundClip, woodGroundClip, grassGroundClip, jumpClip;
     private AudioSource audioSource;
     [Range(-3f, 3f)] public float pitch;
-    [Space]
-    [SerializeField] private float deploymentHeight = 0.2f;
-    public LayerMask groundLayer;
-    private RaycastHit2D hit;
+    [Space] [SerializeField] private float deploymentHeight = 0.2f;
+    public ContactFilter2D ContactFilter;
+    private RaycastHit2D[] hit = new RaycastHit2D[1];
 
-    void Awake()
-    {
-        audioSource = GetComponent<AudioSource>();
-        audioSource.pitch = pitch;
-    }
+    void Awake() => audioSource = GetComponent<AudioSource>();
 
-    private void FixedUpdate()
-    {
-        Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down) * deploymentHeight, Color.yellow);
-        hit = Physics2D.Raycast(transform.position, -Vector2.up * deploymentHeight);
-    }
+    private void FixedUpdate() => Physics2D.Raycast(transform.position, -Vector2.up * deploymentHeight, ContactFilter, hit, 1f);
 
-    public void Jump()
-    {
-        AudioClip jumpingClip = JumpingClip();
-        audioSource.PlayOneShot(jumpClip[0]);
-    }
+    public void Jump() => PlayOneShot(jumpClip[0], pitch);
 
     public void Step()
     {
-        if(hit.collider != null)
-        { 
-            if(hit.collider.tag == "GrassGround")
-            {
-                AudioClip grassGroundClip = RandomGrassClip();
-                audioSource.PlayOneShot(grassGroundClip);
-            }
-
-            if(hit.collider.tag == "SolidGround")
-            {
-                AudioClip solidGroundClip = RandomSolidClip();
-                audioSource.PlayOneShot(solidGroundClip);
-            }
-
-            if(hit.collider.tag == "WoodGround")
-            {
-                AudioClip woodGroundClip = RandomWoodClip();
-                audioSource.PlayOneShot(woodGroundClip);
-            }
-
-            Debug.Log("Did Hit a Ground Tag: " + hit.collider.tag);
-        }
-        else
-        {
-            Debug.Log("Did not Hit");
-        }
+        if(hit[0].collider == null) return;
+        if(hit[0].collider.tag == "GrassGround") PlayOneShot(RandomGrassClip(), pitch);
+        else if(hit[0].collider.tag == "SolidGround") PlayOneShot(RandomSolidClip(), pitch);
+        else if(hit[0].collider.tag == "WoodGround") PlayOneShot(RandomWoodClip(), pitch);
     }
 
-    private AudioClip RandomGrassClip()
+    public void PlayOneShot(AudioClip audio, float capiTCHE)
     {
-        return grassGroundClip[Random.Range(0, grassGroundClip.Length)];
+        if(audioSource.isPlaying) audioSource.Stop();
+        audioSource.pitch = capiTCHE;
+        audioSource.PlayOneShot(audio);
     }
 
-    private AudioClip RandomSolidClip()
-    {
-        return solidGroundClip[Random.Range(0, solidGroundClip.Length)];
-    }
-
-    private AudioClip RandomWoodClip()
-    {
-        return woodGroundClip[Random.Range(0, woodGroundClip.Length)];
-    }
-
-    private AudioClip JumpingClip()
-    {
-        return jumpClip[Random.Range(0, jumpClip.Length)];
-    }
-
+    public AudioClip RandomGrassClip() => grassGroundClip[Random.Range(0, grassGroundClip.Length)];
+    public AudioClip RandomSolidClip() => solidGroundClip[Random.Range(0, solidGroundClip.Length)];
+    public AudioClip RandomWoodClip() => woodGroundClip[Random.Range(0, woodGroundClip.Length)];
 }

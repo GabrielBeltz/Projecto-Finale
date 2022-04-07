@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 
 public class DisplayInventory : MonoBehaviour
 {
@@ -9,15 +7,9 @@ public class DisplayInventory : MonoBehaviour
     public int xSpaceBetweenItems, ySpaceBetweenItems, numberOfColumn, xStart, yStart;
     Dictionary<InventorySlot, GameObject> itemsDisplayed = new Dictionary<InventorySlot, GameObject>();
 
-    void Start()
-    {
-        CreateDisplay();
-    }
+    void Start() => CreateDisplay();
 
-    void Update()
-    {
-        UpdateDisplay();
-    }
+    void Update() => UpdateDisplay();
 
     public void CreateDisplay()
     {
@@ -29,10 +21,7 @@ public class DisplayInventory : MonoBehaviour
         }
     }
 
-    public Vector3 GetPosition(int i)
-    {
-        return new Vector3(xStart +  (xSpaceBetweenItems * (i % numberOfColumn)), yStart + (-ySpaceBetweenItems * (i / numberOfColumn)), 0f);
-    }
+    public Vector3 GetPosition(int i) => new Vector3(xStart + (xSpaceBetweenItems * (i % numberOfColumn)), yStart + (-ySpaceBetweenItems * (i / numberOfColumn)), 0f);
 
     public void UpdateDisplay()
     {

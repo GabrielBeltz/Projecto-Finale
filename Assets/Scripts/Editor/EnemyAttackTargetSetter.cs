@@ -26,8 +26,8 @@ public class AutomatedSetup : Editor
                     thisScript.RigidBody = r;
                 }
 
-                Renderer rd = obj.GetComponent<Renderer>();
-                if (rd)
+                Renderer[] rd = obj.transform.GetComponentsInChildren<Renderer>();
+                if (rd != null)
                 {
                     thisScript.Renderer = rd;
                 }

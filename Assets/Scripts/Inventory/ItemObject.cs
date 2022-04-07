@@ -1,15 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public enum ItemType { MaskItem, KeyItem, NoteItem, Default }
-
+public enum ItemType { AbilityItem, KeyItem, NoteItem, Default }
 
 public abstract class ItemObject : ScriptableObject
 {
     public GameObject prefab;
     public ItemType type;
-    [TextArea(15,20)] public string discriprion;
+    [TextArea(15,20)] public string Description;
 }
-
-

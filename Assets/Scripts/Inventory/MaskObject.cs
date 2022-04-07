@@ -1,17 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "New Mask Object", menuName = "Inventory System/Items/MaskItem")]
 public class MaskObject : ItemObject
 {
     public Habilities habilities;
-    [TextArea(15, 20)] public string maskDiscriprion;
+    [TextArea(15, 20)] public string maskDescription;
 
     public void Awake()
     {
-        type = ItemType.MaskItem;
+        type = ItemType.AbilityItem;
     }
 }
 
-public enum Habilities { Dash, Smash }
+public enum Habilities { Dash, DoubleJump }
