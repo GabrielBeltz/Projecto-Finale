@@ -142,7 +142,7 @@ MonoBehaviour:
   BaseChance: 100
   ChancePerFloor: -1
   ChancePerExtraJump: -75
-  ChancePerDashRank: 0
+  ChancePerDashRank: -25
   DependsOn: {fileID: 0}
   InverseDependsOn: {fileID: 0}
 --- !u!1 &1594051370780608212
@@ -386,7 +386,7 @@ MonoBehaviour:
   BaseChance: 100
   ChancePerFloor: 0
   ChancePerExtraJump: -75
-  ChancePerDashRank: 0
+  ChancePerDashRank: -50
   DependsOn: {fileID: 0}
   InverseDependsOn: {fileID: 0}
 --- !u!1 &2392541958937477323
@@ -977,11 +977,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4278335222760942766, guid: a536de5b853fa4a42af5bc2c8a00fe50, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.58
+      value: -8.42
       objectReference: {fileID: 0}
     - target: {fileID: 4278335222760942766, guid: a536de5b853fa4a42af5bc2c8a00fe50, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.97
+      value: -6.62
       objectReference: {fileID: 0}
     - target: {fileID: 4278335222760942766, guid: a536de5b853fa4a42af5bc2c8a00fe50, type: 3}
       propertyPath: m_LocalPosition.z

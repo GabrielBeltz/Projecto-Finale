@@ -14,12 +14,15 @@ public class SpawnChance : MonoBehaviour
     public SpawnChance DependsOn;
     [Help("Contrário do DependsOn, somente spawna se outro não spawnar.")]
     public SpawnChance InverseDependsOn;
+    [Help("Muda a chance de spawnar se outro objeto não spawnar. Pode ser usado para aumentar a chance de uma plataforma spawnar se outra não spawnar.")]
+    public SpawnChance ChanceIfNotSpawnedTarget;
+    public float ChanceIfNotSpawned;
 
     private void Awake()
     {
-        if(DependsOn == null)
-            if(InverseDependsOn == null)
-                if(Random.Range(0, 100) > GetChanceToSpawn()) gameObject.SetActive(false);
+        if(DependsOn != null) return;
+        if(InverseDependsOn != null) return;
+        if(Random.Range(0, 100) > GetChanceToSpawn()) gameObject.SetActive(false);
     }
 
     private void Start()
@@ -30,22 +33,16 @@ public class SpawnChance : MonoBehaviour
             {
                 if(Random.Range(0, 100) > GetChanceToSpawn() || !DependsOn.gameObject.activeSelf || InverseDependsOn.gameObject.activeSelf) gameObject.SetActive(false);
             }
-            else
-            {
-                if(Random.Range(0, 100) > GetChanceToSpawn() || !DependsOn.gameObject.activeSelf) gameObject.SetActive(false);
-            }
+            else if(Random.Range(0, 100) > GetChanceToSpawn() || !DependsOn.gameObject.activeSelf) gameObject.SetActive(false);
         }
-        else
-        {
-            if(InverseDependsOn != null)
-                if(Random.Range(0, 100) > GetChanceToSpawn() || InverseDependsOn.gameObject.activeSelf) gameObject.SetActive(false);
-        }
+        else if(InverseDependsOn != null)
+            if(Random.Range(0, 100) > GetChanceToSpawn() || InverseDependsOn.gameObject.activeSelf) gameObject.SetActive(false);
     }
 
-    float GetChanceToSpawn() => 
-        BaseChance + 
-        (ChancePerFloor * TowerController.Instance.CurrentFloor) + 
-        (ChancePerExtraJump * TowerController.Instance.PlayerController.ExtraJumpsMax) + 
-        (ChancePerDashRank * TowerController.Instance.PlayerController.DashRank)
-        ;
+    float GetChanceToSpawn() =>
+        BaseChance +
+        (ChancePerFloor * TowerController.Instance.CurrentFloor) +
+        (ChancePerExtraJump * TowerController.Instance.PlayerController.ExtraJumpsMax) +
+        (ChancePerDashRank * TowerController.Instance.PlayerController.DashRank) +
+        (ChanceIfNotSpawnedTarget == null ? 0 : !ChanceIfNotSpawnedTarget.gameObject.activeSelf ? ChanceIfNotSpawned : 0);
 }

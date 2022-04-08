@@ -21,6 +21,6 @@ MonoBehaviour:
   selfKnockback: 200
   animatorTrigger: Slash3
   comboInfo:
-    timeBetween: 0.3
+    timeBetween: 0.75
     previousAttack: Slash2
   sound: {fileID: 8300000, guid: 34bd56be5782e6e48bf189361aeffff9, type: 3}

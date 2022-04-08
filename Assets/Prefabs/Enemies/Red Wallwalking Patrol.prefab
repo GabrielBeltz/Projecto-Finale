@@ -103,6 +103,10 @@ PrefabInstance:
       propertyPath: damage
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 7122912228403170251, guid: 61dadd3fb8ab447498812d44a719021f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 8505685576588254485, guid: 61dadd3fb8ab447498812d44a719021f, type: 3}
       propertyPath: speed
       value: 4.5

@@ -332,21 +332,21 @@ public class PlayerController : MonoBehaviour
             PlayerMeleeAttack foundAttack = _playerAttacks.Find(attck => attck.comboInfo.previousAttack == _lastAttack.name);
 
             if (foundAttack == null) return _defaultAttack;
-            else if (_timeOfLastAttack - _lastAttack.cooldown + foundAttack.comboInfo.timeBetween < Time.time) return foundAttack;
+            else if (_timeOfLastAttack - _lastAttack.cooldown + foundAttack.comboInfo.timeBetween > Time.time) return foundAttack;
         }
         else if (input.y > 0)
         {
             PlayerMeleeAttack foundAttack = _playerAttacks.Find(attck => attck.comboInfo.previousAttack == _lastAttack.name && attck.direction == AttackDirection.Up);
 
             if (foundAttack == null) return _playerAttacks.Find(attck => attck.direction == AttackDirection.Up);
-            else if (_timeOfLastAttack - _lastAttack.cooldown + foundAttack.comboInfo.timeBetween < Time.time) return foundAttack;
+            else if (_timeOfLastAttack - _lastAttack.cooldown + foundAttack.comboInfo.timeBetween > Time.time) return foundAttack;
         }
         else if (input.y < 0)
         {
             PlayerMeleeAttack foundAttack = _playerAttacks.Find(attck => attck.comboInfo.previousAttack == _lastAttack.name && attck.direction == AttackDirection.Down);
 
             if(foundAttack == null) return _playerAttacks.Find(attck => attck.direction == AttackDirection.Down);
-            else if(_timeOfLastAttack - _lastAttack.cooldown + foundAttack.comboInfo.timeBetween < Time.time) return foundAttack;
+            else if(_timeOfLastAttack - _lastAttack.cooldown + foundAttack.comboInfo.timeBetween > Time.time) return foundAttack;
         }
 
         return _defaultAttack;
