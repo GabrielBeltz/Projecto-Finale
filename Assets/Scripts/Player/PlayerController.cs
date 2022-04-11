@@ -48,7 +48,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] AttackFeedback _attackFeedback;
     PlayerMeleeAttack _lastAttack;
     float _knockbackTimer;
-    public bool IsKnockbacked  => _knockbackTimer > Time.time;
+    public bool IsKnockbacked 
+    { 
+        get => _knockbackTimer > Time.time; 
+        set 
+        {
+            _knockbackTimer = value ? Mathf.Infinity : Time.time;
+        }
+    }
     public static Action OnPlayerDeath, OnPlayerFullHealth;
 
     [Header("Interactions")]
@@ -92,7 +99,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(_maxFallSpeed);
+        if(!(Time.timeScale > 0)) return;
         GatherInputs();
         HandleGrounding();
         HandleJumping();

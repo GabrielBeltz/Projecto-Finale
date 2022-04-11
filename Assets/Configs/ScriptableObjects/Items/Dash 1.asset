@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e164ee5dcd377c245a1b9245db93a374, type: 3}
-  m_Name: RandomItemFloor 5
+  m_Script: {fileID: 11500000, guid: 2dd84c5a527f270478c91e8e78325a17, type: 3}
+  m_Name: Dash 1
   m_EditorClassIdentifier: 
-  Itens:
-  - {fileID: 11400000, guid: 4d9743ca75544704a999073d256925b4, type: 2}
-  - {fileID: 11400000, guid: 29189525a007b2942a79f2dfb0cefdc6, type: 2}
+  prefab: {fileID: 3612854815055149199, guid: b3f89fd6ee7f54245a908b5229468bfa, type: 3}
+  type: 0
+  Description: 
+  habilities: 0
+  maskDescription: 

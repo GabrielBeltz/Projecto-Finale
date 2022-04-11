@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 3612854815055149199, guid: b3f89fd6ee7f54245a908b5229468bfa, type: 3}
   type: 0
-  discriprion: 
-  habilities: 0
-  maskDiscriprion: 
+  Description: 
+  habilities: 1
+  maskDescription: 

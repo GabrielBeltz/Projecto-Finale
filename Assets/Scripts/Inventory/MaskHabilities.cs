@@ -1,11 +1,14 @@
 using UnityEngine;
+using System.Collections;
+using TMPro;
 
 public class MaskHabilities : MonoBehaviour
 {
     private PlayerController playerController;
-    [SerializeField] private bool hasDash1, hasDash2, hasDash3;
-    float likelyPickDash = 1f, likelyPickDoubleJump = 1f;
+    public TextMeshProUGUI[] texts;
     public float DeramdomizeFactor = 0.34f; // nesse valor todos os upgrades começam com 1 de chance, e essa chance diminui em 0.34 a cada rank pego.
+    float likelyPickDash = 1f, likelyPickDoubleJump = 1f;
+    int dashTextIndex = -1, doubleJumpTextIndex = -1, lastIndex = -1; 
 
     void Awake() => playerController = GetComponent<PlayerController>();
 
@@ -48,7 +51,42 @@ public class MaskHabilities : MonoBehaviour
         DetermineChance();
     }
 
-    void ActivateDash() => playerController.DashRank++;
+    void ShowItemInfo(string text, int index) => StartCoroutine(ItemInfo(text, index));
 
-    void ActivateDoubleJump() => playerController.ExtraJumpsMax++;
+    IEnumerator ItemInfo(string text, int index)
+    {
+        float originalTimeScale = Time.timeScale;
+        Time.timeScale = 0;
+        if(index == -1) 
+        {
+            index = lastIndex + 1; 
+        }
+        if(lastIndex < index) lastIndex = index;
+        texts[index].text = text;
+
+        // TODO: Criar animação do texto aparecer no centro da tela, escurecer a tela no fundo do texto e transicionar o texto pra posição original 
+        //for(int i = 0; i < 300; i++)
+        //{
+            
+            yield return new WaitForSecondsRealtime(0.01f);
+        //}
+
+        Time.timeScale = originalTimeScale;
+    }
+
+    void ActivateDash() 
+    { 
+        playerController.DashRank++;
+        
+        ShowItemInfo(playerController.DashRank > 2 ? "Dash ++" : playerController.DashRank > 1 ? "Dash +" : "Dash", dashTextIndex);
+        if(dashTextIndex == -1) dashTextIndex = lastIndex;
+    }
+
+    void ActivateDoubleJump() 
+    {
+        playerController.ExtraJumpsMax++; 
+
+        ShowItemInfo(playerController.ExtraJumpsMax > 2 ? "Double & Wall Jump" : playerController.DashRank > 1 ? "Double Jump & Wall Slide" : "Double Jump", doubleJumpTextIndex);
+        if(doubleJumpTextIndex == -1) doubleJumpTextIndex = lastIndex;
+    }
 }

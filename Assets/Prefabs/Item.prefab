@@ -56,7 +56,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eaf89d5a421b9748bd6308021dbe8ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 0}
+  item: {fileID: 11400000, guid: e399029741405b0458a2c50b4a57f739, type: 2}
   myColliders:
   - {fileID: 3625858474199416430}
   myRenderers:
