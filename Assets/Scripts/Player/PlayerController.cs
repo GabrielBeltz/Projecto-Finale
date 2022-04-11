@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerController : MonoBehaviour
     [Header("CollisorDetections")]
     [SerializeField] private LayerMask _groundMask;
     [SerializeField] private float _grounderOffset = -1, _grounderRadius = 0.2f;
+    float _fullHealHeight;
     public bool IsGrounded;
     public static event Action OnTouchedGround;
     private readonly Collider2D[] _ground = new Collider2D[1];
@@ -19,7 +21,7 @@ public class PlayerController : MonoBehaviour
     public int ExtraJumpsMax;
     [SerializeField] private float _initialJumpSpeed = 20, _fallingAcceleration = 7.5f, _timeUntilMaxFallingSpeed = 2, _coyoteTime = 0.2f, _jumpTime, _extraJumpTime;
     [SerializeField] private bool _hasJumped, _fallImpact;
-    private float _maxFallSpeed => -_initialJumpSpeed - (_fallingAcceleration * _timeUntilMaxFallingSpeed);
+    private float _maxFallSpeed => (-_initialJumpSpeed - (_fallingAcceleration * _timeUntilMaxFallingSpeed)) * (CurrentHealth > 0 ? 1 : 3);
     float _timeLeftGrounded, _extraJumpsCharged;
     public static event Action OnJump;
 
@@ -37,17 +39,17 @@ public class PlayerController : MonoBehaviour
     public static event Action OnStartDashing, OnStopDashing;
 
     [Header("Combat")]
+    [SerializeField] private PlayerMeleeAttack _defaultAttack;
+    [SerializeField] private List<PlayerMeleeAttack> _playerAttacks;
     [SerializeField] LayerMask _attackLayerMask;
     public int TotalHealth, CurrentHealth;
     [SerializeField] private float _knockbackTime, _selfKnockBackTime, _groundImpactKnockbackTime, _extraUngroundedKnockbackTime;
-    [SerializeField] private PlayerMeleeAttack _defaultAttack;
-    [SerializeField] private List<PlayerMeleeAttack> _playerAttacks;
     [SerializeField] private float _timeOfLastAttack = 10f;
     [SerializeField] AttackFeedback _attackFeedback;
     PlayerMeleeAttack _lastAttack;
     float _knockbackTimer;
     public bool IsKnockbacked  => _knockbackTimer > Time.time;
-    public static Action OnPlayerDeath;
+    public static Action OnPlayerDeath, OnPlayerFullHealth;
 
     [Header("Interactions")]
     public float InteractionRadius;
@@ -56,9 +58,15 @@ public class PlayerController : MonoBehaviour
     [Header("Scene References")]
     [SerializeField] Animator _myAnimator;
     [SerializeField] AudioSource _soundEmitter;
+    public Transform UIScaler;
 
     [Header("Audios")]
     public List<AudioClip> Audioclips;
+
+    [Header("UI")]
+    public GameObject HealthIconPrefab;
+    public Vector2 FullHDHealthIconsPivot;
+    List<GameObject> Hearts;
 
     private bool _hasDashed, _dashing;
     private float _timeStartedDash;
@@ -69,22 +77,29 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+        Hearts = new List<GameObject>();
         _timeOfLastAttack = 0;
         _rb = GetComponent<Rigidbody2D>();
         _lastAttack = _defaultAttack;
         _extraJumpsCharged = ExtraJumpsMax;
         FootStepController = GetComponentInChildren<FootStepController>();
+        _fullHealHeight = transform.position.y + 2f;
+        InterfacePlayerHP();
+
+        OnPlayerDeath += PlayerDeath;
+        OnPlayerFullHealth += PlayerFullHeal;
     }
 
     void Update()
     {
+        Debug.Log(_maxFallSpeed);
         GatherInputs();
         HandleGrounding();
-        
+        HandleJumping();
+
         if (!IsKnockbacked || !_myAnimator.GetBool("FellDown"))
         {
             HandleWalking();
-            HandleJumping();
             HandleDashing(DashRank);
         }
 
@@ -102,6 +117,19 @@ public class PlayerController : MonoBehaviour
         if(IsKnockbacked || _myAnimator.GetBool("FellDown")) return;
         if (Input.GetButtonDown("Fire1")) ExecuteAttack();
         if (Input.GetButtonDown("Fire2")) ExecuteInteraction(); 
+
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            if(IsGrounded || Time.time < _timeLeftGrounded + _coyoteTime)
+            {
+                if(!_hasJumped) ExecuteJump();
+            }
+            else if(_extraJumpsCharged > 0)
+            {
+                _extraJumpsCharged--;
+                ExecuteJump();
+            }
+        }
     }
 
     void SetFacingDirection(bool left) => this.transform.localScale = left ? new Vector3(1, 1, 1) : new Vector3(-1, 1, 1);
@@ -114,19 +142,18 @@ public class PlayerController : MonoBehaviour
 
         if(!IsGrounded && grounded)
         {
-            if(_fallImpact) 
+            if(CurrentHealth < TotalHealth && transform.position.y < _fullHealHeight) OnPlayerFullHealth?.Invoke(); 
+
+            if(0 < CurrentHealth && _fallImpact) 
             {
                 _knockbackTimer = Time.time + _groundImpactKnockbackTime;
                 _myAnimator.SetBool("FellDown", true);
                 PlaySound(Audioclips[1]);
             }
-            else
-            {
-                FootStepController.PlayOneShot(FootStepController.RandomSolidClip(), 0.5f);
-            }
+            else FootStepController.PlayOneShot(FootStepController.RandomSolidClip(), 0.5f);
+
 
             _extraJumpsCharged = ExtraJumpsMax;
-            _fallImpact = false;
             IsGrounded = true;
             _hasDashed = false;
             _hasJumped = false;
@@ -188,32 +215,10 @@ public class PlayerController : MonoBehaviour
 
     private void HandleJumping()
     {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            if(IsGrounded || Time.time < _timeLeftGrounded + _coyoteTime)
-            {
-                if(!_hasJumped) ExecuteJump();
-            }
-            else if(_extraJumpsCharged > 0)
-            {
-                _extraJumpsCharged--;
-                ExecuteJump();
-            }
-        }
-
-        void ExecuteJump()
-        {
-            _myAnimator.SetBool("FellDown", false);
-            _timeLeftGrounded = Time.time;
-            _hasJumped = true;
-            _rb.velocity = new Vector2(_rb.velocity.x, _initialJumpSpeed);
-            OnJump?.Invoke();
-        }
-
         if (Mathf.Approximately(_rb.velocity.y, 0) && !IsGrounded) _hasJumped = false;
         if(_rb.velocity.y < 0) _rb.velocity = new Vector2(_rb.velocity.x, Mathf.Clamp(_rb.velocity.y, _maxFallSpeed, 0));
-        if(_rb.velocity.y == _maxFallSpeed) _fallImpact = true;
-        
+        _fallImpact = _rb.velocity.y <= _maxFallSpeed * 0.75f;
+
         if (_hasJumped)
         {
             if ((Input.GetKey(KeyCode.Space) && Time.time < _timeLeftGrounded + _extraJumpTime + _jumpTime))
@@ -223,6 +228,15 @@ public class PlayerController : MonoBehaviour
             else if (Time.time > _timeLeftGrounded + _jumpTime) _hasJumped = false;
         }
         else if(!_dashing) _rb.gravityScale = 10;
+    }
+
+    void ExecuteJump()
+    {
+        _myAnimator.SetBool("FellDown", false);
+        _timeLeftGrounded = Time.time;
+        _hasJumped = true;
+        _rb.velocity = new Vector2(_rb.velocity.x, _initialJumpSpeed);
+        OnJump?.Invoke();
     }
 
     #endregion
@@ -361,8 +375,25 @@ public class PlayerController : MonoBehaviour
         _rb.velocity = Vector3.zero;
         _rb.AddForce(new Vector2(knockback.x, knockback.y * 1.5f) * knockbackResistance, ForceMode2D.Force);
         _knockbackTimer = IsGrounded ? Time.time + (_knockbackTime * knockbackResistance) : Time.time + ((_knockbackTime + _extraUngroundedKnockbackTime) * knockbackResistance);
-
+        
+        InterfacePlayerHP();
         if(CurrentHealth < 1) OnPlayerDeath?.Invoke();
+    }
+
+    void PlayerFullHeal()
+    { 
+        CurrentHealth = TotalHealth;
+        gameObject.layer = 2;
+        _knockbackTimer = 0;
+        InterfacePlayerHP();
+    }
+
+    void PlayerDeath()
+    {
+        _myAnimator.SetFloat("Speed", 0);
+        _myAnimator.SetBool("FellDown", true);
+        gameObject.layer = 7;
+        _knockbackTimer = Mathf.Infinity;
     }
 
     #endregion
@@ -381,6 +412,25 @@ public class PlayerController : MonoBehaviour
 
     #endregion
 
+    #region UI Handling
+
+    void InterfacePlayerHP()
+    {
+        Vector2 resMultiplier = new Vector2(Screen.width / 1920, Screen.height / 1080);
+
+        for(int i = 0; i < TotalHealth; i++)
+        {
+            if(Hearts.Count <= i)
+            {
+                Hearts.Add(Instantiate(HealthIconPrefab, UIScaler));
+                Hearts[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(FullHDHealthIconsPivot.x * (i + 1) * resMultiplier.x, FullHDHealthIconsPivot.y * resMultiplier.y);
+            }
+            Hearts[i].GetComponent<Image>().color = i < CurrentHealth ? Color.white : Color.black;
+        }
+    }
+
+    #endregion
+    
     public void PlaySound(AudioClip clipToPlay) => _soundEmitter.PlayOneShot(clipToPlay);
 
     private struct FrameInputs

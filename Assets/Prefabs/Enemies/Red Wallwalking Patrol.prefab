@@ -120,6 +120,10 @@ PrefabInstance:
       value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 8813706117982784071, guid: 61dadd3fb8ab447498812d44a719021f, type: 3}
+      propertyPath: ChancePerFloor
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8813706117982784071, guid: 61dadd3fb8ab447498812d44a719021f, type: 3}
       propertyPath: ChancePerDashRank
       value: 50
       objectReference: {fileID: 0}

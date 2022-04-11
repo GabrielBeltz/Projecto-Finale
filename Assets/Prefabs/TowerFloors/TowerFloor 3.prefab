@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3544443870641364814}
   - component: {fileID: 9134376672441384065}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: AudioEmitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,7 +139,7 @@ GameObject:
   - component: {fileID: 4634690315597177980}
   - component: {fileID: 118759242425188157}
   - component: {fileID: 1712025192966614103}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: Wall (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -288,6 +288,8 @@ MonoBehaviour:
   ChancePerDashRank: 0
   DependsOn: {fileID: 0}
   InverseDependsOn: {fileID: 0}
+  ChanceIfNotSpawnedTarget: {fileID: 0}
+  ChanceIfNotSpawned: 0
 --- !u!1 &2392541958937477323
 GameObject:
   m_ObjectHideFlags: 0
@@ -385,6 +387,8 @@ MonoBehaviour:
   ChancePerDashRank: -25
   DependsOn: {fileID: 0}
   InverseDependsOn: {fileID: 0}
+  ChanceIfNotSpawnedTarget: {fileID: 0}
+  ChanceIfNotSpawned: 0
 --- !u!114 &1109547846446461045
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,6 +407,8 @@ MonoBehaviour:
   ChancePerDashRank: 0
   DependsOn: {fileID: 0}
   InverseDependsOn: {fileID: 0}
+  ChanceIfNotSpawnedTarget: {fileID: 0}
+  ChanceIfNotSpawned: 0
 --- !u!1 &5139997471819653147
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,7 +537,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8326066872783967066}
   - component: {fileID: 5350163041227837010}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: AudioEmitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -660,7 +666,7 @@ GameObject:
   - component: {fileID: 6201897529968489399}
   - component: {fileID: 197574919188124518}
   - component: {fileID: 4679397073897485370}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: Wall (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}

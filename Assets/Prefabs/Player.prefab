@@ -172,15 +172,6 @@ MonoBehaviour:
   _dashLength: 0.1
   _dashCooldown: 3
   _dashSpeed: 60
-  _attackLayerMask:
-    serializedVersion: 2
-    m_Bits: 72
-  TotalHealth: 6
-  CurrentHealth: 6
-  _knockbackTime: 0.3
-  _selfKnockBackTime: 0.1
-  _groundImpactKnockbackTime: 0.5
-  _extraUngroundedKnockbackTime: 0.2
   _defaultAttack: {fileID: 11400000, guid: 1d957a92dec18a84d9498d3938502dbe, type: 2}
   _playerAttacks:
   - {fileID: 11400000, guid: 1d957a92dec18a84d9498d3938502dbe, type: 2}
@@ -188,6 +179,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 77639c4dde859fd4f9432ea4a110260f, type: 2}
   - {fileID: 11400000, guid: f7cf13109c001c74ab445f6fea9309a5, type: 2}
   - {fileID: 11400000, guid: 252fda0541908804cb00862c6c2425d9, type: 2}
+  _attackLayerMask:
+    serializedVersion: 2
+    m_Bits: 72
+  _deathLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  TotalHealth: 6
+  CurrentHealth: 6
+  _knockbackTime: 0.3
+  _selfKnockBackTime: 0.1
+  _groundImpactKnockbackTime: 0.5
+  _extraUngroundedKnockbackTime: 0.2
   _timeOfLastAttack: 10
   _attackFeedback: {fileID: 1154210218571004440}
   InteractionRadius: 2
@@ -196,9 +199,12 @@ MonoBehaviour:
     m_Bits: 256
   _myAnimator: {fileID: 2962523971559447657}
   _soundEmitter: {fileID: 1154210220103111485}
+  UIScaler: {fileID: 0}
   Audioclips:
   - {fileID: 8300000, guid: 8781f5a6891be9949bd3c2e6c4d311d5, type: 3}
   - {fileID: 8300000, guid: 2ace38f714a9fba4e885d00beca4500d, type: 3}
+  HealthIconPrefab: {fileID: 0}
+  FullHDHealthIconsPivot: {x: 75, y: 1005}
   Inventory: {fileID: 11400000, guid: e80e98bbbdc5f794e82326767e9b3205, type: 2}
 --- !u!114 &2635058737366346552
 MonoBehaviour:
@@ -931,7 +937,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0f706b9f024b82c4ea47ff5f6a767a55, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.3
+      value: -0.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0f706b9f024b82c4ea47ff5f6a767a55, type: 3}
       propertyPath: m_LocalScale.y
@@ -947,7 +953,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0f706b9f024b82c4ea47ff5f6a767a55, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.9
+      value: -0.6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0f706b9f024b82c4ea47ff5f6a767a55, type: 3}
       propertyPath: m_LocalPosition.z
