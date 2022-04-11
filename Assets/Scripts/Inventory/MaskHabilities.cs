@@ -5,6 +5,7 @@ public class MaskHabilities : MonoBehaviour
     private PlayerController playerController;
     [SerializeField] private bool hasDash1, hasDash2, hasDash3;
     float likelyPickDash = 1f, likelyPickDoubleJump = 1f;
+    public float DeramdomizeFactor = 0.34f; // nesse valor todos os upgrades começam com 1 de chance, e essa chance diminui em 0.34 a cada rank pego.
 
     void Awake() => playerController = GetComponent<PlayerController>();
 
@@ -34,8 +35,8 @@ public class MaskHabilities : MonoBehaviour
 
     void DetermineChance()
     {
-        likelyPickDash = 1 - (playerController.DashRank * 0.34f);
-        likelyPickDoubleJump = 1 - (playerController.ExtraJumpsMax * 0.34f);
+        likelyPickDash = 1 - Mathf.Clamp01(playerController.DashRank * DeramdomizeFactor);
+        likelyPickDoubleJump = 1 - Mathf.Clamp01(playerController.ExtraJumpsMax * DeramdomizeFactor);
     }
 
     void PickRandomly()

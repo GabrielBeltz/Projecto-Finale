@@ -182,9 +182,6 @@ MonoBehaviour:
   _attackLayerMask:
     serializedVersion: 2
     m_Bits: 72
-  _deathLayer:
-    serializedVersion: 2
-    m_Bits: 128
   TotalHealth: 6
   CurrentHealth: 6
   _knockbackTime: 0.3
@@ -290,6 +287,7 @@ MonoBehaviour:
   hasDash1: 0
   hasDash2: 0
   hasDash3: 0
+  DeramdomizeFactor: 1
 --- !u!1 &1154210220103111487
 GameObject:
   m_ObjectHideFlags: 0
