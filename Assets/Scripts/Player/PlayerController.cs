@@ -144,13 +144,16 @@ public class PlayerController : MonoBehaviour
         {
             if(CurrentHealth < TotalHealth && transform.position.y < _fullHealHeight) OnPlayerFullHealth?.Invoke(); 
 
-            if(0 < CurrentHealth && _fallImpact) 
+            if(0 < CurrentHealth)
             {
-                _knockbackTimer = Time.time + _groundImpactKnockbackTime;
-                _myAnimator.SetBool("FellDown", true);
-                PlaySound(Audioclips[1]);
+                if(_fallImpact) 
+                {
+                    _knockbackTimer = Time.time + _groundImpactKnockbackTime;
+                    _myAnimator.SetBool("FellDown", true);
+                    PlaySound(Audioclips[1]);
+                }
+                else FootStepController.PlayOneShot(FootStepController.RandomSolidClip(), 0.5f);
             }
-            else FootStepController.PlayOneShot(FootStepController.RandomSolidClip(), 0.5f);
 
 
             _extraJumpsCharged = ExtraJumpsMax;

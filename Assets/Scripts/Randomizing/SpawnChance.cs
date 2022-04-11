@@ -33,7 +33,6 @@ public class SpawnChance : MonoBehaviour
     
     bool DecideSpawn()
     {
-
         totalCalculatedChance = GetChanceToSpawn();
         if(DependsOn != null)
         {

@@ -12,4 +12,4 @@ public class MaskObject : ItemObject
     }
 }
 
-public enum Habilities { Dash, DoubleJump }
+public enum Habilities { Random, Dash, DoubleJump }
