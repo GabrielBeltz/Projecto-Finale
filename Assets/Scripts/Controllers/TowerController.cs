@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class TowerController : MonoBehaviour
 {
@@ -10,9 +11,20 @@ public class TowerController : MonoBehaviour
     public int CurrentFloor;
     [Header("Needed to Work")]
     public Transform _player;
+    public TextMeshProUGUI Current, Highest;
     Transform _tower;
     float _baseHeight;
     int _lastLevel = 0, _newLevel, _lastIndex = 0;
+    int _highest;
+    int highest 
+    { 
+        get => _highest; 
+        set 
+        {
+            if(value > _highest) _highest = value;
+        } 
+    }
+
     [HideInInspector] public PlayerController PlayerController;
     [HideInInspector] public MaskHabilities MaskHabilities;
     List<Level> lastLevels;
@@ -41,6 +53,9 @@ public class TowerController : MonoBehaviour
     {
         _newLevel = Mathf.Clamp(Mathf.FloorToInt((_player.position.y + 1 - _baseHeight) / FloorHeight), 0, 100) + 1;
         CurrentFloor = _newLevel;
+        highest = CurrentFloor;
+        Current.text = $"Current Floor: {CurrentFloor - 1}";
+        Highest.text = $"Highest Floor: {highest - 1}";
 
         if(_lastLevel != _newLevel && _lastLevel < _newLevel) NewLevel();
 
