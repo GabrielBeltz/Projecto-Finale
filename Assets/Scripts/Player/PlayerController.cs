@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
     [Header("UI")]
     public GameObject HealthIconPrefab;
     public Vector2 FullHDHealthIconsPivot;
-    List<GameObject> Hearts;
+    List<InstantiatedUIHP> Hearts;
 
     private bool _hasDashed, _dashing;
     private float _timeStartedDash;
@@ -84,7 +84,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        Hearts = new List<GameObject>();
+        Hearts = new List<InstantiatedUIHP>();
         _timeOfLastAttack = 0;
         _rb = GetComponent<Rigidbody2D>();
         _lastAttack = _defaultAttack;
@@ -426,16 +426,14 @@ public class PlayerController : MonoBehaviour
 
     void InterfacePlayerHP()
     {
-        Vector2 resMultiplier = new Vector2(Screen.width / 1920, Screen.height / 1080);
-
         for(int i = 0; i < TotalHealth; i++)
         {
             if(Hearts.Count <= i)
             {
-                Hearts.Add(Instantiate(HealthIconPrefab, UIScaler));
-                Hearts[i].GetComponent<RectTransform>().anchoredPosition = new Vector2(FullHDHealthIconsPivot.x * (i + 1) * resMultiplier.x, FullHDHealthIconsPivot.y * resMultiplier.y);
+                Hearts.Add(new InstantiatedUIHP(Instantiate(HealthIconPrefab, UIScaler)));
             }
-            Hearts[i].GetComponent<Image>().color = i < CurrentHealth ? Color.white : Color.black;
+            Hearts[i].rect.anchoredPosition = new Vector2(FullHDHealthIconsPivot.x * (i + 1), (FullHDHealthIconsPivot.y - 1080f));
+            Hearts[i].image.color = i < CurrentHealth ? Color.white : Color.black;
         }
     }
 
@@ -447,6 +445,20 @@ public class PlayerController : MonoBehaviour
     {
         public float X;
         public int RawX;
+    }
+
+    public class InstantiatedUIHP
+    {
+        public GameObject Prefab;
+        public Image image;
+        public RectTransform rect;
+
+        public InstantiatedUIHP(GameObject instantiatedPrefab)
+        {
+            Prefab = instantiatedPrefab;
+            image = Prefab.GetComponent<Image>();
+            rect = Prefab.GetComponent<RectTransform>();
+        }
     }
 
     private void OnApplicationQuit() => Inventory.Container.Clear();
