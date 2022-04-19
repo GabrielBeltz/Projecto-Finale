@@ -86,7 +86,8 @@ public class MaskHabilities : MonoBehaviour
     {
         playerController.ExtraJumpsMax++; 
 
-        ShowItemInfo(playerController.ExtraJumpsMax > 2 ? "Double & Wall Jump" : playerController.DashRank > 1 ? "Double Jump & Wall Slide" : "Double Jump", doubleJumpTextIndex);
+        ShowItemInfo(playerController.ExtraJumpsMax > 2 ? "Double & Wall Jump" : playerController.DashRank > 1 ? "Triple Jump" : "Double Jump", doubleJumpTextIndex);
+        //ShowItemInfo(playerController.ExtraJumpsMax > 2 ? "Double & Wall Jump" : playerController.DashRank > 1 ? "Double Jump & Wall Slide" : "Double Jump", doubleJumpTextIndex);
         if(doubleJumpTextIndex == -1) doubleJumpTextIndex = lastIndex;
     }
 }

@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Jumping")]
     public int ExtraJumpsMax;
-    [SerializeField] private float _initialJumpSpeed = 20, _fallingAcceleration = 7.5f, _timeUntilMaxFallingSpeed = 2, _coyoteTime = 0.2f, _jumpTime, _extraJumpTime;
+    [SerializeField] private float _initialJumpSpeed = 20, _fallingAcceleration = 7.5f, _timeUntilMaxFallingSpeed = 2, _coyoteTime = 0.2f, _jumpTime, _extraJumpTime, _gravityScale;
     [SerializeField] private bool _hasJumped, _fallImpact;
     private float _maxFallSpeed => (-_initialJumpSpeed - (_fallingAcceleration * _timeUntilMaxFallingSpeed)) * (CurrentHealth > 0 ? 1 : 3);
     float _timeLeftGrounded, _extraJumpsCharged;
@@ -27,8 +27,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("Walking")]
     [SerializeField] private float _baseWalkSpeed = 8f;
-    [SerializeField] private float _acceleration = 2f, _maxWalkingPenalty = 0.1f, _currentWalkingPenalty, _jumpManeuverabilityPercentage;
-    float _currentMovementLerpSpeed = 100;
+    [SerializeField] private float _jumpManeuverabilityPercentage;
     float _moddedWalkSpeed { get => StatsManager.Instance.MoveSpeed.totalValue * _baseWalkSpeed; }
 
     [Header("Dashing")]
@@ -125,7 +124,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetButtonDown("Fire1")) ExecuteAttack();
         if (Input.GetButtonDown("Fire2")) ExecuteInteraction(); 
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetButtonDown("Jump"))
         {
             if(IsGrounded || Time.time < _timeLeftGrounded + _coyoteTime)
             {
@@ -162,12 +161,10 @@ public class PlayerController : MonoBehaviour
                 else FootStepController.PlayOneShot(FootStepController.RandomSolidClip(), 0.5f);
             }
 
-
             _extraJumpsCharged = ExtraJumpsMax;
             IsGrounded = true;
             _hasDashed = false;
             _hasJumped = false;
-            _currentMovementLerpSpeed = 100;
             OnTouchedGround?.Invoke();
         }
         else if(IsGrounded && !grounded)
@@ -195,28 +192,11 @@ public class PlayerController : MonoBehaviour
     {
         if(_dir.x != 0) _myAnimator.SetBool("FellDown", false);
 
-        var normalizedDir = _dir.normalized;
+        _rb.velocity = IsGrounded
+            ? new Vector2(_moddedWalkSpeed * _dir.x, _rb.velocity.y)
+            : new Vector2(_moddedWalkSpeed * _jumpManeuverabilityPercentage * _dir.x, _rb.velocity.y);
 
-        if(_dir != Vector3.zero)  _currentWalkingPenalty += _acceleration * Time.deltaTime;
-        else _currentWalkingPenalty -= _maxWalkingPenalty * Time.deltaTime;
-
-        _currentWalkingPenalty = Mathf.Clamp(_currentWalkingPenalty, _maxWalkingPenalty, 2f);
-
-        var targetVel = new Vector3(normalizedDir.x * _currentWalkingPenalty * _moddedWalkSpeed, _rb.velocity.y, normalizedDir.z);
-
-        var idealVel = new Vector3(targetVel.x, _rb.velocity.y, targetVel.z);
-
-        if (IsGrounded)
-        {
-            _rb.velocity = Vector3.MoveTowards(_rb.velocity, idealVel, _currentMovementLerpSpeed * Time.deltaTime);
-        }
-        else
-        {
-            Vector3 jumpIdealVel = new Vector3(idealVel.x * _jumpManeuverabilityPercentage, idealVel.y, idealVel.z * _jumpManeuverabilityPercentage);
-            _rb.velocity = Vector3.MoveTowards(_rb.velocity, jumpIdealVel, _currentMovementLerpSpeed * Time.deltaTime);
-        }
-
-        _myAnimator.SetFloat("Speed", Mathf.Abs(targetVel.x));
+        _myAnimator.SetFloat("Speed", Mathf.Abs(_baseWalkSpeed * _dir.x));
     }
 
     #endregion
@@ -227,17 +207,17 @@ public class PlayerController : MonoBehaviour
     {
         if (Mathf.Approximately(_rb.velocity.y, 0) && !IsGrounded) _hasJumped = false;
         if(_rb.velocity.y < 0) _rb.velocity = new Vector2(_rb.velocity.x, Mathf.Clamp(_rb.velocity.y, _maxFallSpeed, 0));
-        _fallImpact = _rb.velocity.y <= _maxFallSpeed * 0.75f;
+        _fallImpact = _rb.velocity.y <= _maxFallSpeed * 0.95f;
 
         if (_hasJumped)
         {
-            if ((Input.GetKey(KeyCode.Space) && Time.time < _timeLeftGrounded + _extraJumpTime + _jumpTime))
+            if ((Input.GetButton("Jump") && Time.time < _timeLeftGrounded + _extraJumpTime + _jumpTime))
             {
                 _rb.gravityScale = 0;
             }
             else if (Time.time > _timeLeftGrounded + _jumpTime) _hasJumped = false;
         }
-        else if(!_dashing) _rb.gravityScale = 10;
+        else if(!_dashing) _rb.gravityScale = _gravityScale;
     }
 
     void ExecuteJump()
@@ -259,7 +239,7 @@ public class PlayerController : MonoBehaviour
 
         if (_dashCooldownTimer < Time.time)
         {
-            if (Input.GetKeyDown(KeyCode.E) && !_hasDashed && _dir.x != 0)
+            if (Input.GetButton("Fire3") && !_hasDashed && _dir.x != 0)
             {
                 _dashDir = new Vector3(_inputs.RawX, 0, 0).normalized;
 
@@ -272,7 +252,6 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-
         if(!_dashing) return; 
         if(Time.time >= _timeStartedDash + (_dashLength * StatsManager.Instance.DashLength.totalValue)) EndDash();
         
@@ -281,8 +260,7 @@ public class PlayerController : MonoBehaviour
         _rb.gravityScale = 0;
 
         if(rank < 2) return;
-        
-        //Rank 2 do Dash
+        gameObject.layer = 11;
 
         if(rank < 3) return;
     
@@ -292,10 +270,11 @@ public class PlayerController : MonoBehaviour
     void EndDash() 
     {
         _dashing = false;
-        _rb.velocity = new Vector3(Mathf.Clamp(_rb.velocity.x, 0, _dir.normalized.x * _currentWalkingPenalty * _moddedWalkSpeed), _rb.velocity.y > 3 ? 3 : _rb.velocity.y);
-        _rb.gravityScale = 10;
+        _rb.velocity = new Vector3(Mathf.Clamp(_rb.velocity.x, _dir.normalized.x * -_moddedWalkSpeed, _dir.normalized.x * _moddedWalkSpeed), _rb.velocity.y > 3 ? 3 : _rb.velocity.y);
+        _rb.gravityScale = _gravityScale;
         if(IsGrounded) _hasDashed = false;
         OnStopDashing?.Invoke();
+        gameObject.layer = 10;
     }
 
     #endregion
@@ -393,7 +372,7 @@ public class PlayerController : MonoBehaviour
     void PlayerFullHeal()
     { 
         CurrentHealth = TotalHealth;
-        gameObject.layer = 2;
+        gameObject.layer = 10;
         _knockbackTimer = 0;
         InterfacePlayerHP();
     }

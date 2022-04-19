@@ -344,7 +344,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 20
   m_Sprite: {fileID: 21300000, guid: 4226532dbb1a4c9429e7c77cb380b2e3, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -451,6 +451,14 @@ PrefabInstance:
       propertyPath: texts.Array.data[1]
       value: 
       objectReference: {fileID: 2147469531}
+    - target: {fileID: 798870798910496494, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
+      propertyPath: m_DeadZoneWidth
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 798870798910496494, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
+      propertyPath: m_DeadZoneHeight
+      value: 0.28
+      objectReference: {fileID: 0}
     - target: {fileID: 1154210218694514585, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -500,10 +508,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1094858587}
     - target: {fileID: 1154210218694514588, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
-      propertyPath: HealthIconPrefab
-      value: 
-      objectReference: {fileID: 6292870668279087758, guid: 360f07f1fca8a634e9b69de49af51097, type: 3}
-    - target: {fileID: 1154210218694514588, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
       propertyPath: _maxWalkingPenalty
       value: 2
       objectReference: {fileID: 0}
@@ -511,13 +515,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 3259206447251639621, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
+    - target: {fileID: 2516737084365969926, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3259206447251639621, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
+    - target: {fileID: 2516737084365969926, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259206447251639621, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.66065216
+      objectReference: {fileID: 0}
+    - target: {fileID: 3259206447251639621, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.0016841888
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}

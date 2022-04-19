@@ -18,8 +18,8 @@ TagManager:
   - DeathLayer
   - Interactable
   - OuterWalls
-  - 
-  - 
+  - Player
+  - IgnoreEnemies
   - 
   - 
   - 
