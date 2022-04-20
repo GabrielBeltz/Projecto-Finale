@@ -52,7 +52,7 @@ public class SpawnChance : MonoBehaviour
     float GetChanceToSpawn() =>
         BaseChance +
         (ChancePerFloor * TowerController.Instance.CurrentFloor) +
-        (ChancePerExtraJump * TowerController.Instance.PlayerController.ExtraJumpsMax) +
+        (ChancePerExtraJump * TowerController.Instance.PlayerController.JumpRank) +
         (ChancePerDashRank * TowerController.Instance.PlayerController.DashRank) +
         (ChanceIfNotSpawnedTarget == null ? 0 : !ChanceIfNotSpawnedTarget.gameObject.activeSelf ? ChanceIfNotSpawned : 0);
 }

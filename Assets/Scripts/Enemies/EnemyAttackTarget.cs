@@ -30,6 +30,8 @@ public class EnemyAttackTarget : MonoBehaviour
     public GameObject[] GameObjectsToDeactivate;
     RigidbodyConstraints2D constraints;
 
+    float defaultPlayerDamage;
+
     private void Awake()
     {
         if(Collider == null)
@@ -58,7 +60,7 @@ public class EnemyAttackTarget : MonoBehaviour
     private void OnEnable()
     {
         currentHealth = TotalHealth;
-        onAttackReceived += ReceiveDamage;
+        onAttackReceived += ReceiveAttack;
 
         if(hasRespawnBehaviour) DeathType = EnemyDeathType.DisableAllButAudio;
 
@@ -81,12 +83,28 @@ public class EnemyAttackTarget : MonoBehaviour
             }
         }
 
-        if (hitSound.Length > 0 && audioSource != null) onAttackReceived += PlayHitSound;
+        if (hitSound.Length > 0 && audioSource != null) onAttackReceived += PlayCalculatedHitSound;
+    }
+
+    private void Start()
+    {
+        float b = StatsManager.Instance.Damage.totalValue;
+        float a = StatsManager.Instance.PlayerController.DefaultAttack.damage;
+        defaultPlayerDamage = a * b;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.gameObject.layer == 12) 
+        { 
+            ReceiveDamage(defaultPlayerDamage);
+            PlaySoundAtMyPosition();
+        }
     }
 
     private void OnDisable()
     {
-        onAttackReceived -= ReceiveDamage;
+        onAttackReceived -= ReceiveAttack;
 
         switch(DeathType)
         {
@@ -98,15 +116,20 @@ public class EnemyAttackTarget : MonoBehaviour
                 break;
         }
 
-        if (hitSound.Length > 0 && audioSource != null) onAttackReceived -= PlayHitSound;
+        if (hitSound.Length > 0 && audioSource != null) onAttackReceived -= PlayCalculatedHitSound;
     }
 
-    public void ReceiveAttack(PlayerMeleeAttack playerMeleeAttack, Vector3 pos) => onAttackReceived?.Invoke(playerMeleeAttack, pos);
+    public void ReceiveAttackCall(PlayerMeleeAttack playerMeleeAttack, Vector3 pos) => onAttackReceived?.Invoke(playerMeleeAttack, pos);
 
-    void ReceiveDamage(PlayerMeleeAttack playerMeleeAttack, Vector3 pos)
+    void ReceiveAttack(PlayerMeleeAttack playerMeleeAttack, Vector3 pos)
     {
-        if (playerMeleeAttack.direction == receivedAttackDirection || receivedAttackDirection == AttackDirection.Front)
-        currentHealth -= (playerMeleeAttack.damage * StatsManager.Instance.Damage.totalValue) * DamageReceived;
+        if(playerMeleeAttack.direction == receivedAttackDirection || receivedAttackDirection == AttackDirection.Front)
+        ReceiveDamage(playerMeleeAttack.damage);
+    }
+
+    void ReceiveDamage(float damage)
+    {
+        currentHealth -= (damage * StatsManager.Instance.Damage.totalValue) * DamageReceived;
         if (currentHealth <= 0) onDeath?.Invoke();
     }
 
@@ -139,11 +162,21 @@ public class EnemyAttackTarget : MonoBehaviour
 
     void DeactivateSelf() => this.gameObject.SetActive(false);
 
-    void PlayHitSound(PlayerMeleeAttack playerMeleeAttack, Vector3 pos)
+    void PlaySoundAtMyPosition()
+    {
+        audioSource.transform.localPosition = Vector3.zero;
+        PlayHitSound();
+    }
+
+    void PlayCalculatedHitSound(PlayerMeleeAttack playerMeleeAttack, Vector3 pos) 
     {
         Vector3 soundPosition = Collider.ClosestPoint(pos);
         audioSource.transform.position = soundPosition;
+        PlayHitSound();
+    }
 
+    void PlayHitSound()
+    {
         if (audioSource.isPlaying) audioSource.Stop();
 
         audioSource.clip = hitSound[Random.Range(0, hitSound.Length)];

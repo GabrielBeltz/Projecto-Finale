@@ -18,11 +18,11 @@ public class PlayerController : MonoBehaviour
     private readonly Collider2D[] _ground = new Collider2D[1];
 
     [Header("Jumping")]
-    public int ExtraJumpsMax;
+    public int JumpRank;
     [SerializeField] private float _initialJumpSpeed = 20, _fallingAcceleration = 7.5f, _timeUntilMaxFallingSpeed = 2, _coyoteTime = 0.2f, _jumpTime, _extraJumpTime, _gravityScale;
-    [SerializeField] private bool _hasJumped, _fallImpact;
+    private bool _hasJumped, _fallImpact, _doubleJumpCharged;
     private float _maxFallSpeed => (-_initialJumpSpeed - (_fallingAcceleration * _timeUntilMaxFallingSpeed)) * (CurrentHealth > 0 ? 1 : 3);
-    float _timeLeftGrounded, _extraJumpsCharged;
+    float _timeLeftGrounded;
     public static event Action OnJump;
 
     [Header("Walking")]
@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
     public static event Action OnStartDashing, OnStopDashing;
 
     [Header("Combat")]
-    [SerializeField] private PlayerMeleeAttack _defaultAttack;
+    public PlayerMeleeAttack DefaultAttack;
     [SerializeField] private List<PlayerMeleeAttack> _playerAttacks;
     [SerializeField] LayerMask _attackLayerMask;
     public int TotalHealth, CurrentHealth;
@@ -50,10 +50,7 @@ public class PlayerController : MonoBehaviour
     public bool IsKnockbacked 
     { 
         get => _knockbackTimer > Time.time; 
-        set 
-        {
-            _knockbackTimer = value ? Mathf.Infinity : Time.time;
-        }
+        set => _knockbackTimer = value ? Mathf.Infinity : Time.time;
     }
     public static Action OnPlayerDeath, OnPlayerFullHealth;
 
@@ -86,8 +83,7 @@ public class PlayerController : MonoBehaviour
         Hearts = new List<InstantiatedUIHP>();
         _timeOfLastAttack = 0;
         _rb = GetComponent<Rigidbody2D>();
-        _lastAttack = _defaultAttack;
-        _extraJumpsCharged = ExtraJumpsMax;
+        _lastAttack = DefaultAttack;
         FootStepController = GetComponentInChildren<FootStepController>();
         _fullHealHeight = transform.position.y + 2f;
         InterfacePlayerHP();
@@ -126,14 +122,15 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetButtonDown("Jump"))
         {
-            if(IsGrounded || Time.time < _timeLeftGrounded + _coyoteTime)
+            if(!_hasJumped)
             {
-                if(!_hasJumped) ExecuteJump();
-            }
-            else if(_extraJumpsCharged > 0)
-            {
-                _extraJumpsCharged--;
-                ExecuteJump();
+                if(IsGrounded) ExecuteJump(false);
+                else if(Time.time < _timeLeftGrounded + _coyoteTime) ExecuteJump(true);
+                else if(_doubleJumpCharged) 
+                {
+                    _doubleJumpCharged = false;
+                    ExecuteJump(true);
+                }
             }
         }
     }
@@ -144,7 +141,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleGrounding()
     {
-        var grounded = Physics2D.OverlapCircleNonAlloc(transform.position + new Vector3(0, _grounderOffset), _grounderRadius, _ground, _groundMask) > 0;
+        var grounded = Physics2D.OverlapCircleNonAlloc(transform.position + new Vector3(0, _grounderOffset, 0), _grounderRadius, _ground, _groundMask) > 0;
 
         if(!IsGrounded && grounded)
         {
@@ -161,7 +158,7 @@ public class PlayerController : MonoBehaviour
                 else FootStepController.PlayOneShot(FootStepController.RandomSolidClip(), 0.5f);
             }
 
-            _extraJumpsCharged = ExtraJumpsMax;
+            if(JumpRank > 2) _doubleJumpCharged = true;
             IsGrounded = true;
             _hasDashed = false;
             _hasJumped = false;
@@ -220,10 +217,11 @@ public class PlayerController : MonoBehaviour
         else if(!_dashing) _rb.gravityScale = _gravityScale;
     }
 
-    void ExecuteJump()
+    void ExecuteJump(bool coyoteJump)
     {
+        PlaySound(Audioclips[0]);
         _myAnimator.SetBool("FellDown", false);
-        _timeLeftGrounded = Time.time;
+        _timeLeftGrounded = coyoteJump? _timeLeftGrounded : Time.time;
         _hasJumped = true;
         _rb.velocity = new Vector2(_rb.velocity.x, _initialJumpSpeed);
         OnJump?.Invoke();
@@ -263,8 +261,7 @@ public class PlayerController : MonoBehaviour
         gameObject.layer = 11;
 
         if(rank < 3) return;
-    
-        //Rank 3 do Dash
+        gameObject.layer = 12;
     }
 
     void EndDash() 
@@ -306,7 +303,7 @@ public class PlayerController : MonoBehaviour
             EnemyAttackTarget target = attackCollider.transform.GetComponent<EnemyAttackTarget>();
             if (target != null)
             {
-                target.ReceiveAttack(_lastAttack, transform.position);
+                target.ReceiveAttackCall(_lastAttack, transform.position);
                 selfKnockbackReceived = target.selfKnockbackReceived;
             }
 
@@ -330,11 +327,11 @@ public class PlayerController : MonoBehaviour
 
     public PlayerMeleeAttack GetNextAttack(Vector2 input)
     {
-        if (input.x >= 0 && input.y == 0)
+        if (input.x == 0 && input.y == 0)
         {
             PlayerMeleeAttack foundAttack = _playerAttacks.Find(attck => attck.comboInfo.previousAttack == _lastAttack.name);
 
-            if (foundAttack == null) return _defaultAttack;
+            if (foundAttack == null) return DefaultAttack;
             else if (_timeOfLastAttack - _lastAttack.cooldown + foundAttack.comboInfo.timeBetween > Time.time) return foundAttack;
         }
         else if (input.y > 0)
@@ -352,7 +349,7 @@ public class PlayerController : MonoBehaviour
             else if(_timeOfLastAttack - _lastAttack.cooldown + foundAttack.comboInfo.timeBetween > Time.time) return foundAttack;
         }
 
-        return _defaultAttack;
+        return DefaultAttack;
     }
 
     public void ReceiveDamage(int damage, Vector3 knockback)

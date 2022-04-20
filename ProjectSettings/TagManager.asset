@@ -20,7 +20,7 @@ TagManager:
   - OuterWalls
   - Player
   - IgnoreEnemies
-  - 
+  - PlayerContactDamage
   - 
   - 
   - 

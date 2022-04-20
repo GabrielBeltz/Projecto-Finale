@@ -6,7 +6,8 @@ public class MaskHabilities : MonoBehaviour
 {
     private PlayerController playerController;
     public TextMeshProUGUI[] texts;
-    public float DeramdomizeFactor = 0.34f; // nesse valor todos os upgrades começam com 1 de chance, e essa chance diminui em 0.34 a cada rank pego.
+    // nesse valor todos os upgrades começam com 100% de chance, e essa chance diminui em 34% a cada rank pego.
+    [Range(0, 0.45f)]public float DeramdomizeFactor = 0.34f; 
     float likelyPickDash = 1f, likelyPickDoubleJump = 1f;
     int dashTextIndex = -1, doubleJumpTextIndex = -1, lastIndex = -1; 
 
@@ -39,7 +40,7 @@ public class MaskHabilities : MonoBehaviour
     void DetermineChance()
     {
         likelyPickDash = 1 - Mathf.Clamp01(playerController.DashRank * DeramdomizeFactor);
-        likelyPickDoubleJump = 1 - Mathf.Clamp01(playerController.ExtraJumpsMax * DeramdomizeFactor);
+        likelyPickDoubleJump = 1 - Mathf.Clamp01(playerController.JumpRank * DeramdomizeFactor);
     }
 
     void PickRandomly()
@@ -84,10 +85,9 @@ public class MaskHabilities : MonoBehaviour
 
     void ActivateDoubleJump() 
     {
-        playerController.ExtraJumpsMax++; 
+        playerController.JumpRank++; 
 
-        ShowItemInfo(playerController.ExtraJumpsMax > 2 ? "Double & Wall Jump" : playerController.DashRank > 1 ? "Triple Jump" : "Double Jump", doubleJumpTextIndex);
-        //ShowItemInfo(playerController.ExtraJumpsMax > 2 ? "Double & Wall Jump" : playerController.DashRank > 1 ? "Double Jump & Wall Slide" : "Double Jump", doubleJumpTextIndex);
+        ShowItemInfo(playerController.JumpRank > 2 ? "Double & Wall Jump +" : playerController.DashRank > 1 ? "Wall Jump +" : "Wall Jump", doubleJumpTextIndex);
         if(doubleJumpTextIndex == -1) doubleJumpTextIndex = lastIndex;
     }
 }

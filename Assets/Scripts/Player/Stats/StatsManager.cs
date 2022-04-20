@@ -5,19 +5,14 @@ using UnityEngine;
 public class StatsManager : MonoBehaviour
 {
     public static StatsManager Instance;
-
+    public PlayerController PlayerController;
     public Stat Damage, MoveSpeed, DashLength, KnockbackResistance;
 
     private void Awake()
     {
-        if(Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(this);
-        }
+        if(Instance == null) { Instance = this; }
+        else { Destroy(this); }
+        PlayerController = GetComponent<PlayerController>();
     }
 
     private void Start()

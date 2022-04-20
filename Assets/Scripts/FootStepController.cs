@@ -13,7 +13,7 @@ public class FootStepController : MonoBehaviour
 
     private void FixedUpdate() => Physics2D.Raycast(transform.position, -Vector2.up * deploymentHeight, ContactFilter, hit, 1f);
 
-    public void Jump() => PlayOneShot(jumpClip[0], pitch);
+    public void Jump() { }
 
     public void Step()
     {

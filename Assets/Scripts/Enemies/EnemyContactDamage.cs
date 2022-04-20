@@ -15,6 +15,7 @@ public class EnemyContactDamage : MonoBehaviour
 
     private void OnTriggerEnter2D (Collider2D collision)
     {
+        if(collision.gameObject.layer == 12) return;
         if (collision.gameObject.CompareTag("Player"))
         {
             Vector3 knockingKnocking = (playerController.transform.position - this.transform.position).normalized * playerKnockback;
