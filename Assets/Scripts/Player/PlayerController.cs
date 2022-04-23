@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     float _maxFallSpeed => (-_initialJumpSpeed - (_fallingAcceleration * _timeUntilMaxFallingSpeed)) * (CurrentHealth > 0 ? 1 : 3);
     float _timeLeftGrounded;
     public static event Action OnJump;
+    bool _wallOnRight, _wallOnLeft, _onWall;
 
     [Header("Dashing")]
     [SerializeField] float _dashLength = 0.2f;
@@ -68,6 +69,7 @@ public class PlayerController : MonoBehaviour
 
     [Header("CollisorDetections")]
     [SerializeField] LayerMask _groundMask;
+    [SerializeField] LayerMask _wallsMask;
     [SerializeField] float _grounderOffset = -1, _grounderRadius = 0.2f;
     float _fullHealHeight;
     public bool IsGrounded;
@@ -98,11 +100,12 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         if(!(Time.timeScale > 0)) return;
-        GatherInputs();
         HandleGrounding();
+        HandleWalling();
+        GatherInputs();
         HandleJumping();
 
-        if (!IsKnockbacked || !_myAnimator.GetBool("FellDown"))
+        if (!IsKnockbacked && !_myAnimator.GetBool("FellDown"))
         {
             HandleWalking();
             HandleDashing(DashRank);
@@ -114,19 +117,31 @@ public class PlayerController : MonoBehaviour
     void GatherInputs()
     {
         _inputs.RawX = (int)Input.GetAxisRaw("Horizontal");
+        _inputs.RawY = (int)Input.GetAxisRaw("Vertical");
         _inputs.X = Input.GetAxis("Horizontal");
+        _inputs.Y = Input.GetAxis("Vertical");
         _dir = new Vector3(_inputs.RawX, 0, 0);
 
-        if (_inputs.X != 0) SetFacingDirection(_inputs.X < 0);
+        _wallOnRight &= _dir.x > 0;
+        _wallOnLeft &= _dir.x < 0;
+        _onWall = _wallOnLeft || _wallOnRight;
 
+        if(CurrentHealth > 0 && _dir.x != 0 && !IsKnockbacked) _myAnimator.SetBool("FellDown", false);
         if(IsKnockbacked || _myAnimator.GetBool("FellDown")) return;
+        if (_inputs.X != 0) SetFacingDirection(_inputs.X < 0);
         if (Input.GetButtonDown("Fire1")) ExecuteAttack();
         if (Input.GetButtonDown("Fire2")) ExecuteInteraction(); 
 
         if(Input.GetButtonDown("Jump"))
         {
-            if(!_hasJumped)
+            if(_onWall)
             {
+                ExecuteJump(true);
+                return;
+            }
+            else if(!_hasJumped)
+            {
+
                 if(IsGrounded) ExecuteJump(false);
                 else if(Time.time < _timeLeftGrounded + _coyoteTime) ExecuteJump(true);
                 else if(_doubleJumpCharged) 
@@ -161,7 +176,7 @@ public class PlayerController : MonoBehaviour
                 else FootStepController.PlayOneShot(FootStepController.RandomSolidClip(), 0.5f);
             }
 
-            if(JumpRank > 2) _doubleJumpCharged = true;
+            _doubleJumpCharged = JumpRank > 2;
             IsGrounded = true;
             _hasDashed = false;
             _hasJumped = false;
@@ -172,6 +187,14 @@ public class PlayerController : MonoBehaviour
             IsGrounded = false;
             _timeLeftGrounded = Time.time;
         }
+    }
+
+    void HandleWalling()
+    {
+        if(JumpRank < 1) return;
+        RaycastHit2D[] hits = new RaycastHit2D[1];
+        _wallOnLeft = Physics2D.RaycastNonAlloc(transform.position, Vector2.left, hits, 0.55f, _wallsMask) > 0 && !IsGrounded;
+        _wallOnRight = Physics2D.RaycastNonAlloc(transform.position, Vector2.right, hits, 0.55f, _wallsMask) > 0 && !IsGrounded;
     }
 
     #endregion
@@ -190,8 +213,6 @@ public class PlayerController : MonoBehaviour
 
     private void HandleWalking()
     {
-        if(_dir.x != 0) _myAnimator.SetBool("FellDown", false);
-
         _rb.velocity = IsGrounded
             ? new Vector2(_moddedWalkSpeed * _dir.x, _rb.velocity.y)
             : new Vector2(_moddedWalkSpeed * _jumpManeuverabilityPercentage * _dir.x, _rb.velocity.y);
@@ -209,12 +230,18 @@ public class PlayerController : MonoBehaviour
         if(_rb.velocity.y < 0) _rb.velocity = new Vector2(_rb.velocity.x, Mathf.Clamp(_rb.velocity.y, _maxFallSpeed, 0));
         _fallImpact = _rb.velocity.y <= _maxFallSpeed * 0.95f;
 
+        if(_onWall)
+        {
+            _rb.gravityScale = 0;
+            if(IsKnockbacked) return;
+            _rb.velocity = new Vector2(0, -_gravityScale / 2);
+            if(JumpRank > 1) _rb.velocity = new Vector2(0, (_gravityScale / 2) * _inputs.RawY);
+            return;
+        }
+
         if (_hasJumped)
         {
-            if ((Input.GetButton("Jump") && Time.time < _timeLeftGrounded + _extraJumpTime + _jumpTime))
-            {
-                _rb.gravityScale = 0;
-            }
+            if ((Input.GetButton("Jump") && Time.time < _timeLeftGrounded + _extraJumpTime + _jumpTime)) _rb.gravityScale = 0;
             else if (Time.time > _timeLeftGrounded + _jumpTime) _hasJumped = false;
         }
         else if(!_dashing) _rb.gravityScale = _gravityScale;
@@ -227,6 +254,12 @@ public class PlayerController : MonoBehaviour
         _timeLeftGrounded = coyoteJump? _timeLeftGrounded : Time.time;
         _hasJumped = true;
         _rb.velocity = new Vector2(_rb.velocity.x, _initialJumpSpeed);
+        if(_onWall) 
+        {
+            _rb.velocity = new Vector2(_initialJumpSpeed * Mathf.Sign(transform.lossyScale.x), _initialJumpSpeed * 2f);
+            _knockbackTimer = Time.time + 0.25f;
+            SetFacingDirection(Mathf.Sign(transform.lossyScale.x) < 0);
+        } 
         OnJump?.Invoke();
     }
 
@@ -430,8 +463,8 @@ public class PlayerController : MonoBehaviour
 
     private struct FrameInputs
     {
-        public float X;
-        public int RawX;
+        public float X, Y;
+        public int RawX, RawY;
     }
 
     public class InstantiatedUIHP
