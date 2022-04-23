@@ -9,41 +9,36 @@ public class PlayerController : MonoBehaviour
     private FrameInputs _inputs;
     private Vector3 _dir;
 
-    [Header("CollisorDetections")]
-    [SerializeField] private LayerMask _groundMask;
-    [SerializeField] private float _grounderOffset = -1, _grounderRadius = 0.2f;
-    float _fullHealHeight;
-    public bool IsGrounded;
-    public static event Action OnTouchedGround;
-    private readonly Collider2D[] _ground = new Collider2D[1];
+    [Header("Ability Ranks")]
+    public int JumpRank;
+    public int AttackRank, HookRank, TantrumRank, DashRank, KnivesRank, BoomerangRank, ShieldRank;
+    
+    [Header("Walking")]
+    [SerializeField] float _baseWalkSpeed = 8f;
+    [SerializeField] float _jumpManeuverabilityPercentage;
+    float _moddedWalkSpeed { get => StatsManager.Instance.MoveSpeed.totalValue * _baseWalkSpeed; }
 
     [Header("Jumping")]
-    public int JumpRank;
-    [SerializeField] private float _initialJumpSpeed = 20, _fallingAcceleration = 7.5f, _timeUntilMaxFallingSpeed = 2, _coyoteTime = 0.2f, _jumpTime, _extraJumpTime, _gravityScale;
-    private bool _hasJumped, _fallImpact, _doubleJumpCharged;
-    private float _maxFallSpeed => (-_initialJumpSpeed - (_fallingAcceleration * _timeUntilMaxFallingSpeed)) * (CurrentHealth > 0 ? 1 : 3);
+    [SerializeField] float _initialJumpSpeed = 20;
+    [SerializeField] float _fallingAcceleration = 7.5f, _timeUntilMaxFallingSpeed = 2, _coyoteTime = 0.2f, _jumpTime, _extraJumpTime, _gravityScale;
+    bool _hasJumped, _fallImpact, _doubleJumpCharged;
+    float _maxFallSpeed => (-_initialJumpSpeed - (_fallingAcceleration * _timeUntilMaxFallingSpeed)) * (CurrentHealth > 0 ? 1 : 3);
     float _timeLeftGrounded;
     public static event Action OnJump;
 
-    [Header("Walking")]
-    [SerializeField] private float _baseWalkSpeed = 8f;
-    [SerializeField] private float _jumpManeuverabilityPercentage;
-    float _moddedWalkSpeed { get => StatsManager.Instance.MoveSpeed.totalValue * _baseWalkSpeed; }
-
     [Header("Dashing")]
-    public int DashRank;
-    [SerializeField] private float _dashLength = 0.2f;
-    [SerializeField] private float _dashCooldown = 3f, _dashSpeed = 30;
+    [SerializeField] float _dashLength = 0.2f;
+    [SerializeField] float _dashCooldown = 3f, _dashSpeed = 30;
     float _dashCooldownTimer;
     public static event Action OnStartDashing, OnStopDashing;
 
     [Header("Combat")]
     public PlayerMeleeAttack DefaultAttack;
-    [SerializeField] private List<PlayerMeleeAttack> _playerAttacks;
+    [SerializeField] List<PlayerMeleeAttack> _playerAttacks;
     [SerializeField] LayerMask _attackLayerMask;
     public int TotalHealth, CurrentHealth;
-    [SerializeField] private float _knockbackTime, _selfKnockBackTime, _groundImpactKnockbackTime, _extraUngroundedKnockbackTime;
-    [SerializeField] private float _timeOfLastAttack = 10f;
+    [SerializeField] float _knockbackTime, _selfKnockBackTime, _groundImpactKnockbackTime, _extraUngroundedKnockbackTime;
+    [SerializeField] float _timeOfLastAttack = 10f;
     [SerializeField] AttackFeedback _attackFeedback;
     PlayerMeleeAttack _lastAttack;
     float _knockbackTimer;
@@ -71,9 +66,17 @@ public class PlayerController : MonoBehaviour
     public Vector2 FullHDHealthIconsPivot;
     List<InstantiatedUIHP> Hearts;
 
-    private bool _hasDashed, _dashing;
-    private float _timeStartedDash;
-    private Vector3 _dashDir;
+    [Header("CollisorDetections")]
+    [SerializeField] LayerMask _groundMask;
+    [SerializeField] float _grounderOffset = -1, _grounderRadius = 0.2f;
+    float _fullHealHeight;
+    public bool IsGrounded;
+    public static event Action OnTouchedGround;
+    private readonly Collider2D[] _ground = new Collider2D[1];
+
+    bool _hasDashed, _dashing;
+    float _timeStartedDash;
+    Vector3 _dashDir;
 
     public Inventory Inventory;
     FootStepController FootStepController;
@@ -291,16 +294,16 @@ public class PlayerController : MonoBehaviour
 
     public void Attack()
     {
-        Vector3 attackPos = this.transform.position + ((GetAttackDirection() * (_lastAttack.range /2)));
+        Vector3 attackPos = this.transform.position + ((GetAttackDirection() * (AttackRank > 1 ? _lastAttack.range : (_lastAttack.range /2))));
         float attackRotation = Quaternion.LookRotation(GetAttackDirection(), GetAttackDirection()).eulerAngles.x;
-        Vector3 attackSize = new Vector3(0.25f, 0.75f, _lastAttack.range / 2);
-        RaycastHit2D attackCollider = Physics2D.BoxCast(attackPos, attackSize, attackRotation, GetAttackDirection(), _lastAttack.range/2, _attackLayerMask);
+        Vector3 attackSize = AttackRank > 2 ? new Vector3(0.4f, 1.2f, _lastAttack.range) : AttackRank > 1 ? new Vector3(0.25f, 0.75f, _lastAttack.range) : new Vector3(0.25f, 0.75f, _lastAttack.range / 2);
 
-        if (attackCollider)
+        RaycastHit2D[] attackColliders = Physics2D.BoxCastAll(attackPos, attackSize, attackRotation, GetAttackDirection(), _lastAttack.range/2, _attackLayerMask);
+
+        for(int i = 0; i < attackColliders.Length; i++)
         {
-            attackSize = new Vector3(attackSize.x, attackSize.y, Vector2.Distance(attackPos, attackCollider.point));
             float selfKnockbackReceived = 0;
-            EnemyAttackTarget target = attackCollider.transform.GetComponent<EnemyAttackTarget>();
+            EnemyAttackTarget target = attackColliders[i].transform.GetComponent<EnemyAttackTarget>();
             if (target != null)
             {
                 target.ReceiveAttackCall(_lastAttack, transform.position);
@@ -314,8 +317,16 @@ public class PlayerController : MonoBehaviour
                 _knockbackTimer = Time.time + (_selfKnockBackTime * multiplier);
                 _rb.AddForce(_lastAttack.selfKnockback * selfKnockbackReceived * -GetAttackDirection(), ForceMode2D.Force);
             }
+
+            if(AttackRank < 3) 
+            { 
+                i = attackColliders.Length;
+                attackSize = new Vector3(attackSize.x, attackSize.y, Vector2.Distance(attackPos, attackColliders[i].point));
+            } 
         }
-        else if (Mathf.Approximately(_inputs.X, 0f)) _rb.AddForce(GetAttackDirection() * _lastAttack.selfKnockback, ForceMode2D.Force);
+
+        if(attackColliders.Length < 1)
+            if (Mathf.Approximately(_inputs.X, 0f)) _rb.AddForce(GetAttackDirection() * _lastAttack.selfKnockback, ForceMode2D.Force);
 
         _soundEmitter.Stop();
 
