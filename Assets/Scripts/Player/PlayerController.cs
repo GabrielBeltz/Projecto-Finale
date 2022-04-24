@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float _fallingAcceleration = 7.5f, _timeUntilMaxFallingSpeed = 2, _coyoteTime = 0.2f, _jumpTime, _extraJumpTime, _gravityScale;
     bool _hasJumped, _fallImpact, _doubleJumpCharged;
     float _maxFallSpeed => (-_initialJumpSpeed - (_fallingAcceleration * _timeUntilMaxFallingSpeed)) * (CurrentHealth > 0 ? 1 : 3);
-    float _timeLeftGrounded;
+    float _timeLeftGrounded, gripMaxTime = 3f, gripTimer;
     public static event Action OnJump;
     bool _wallOnRight, _wallOnLeft, _onWall;
 
@@ -91,6 +91,7 @@ public class PlayerController : MonoBehaviour
         _lastAttack = DefaultAttack;
         FootStepController = GetComponentInChildren<FootStepController>();
         _fullHealHeight = transform.position.y + 2f;
+        gripTimer = gripMaxTime;
         InterfacePlayerHP();
 
         OnPlayerDeath += PlayerDeath;
@@ -125,6 +126,7 @@ public class PlayerController : MonoBehaviour
         _wallOnRight &= _dir.x > 0;
         _wallOnLeft &= _dir.x < 0;
         _onWall = _wallOnLeft || _wallOnRight;
+        _onWall &= gripTimer > 0.5f;
 
         if(CurrentHealth > 0 && _dir.x != 0 && !IsKnockbacked) _myAnimator.SetBool("FellDown", false);
         if(IsKnockbacked || _myAnimator.GetBool("FellDown")) return;
@@ -160,6 +162,8 @@ public class PlayerController : MonoBehaviour
     private void HandleGrounding()
     {
         var grounded = Physics2D.OverlapCircleNonAlloc(transform.position + new Vector3(0, _grounderOffset, 0), _grounderRadius, _ground, _groundMask) > 0;
+
+        if(grounded) gripTimer = Mathf.Clamp(gripTimer + Time.deltaTime, 0, gripMaxTime);
 
         if(!IsGrounded && grounded)
         {
@@ -230,8 +234,9 @@ public class PlayerController : MonoBehaviour
         if(_rb.velocity.y < 0) _rb.velocity = new Vector2(_rb.velocity.x, Mathf.Clamp(_rb.velocity.y, _maxFallSpeed, 0));
         _fallImpact = _rb.velocity.y <= _maxFallSpeed * 0.95f;
 
-        if(_onWall)
+        if(_onWall && gripTimer > 0)
         {
+            gripTimer -= Time.deltaTime;
             _rb.gravityScale = 0;
             if(IsKnockbacked) return;
             _rb.velocity = new Vector2(0, -_gravityScale / 2);
@@ -256,8 +261,8 @@ public class PlayerController : MonoBehaviour
         _rb.velocity = new Vector2(_rb.velocity.x, _initialJumpSpeed);
         if(_onWall) 
         {
-            _rb.velocity = new Vector2(_initialJumpSpeed * Mathf.Sign(transform.lossyScale.x), _initialJumpSpeed * 2f);
-            _knockbackTimer = Time.time + 0.25f;
+            _rb.velocity = new Vector2(_initialJumpSpeed * Mathf.Sign(transform.lossyScale.x), _initialJumpSpeed * 1.5f);
+            _knockbackTimer = Time.time + 0.2f;
             SetFacingDirection(Mathf.Sign(transform.lossyScale.x) < 0);
         } 
         OnJump?.Invoke();

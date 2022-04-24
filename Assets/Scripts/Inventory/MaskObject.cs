@@ -12,4 +12,4 @@ public class MaskObject : ItemObject
     }
 }
 
-public enum Habilities { Random, Dash, Jump, Attack, Hook, Tantrum, Knives, Boomerang, Shield }
+public enum Habilities { Random, Upgrade, Dash, Jump, Attack, Hook, Tantrum, Knives, Boomerang, Shield }

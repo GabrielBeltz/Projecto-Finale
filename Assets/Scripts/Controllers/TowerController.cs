@@ -75,12 +75,12 @@ public class TowerController : MonoBehaviour
         if(_newLevel == 0 || LevelPools[_newLevel - 1] != LevelPools[_newLevel])
         {
             level = LevelPools[_newLevel].GetLevel();
-            _spawnedLevels[_newLevel] = Instantiate(level.Prefab, new Vector3(0, 4 + (FloorHeight * _newLevel)), Quaternion.identity, _tower);
+            _spawnedLevels[_newLevel] = Instantiate(level.Prefab, new Vector3(0, FloorHeight * _newLevel), Quaternion.identity, _tower);
         }
         else
         {
             level = LevelPools[_newLevel].GetLevelWeighted(_lastIndex);
-            _spawnedLevels[_newLevel] = Instantiate(level.Prefab, new Vector3(0, 4 + (FloorHeight * _newLevel)), Quaternion.identity, _tower);
+            _spawnedLevels[_newLevel] = Instantiate(level.Prefab, new Vector3(0, FloorHeight * _newLevel), Quaternion.identity, _tower);
             _lastIndex = lastLevels[_newLevel - 1].ID;
         }
 

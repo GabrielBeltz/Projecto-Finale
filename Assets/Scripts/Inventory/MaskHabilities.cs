@@ -8,8 +8,7 @@ public class MaskHabilities : MonoBehaviour
     public TextMeshProUGUI[] texts;
     // nesse valor todos os upgrades começam com 100% de chance, e essa chance diminui em 34% a cada rank pego.
     [Range(0, 0.45f)]public float DeramdomizeFactor = 0.34f; 
-    float chanceDash = 1f, chanceDoubleJump = 1f, chanceAttack = 1f, chanceHook = 1f, chanceTantrum = 1f,
-        chanceKnives = 1f, chanceBoomerang = 1f, chanceShield = 1f;
+    float chanceDash, chanceDoubleJump, chanceAttack, chanceHook, chanceTantrum, chanceKnives, chanceBoomerang, chanceShield;
     int dashTextIndex = -1, jumpTextIndex = -1, attackTextIndex = -1, hookTextIndex = -1, 
     tantrumTextIndex = -1, knivesTextIndex = -1, boomerangTextIndex = -1, shieldTextIndex = -1, lastIndex = -1; 
 
@@ -69,19 +68,21 @@ public class MaskHabilities : MonoBehaviour
         chanceShield = 1 - Mathf.Clamp01(playerController.ShieldRank * DeramdomizeFactor);
     }
 
+    // Partes comentadas não estão implementadas ainda
     void PickRandomly()
     {
         DetermineChance();
-        float totalChance = chanceDash + chanceDoubleJump + chanceAttack + chanceHook + chanceKnives + chanceTantrum + chanceBoomerang + chanceShield;
+        float totalChance = chanceDash + chanceDoubleJump + chanceAttack; // + chanceHook + chanceKnives + chanceTantrum + chanceBoomerang + chanceShield;
         float roll = Random.Range(0, totalChance);
         if(roll < chanceDash) ActivateDash();
         else if(roll < chanceDash + chanceDoubleJump) ActivateJump();
-        else if(roll < chanceDash + chanceDoubleJump + chanceAttack) ActivateAttack();
-        else if(roll < chanceDash + chanceDoubleJump + chanceAttack + chanceHook) ActivateHook();
-        else if(roll < chanceDash + chanceDoubleJump + chanceAttack + chanceHook + chanceKnives) ActivateKnives();
-        else if(roll < chanceDash + chanceDoubleJump + chanceAttack + chanceHook + chanceKnives + chanceTantrum) ActivateTantrum();
-        else if(roll < chanceDash + chanceDoubleJump + chanceAttack + chanceHook + chanceKnives + chanceTantrum + chanceBoomerang) ActivateTantrum();
-        else ActivateShield();
+        else ActivateAttack();
+        //else if(roll < chanceDash + chanceDoubleJump + chanceAttack) ActivateAttack();
+        //else if(roll < chanceDash + chanceDoubleJump + chanceAttack + chanceHook) ActivateHook();
+        //else if(roll < chanceDash + chanceDoubleJump + chanceAttack + chanceHook + chanceKnives) ActivateKnives();
+        //else if(roll < chanceDash + chanceDoubleJump + chanceAttack + chanceHook + chanceKnives + chanceTantrum) ActivateTantrum();
+        //else if(roll < chanceDash + chanceDoubleJump + chanceAttack + chanceHook + chanceKnives + chanceTantrum + chanceBoomerang) ActivateTantrum();
+        //else ActivateShield();
         DetermineChance();
     }
 
@@ -111,7 +112,7 @@ public class MaskHabilities : MonoBehaviour
     void ActivateDash() 
     { 
         playerController.DashRank++;
-        ShowItemInfo(playerController.DashRank > 2 ? "Dash ++" : playerController.DashRank > 1 ? "Dash +" : "Dash", dashTextIndex);
+        ShowItemInfo(playerController.DashRank > 2 ? "Damaging Dash" : playerController.DashRank > 1 ? "Invulnerable Dash" : "Dash", dashTextIndex);
         if(dashTextIndex == -1) dashTextIndex = lastIndex;
     }
 
@@ -119,14 +120,14 @@ public class MaskHabilities : MonoBehaviour
     { 
         playerController.AttackRank++;
         StatsManager.Instance.AddDamageMultiplier(0.5f / playerController.AttackRank, $"Attack Rank {playerController.AttackRank}");
-        ShowItemInfo(playerController.AttackRank > 2 ? "Attack ++" : playerController.AttackRank > 1 ? "Attack +" : "Attack", attackTextIndex);
+        ShowItemInfo(playerController.AttackRank > 2 ? "+ Damage +Range +Piercing" : playerController.AttackRank > 1 ? "+Damage +Range" : "+ Damage", attackTextIndex);
         if(attackTextIndex == -1) attackTextIndex = lastIndex;
     }
 
     void ActivateJump() 
     {
         playerController.JumpRank++;
-        ShowItemInfo(playerController.JumpRank > 2 ? "Double & Wall Jump +" : playerController.JumpRank > 1 ? "Wall Jump + Climb" : "Wall Jump", jumpTextIndex);
+        ShowItemInfo(playerController.JumpRank > 2 ? "Double & Wall Jump" : playerController.JumpRank > 1 ? "Wall Jump + Climb" : "Wall Jump", jumpTextIndex);
         if(jumpTextIndex == -1) jumpTextIndex = lastIndex;
     }
 
