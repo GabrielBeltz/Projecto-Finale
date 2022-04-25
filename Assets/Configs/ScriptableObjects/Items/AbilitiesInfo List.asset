@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df01a9a34e7c23d4e936149a3e4d819b, type: 3}
+  m_Name: AbilitiesInfo List
+  m_EditorClassIdentifier: 
+  list:
+  - name: Attack
+    ranks:
+    - sprite: {fileID: 0}
+      Description: Your attacks do more damage.
+    - sprite: {fileID: 0}
+      Description: Your attacks reach further.
+    - sprite: {fileID: 0}
+      Description: 'Your attacks pierce and hit any targets in its range. '
+  - name: Mobility
+    ranks:
+    - sprite: {fileID: 0}
+      Description: You can slide and jump off walls.
+    - sprite: {fileID: 0}
+      Description: You can climb up and down on walls.
+    - sprite: {fileID: 0}
+      Description: You can perform an extra jump while airborne.
+  - name: Health
+    ranks:
+    - sprite: {fileID: 0}
+      Description: +2 health
+    - sprite: {fileID: 0}
+      Description: +4 health
+    - sprite: {fileID: 0}
+      Description: A fraction of your attacks come back as health.
+  - name: Dash
+    ranks:
+    - sprite: {fileID: 0}
+      Description: You can perform a dash while moving.
+    - sprite: {fileID: 0}
+      Description: While dashing, you ignore enemies and enemy attacks.
+    - sprite: {fileID: 0}
+      Description: Dashing through enemies damages them.
+  - name: Hook
+    ranks:
+    - sprite: {fileID: 0}
+      Description: 
+    - sprite: {fileID: 0}
+      Description: 
+    - sprite: {fileID: 0}
+      Description: 
+  - name: Tantrum
+    ranks:
+    - sprite: {fileID: 0}
+      Description: 
+    - sprite: {fileID: 0}
+      Description: 
+    - sprite: {fileID: 0}
+      Description: 
+  - name: Knives
+    ranks:
+    - sprite: {fileID: 0}
+      Description: 
+    - sprite: {fileID: 0}
+      Description: 
+    - sprite: {fileID: 0}
+      Description: 
+  - name: Shield
+    ranks:
+    - sprite: {fileID: 0}
+      Description: 
+    - sprite: {fileID: 0}
+      Description: 
+    - sprite: {fileID: 0}
+      Description: 
+  - name: Ranged
+    ranks:
+    - sprite: {fileID: 0}
+      Description: 
+    - sprite: {fileID: 0}
+      Description: 
+    - sprite: {fileID: 0}
+      Description: 

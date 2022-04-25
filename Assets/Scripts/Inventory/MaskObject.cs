@@ -4,7 +4,6 @@ using UnityEngine;
 public class MaskObject : ItemObject
 {
     public Habilities habilities;
-    [TextArea(15, 20)] public string maskDescription;
 
     public void Awake()
     {
@@ -12,4 +11,4 @@ public class MaskObject : ItemObject
     }
 }
 
-public enum Habilities { Random, Upgrade, Dash, Jump, Attack, Hook, Tantrum, Knives, Boomerang, Shield }
+public enum Habilities { Random, Upgrade, Dash, Jump, Attack, Health, Hook, Tantrum, Knives, Boomerang, Shield }

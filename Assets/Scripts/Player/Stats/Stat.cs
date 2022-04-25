@@ -31,6 +31,7 @@ public class Stat
     public void AddMultiplier(string _name, float _value) => Multipliers.Add(new StatMultiplier(_name, _value));
 
     public void RemoveMultiplier(string name) => Multipliers.Remove(Multipliers.Find(mult => mult.name == name));
+    public void Reset() => Multipliers.Clear();
 
     [System.Serializable]
     public class StatMultiplier

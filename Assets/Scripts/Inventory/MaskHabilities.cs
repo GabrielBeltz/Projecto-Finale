@@ -1,18 +1,23 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
-using TMPro;
 
 public class MaskHabilities : MonoBehaviour
 {
+    public AbilityPassiveSlots Passive;
+    public AbilityActiveSlots[] Actives;
     private PlayerController playerController;
-    public TextMeshProUGUI[] texts;
+    public Image[] images;
     // nesse valor todos os upgrades começam com 100% de chance, e essa chance diminui em 34% a cada rank pego.
     [Range(0, 0.45f)]public float DeramdomizeFactor = 0.34f; 
-    float chanceDash, chanceDoubleJump, chanceAttack, chanceHook, chanceTantrum, chanceKnives, chanceBoomerang, chanceShield;
-    int dashTextIndex = -1, jumpTextIndex = -1, attackTextIndex = -1, hookTextIndex = -1, 
-    tantrumTextIndex = -1, knivesTextIndex = -1, boomerangTextIndex = -1, shieldTextIndex = -1, lastIndex = -1; 
+    float chanceDash = 1, chanceMobility = 1, chanceAttack = 1, chanceHealth  = 1, chanceHook = 1, chanceTantrum = 1, chanceKnives = 1, chanceBoomerang = 1, chanceShield = 1;
+    int dashIndex = -1, jumpIndex = -1, attackIndex = -1, hookIndex = -1, healthIndex = -1, tantrumIndex = -1, knivesIndex = -1, rangedIndex = -1, shieldIndex = -1, lastIndex = -1;
 
-    void Awake() => playerController = GetComponent<PlayerController>();
+    void Awake() 
+    { 
+        playerController = GetComponent<PlayerController>();
+        Actives = new AbilityActiveSlots[2];
+    } 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -26,6 +31,9 @@ public class MaskHabilities : MonoBehaviour
                 case Habilities.Random:
                     PickRandomly();
                     break;
+                case Habilities.Upgrade:
+                    UpgradeAbility();
+                    break;
                 case Habilities.Dash:
                     ActivateDash();
                     break;
@@ -34,6 +42,9 @@ public class MaskHabilities : MonoBehaviour
                     break;
                 case Habilities.Attack:
                     ActivateAttack();
+                    break;
+                case Habilities.Health:
+                    ActivateHealth();
                     break;
                 case Habilities.Hook:
                     ActivateHook();
@@ -45,7 +56,7 @@ public class MaskHabilities : MonoBehaviour
                     ActivateKnives();
                     break;
                 case Habilities.Boomerang:
-                    ActivateBoomerang();
+                    ActivateRanged();
                     break;
                 case Habilities.Shield:
                     ActivateShield();
@@ -56,26 +67,13 @@ public class MaskHabilities : MonoBehaviour
         item.Deactivate();
     }
 
-    void DetermineChance()
-    {
-        chanceDash = 1 - Mathf.Clamp01(playerController.DashRank * DeramdomizeFactor);
-        chanceDoubleJump = 1 - Mathf.Clamp01(playerController.JumpRank * DeramdomizeFactor);
-        chanceAttack = 1 - Mathf.Clamp01(playerController.AttackRank * DeramdomizeFactor);
-        chanceHook = 1 - Mathf.Clamp01(playerController.HookRank * DeramdomizeFactor);
-        chanceTantrum = 1 - Mathf.Clamp01(playerController.TantrumRank * DeramdomizeFactor);
-        chanceKnives = 1 - Mathf.Clamp01(playerController.KnivesRank * DeramdomizeFactor);
-        chanceBoomerang = 1 - Mathf.Clamp01(playerController.BoomerangRank * DeramdomizeFactor);
-        chanceShield = 1 - Mathf.Clamp01(playerController.ShieldRank * DeramdomizeFactor);
-    }
-
     // Partes comentadas não estão implementadas ainda
     void PickRandomly()
     {
-        DetermineChance();
-        float totalChance = chanceDash + chanceDoubleJump + chanceAttack; // + chanceHook + chanceKnives + chanceTantrum + chanceBoomerang + chanceShield;
+        float totalChance = chanceDash + chanceMobility + chanceAttack; // + chanceHook + chanceKnives + chanceTantrum + chanceBoomerang + chanceShield;
         float roll = Random.Range(0, totalChance);
         if(roll < chanceDash) ActivateDash();
-        else if(roll < chanceDash + chanceDoubleJump) ActivateJump();
+        else if(roll < chanceDash + chanceMobility) ActivateJump();
         else ActivateAttack();
         //else if(roll < chanceDash + chanceDoubleJump + chanceAttack) ActivateAttack();
         //else if(roll < chanceDash + chanceDoubleJump + chanceAttack + chanceHook) ActivateHook();
@@ -83,12 +81,16 @@ public class MaskHabilities : MonoBehaviour
         //else if(roll < chanceDash + chanceDoubleJump + chanceAttack + chanceHook + chanceKnives + chanceTantrum) ActivateTantrum();
         //else if(roll < chanceDash + chanceDoubleJump + chanceAttack + chanceHook + chanceKnives + chanceTantrum + chanceBoomerang) ActivateTantrum();
         //else ActivateShield();
-        DetermineChance();
     }
 
-    void ShowItemInfo(string text, int index) => StartCoroutine(ItemInfo(text, index));
+    void UpgradeAbility()
+    {
 
-    IEnumerator ItemInfo(string text, int index)
+    }
+
+    void ShowItemInfo(string ID, int index) => StartCoroutine(ItemInfo(ID, index));
+
+    IEnumerator ItemInfo(string ID, int index)
     {
         float originalTimeScale = Time.timeScale;
         Time.timeScale = 0;
@@ -97,9 +99,9 @@ public class MaskHabilities : MonoBehaviour
             index = lastIndex + 1; 
         }
         if(lastIndex < index) lastIndex = index;
-        texts[index].text = text;
+        //images[index].sprite = text;
 
-        // TODO: Criar animação do texto aparecer no centro da tela, escurecer a tela no fundo do texto e transicionar o texto pra posição original 
+        // TODO: Criar animação do sprite aparecer no centro da tela, escurecer a tela no fundo do sprite e transicionar pra posição original 
         //for(int i = 0; i < 300; i++)
         //{
             
@@ -111,58 +113,131 @@ public class MaskHabilities : MonoBehaviour
 
     void ActivateDash() 
     { 
-        playerController.DashRank++;
-        ShowItemInfo(playerController.DashRank > 2 ? "Damaging Dash" : playerController.DashRank > 1 ? "Invulnerable Dash" : "Dash", dashTextIndex);
-        if(dashTextIndex == -1) dashTextIndex = lastIndex;
+        if(playerController.DashRank < 1)
+        {
+            playerController.DashRank = 1;
+            ShowItemInfo("Dash", dashIndex);
+            if(dashIndex == -1) dashIndex = lastIndex;
+        }
+        else
+        {
+            //upgrade;
+        }
     }
 
     void ActivateAttack() 
     { 
-        playerController.AttackRank++;
+        if(playerController.AttackRank < 1)
+        {
+            playerController.AttackRank = 1;
+            ShowItemInfo("Attack", attackIndex);
+            if(attackIndex == -1) attackIndex = lastIndex;
+        }
+        else
+        {
+            //upgrade;
+        }
         StatsManager.Instance.AddDamageMultiplier(0.5f / playerController.AttackRank, $"Attack Rank {playerController.AttackRank}");
-        ShowItemInfo(playerController.AttackRank > 2 ? "+ Damage +Range +Piercing" : playerController.AttackRank > 1 ? "+Damage +Range" : "+ Damage", attackTextIndex);
-        if(attackTextIndex == -1) attackTextIndex = lastIndex;
     }
 
     void ActivateJump() 
     {
-        playerController.JumpRank++;
-        ShowItemInfo(playerController.JumpRank > 2 ? "Double & Wall Jump" : playerController.JumpRank > 1 ? "Wall Jump + Climb" : "Wall Jump", jumpTextIndex);
-        if(jumpTextIndex == -1) jumpTextIndex = lastIndex;
+        if(playerController.AttackRank < 1)
+        {
+            playerController.JumpRank = 1;
+            ShowItemInfo("Mobility", jumpIndex);
+            if(jumpIndex == -1) jumpIndex = lastIndex;
+        }
+        else
+        {
+            //upgrade;
+        }
     }
 
     void ActivateHook() 
+    {
+        if(playerController.AttackRank < 1)
+        {
+            playerController.HookRank = 1;
+            ShowItemInfo("Hook", hookIndex);
+            if(hookIndex == -1) hookIndex = lastIndex;
+        }
+        else
+        {
+            //upgrade;
+        }
+    }
+
+    void ActivateHealth() 
     { 
-        playerController.HookRank++;
-        ShowItemInfo(playerController.HookRank > 2 ? "Hook ++" : playerController.HookRank > 1 ? "Hook +" : "Hook", hookTextIndex);
-        if(hookTextIndex == -1) hookTextIndex = lastIndex;
+        if(playerController.AttackRank < 1)
+        {
+            playerController.HookRank = 1;
+            ShowItemInfo("Health", healthIndex);
+            if(healthIndex == -1) healthIndex = lastIndex;
+        }
+        else
+        {
+            //upgrade;
+        }
     }
 
     void ActivateTantrum() 
     { 
-        playerController.TantrumRank++;
-        ShowItemInfo(playerController.TantrumRank > 2 ? "Hook ++" : playerController.TantrumRank > 1 ? "Hook +" : "Hook", tantrumTextIndex);
-        if(tantrumTextIndex == -1) tantrumTextIndex = lastIndex;
+        if(playerController.AttackRank < 1)
+        {
+            playerController.TantrumRank = 1;
+            ShowItemInfo("Tantrum", tantrumIndex);
+            if(tantrumIndex == -1) tantrumIndex = lastIndex;
+        }
+        else
+        {
+            //upgrade;
+        }
     }
 
     void ActivateKnives() 
     { 
-        playerController.KnivesRank++;
-        ShowItemInfo(playerController.KnivesRank > 2 ? "Hook ++" : playerController.KnivesRank > 1 ? "Hook +" : "Hook", knivesTextIndex);
-        if(knivesTextIndex == -1) knivesTextIndex = lastIndex;
+        if(playerController.AttackRank < 1)
+        {
+            playerController.KnivesRank = 1;
+            ShowItemInfo("Knives", knivesIndex);
+            if(knivesIndex == -1) knivesIndex = lastIndex;
+        }
+        else
+        {
+            //upgrade;
+        }
     }
 
-    void ActivateBoomerang() 
+    void ActivateRanged() 
     { 
-        playerController.BoomerangRank++;
-        ShowItemInfo(playerController.BoomerangRank > 2 ? "Hook ++" : playerController.BoomerangRank > 1 ? "Hook +" : "Hook", boomerangTextIndex);
-        if(boomerangTextIndex == -1) boomerangTextIndex = lastIndex;
+        if(playerController.AttackRank < 1)
+        {
+            playerController.BoomerangRank = 1;
+            ShowItemInfo("Ranged", rangedIndex);
+            if(rangedIndex == -1) rangedIndex = lastIndex;
+        }
+        else
+        {
+            //upgrade;
+        }
     }
 
     void ActivateShield() 
     { 
-        playerController.ShieldRank++;
-        ShowItemInfo(playerController.ShieldRank > 2 ? "Hook ++" : playerController.ShieldRank > 1 ? "Hook +" : "Hook", shieldTextIndex);
-        if(shieldTextIndex == -1) shieldTextIndex = lastIndex;
+        if(playerController.AttackRank < 1)
+        {
+            playerController.ShieldRank = 1;
+            ShowItemInfo("Shield", shieldIndex);
+            if(shieldIndex == -1) shieldIndex = lastIndex;
+        }
+        else
+        {
+            //upgrade;
+        }
     }
+
+    public enum AbilityPassiveSlots { None, Mobility, Attack, Health }
+    public enum AbilityActiveSlots { None, Dash, Hook, Tantrum, Knives, Shield, Ranged }
 }

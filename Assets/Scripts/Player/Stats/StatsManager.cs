@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class StatsManager : MonoBehaviour
@@ -21,6 +19,15 @@ public class StatsManager : MonoBehaviour
         MoveSpeed = new Stat("Move Speed");
         DashLength = new Stat("Dash Length");
         KnockbackResistance = new Stat("Knockback Resistance");
+        PlayerController.OnPlayerDeath += ResetAllStats;
+    }
+
+    void ResetAllStats()
+    {
+        Damage.Reset();
+        MoveSpeed.Reset();
+        DashLength.Reset();
+        KnockbackResistance.Reset();
     }
 
     public void AddDamageMultiplier(float value, string ID) => Damage.AddMultiplier(ID, value);

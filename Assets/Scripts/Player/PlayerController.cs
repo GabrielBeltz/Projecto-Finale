@@ -6,12 +6,11 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour
 {
     Rigidbody2D _rb;
-    private FrameInputs _inputs;
-    private Vector3 _dir;
 
-    [Header("Ability Ranks")]
+    [Header("Abilities")]
     public int JumpRank;
     public int AttackRank, HookRank, TantrumRank, DashRank, KnivesRank, BoomerangRank, ShieldRank;
+    public Action CallAbilityA, CallAbilityB;
     
     [Header("Walking")]
     [SerializeField] float _baseWalkSpeed = 8f;
@@ -20,12 +19,12 @@ public class PlayerController : MonoBehaviour
 
     [Header("Jumping")]
     [SerializeField] float _initialJumpSpeed = 20;
-    [SerializeField] float _fallingAcceleration = 7.5f, _timeUntilMaxFallingSpeed = 2, _coyoteTime = 0.2f, _jumpTime, _extraJumpTime, _gravityScale;
-    bool _hasJumped, _fallImpact, _doubleJumpCharged;
+    public float _fallingAcceleration = 7.5f, _timeUntilMaxFallingSpeed = 2, _coyoteTime = 0.2f, _jumpTime, _extraJumpTime, _gravityScale;
+    [HideInInspector] public bool _hasJumped, _fallImpact, _doubleJumpCharged;
     float _maxFallSpeed => (-_initialJumpSpeed - (_fallingAcceleration * _timeUntilMaxFallingSpeed)) * (CurrentHealth > 0 ? 1 : 3);
-    float _timeLeftGrounded, gripMaxTime = 3f, gripTimer;
+    [HideInInspector] public float GripTimer, _timeLeftGrounded, gripMaxTime = 3f;
     public static event Action OnJump;
-    bool _wallOnRight, _wallOnLeft, _onWall;
+    [HideInInspector] public bool WallOnRight, WallOnLeft, OnWall;
 
     [Header("Dashing")]
     [SerializeField] float _dashLength = 0.2f;
@@ -55,7 +54,7 @@ public class PlayerController : MonoBehaviour
     public LayerMask InteractionLayer;
     
     [Header("Scene References")]
-    [SerializeField] Animator _myAnimator;
+    public Animator MyAnimator;
     [SerializeField] AudioSource _soundEmitter;
     public Transform UIScaler;
 
@@ -82,19 +81,22 @@ public class PlayerController : MonoBehaviour
 
     public Inventory Inventory;
     FootStepController FootStepController;
+    [HideInInspector] public PlayerInputs PlInputs;
 
     void Start()
     {
+        PlInputs = GetComponent<PlayerInputs>();
         Hearts = new List<InstantiatedUIHP>();
         _timeOfLastAttack = 0;
         _rb = GetComponent<Rigidbody2D>();
         _lastAttack = DefaultAttack;
         FootStepController = GetComponentInChildren<FootStepController>();
         _fullHealHeight = transform.position.y + 2f;
-        gripTimer = gripMaxTime;
+        GripTimer = gripMaxTime;
         InterfacePlayerHP();
 
         OnPlayerDeath += PlayerDeath;
+        OnPlayerDeath += ResetSkills;
         OnPlayerFullHealth += PlayerFullHeal;
     }
 
@@ -103,10 +105,10 @@ public class PlayerController : MonoBehaviour
         if(!(Time.timeScale > 0)) return;
         HandleGrounding();
         HandleWalling();
-        GatherInputs();
+        PlInputs.GatherInputs();
         HandleJumping();
 
-        if (!IsKnockbacked && !_myAnimator.GetBool("FellDown"))
+        if (!IsKnockbacked && !MyAnimator.GetBool("FellDown"))
         {
             HandleWalking();
             HandleDashing(DashRank);
@@ -115,47 +117,8 @@ public class PlayerController : MonoBehaviour
         HandleAnimation();
     }
 
-    void GatherInputs()
-    {
-        _inputs.RawX = (int)Input.GetAxisRaw("Horizontal");
-        _inputs.RawY = (int)Input.GetAxisRaw("Vertical");
-        _inputs.X = Input.GetAxis("Horizontal");
-        _inputs.Y = Input.GetAxis("Vertical");
-        _dir = new Vector3(_inputs.RawX, 0, 0);
 
-        _wallOnRight &= _dir.x > 0;
-        _wallOnLeft &= _dir.x < 0;
-        _onWall = _wallOnLeft || _wallOnRight;
-        _onWall &= gripTimer > 0.5f;
-
-        if(CurrentHealth > 0 && _dir.x != 0 && !IsKnockbacked) _myAnimator.SetBool("FellDown", false);
-        if(IsKnockbacked || _myAnimator.GetBool("FellDown")) return;
-        if (_inputs.X != 0) SetFacingDirection(_inputs.X < 0);
-        if (Input.GetButtonDown("Fire1")) ExecuteAttack();
-        if (Input.GetButtonDown("Fire2")) ExecuteInteraction(); 
-
-        if(Input.GetButtonDown("Jump"))
-        {
-            if(_onWall)
-            {
-                ExecuteJump(true);
-                return;
-            }
-            else if(!_hasJumped)
-            {
-
-                if(IsGrounded) ExecuteJump(false);
-                else if(Time.time < _timeLeftGrounded + _coyoteTime) ExecuteJump(true);
-                else if(_doubleJumpCharged) 
-                {
-                    _doubleJumpCharged = false;
-                    ExecuteJump(true);
-                }
-            }
-        }
-    }
-
-    void SetFacingDirection(bool left) => this.transform.localScale = left ? new Vector3(1, 1, 1) : new Vector3(-1, 1, 1);
+    public void SetFacingDirection(bool left) => this.transform.localScale = left ? new Vector3(1, 1, 1) : new Vector3(-1, 1, 1);
 
     #region ColisorDetections
 
@@ -163,18 +126,18 @@ public class PlayerController : MonoBehaviour
     {
         var grounded = Physics2D.OverlapCircleNonAlloc(transform.position + new Vector3(0, _grounderOffset, 0), _grounderRadius, _ground, _groundMask) > 0;
 
-        if(grounded) gripTimer = Mathf.Clamp(gripTimer + Time.deltaTime, 0, gripMaxTime);
+        if(grounded) GripTimer = Mathf.Clamp(GripTimer + Time.deltaTime, 0, gripMaxTime);
 
         if(!IsGrounded && grounded)
         {
-            if(CurrentHealth < TotalHealth && transform.position.y < _fullHealHeight) OnPlayerFullHealth?.Invoke(); 
+            if(CurrentHealth == 0 && transform.position.y < _fullHealHeight) OnPlayerFullHealth?.Invoke(); 
 
             if(0 < CurrentHealth)
             {
                 if(_fallImpact) 
                 {
                     _knockbackTimer = Time.time + _groundImpactKnockbackTime;
-                    _myAnimator.SetBool("FellDown", true);
+                    MyAnimator.SetBool("FellDown", true);
                     PlaySound(Audioclips[1]);
                 }
                 else FootStepController.PlayOneShot(FootStepController.RandomSolidClip(), 0.5f);
@@ -197,8 +160,8 @@ public class PlayerController : MonoBehaviour
     {
         if(JumpRank < 1) return;
         RaycastHit2D[] hits = new RaycastHit2D[1];
-        _wallOnLeft = Physics2D.RaycastNonAlloc(transform.position, Vector2.left, hits, 0.55f, _wallsMask) > 0 && !IsGrounded;
-        _wallOnRight = Physics2D.RaycastNonAlloc(transform.position, Vector2.right, hits, 0.55f, _wallsMask) > 0 && !IsGrounded;
+        WallOnLeft = Physics2D.RaycastNonAlloc(transform.position, Vector2.left, hits, 0.55f, _wallsMask) > 0 && !IsGrounded;
+        WallOnRight = Physics2D.RaycastNonAlloc(transform.position, Vector2.right, hits, 0.55f, _wallsMask) > 0 && !IsGrounded;
     }
 
     #endregion
@@ -207,8 +170,8 @@ public class PlayerController : MonoBehaviour
 
     void HandleAnimation()
     {
-        _myAnimator.SetBool("Grounded", IsGrounded);
-        _myAnimator.SetFloat("VerticalSpeed", _rb.velocity.y);
+        MyAnimator.SetBool("Grounded", IsGrounded);
+        MyAnimator.SetFloat("VerticalSpeed", _rb.velocity.y);
     }
 
     #endregion
@@ -218,10 +181,10 @@ public class PlayerController : MonoBehaviour
     private void HandleWalking()
     {
         _rb.velocity = IsGrounded
-            ? new Vector2(_moddedWalkSpeed * _dir.x, _rb.velocity.y)
-            : new Vector2(_moddedWalkSpeed * _jumpManeuverabilityPercentage * _dir.x, _rb.velocity.y);
+            ? new Vector2(_moddedWalkSpeed * PlInputs.Inputs.RawX, _rb.velocity.y)
+            : new Vector2(_moddedWalkSpeed * _jumpManeuverabilityPercentage * PlInputs.Inputs.RawX, _rb.velocity.y);
 
-        _myAnimator.SetFloat("Speed", Mathf.Abs(_baseWalkSpeed * _dir.x));
+        MyAnimator.SetFloat("Speed", Mathf.Abs(_baseWalkSpeed * PlInputs.Inputs.RawX));
     }
 
     #endregion
@@ -234,13 +197,13 @@ public class PlayerController : MonoBehaviour
         if(_rb.velocity.y < 0) _rb.velocity = new Vector2(_rb.velocity.x, Mathf.Clamp(_rb.velocity.y, _maxFallSpeed, 0));
         _fallImpact = _rb.velocity.y <= _maxFallSpeed * 0.95f;
 
-        if(_onWall && gripTimer > 0)
+        if(OnWall && GripTimer > 0)
         {
-            gripTimer -= Time.deltaTime;
+            GripTimer -= Time.deltaTime;
             _rb.gravityScale = 0;
             if(IsKnockbacked) return;
             _rb.velocity = new Vector2(0, -_gravityScale / 2);
-            if(JumpRank > 1) _rb.velocity = new Vector2(0, (_gravityScale / 2) * _inputs.RawY);
+            if(JumpRank > 1) _rb.velocity = new Vector2(0, (_gravityScale / 2) * PlInputs.Inputs.RawY);
             return;
         }
 
@@ -252,14 +215,14 @@ public class PlayerController : MonoBehaviour
         else if(!_dashing) _rb.gravityScale = _gravityScale;
     }
 
-    void ExecuteJump(bool coyoteJump)
+    public void ExecuteJump(bool coyoteJump)
     {
         PlaySound(Audioclips[0]);
-        _myAnimator.SetBool("FellDown", false);
+        MyAnimator.SetBool("FellDown", false);
         _timeLeftGrounded = coyoteJump? _timeLeftGrounded : Time.time;
         _hasJumped = true;
         _rb.velocity = new Vector2(_rb.velocity.x, _initialJumpSpeed);
-        if(_onWall) 
+        if(OnWall) 
         {
             _rb.velocity = new Vector2(_initialJumpSpeed * Mathf.Sign(transform.lossyScale.x), _initialJumpSpeed * 1.5f);
             _knockbackTimer = Time.time + 0.2f;
@@ -278,9 +241,9 @@ public class PlayerController : MonoBehaviour
 
         if (_dashCooldownTimer < Time.time)
         {
-            if (Input.GetButton("Fire3") && !_hasDashed && _dir.x != 0)
+            if (PlInputs.GetInput("Dash") && !_hasDashed && PlInputs.Inputs.RawX != 0)
             {
-                _dashDir = new Vector3(_inputs.RawX, 0, 0).normalized;
+                _dashDir = new Vector3(PlInputs.Inputs.RawX, 0, 0).normalized;
 
                 _dashCooldownTimer = Time.time + _dashCooldown;
                 _hasDashed = true;
@@ -308,7 +271,7 @@ public class PlayerController : MonoBehaviour
     void EndDash() 
     {
         _dashing = false;
-        _rb.velocity = new Vector3(Mathf.Clamp(_rb.velocity.x, _dir.normalized.x * -_moddedWalkSpeed, _dir.normalized.x * _moddedWalkSpeed), _rb.velocity.y > 3 ? 3 : _rb.velocity.y);
+        _rb.velocity = new Vector3(Mathf.Clamp(_rb.velocity.x, PlInputs.Inputs.RawX * -_moddedWalkSpeed, PlInputs.Inputs.RawX * _moddedWalkSpeed), _rb.velocity.y > 3 ? 3 : _rb.velocity.y);
         _rb.gravityScale = _gravityScale;
         if(IsGrounded) _hasDashed = false;
         OnStopDashing?.Invoke();
@@ -364,14 +327,14 @@ public class PlayerController : MonoBehaviour
         }
 
         if(attackColliders.Length < 1)
-            if (Mathf.Approximately(_inputs.X, 0f)) _rb.AddForce(GetAttackDirection() * _lastAttack.selfKnockback, ForceMode2D.Force);
+            if (PlInputs.Inputs.RawX == 0f) _rb.AddForce(GetAttackDirection() * _lastAttack.selfKnockback, ForceMode2D.Force);
 
         _soundEmitter.Stop();
 
         PlaySound(_lastAttack.sound);
 
         _attackFeedback.CallFeedback(attackSize, attackPos, attackRotation, _lastAttack.cooldown);
-        _myAnimator.SetTrigger(_lastAttack.animatorTrigger);
+        MyAnimator.SetTrigger(_lastAttack.animatorTrigger);
     }
 
     public PlayerMeleeAttack GetNextAttack(Vector2 input)
@@ -425,8 +388,8 @@ public class PlayerController : MonoBehaviour
 
     void PlayerDeath()
     {
-        _myAnimator.SetFloat("Speed", 0);
-        _myAnimator.SetBool("FellDown", true);
+        MyAnimator.SetFloat("Speed", 0);
+        MyAnimator.SetBool("FellDown", true);
         gameObject.layer = 7;
         _knockbackTimer = Mathf.Infinity;
     }
@@ -435,7 +398,7 @@ public class PlayerController : MonoBehaviour
 
     #region Interactions
 
-    void ExecuteInteraction()
+    public void ExecuteInteraction()
     {
         Collider2D[] interactionColliders = Physics2D.OverlapCircleAll(this.transform.position, InteractionRadius, InteractionLayer);
 
@@ -466,12 +429,6 @@ public class PlayerController : MonoBehaviour
     
     public void PlaySound(AudioClip clipToPlay) => _soundEmitter.PlayOneShot(clipToPlay);
 
-    private struct FrameInputs
-    {
-        public float X, Y;
-        public int RawX, RawY;
-    }
-
     public class InstantiatedUIHP
     {
         public GameObject Prefab;
@@ -487,4 +444,16 @@ public class PlayerController : MonoBehaviour
     }
 
     private void OnApplicationQuit() => Inventory.Container.Clear();
+
+    void ResetSkills() 
+    { 
+        JumpRank = 0;
+        AttackRank = 0;
+        HookRank = 0;
+        TantrumRank = 0;
+        DashRank = 0;
+        KnivesRank = 0;
+        BoomerangRank = 0;
+        ShieldRank = 0;
+    }
 }
