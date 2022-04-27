@@ -4,240 +4,384 @@ using System.Collections;
 
 public class MaskHabilities : MonoBehaviour
 {
+    public AbilitiesInfos AbilitiesInfos;
     public AbilityPassiveSlots Passive;
     public AbilityActiveSlots[] Actives;
     private PlayerController playerController;
-    public Image[] images;
-    // nesse valor todos os upgrades começam com 100% de chance, e essa chance diminui em 34% a cada rank pego.
-    [Range(0, 0.45f)]public float DeramdomizeFactor = 0.34f; 
-    float chanceDash = 1, chanceMobility = 1, chanceAttack = 1, chanceHealth  = 1, chanceHook = 1, chanceTantrum = 1, chanceKnives = 1, chanceBoomerang = 1, chanceShield = 1;
-    int dashIndex = -1, jumpIndex = -1, attackIndex = -1, hookIndex = -1, healthIndex = -1, tantrumIndex = -1, knivesIndex = -1, rangedIndex = -1, shieldIndex = -1, lastIndex = -1;
+    Ability tempAbilityRef;
+
+    Item tempObjRef;
+
+    public int chanceDash = 1, chanceMobility = 1, chanceAttack = 1, chanceHealth  = 1, chanceHook = 1, chanceTantrum = 1, chanceKnives = 1, chanceRanged = 1, chanceShield = 1;
+    int dashIndex = -1, mobilityIndex = -1, attackIndex = -1, hookIndex = -1, healthIndex = -1, tantrumIndex = -1, knivesIndex = -1, rangedIndex = -1, shieldIndex = -1, lastIndex = -1;
 
     void Awake() 
     { 
         playerController = GetComponent<PlayerController>();
+        playerController.AbilitiesController = this;
         Actives = new AbilityActiveSlots[2];
     } 
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void NewAbilityInteraction(MaskObject obj, Item gObj)
     {
-        Item item;
-        if(!collision.gameObject.TryGetComponent<Item>(out item)) return;
-        if(item.item is MaskObject) 
+        tempAbilityRef = new Ability();
+        tempObjRef = gObj;
+        int activeChance = chanceDash + chanceHook + chanceKnives + chanceTantrum + chanceRanged + chanceShield;
+        int passiveChance = chanceMobility + chanceAttack + chanceHealth;
+
+        bool passive = Random.Range(0, activeChance + passiveChance) < passiveChance;
+
+        #region Garantia de passiva se já tiver duas ativas e nenhuma passiva, garantia de ativa se já tiver passiva e slot ativo disponível
+        if(Passive != AbilityPassiveSlots.None)
         {
-            var a = item.item as MaskObject;
-            switch(a.habilities)
+            if(Actives[0] == AbilityActiveSlots.None || Actives[0] == AbilityActiveSlots.None) 
+                passive = false;
+        }
+        else if(Actives[0] != AbilityActiveSlots.None && Actives[0] != AbilityActiveSlots.None && Passive == AbilityPassiveSlots.None)
+                passive = true;
+        #endregion
+
+        if(activeChance + passiveChance == 0)
+        {
+            Debug.LogWarning("Chances únicas de habilidades zeradas.");
+            return;
+        }
+        else if(passiveChance == 0) passive = false;
+        else if(activeChance == 0) passive = true;
+
+        if(passive)
+        {
+            if(Passive == AbilityPassiveSlots.None) ActivateAbility(PickSemiRandomPassive(passiveChance), -1);
+            else
             {
-                case Habilities.Random:
-                    PickRandomly();
-                    break;
-                case Habilities.Upgrade:
-                    UpgradeAbility();
-                    break;
-                case Habilities.Dash:
-                    ActivateDash();
-                    break;
-                case Habilities.Jump:
-                    ActivateJump();
-                    break;
-                case Habilities.Attack:
-                    ActivateAttack();
-                    break;
-                case Habilities.Health:
-                    ActivateHealth();
-                    break;
-                case Habilities.Hook:
-                    ActivateHook();
-                    break;
-                case Habilities.Tantrum:
-                    ActivateTantrum();
-                    break;
-                case Habilities.Knives:
-                    ActivateKnives();
-                    break;
-                case Habilities.Boomerang:
-                    ActivateRanged();
-                    break;
-                case Habilities.Shield:
-                    ActivateShield();
-                    break;
+                // Tela de confirmação
             }
         }
-
-        item.Deactivate();
-    }
-
-    // Partes comentadas não estão implementadas ainda
-    void PickRandomly()
-    {
-        float totalChance = chanceDash + chanceMobility + chanceAttack; // + chanceHook + chanceKnives + chanceTantrum + chanceBoomerang + chanceShield;
-        float roll = Random.Range(0, totalChance);
-        if(roll < chanceDash) ActivateDash();
-        else if(roll < chanceDash + chanceMobility) ActivateJump();
-        else ActivateAttack();
-        //else if(roll < chanceDash + chanceDoubleJump + chanceAttack) ActivateAttack();
-        //else if(roll < chanceDash + chanceDoubleJump + chanceAttack + chanceHook) ActivateHook();
-        //else if(roll < chanceDash + chanceDoubleJump + chanceAttack + chanceHook + chanceKnives) ActivateKnives();
-        //else if(roll < chanceDash + chanceDoubleJump + chanceAttack + chanceHook + chanceKnives + chanceTantrum) ActivateTantrum();
-        //else if(roll < chanceDash + chanceDoubleJump + chanceAttack + chanceHook + chanceKnives + chanceTantrum + chanceBoomerang) ActivateTantrum();
-        //else ActivateShield();
-    }
-
-    void UpgradeAbility()
-    {
-
-    }
-
-    void ShowItemInfo(string ID, int index) => StartCoroutine(ItemInfo(ID, index));
-
-    IEnumerator ItemInfo(string ID, int index)
-    {
-        float originalTimeScale = Time.timeScale;
-        Time.timeScale = 0;
-        if(index == -1) 
+        else
         {
-            index = lastIndex + 1; 
+            if(Actives[0] == AbilityActiveSlots.None) ActivateAbility(PickSemiRandomActive(activeChance), 0);
+            else if(Actives[1] == AbilityActiveSlots.None) ActivateAbility(PickSemiRandomActive(activeChance), 1);
+            else
+            {
+                // Tela de Substituição
+            }
         }
-        if(lastIndex < index) lastIndex = index;
-        //images[index].sprite = text;
-
-        // TODO: Criar animação do sprite aparecer no centro da tela, escurecer a tela no fundo do sprite e transicionar pra posição original 
-        //for(int i = 0; i < 300; i++)
-        //{
-            
-            yield return new WaitForSecondsRealtime(0.01f);
-        //}
-
-        Time.timeScale = originalTimeScale;
+        
+        // TODO: só chamar isso caso não precise chamar nenhuma tela de confirmação, fora isso chamar
+        tempObjRef.EndInteraction(tempAbilityRef);
     }
 
-    void ActivateDash() 
+    public void DeactivateAbility(int slot)
+    {
+        AbilitiesEnum tempAbility;
+        Ability output = new Ability();
+
+        if(slot == 0)
+        {
+            Actives[0] = AbilityActiveSlots.None;
+            System.Enum.TryParse(Actives[1].ToString(), out tempAbility);
+        }
+        else if(slot == 1)
+        {
+            Actives[1] = AbilityActiveSlots.None;
+            System.Enum.TryParse(Actives[0].ToString(), out tempAbility);
+        }
+        else
+        {
+            Passive = AbilityPassiveSlots.None;
+            System.Enum.TryParse(Passive.ToString(), out tempAbility);
+        }
+        
+        output.Type = tempAbility;
+        output.Rank = GetAbilityRank(tempAbility);
+
+        switch(tempAbility)
+        {
+            case AbilitiesEnum.Dash:
+                playerController.DashRank = 0;
+                break;
+            case AbilitiesEnum.Mobility:
+                playerController.MobilityRank = 0;
+                StatsManager.Instance.MoveSpeed.Reset();
+                break;
+            case AbilitiesEnum.Attack:
+                playerController.AttackRank = 0;
+                StatsManager.Instance.Damage.Reset();
+                break;
+            case AbilitiesEnum.Health:
+                playerController.HealthRank = 0;
+                StatsManager.Instance.Health.Reset();
+                RecalculateHealth();;
+                break;
+            case AbilitiesEnum.Hook:
+                playerController.HookRank = 0;
+                break;
+            case AbilitiesEnum.Tantrum:
+                playerController.TantrumRank = 0;
+                break;
+            case AbilitiesEnum.Knives:
+                playerController.KnivesRank = 0;
+                break;
+            case AbilitiesEnum.Ranged:
+                playerController.RangedRank = 0;
+                break;
+            case AbilitiesEnum.Shield:
+                playerController.ShieldRank = 0;
+                break;
+        }
+
+        tempObjRef.EndInteraction(output);
+    }
+
+    AbilitiesEnum PickSemiRandomActive(int totalChance)
+    {
+        int roll = Random.Range(0, totalChance);
+        if(roll < chanceDash) return AbilitiesEnum.Dash;
+        else if(roll < chanceDash + chanceHook) return AbilitiesEnum.Hook;
+        else if(roll < chanceDash + chanceHook + chanceKnives) return AbilitiesEnum.Knives;
+        else if(roll < chanceDash + chanceHook + chanceKnives + chanceTantrum) return AbilitiesEnum.Tantrum;
+        else if(roll < chanceDash + chanceHook + chanceKnives + chanceTantrum + chanceRanged) return AbilitiesEnum.Ranged;
+        else return AbilitiesEnum.Shield;
+    }
+
+    AbilitiesEnum PickSemiRandomPassive(int totalChance)
+    {
+        int roll = Random.Range(0, totalChance);
+        if(roll <  chanceMobility) return AbilitiesEnum.Mobility;
+        else if(roll < chanceMobility + chanceAttack) return AbilitiesEnum.Attack;
+        else return AbilitiesEnum.Health;
+    }
+
+    public void UpgradeAbility(int slot)
+    {
+        AbilitiesEnum tempAbility;
+        switch(slot)
+        {
+            case 0:
+                System.Enum.TryParse(Actives[0].ToString(), out tempAbility);
+                break;
+            case 1:
+                System.Enum.TryParse(Actives[1].ToString(), out tempAbility);
+                break;
+            default:
+                System.Enum.TryParse(Passive.ToString(), out tempAbility);
+                break;
+        }
+
+        ActivateAbility(tempAbility, slot);
+    }
+
+    void ShowItemInfo(int index, int rank) => StartCoroutine(ItemInfo(index, rank));
+
+    IEnumerator ItemInfo(int index, int rank)
+    {
+        yield return null;
+        // ????
+    }
+
+    #region Abilities Activation
+
+    void ActivateDash(int slot) 
     { 
         if(playerController.DashRank < 1)
         {
+            playerController.PlInputs.SetInput("Dash", slot == 0);
+            if(slot == 0) Actives[0] = AbilityActiveSlots.Dash;
+            else Actives[1] = AbilityActiveSlots.Dash;
+            chanceDash = 0;
             playerController.DashRank = 1;
-            ShowItemInfo("Dash", dashIndex);
             if(dashIndex == -1) dashIndex = lastIndex;
         }
-        else
-        {
-            //upgrade;
-        }
+        else playerController.DashRank++;
+        ShowItemInfo(dashIndex, playerController.DashRank);
     }
 
-    void ActivateAttack() 
+    void ActivateAttack(int slot) 
     { 
         if(playerController.AttackRank < 1)
         {
+            Passive = AbilityPassiveSlots.Attack;
+            chanceAttack = 0;
             playerController.AttackRank = 1;
-            ShowItemInfo("Attack", attackIndex);
             if(attackIndex == -1) attackIndex = lastIndex;
         }
-        else
-        {
-            //upgrade;
-        }
-        StatsManager.Instance.AddDamageMultiplier(0.5f / playerController.AttackRank, $"Attack Rank {playerController.AttackRank}");
+        else playerController.AttackRank++;
+        StatsManager.Instance.Damage.AddMultiplier($"Attack Rank {playerController.AttackRank}", 0.5f / playerController.AttackRank);
+        ShowItemInfo(attackIndex, playerController.AttackRank);
     }
 
-    void ActivateJump() 
+    void ActivateMobility(int slot) 
     {
-        if(playerController.AttackRank < 1)
+        if(playerController.MobilityRank < 1)
         {
-            playerController.JumpRank = 1;
-            ShowItemInfo("Mobility", jumpIndex);
-            if(jumpIndex == -1) jumpIndex = lastIndex;
+            Passive = AbilityPassiveSlots.Mobility;
+            chanceMobility = 0;
+            playerController.MobilityRank = 1;
+            if(mobilityIndex == -1) mobilityIndex = lastIndex;
         }
-        else
-        {
-            //upgrade;
-        }
+        else playerController.MobilityRank++;
+
+        StatsManager.Instance.MoveSpeed.AddMultiplier($"Mobility Rank {playerController.MobilityRank}", 0.05f);
+        ShowItemInfo(mobilityIndex, playerController.MobilityRank);
     }
 
-    void ActivateHook() 
+    void ActivateHook(int slot) 
     {
-        if(playerController.AttackRank < 1)
+        if(playerController.HookRank < 1)
         {
+            playerController.PlInputs.SetInput("Hook", slot == 0);
+            if(slot == 0) Actives[0] = AbilityActiveSlots.Hook;
+            else Actives[1] = AbilityActiveSlots.Hook;
+            chanceHook = 0;
             playerController.HookRank = 1;
-            ShowItemInfo("Hook", hookIndex);
             if(hookIndex == -1) hookIndex = lastIndex;
         }
-        else
-        {
-            //upgrade;
-        }
+        else playerController.HookRank++;
+            
+        ShowItemInfo(hookIndex, playerController.HookRank);
     }
 
-    void ActivateHealth() 
+    void ActivateHealth(int slot) 
     { 
-        if(playerController.AttackRank < 1)
+        if(playerController.HealthRank < 1)
         {
-            playerController.HookRank = 1;
-            ShowItemInfo("Health", healthIndex);
+            Passive = AbilityPassiveSlots.Health;
+            chanceHealth = 0;
+            playerController.HealthRank = 1;
             if(healthIndex == -1) healthIndex = lastIndex;
         }
-        else
-        {
-            //upgrade;
-        }
+        else playerController.HealthRank++;
+
+        RecalculateHealth();
+
+        if(playerController.HealthRank < 3) StatsManager.Instance.Health.AddMultiplier($"Health Rank {playerController.HealthRank}", 0.3334f);
+        StatsManager.Instance.KnockbackResistance.AddMultiplier($"Health Rank {playerController.HealthRank}", 0.1f * playerController.HealthRank);
+        ShowItemInfo(healthIndex, playerController.HealthRank);
     }
 
-    void ActivateTantrum() 
+    void RecalculateHealth()
+    {
+        int totalHP = playerController.TotalHealth;
+        int newTotalHP = Mathf.FloorToInt(totalHP + playerController.HealthRank * 0.334f);
+        if(newTotalHP > 0) playerController.ReceiveHealing(newTotalHP - totalHP);
+        else playerController.ReceiveDamage(newTotalHP - totalHP, Vector3.zero);
+    } 
+
+    void ActivateTantrum(int slot) 
     { 
-        if(playerController.AttackRank < 1)
+        if(playerController.TantrumRank < 1)
         {
-            playerController.TantrumRank = 1;
-            ShowItemInfo("Tantrum", tantrumIndex);
+            playerController.PlInputs.SetInput("Tantrum", slot == 0);
+            if(slot == 0) Actives[0] = AbilityActiveSlots.Tantrum;
+            else Actives[1] = AbilityActiveSlots.Tantrum;
+            chanceTantrum = 0;
             if(tantrumIndex == -1) tantrumIndex = lastIndex;
         }
-        else
-        {
-            //upgrade;
-        }
+        else playerController.TantrumRank++;
+
+        ShowItemInfo(tantrumIndex, playerController.TantrumRank);
     }
 
-    void ActivateKnives() 
+    void ActivateKnives(int slot) 
     { 
-        if(playerController.AttackRank < 1)
+        if(playerController.KnivesRank < 1)
         {
+            playerController.PlInputs.SetInput("Knives", slot == 0);
+            if(slot == 0) Actives[0] = AbilityActiveSlots.Knives;
+            else Actives[1] = AbilityActiveSlots.Knives;
+            chanceKnives = 0;
             playerController.KnivesRank = 1;
-            ShowItemInfo("Knives", knivesIndex);
             if(knivesIndex == -1) knivesIndex = lastIndex;
         }
-        else
-        {
-            //upgrade;
-        }
+        else playerController.KnivesRank++;
+
+        ShowItemInfo(knivesIndex, playerController.KnivesRank);
     }
 
-    void ActivateRanged() 
-    { 
-        if(playerController.AttackRank < 1)
+    void ActivateRanged(int slot) 
+    {
+        if(playerController.RangedRank < 1)
         {
-            playerController.BoomerangRank = 1;
-            ShowItemInfo("Ranged", rangedIndex);
+            playerController.PlInputs.SetInput("Ranged", slot == 0);
+            if(slot == 0) Actives[0] = AbilityActiveSlots.Ranged;
+            else Actives[1] = AbilityActiveSlots.Ranged;
+            chanceRanged = 0;
+            playerController.RangedRank = 1;
             if(rangedIndex == -1) rangedIndex = lastIndex;
         }
-        else
-        {
-            //upgrade;
-        }
+        else playerController.RangedRank++;
+        
+        ShowItemInfo(rangedIndex, playerController.RangedRank);
     }
 
-    void ActivateShield() 
-    { 
-        if(playerController.AttackRank < 1)
+    void ActivateShield(int slot) 
+    {
+        if(playerController.ShieldRank < 1)
         {
+            playerController.PlInputs.SetInput("Shield", slot == 0);
+            if(slot == 0) Actives[0] = AbilityActiveSlots.Shield;
+            else Actives[1] = AbilityActiveSlots.Shield;
+            chanceShield = 0;
             playerController.ShieldRank = 1;
-            ShowItemInfo("Shield", shieldIndex);
             if(shieldIndex == -1) shieldIndex = lastIndex;
         }
-        else
+        else playerController.ShieldRank++;
+
+        ShowItemInfo(shieldIndex, playerController.ShieldRank);
+    }
+
+    #endregion
+
+    #region Utils
+    int GetAbilityRank(AbilitiesEnum ability)
+    {
+        switch(ability)
         {
-            //upgrade;
+            case AbilitiesEnum.Dash: return playerController.DashRank;
+            case AbilitiesEnum.Mobility: return playerController.MobilityRank;
+            case AbilitiesEnum.Attack: return playerController.AttackRank;
+            case AbilitiesEnum.Health: return playerController.HealthRank;
+            case AbilitiesEnum.Hook: return playerController.HookRank;
+            case AbilitiesEnum.Tantrum: return playerController.TantrumRank;
+            case AbilitiesEnum.Knives: return playerController.KnivesRank;
+            case AbilitiesEnum.Ranged: return playerController.RangedRank;
+            default: return playerController.ShieldRank;
         }
     }
 
-    public enum AbilityPassiveSlots { None, Mobility, Attack, Health }
-    public enum AbilityActiveSlots { None, Dash, Hook, Tantrum, Knives, Shield, Ranged }
+    void ActivateAbility(AbilitiesEnum habilities, int slot)
+    {
+        switch(habilities)
+        {
+            case AbilitiesEnum.Dash:
+                ActivateDash(slot);
+                break;
+            case AbilitiesEnum.Mobility:
+                ActivateMobility(slot);
+                break;
+            case AbilitiesEnum.Attack:
+                ActivateAttack(slot);
+                break;
+            case AbilitiesEnum.Health:
+                ActivateHealth(slot);
+                break;
+            case AbilitiesEnum.Hook:
+                ActivateHook(slot);
+                break;
+            case AbilitiesEnum.Tantrum:
+                ActivateTantrum(slot);
+                break;
+            case AbilitiesEnum.Knives:
+                ActivateKnives(slot);
+                break;
+            case AbilitiesEnum.Ranged:
+                ActivateRanged(slot);
+                break;
+            case AbilitiesEnum.Shield:
+                ActivateShield(slot);
+                break;
+        }
+    }
+
+    #endregion
 }

@@ -4,7 +4,7 @@ public class StatsManager : MonoBehaviour
 {
     public static StatsManager Instance;
     public PlayerController PlayerController;
-    public Stat Damage, MoveSpeed, DashLength, KnockbackResistance;
+    public Stat Damage, MoveSpeed, DashLength, KnockbackResistance, Health;
 
     private void Awake()
     {
@@ -19,6 +19,8 @@ public class StatsManager : MonoBehaviour
         MoveSpeed = new Stat("Move Speed");
         DashLength = new Stat("Dash Length");
         KnockbackResistance = new Stat("Knockback Resistance");
+        Health = new Stat("Health");
+        Health.OnChange += PlayerController.InterfacePlayerHP;
         PlayerController.OnPlayerDeath += ResetAllStats;
     }
 
@@ -29,9 +31,4 @@ public class StatsManager : MonoBehaviour
         DashLength.Reset();
         KnockbackResistance.Reset();
     }
-
-    public void AddDamageMultiplier(float value, string ID) => Damage.AddMultiplier(ID, value);
-    public void AddMoveSpeedMultiplier(float value, string ID) => MoveSpeed.AddMultiplier(ID, value);
-    public void AddDashLengthMultiplier(float value, string ID) => DashLength.AddMultiplier(ID, value);
-    public void AddKnockbackResistanceMultiplier(float value, string ID) => KnockbackResistance.AddMultiplier(ID, -value);
 }

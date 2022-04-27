@@ -4,6 +4,13 @@ public class PlayerInputs : MonoBehaviour
 {
     public FrameInputs Inputs;
     public PlayerController player;
+    public MaskHabilities habilities;
+
+    private void Start()
+    {
+        Inputs.A = new AbilityButtonInput();
+        Inputs.B = new AbilityButtonInput();
+    }
 
     public void GatherInputs()
     {
@@ -11,8 +18,6 @@ public class PlayerInputs : MonoBehaviour
         Inputs.RawY = (int)Input.GetAxisRaw("Vertical");
         Inputs.X = Input.GetAxis("Horizontal");
         Inputs.Y = Input.GetAxis("Vertical");
-        Inputs.A = new AbilityButtonInput();
-        Inputs.B = new AbilityButtonInput();
         if(Input.GetButtonDown("AbilityA")) 
         {
             player.CallAbilityA?.Invoke();
@@ -59,12 +64,14 @@ public class PlayerInputs : MonoBehaviour
     }
     
     public void SetInput(string name, bool AbilityA)
-    {
-        if(AbilityA) Inputs.A.name = name;
+    {     
+        if(AbilityA)Inputs.A.name = name;
         else Inputs.B.name = name;
     }
-    public bool GetInput(string name) => Inputs.A.name == name ? true : Inputs.B.name == name;
 
+    public bool GetInput(string name) => Inputs.A.name == name ? Inputs.A.active : Inputs.B.name == name? Inputs.B.active : false;
+
+    [System.Serializable]
     public struct FrameInputs
     {
         public float X, Y;
@@ -72,6 +79,7 @@ public class PlayerInputs : MonoBehaviour
         public AbilityButtonInput A, B;
     }
 
+    [System.Serializable]
     public class AbilityButtonInput
     {
         public string name;

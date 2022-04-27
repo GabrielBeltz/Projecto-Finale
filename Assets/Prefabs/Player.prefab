@@ -148,14 +148,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca91dc028459d4e4fb5d543d5a9cd288, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  JumpRank: 0
+  MobilityRank: 0
   AttackRank: 0
   HookRank: 0
   TantrumRank: 0
   DashRank: 0
   KnivesRank: 0
-  BoomerangRank: 0
+  RangedRank: 0
   ShieldRank: 0
+  HealthRank: 0
+  AbilitiesController: {fileID: 0}
   _baseWalkSpeed: 15
   _jumpManeuverabilityPercentage: 1
   _initialJumpSpeed: 18
@@ -216,7 +218,6 @@ MonoBehaviour:
   _grounderOffset: -1
   _grounderRadius: 0.2
   IsGrounded: 1
-  Inventory: {fileID: 11400000, guid: e80e98bbbdc5f794e82326767e9b3205, type: 2}
   PlInputs: {fileID: 0}
 --- !u!114 &2635058737366346552
 MonoBehaviour:
@@ -241,6 +242,9 @@ MonoBehaviour:
     name: 
     Multipliers: []
   KnockbackResistance:
+    name: 
+    Multipliers: []
+  Health:
     name: 
     Multipliers: []
 --- !u!81 &1154210218694514584
@@ -300,12 +304,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bb6ff3d1717b5f478846fdd94361606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AbilitiesInfos: {fileID: 11400000, guid: 9cc26427eb4a7124db637588ed837724, type: 2}
   Passive: 0
   Actives: 
-  texts:
-  - {fileID: 0}
-  - {fileID: 0}
-  DeramdomizeFactor: 0.34
+  chanceDash: 1
+  chanceMobility: 1
+  chanceAttack: 1
+  chanceHealth: 1
+  chanceHook: 0
+  chanceTantrum: 0
+  chanceKnives: 0
+  chanceRanged: 0
+  chanceShield: 0
 --- !u!114 &972638010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,7 +344,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3120188f2cdab6429676e889069c09b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Inputs:
+    X: 0
+    Y: 0
+    RawX: 0
+    RawY: 0
+    A:
+      name: 
+      active: 0
+    B:
+      name: 
+      active: 0
   player: {fileID: 1154210218694514588}
+  habilities: {fileID: 428705585108110159}
 --- !u!1 &1154210220103111487
 GameObject:
   m_ObjectHideFlags: 0

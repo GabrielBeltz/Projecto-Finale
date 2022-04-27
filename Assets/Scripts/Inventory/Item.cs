@@ -1,15 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.ParticleSystemJobs;
 
 public class Item : MonoBehaviour
 {
-    public ItemObject item;
+    public MaskObject item;
 
     public Collider2D[] myColliders;
     public Renderer[] myRenderers;
     public ParticleSystem myParticleSystem;
+
+    public void NewAbility() 
+    {
+        if(item.assignedAbility.Rank == 0) StatsManager.Instance.PlayerController.AbilitiesController.NewAbilityInteraction(item, this);
+        else
+        {
+        }
+    } 
+
+    public void EndInteraction(Ability input)
+    {
+        if(input.Rank == 0) Deactivate();
+        else item.assignedAbility = input;
+    }
 
     public void Deactivate()
     {

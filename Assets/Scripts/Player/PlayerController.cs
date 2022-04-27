@@ -8,9 +8,10 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D _rb;
 
     [Header("Abilities")]
-    public int JumpRank;
-    public int AttackRank, HookRank, TantrumRank, DashRank, KnivesRank, BoomerangRank, ShieldRank;
+    public int MobilityRank;
+    public int AttackRank, HookRank, TantrumRank, DashRank, KnivesRank, RangedRank, ShieldRank, HealthRank;
     public Action CallAbilityA, CallAbilityB;
+    [HideInInspector]public MaskHabilities AbilitiesController;
     
     [Header("Walking")]
     [SerializeField] float _baseWalkSpeed = 8f;
@@ -37,6 +38,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] List<PlayerMeleeAttack> _playerAttacks;
     [SerializeField] LayerMask _attackLayerMask;
     public int TotalHealth, CurrentHealth;
+    int moddedTotalHealth { get => Mathf.FloorToInt(TotalHealth * StatsManager.Instance.Health.totalValue); }
     [SerializeField] float _knockbackTime, _selfKnockBackTime, _groundImpactKnockbackTime, _extraUngroundedKnockbackTime;
     [SerializeField] float _timeOfLastAttack = 10f;
     [SerializeField] AttackFeedback _attackFeedback;
@@ -79,7 +81,6 @@ public class PlayerController : MonoBehaviour
     float _timeStartedDash;
     Vector3 _dashDir;
 
-    public Inventory Inventory;
     FootStepController FootStepController;
     [HideInInspector] public PlayerInputs PlInputs;
 
@@ -143,7 +144,7 @@ public class PlayerController : MonoBehaviour
                 else FootStepController.PlayOneShot(FootStepController.RandomSolidClip(), 0.5f);
             }
 
-            _doubleJumpCharged = JumpRank > 2;
+            _doubleJumpCharged = MobilityRank > 2;
             IsGrounded = true;
             _hasDashed = false;
             _hasJumped = false;
@@ -158,7 +159,7 @@ public class PlayerController : MonoBehaviour
 
     void HandleWalling()
     {
-        if(JumpRank < 1) return;
+        if(MobilityRank < 1) return;
         RaycastHit2D[] hits = new RaycastHit2D[1];
         WallOnLeft = Physics2D.RaycastNonAlloc(transform.position, Vector2.left, hits, 0.55f, _wallsMask) > 0 && !IsGrounded;
         WallOnRight = Physics2D.RaycastNonAlloc(transform.position, Vector2.right, hits, 0.55f, _wallsMask) > 0 && !IsGrounded;
@@ -203,7 +204,7 @@ public class PlayerController : MonoBehaviour
             _rb.gravityScale = 0;
             if(IsKnockbacked) return;
             _rb.velocity = new Vector2(0, -_gravityScale / 2);
-            if(JumpRank > 1) _rb.velocity = new Vector2(0, (_gravityScale / 2) * PlInputs.Inputs.RawY);
+            if(MobilityRank > 1) _rb.velocity = new Vector2(0, (_gravityScale / 2) * PlInputs.Inputs.RawY);
             return;
         }
 
@@ -364,23 +365,32 @@ public class PlayerController : MonoBehaviour
         return DefaultAttack;
     }
 
-    public void ReceiveDamage(int damage, Vector3 knockback)
+    public void ReceiveDamage(int damageAmount, Vector3 knockback)
     {
-        if(_dashing) EndDash();
-
-        float knockbackResistance = StatsManager.Instance.KnockbackResistance.totalValue;
-        CurrentHealth -= damage;
-        _rb.velocity = Vector3.zero;
-        _rb.AddForce(new Vector2(knockback.x, knockback.y * 1.5f) * knockbackResistance, ForceMode2D.Force);
-        _knockbackTimer = IsGrounded ? Time.time + (_knockbackTime * knockbackResistance) : Time.time + ((_knockbackTime + _extraUngroundedKnockbackTime) * knockbackResistance);
+        CurrentHealth -= damageAmount;
+        if(knockback != Vector3.zero)
+        {
+            // Hurt Sound
+            if(_dashing) EndDash();
+            float knockbackResistance = StatsManager.Instance.KnockbackResistance.totalValue;
+            _rb.velocity = Vector3.zero;
+            _rb.AddForce(new Vector2(knockback.x, knockback.y * 1.5f) * knockbackResistance, ForceMode2D.Force);
+            _knockbackTimer = IsGrounded ? Time.time + (_knockbackTime * knockbackResistance) : Time.time + ((_knockbackTime + _extraUngroundedKnockbackTime) * knockbackResistance);
+        }
         
         InterfacePlayerHP();
         if(CurrentHealth < 1) OnPlayerDeath?.Invoke();
     }
 
+    public void ReceiveHealing(int healingAmount)
+    {
+        CurrentHealth += healingAmount;
+        InterfacePlayerHP();
+    }
+
     void PlayerFullHeal()
     { 
-        CurrentHealth = TotalHealth;
+        CurrentHealth = moddedTotalHealth;
         gameObject.layer = 10;
         _knockbackTimer = 0;
         InterfacePlayerHP();
@@ -402,19 +412,17 @@ public class PlayerController : MonoBehaviour
     {
         Collider2D[] interactionColliders = Physics2D.OverlapCircleAll(this.transform.position, InteractionRadius, InteractionLayer);
 
-        foreach (Collider2D col in interactionColliders)
-        {
-            col.GetComponent<Interactable>().Interact();
-        }
+        if(interactionColliders.Length > 0)
+            if(interactionColliders[0].TryGetComponent<Interactable>(out Interactable a)) a.Interact();
     }
 
     #endregion
 
     #region UI Handling
 
-    void InterfacePlayerHP()
+    public void InterfacePlayerHP()
     {
-        for(int i = 0; i < TotalHealth; i++)
+        for(int i = 0; i < moddedTotalHealth; i++)
         {
             if(Hearts.Count <= i)
             {
@@ -443,17 +451,15 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnApplicationQuit() => Inventory.Container.Clear();
-
     void ResetSkills() 
     { 
-        JumpRank = 0;
+        MobilityRank = 0;
         AttackRank = 0;
         HookRank = 0;
         TantrumRank = 0;
         DashRank = 0;
         KnivesRank = 0;
-        BoomerangRank = 0;
+        RangedRank = 0;
         ShieldRank = 0;
     }
 }
