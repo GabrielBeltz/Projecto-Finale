@@ -5,11 +5,17 @@ public class PlayerInputs : MonoBehaviour
     public FrameInputs Inputs;
     public PlayerController player;
     public MaskHabilities habilities;
+    public PauseController PauseController;
 
     private void Start()
     {
         Inputs.A = new AbilityButtonInput();
         Inputs.B = new AbilityButtonInput();
+    }
+
+    public void GatherUnpausedInputs()
+    {
+        if(Input.GetButtonDown("Cancel")) PauseController.PlayerPause();
     }
 
     public void GatherInputs()

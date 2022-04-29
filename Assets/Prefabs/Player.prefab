@@ -105,13 +105,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1154210218694514585}
   - component: {fileID: 1154210218694514588}
+  - component: {fileID: 1434490607661563655}
+  - component: {fileID: 428705585108110159}
   - component: {fileID: 2635058737366346552}
   - component: {fileID: 1154210218694514584}
   - component: {fileID: 1154210218694514586}
   - component: {fileID: 1154210218694514589}
-  - component: {fileID: 428705585108110159}
   - component: {fileID: 972638010}
-  - component: {fileID: 1434490607661563655}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
@@ -219,6 +219,57 @@ MonoBehaviour:
   _grounderRadius: 0.2
   IsGrounded: 1
   PlInputs: {fileID: 0}
+--- !u!114 &1434490607661563655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154210218694514591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3120188f2cdab6429676e889069c09b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Inputs:
+    X: 0
+    Y: 0
+    RawX: 0
+    RawY: 0
+    A:
+      name: 
+      active: 0
+    B:
+      name: 
+      active: 0
+  player: {fileID: 1154210218694514588}
+  habilities: {fileID: 428705585108110159}
+  PauseController: {fileID: 0}
+--- !u!114 &428705585108110159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154210218694514591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bb6ff3d1717b5f478846fdd94361606, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Passive: 0
+  Actives: 
+  AbilitiesInfos: {fileID: 11400000, guid: 9cc26427eb4a7124db637588ed837724, type: 2}
+  SwitchActivesMenu: {fileID: 0}
+  chanceDash: 1
+  chanceMobility: 1
+  chanceAttack: 1
+  chanceHealth: 1
+  chanceHook: 1
+  chanceTantrum: 1
+  chanceKnives: 1
+  chanceRanged: 1
+  chanceShield: 1
 --- !u!114 &2635058737366346552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,30 +343,6 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 1, y: 2}
   m_Direction: 0
---- !u!114 &428705585108110159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1154210218694514591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2bb6ff3d1717b5f478846fdd94361606, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  AbilitiesInfos: {fileID: 11400000, guid: 9cc26427eb4a7124db637588ed837724, type: 2}
-  Passive: 0
-  Actives: 
-  chanceDash: 1
-  chanceMobility: 1
-  chanceAttack: 1
-  chanceHealth: 1
-  chanceHook: 0
-  chanceTantrum: 0
-  chanceKnives: 0
-  chanceRanged: 0
-  chanceShield: 0
 --- !u!114 &972638010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -332,31 +359,6 @@ MonoBehaviour:
   blackLayerMaterial: {fileID: 2100000, guid: e1601f546b5fd0c40884bff0b2c065ac, type: 2}
   lerpLimitsX: {x: -0.175, y: 1.025}
   lerpLimitsY: {x: 0.05, y: 0.9}
---- !u!114 &1434490607661563655
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1154210218694514591}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3120188f2cdab6429676e889069c09b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Inputs:
-    X: 0
-    Y: 0
-    RawX: 0
-    RawY: 0
-    A:
-      name: 
-      active: 0
-    B:
-      name: 
-      active: 0
-  player: {fileID: 1154210218694514588}
-  habilities: {fileID: 428705585108110159}
 --- !u!1 &1154210220103111487
 GameObject:
   m_ObjectHideFlags: 0

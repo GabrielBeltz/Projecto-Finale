@@ -3,27 +3,32 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     public MaskObject item;
+    public Ability assignedAbility;
 
     public Collider2D[] myColliders;
     public Renderer[] myRenderers;
     public ParticleSystem myParticleSystem;
 
-    public void NewAbility() 
+    private void Start() => assignedAbility = StatsManager.Instance.PlayerController.AbilitiesController.GetRandomAbility();
+
+    public void NewAbility() => StatsManager.Instance.PlayerController.AbilitiesController.NewAbilityInteraction(this);
+
+    private void OnTriggerEnter(Collider other)
     {
-        if(item.assignedAbility.Rank == 0) StatsManager.Instance.PlayerController.AbilitiesController.NewAbilityInteraction(item, this);
-        else
-        {
-        }
-    } 
+        if(!(other.CompareTag("Player"))) return;
+
+        // mostrar card de info da habilidade
+    }
 
     public void EndInteraction(Ability input)
-    {
-        if(input.Rank == 0) Deactivate();
-        else item.assignedAbility = input;
+    {   assignedAbility = input;
+        Deactivate();
     }
 
     public void Deactivate()
     {
+        if(assignedAbility.Rank > 0) return;
+
         myParticleSystem.Stop(false, ParticleSystemStopBehavior.StopEmitting);
 
         foreach(var col in myColliders)

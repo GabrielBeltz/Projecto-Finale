@@ -103,6 +103,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        PlInputs.GatherUnpausedInputs();
         if(!(Time.timeScale > 0)) return;
         HandleGrounding();
         HandleWalling();
@@ -320,10 +321,10 @@ public class PlayerController : MonoBehaviour
                 _rb.AddForce(_lastAttack.selfKnockback * selfKnockbackReceived * -GetAttackDirection(), ForceMode2D.Force);
             }
 
-            if(AttackRank < 3) 
-            { 
+            if(AttackRank < 3)
+            {
                 i = attackColliders.Length;
-                attackSize = new Vector3(attackSize.x, attackSize.y, Vector2.Distance(attackPos, attackColliders[i].point));
+                attackSize = new Vector3(attackSize.x, attackSize.y, Vector2.Distance(attackPos, attackColliders[0].point));
             } 
         }
 

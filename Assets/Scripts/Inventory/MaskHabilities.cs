@@ -4,10 +4,13 @@ using System.Collections;
 
 public class MaskHabilities : MonoBehaviour
 {
-    public AbilitiesInfos AbilitiesInfos;
     public AbilityPassiveSlots Passive;
     public AbilityActiveSlots[] Actives;
+
+    [Header("References")]
+    public AbilitiesInfos AbilitiesInfos;
     private PlayerController playerController;
+    public SwitchActivesMenu SwitchActivesMenu;
     Ability tempAbilityRef;
 
     Item tempObjRef;
@@ -22,10 +25,9 @@ public class MaskHabilities : MonoBehaviour
         Actives = new AbilityActiveSlots[2];
     } 
 
-    public void NewAbilityInteraction(MaskObject obj, Item gObj)
+    public Ability GetRandomAbility()
     {
-        tempAbilityRef = new Ability();
-        tempObjRef = gObj;
+        Ability temp = new Ability();
         int activeChance = chanceDash + chanceHook + chanceKnives + chanceTantrum + chanceRanged + chanceShield;
         int passiveChance = chanceMobility + chanceAttack + chanceHealth;
 
@@ -43,15 +45,28 @@ public class MaskHabilities : MonoBehaviour
 
         if(activeChance + passiveChance == 0)
         {
-            Debug.LogWarning("Chances únicas de habilidades zeradas.");
-            return;
+            return temp;
         }
         else if(passiveChance == 0) passive = false;
         else if(activeChance == 0) passive = true;
 
-        if(passive)
+        temp.Type = passive ? PickSemiRandomPassive(passiveChance) : PickSemiRandomActive(activeChance);
+        temp.Rank = 1;
+        return temp;
+    }
+
+    public void NewAbilityInteraction(Item gObj)
+    {
+        tempAbilityRef = new Ability();
+        tempObjRef = gObj;
+
+        bool isPassive = gObj.assignedAbility.Type == AbilitiesEnum.Attack;
+        isPassive |= gObj.assignedAbility.Type ==  AbilitiesEnum.Health;
+        isPassive |= gObj.assignedAbility.Type ==  AbilitiesEnum.Mobility;
+
+        if(isPassive)
         {
-            if(Passive == AbilityPassiveSlots.None) ActivateAbility(PickSemiRandomPassive(passiveChance), -1);
+            if(Passive == AbilityPassiveSlots.None) ActivateAbility(gObj.assignedAbility.Type, -1);
             else
             {
                 // Tela de confirmação
@@ -59,15 +74,22 @@ public class MaskHabilities : MonoBehaviour
         }
         else
         {
-            if(Actives[0] == AbilityActiveSlots.None) ActivateAbility(PickSemiRandomActive(activeChance), 0);
-            else if(Actives[1] == AbilityActiveSlots.None) ActivateAbility(PickSemiRandomActive(activeChance), 1);
+            if(Actives[0] == AbilityActiveSlots.None) ActivateAbility(gObj.assignedAbility.Type, 0);
+            else if(Actives[1] == AbilityActiveSlots.None) ActivateAbility(gObj.assignedAbility.Type, 1);
             else
             {
-                // Tela de Substituição
+                SwitchActivesMenu.Activate(
+                    AbilitiesInfos.GetFullInfo(Actives[0].ToString()),
+                    GetAbilityRank((AbilitiesEnum)System.Enum.Parse(typeof(AbilitiesEnum), Actives[0].ToString())),
+                    AbilitiesInfos.GetFullInfo(Actives[1].ToString()),
+                    GetAbilityRank((AbilitiesEnum)System.Enum.Parse(typeof(AbilitiesEnum), Actives[1].ToString())),
+                    AbilitiesInfos.GetFullInfo(gObj.assignedAbility.Type.ToString()),
+                    gObj.assignedAbility);
+                SwitchActivesMenu.gameObject.SetActive(true);
+                tempAbilityRef = gObj.assignedAbility;
             }
         }
         
-        // TODO: só chamar isso caso não precise chamar nenhuma tela de confirmação, fora isso chamar
         tempObjRef.EndInteraction(tempAbilityRef);
     }
 
@@ -78,18 +100,18 @@ public class MaskHabilities : MonoBehaviour
 
         if(slot == 0)
         {
+            System.Enum.TryParse(Actives[0].ToString(), out tempAbility);
             Actives[0] = AbilityActiveSlots.None;
-            System.Enum.TryParse(Actives[1].ToString(), out tempAbility);
         }
         else if(slot == 1)
         {
+            System.Enum.TryParse(Actives[1].ToString(), out tempAbility);
             Actives[1] = AbilityActiveSlots.None;
-            System.Enum.TryParse(Actives[0].ToString(), out tempAbility);
         }
         else
         {
-            Passive = AbilityPassiveSlots.None;
             System.Enum.TryParse(Passive.ToString(), out tempAbility);
+            Passive = AbilityPassiveSlots.None;
         }
         
         output.Type = tempAbility;
@@ -111,7 +133,7 @@ public class MaskHabilities : MonoBehaviour
             case AbilitiesEnum.Health:
                 playerController.HealthRank = 0;
                 StatsManager.Instance.Health.Reset();
-                RecalculateHealth();;
+                RecalculateHealth();
                 break;
             case AbilitiesEnum.Hook:
                 playerController.HookRank = 0;
@@ -136,20 +158,60 @@ public class MaskHabilities : MonoBehaviour
     AbilitiesEnum PickSemiRandomActive(int totalChance)
     {
         int roll = Random.Range(0, totalChance);
-        if(roll < chanceDash) return AbilitiesEnum.Dash;
-        else if(roll < chanceDash + chanceHook) return AbilitiesEnum.Hook;
-        else if(roll < chanceDash + chanceHook + chanceKnives) return AbilitiesEnum.Knives;
-        else if(roll < chanceDash + chanceHook + chanceKnives + chanceTantrum) return AbilitiesEnum.Tantrum;
-        else if(roll < chanceDash + chanceHook + chanceKnives + chanceTantrum + chanceRanged) return AbilitiesEnum.Ranged;
-        else return AbilitiesEnum.Shield;
+        if(roll < chanceDash)
+        {
+            chanceDash = 0;
+            return AbilitiesEnum.Dash;
+        }
+        else if(roll < chanceDash + chanceHook)
+        {
+            chanceHook = 0;
+            return AbilitiesEnum.Hook;
+        }
+        else if(roll < chanceDash + chanceHook + chanceKnives)
+        {
+            chanceKnives = 0;
+            return AbilitiesEnum.Knives;
+        }
+        else if(roll < chanceDash + chanceHook + chanceKnives + chanceTantrum) 
+        {
+            chanceTantrum = 0;
+            return AbilitiesEnum.Tantrum;
+        }
+        else if(roll < chanceDash + chanceHook + chanceKnives + chanceTantrum + chanceRanged) 
+        {
+            chanceRanged = 0;
+            return AbilitiesEnum.Ranged;
+        }
+
+        chanceShield = 0;
+        return AbilitiesEnum.Shield;
     }
 
     AbilitiesEnum PickSemiRandomPassive(int totalChance)
     {
         int roll = Random.Range(0, totalChance);
-        if(roll <  chanceMobility) return AbilitiesEnum.Mobility;
-        else if(roll < chanceMobility + chanceAttack) return AbilitiesEnum.Attack;
-        else return AbilitiesEnum.Health;
+        if(roll <  chanceMobility) 
+        { 
+            chanceMobility = 0;
+            return AbilitiesEnum.Mobility;
+        }
+        else if(roll < chanceMobility + chanceAttack) 
+        { 
+            chanceAttack = 0;
+            return AbilitiesEnum.Attack;
+        }
+
+        chanceHealth = 0;
+        return AbilitiesEnum.Health;
+    }
+
+    public void ActivateAbility(Ability ability, int slot)
+    {
+        for(int i = 0; i < ability.Rank; i++)
+        {
+            ActivateAbility(ability.Type, slot);
+        }
     }
 
     public void UpgradeAbility(int slot)
@@ -188,7 +250,6 @@ public class MaskHabilities : MonoBehaviour
             playerController.PlInputs.SetInput("Dash", slot == 0);
             if(slot == 0) Actives[0] = AbilityActiveSlots.Dash;
             else Actives[1] = AbilityActiveSlots.Dash;
-            chanceDash = 0;
             playerController.DashRank = 1;
             if(dashIndex == -1) dashIndex = lastIndex;
         }
@@ -201,7 +262,6 @@ public class MaskHabilities : MonoBehaviour
         if(playerController.AttackRank < 1)
         {
             Passive = AbilityPassiveSlots.Attack;
-            chanceAttack = 0;
             playerController.AttackRank = 1;
             if(attackIndex == -1) attackIndex = lastIndex;
         }
@@ -215,7 +275,6 @@ public class MaskHabilities : MonoBehaviour
         if(playerController.MobilityRank < 1)
         {
             Passive = AbilityPassiveSlots.Mobility;
-            chanceMobility = 0;
             playerController.MobilityRank = 1;
             if(mobilityIndex == -1) mobilityIndex = lastIndex;
         }
@@ -232,7 +291,6 @@ public class MaskHabilities : MonoBehaviour
             playerController.PlInputs.SetInput("Hook", slot == 0);
             if(slot == 0) Actives[0] = AbilityActiveSlots.Hook;
             else Actives[1] = AbilityActiveSlots.Hook;
-            chanceHook = 0;
             playerController.HookRank = 1;
             if(hookIndex == -1) hookIndex = lastIndex;
         }
@@ -246,7 +304,6 @@ public class MaskHabilities : MonoBehaviour
         if(playerController.HealthRank < 1)
         {
             Passive = AbilityPassiveSlots.Health;
-            chanceHealth = 0;
             playerController.HealthRank = 1;
             if(healthIndex == -1) healthIndex = lastIndex;
         }
@@ -274,7 +331,7 @@ public class MaskHabilities : MonoBehaviour
             playerController.PlInputs.SetInput("Tantrum", slot == 0);
             if(slot == 0) Actives[0] = AbilityActiveSlots.Tantrum;
             else Actives[1] = AbilityActiveSlots.Tantrum;
-            chanceTantrum = 0;
+            playerController.TantrumRank = 1;
             if(tantrumIndex == -1) tantrumIndex = lastIndex;
         }
         else playerController.TantrumRank++;
@@ -289,7 +346,6 @@ public class MaskHabilities : MonoBehaviour
             playerController.PlInputs.SetInput("Knives", slot == 0);
             if(slot == 0) Actives[0] = AbilityActiveSlots.Knives;
             else Actives[1] = AbilityActiveSlots.Knives;
-            chanceKnives = 0;
             playerController.KnivesRank = 1;
             if(knivesIndex == -1) knivesIndex = lastIndex;
         }
@@ -305,7 +361,6 @@ public class MaskHabilities : MonoBehaviour
             playerController.PlInputs.SetInput("Ranged", slot == 0);
             if(slot == 0) Actives[0] = AbilityActiveSlots.Ranged;
             else Actives[1] = AbilityActiveSlots.Ranged;
-            chanceRanged = 0;
             playerController.RangedRank = 1;
             if(rangedIndex == -1) rangedIndex = lastIndex;
         }
@@ -321,7 +376,6 @@ public class MaskHabilities : MonoBehaviour
             playerController.PlInputs.SetInput("Shield", slot == 0);
             if(slot == 0) Actives[0] = AbilityActiveSlots.Shield;
             else Actives[1] = AbilityActiveSlots.Shield;
-            chanceShield = 0;
             playerController.ShieldRank = 1;
             if(shieldIndex == -1) shieldIndex = lastIndex;
         }
