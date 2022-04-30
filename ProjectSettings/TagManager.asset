@@ -21,7 +21,7 @@ TagManager:
   - Player
   - IgnoreEnemies
   - PlayerContactDamage
-  - 
+  - PostProcessing
   - 
   - 
   - 
