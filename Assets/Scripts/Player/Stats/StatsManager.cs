@@ -20,7 +20,6 @@ public class StatsManager : MonoBehaviour
         DashLength = new Stat("Dash Length");
         KnockbackResistance = new Stat("Knockback Resistance");
         Health = new Stat("Health");
-        Health.OnChange += PlayerController.InterfacePlayerHP;
         PlayerController.OnPlayerDeath += ResetAllStats;
     }
 

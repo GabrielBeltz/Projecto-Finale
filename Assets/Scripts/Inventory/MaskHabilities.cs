@@ -6,16 +6,18 @@ public class MaskHabilities : MonoBehaviour
 {
     public AbilityPassiveSlots Passive;
     public AbilityActiveSlots[] Actives;
+    
+    public int chanceDash = 1, chanceMobility = 1, chanceAttack = 1, chanceHealth  = 1, chanceHook = 1, chanceTantrum = 1, chanceKnives = 1, chanceRanged = 1, chanceShield = 1;
 
     [Header("References")]
     public AbilitiesInfos AbilitiesInfos;
     private PlayerController playerController;
     public SwitchActivesMenu SwitchActivesMenu;
+    public SwitchPassiveMenu SwitchPassiveMenu;
     Ability tempAbilityRef;
 
     Item tempObjRef;
 
-    public int chanceDash = 1, chanceMobility = 1, chanceAttack = 1, chanceHealth  = 1, chanceHook = 1, chanceTantrum = 1, chanceKnives = 1, chanceRanged = 1, chanceShield = 1;
     int dashIndex = -1, mobilityIndex = -1, attackIndex = -1, hookIndex = -1, healthIndex = -1, tantrumIndex = -1, knivesIndex = -1, rangedIndex = -1, shieldIndex = -1, lastIndex = -1;
 
     void Awake() 
@@ -69,7 +71,13 @@ public class MaskHabilities : MonoBehaviour
             if(Passive == AbilityPassiveSlots.None) ActivateAbility(gObj.assignedAbility.Type, -1);
             else
             {
-                // Tela de confirmação
+                SwitchPassiveMenu.Activate(
+                    AbilitiesInfos.GetFullInfo(Passive.ToString()),
+                    GetAbilityRank((AbilitiesEnum)System.Enum.Parse(typeof(AbilitiesEnum), Passive.ToString())),
+                    AbilitiesInfos.GetFullInfo(gObj.assignedAbility.Type.ToString()),
+                    gObj.assignedAbility);
+                SwitchPassiveMenu.gameObject.SetActive(true);
+                tempAbilityRef = gObj.assignedAbility;
             }
         }
         else
@@ -132,8 +140,11 @@ public class MaskHabilities : MonoBehaviour
                 break;
             case AbilitiesEnum.Health:
                 playerController.HealthRank = 0;
+                int oldHealth = playerController.ModdedTotalHealth;
+                Debug.Log(oldHealth);
                 StatsManager.Instance.Health.Reset();
-                RecalculateHealth();
+                StatsManager.Instance.KnockbackResistance.Reset();
+                RecalculateHealth(oldHealth);
                 break;
             case AbilitiesEnum.Hook:
                 playerController.HookRank = 0;
@@ -309,19 +320,21 @@ public class MaskHabilities : MonoBehaviour
         }
         else playerController.HealthRank++;
 
-        RecalculateHealth();
-
-        if(playerController.HealthRank < 3) StatsManager.Instance.Health.AddMultiplier($"Health Rank {playerController.HealthRank}", 0.3334f);
-        StatsManager.Instance.KnockbackResistance.AddMultiplier($"Health Rank {playerController.HealthRank}", 0.1f * playerController.HealthRank);
+        if(playerController.HealthRank < 3)
+        {
+            int oldHealth = playerController.ModdedTotalHealth;
+            StatsManager.Instance.Health.AddMultiplier($"Health Rank {playerController.HealthRank}", 0.3334f);
+            RecalculateHealth(oldHealth);
+        }
+        StatsManager.Instance.KnockbackResistance.AddMultiplier($"Health Rank {playerController.HealthRank}", -0.1f * playerController.HealthRank);
         ShowItemInfo(healthIndex, playerController.HealthRank);
     }
 
-    void RecalculateHealth()
+    void RecalculateHealth(int oldHealth)
     {
-        int totalHP = playerController.TotalHealth;
-        int newTotalHP = Mathf.FloorToInt(totalHP + playerController.HealthRank * 0.334f);
-        if(newTotalHP > 0) playerController.ReceiveHealing(newTotalHP - totalHP);
-        else playerController.ReceiveDamage(newTotalHP - totalHP, Vector3.zero);
+        int currentDamage = oldHealth - playerController.CurrentHealth;
+        if(currentDamage > playerController.CurrentHealth) playerController.ReceiveDamage(currentDamage, Vector3.zero);
+        else playerController.CurrentHealth = playerController.ModdedTotalHealth - currentDamage;
     } 
 
     void ActivateTantrum(int slot) 

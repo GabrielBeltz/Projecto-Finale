@@ -38,8 +38,18 @@ public class PlayerController : MonoBehaviour
     public PlayerMeleeAttack DefaultAttack;
     [SerializeField] List<PlayerMeleeAttack> _playerAttacks;
     [SerializeField] LayerMask _attackLayerMask;
-    public int TotalHealth, CurrentHealth;
-    int moddedTotalHealth { get => Mathf.FloorToInt(TotalHealth * StatsManager.Instance.Health.totalValue); }
+    public int TotalHealth;
+    int _currentHealth;
+    public int CurrentHealth
+    {
+        get => _currentHealth;
+        set
+        {
+            _currentHealth = value;
+            InterfacePlayerHP();
+        }
+    }
+    public int ModdedTotalHealth { get => Mathf.FloorToInt(TotalHealth * StatsManager.Instance.Health.totalValue); }
     [SerializeField] float _knockbackTime, _selfKnockBackTime, _groundImpactKnockbackTime, _extraUngroundedKnockbackTime;
     [SerializeField] float _timeOfLastAttack = 10f;
     [SerializeField] AttackFeedback _attackFeedback;
@@ -95,7 +105,7 @@ public class PlayerController : MonoBehaviour
         FootStepController = GetComponentInChildren<FootStepController>();
         _fullHealHeight = transform.position.y + 2f;
         GripTimer = gripMaxTime;
-        InterfacePlayerHP();
+        CurrentHealth = ModdedTotalHealth;
 
         OnPlayerDeath += PlayerDeath;
         OnPlayerDeath += ResetSkills;
@@ -392,22 +402,16 @@ public class PlayerController : MonoBehaviour
             _knockbackTimer = IsGrounded ? Time.time + (_knockbackTime * knockbackResistance) : Time.time + ((_knockbackTime + _extraUngroundedKnockbackTime) * knockbackResistance);
         }
         
-        InterfacePlayerHP();
         if(CurrentHealth < 1) OnPlayerDeath?.Invoke();
     }
 
-    public void ReceiveHealing(int healingAmount)
-    {
-        CurrentHealth = Mathf.Min(CurrentHealth + healingAmount, TotalHealth);
-        InterfacePlayerHP();
-    }
+    public void ReceiveHealing(int healingAmount) => CurrentHealth = Mathf.Min(CurrentHealth + healingAmount, ModdedTotalHealth);
 
     void PlayerFullHeal()
     { 
-        CurrentHealth = moddedTotalHealth;
+        CurrentHealth = ModdedTotalHealth;
         gameObject.layer = 10;
         _knockbackTimer = 0;
-        InterfacePlayerHP();
     }
 
     void PlayerDeath()
@@ -436,14 +440,23 @@ public class PlayerController : MonoBehaviour
 
     public void InterfacePlayerHP()
     {
-        for(int i = 0; i < moddedTotalHealth; i++)
+        for(int i = 0; i < ModdedTotalHealth; i++)
         {
             if(Hearts.Count <= i)
             {
                 Hearts.Add(new InstantiatedUIHP(Instantiate(HealthIconPrefab, UIScaler)));
             }
+            else if(!Hearts[i].Prefab.activeSelf) Hearts[i].Prefab.SetActive(true);
             Hearts[i].rect.anchoredPosition = new Vector2(FullHDHealthIconsPivot.x * (i + 1), (FullHDHealthIconsPivot.y - 1080f));
             Hearts[i].image.color = i < CurrentHealth ? Color.white : Color.black;
+        }
+
+        if(ModdedTotalHealth < Hearts.Count)
+        {
+            for(int i = 0; i < Hearts.Count - ModdedTotalHealth; i++)
+            {
+                Hearts[Hearts.Count - i - 1].Prefab.SetActive(false);
+            }
         }
     }
 
