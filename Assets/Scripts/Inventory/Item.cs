@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
+    public bool Upgrade;
     public MaskObject item;
     public Ability assignedAbility;
 
@@ -9,19 +10,15 @@ public class Item : MonoBehaviour
     public Renderer[] myRenderers;
     public ParticleSystem myParticleSystem;
 
-    private void Start() => assignedAbility = StatsManager.Instance.PlayerController.AbilitiesController.GetRandomAbility();
+    private void Start() => assignedAbility = Upgrade? new Ability() : StatsManager.Instance.PlayerController.AbilitiesController.GetRandomAbility();
 
     public void NewAbility() => StatsManager.Instance.PlayerController.AbilitiesController.NewAbilityInteraction(this);
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(!(other.CompareTag("Player"))) return;
-
-        // mostrar card de info da habilidade
-    }
+    public void UpgradeAbility() => StatsManager.Instance.PlayerController.AbilitiesController.UpgradeInteraction();
 
     public void EndInteraction(Ability input)
-    {   assignedAbility = input;
+    {   
+        assignedAbility = input;
         Deactivate();
     }
 
@@ -29,7 +26,7 @@ public class Item : MonoBehaviour
     {
         if(assignedAbility.Rank > 0) return;
 
-        myParticleSystem.Stop(false, ParticleSystemStopBehavior.StopEmitting);
+        if(myParticleSystem != null) myParticleSystem.Stop(false, ParticleSystemStopBehavior.StopEmitting);
 
         foreach(var col in myColliders)
         {

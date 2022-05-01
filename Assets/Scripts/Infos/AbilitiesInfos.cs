@@ -23,6 +23,6 @@ public class AbilityRankInfo
     [TextArea(1,20)] public string Description;
     [HideInInspector] public string internalDescription
     {
-        get => Description.Length > 0 ? Description : "Sample Text lol";
+        get => Description.Length > 0 ? Description : "Empty Slot";
     }
 }

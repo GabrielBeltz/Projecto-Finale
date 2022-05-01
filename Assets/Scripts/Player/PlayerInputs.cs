@@ -46,7 +46,7 @@ public class PlayerInputs : MonoBehaviour
         if(player.IsKnockbacked || player.MyAnimator.GetBool("FellDown")) return;
         if(Inputs.X != 0) player.SetFacingDirection(Inputs.X < 0);
         if(Input.GetButtonDown("Fire1")) player.ExecuteAttack();
-        if(Input.GetButtonDown("Fire2")) player.ExecuteInteraction();
+        if(Input.GetButtonDown("Submit")) player.ExecuteInteraction();
 
         if(Input.GetButtonDown("Jump"))
         {

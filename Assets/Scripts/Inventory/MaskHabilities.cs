@@ -14,6 +14,7 @@ public class MaskHabilities : MonoBehaviour
     private PlayerController playerController;
     public SwitchActivesMenu SwitchActivesMenu;
     public SwitchPassiveMenu SwitchPassiveMenu;
+    public UpgradeAbilitiesMenu UpgradeAbilitiesMenu;
     Ability tempAbilityRef;
 
     Item tempObjRef;
@@ -141,7 +142,6 @@ public class MaskHabilities : MonoBehaviour
             case AbilitiesEnum.Health:
                 playerController.HealthRank = 0;
                 int oldHealth = playerController.ModdedTotalHealth;
-                Debug.Log(oldHealth);
                 StatsManager.Instance.Health.Reset();
                 StatsManager.Instance.KnockbackResistance.Reset();
                 RecalculateHealth(oldHealth);
@@ -223,6 +223,20 @@ public class MaskHabilities : MonoBehaviour
         {
             ActivateAbility(ability.Type, slot);
         }
+    }
+
+    public void UpgradeInteraction()
+    {
+        UpgradeAbilitiesMenu.Activate(
+                    AbilitiesInfos.GetFullInfo(Actives[0].ToString()),
+                    GetAbilityRank((AbilitiesEnum)System.Enum.Parse(typeof(AbilitiesEnum), Actives[0].ToString())),
+                    AbilitiesInfos.GetFullInfo(Actives[1].ToString()),
+                    GetAbilityRank((AbilitiesEnum)System.Enum.Parse(typeof(AbilitiesEnum), Actives[1].ToString())),
+                    AbilitiesInfos.GetFullInfo(Passive.ToString()),
+                    GetAbilityRank((AbilitiesEnum)System.Enum.Parse(typeof(AbilitiesEnum), Passive.ToString()))
+            );
+
+        UpgradeAbilitiesMenu.gameObject.SetActive(true);
     }
 
     public void UpgradeAbility(int slot)

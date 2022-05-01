@@ -9,7 +9,7 @@ public class SwitchPassiveMenu : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetButtonDown("Submit")) SwitchAbility(2);
+        if(Input.GetButtonDown("Submit")) SwitchAbility();
         else if(Input.GetButtonDown("Cancel")) Back();
     }
 
@@ -21,10 +21,10 @@ public class SwitchPassiveMenu : MonoBehaviour
         switchingAbility = newAbility;
     }
 
-    public void SwitchAbility(int slot)
+    public void SwitchAbility()
     {
-        maskHabilities.DeactivateAbility(slot);
-        maskHabilities.ActivateAbility(switchingAbility, slot);
+        maskHabilities.DeactivateAbility(2);
+        maskHabilities.ActivateAbility(switchingAbility, 2);
 
         Back();
     }

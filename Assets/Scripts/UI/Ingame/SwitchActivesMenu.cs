@@ -28,7 +28,6 @@ public class SwitchActivesMenu : MonoBehaviour
         maskHabilities.DeactivateAbility(slot);
         maskHabilities.ActivateAbility(switchingAbility, slot);
 
-        // Tela de confirmação depois daqui
         Back();
     }
 
