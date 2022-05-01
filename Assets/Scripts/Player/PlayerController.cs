@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public int AttackRank, HookRank, TantrumRank, DashRank, KnivesRank, RangedRank, ShieldRank, HealthRank;
     public Action CallAbilityA, CallAbilityB;
     [HideInInspector]public MaskHabilities AbilitiesController;
+    float RegainedHealth;
     
     [Header("Walking")]
     [SerializeField] float _baseWalkSpeed = 8f;
@@ -306,11 +307,23 @@ public class PlayerController : MonoBehaviour
         for(int i = 0; i < attackColliders.Length; i++)
         {
             float selfKnockbackReceived = 0;
-            EnemyAttackTarget target = attackColliders[i].transform.GetComponent<EnemyAttackTarget>();
-            if (target != null)
+            EnemyAttackTarget target;
+            if (attackColliders[i].transform.TryGetComponent<EnemyAttackTarget>(out target))
             {
                 target.ReceiveAttackCall(_lastAttack, transform.position);
                 selfKnockbackReceived = target.selfKnockbackReceived;
+
+                #region Vampirirism
+                if(HealthRank > 2)
+                {
+                    RegainedHealth += _lastAttack.damage * 0.05f;
+                    if(RegainedHealth > 1)
+                    {
+                        RegainedHealth = 0;
+                        ReceiveHealing(1);
+                    }
+                }
+                #endregion
             }
 
             if (selfKnockbackReceived != 0)
@@ -385,7 +398,7 @@ public class PlayerController : MonoBehaviour
 
     public void ReceiveHealing(int healingAmount)
     {
-        CurrentHealth += healingAmount;
+        CurrentHealth = Mathf.Min(CurrentHealth + healingAmount, TotalHealth);
         InterfacePlayerHP();
     }
 
