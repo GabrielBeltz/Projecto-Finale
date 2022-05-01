@@ -1,24 +1,22 @@
 using UnityEngine;
 
-public class SwitchActivesMenu : MonoBehaviour
+public class SwitchPassiveMenu : MonoBehaviour
 {
     public PauseController Pause;
     public Ability switchingAbility;
-    public AbilityView AbilityA, AbilityB, NewAbility;
+    public AbilityView OldAbility, NewAbility;
     public MaskHabilities maskHabilities;
 
     private void Update()
     {
-        if(Input.GetButtonDown("AbilityA")) SwitchAbility(0);
-        else if(Input.GetButtonDown("AbilityB")) SwitchAbility(1);
+        if(Input.GetButtonDown("Submit")) SwitchAbility(2);
         else if(Input.GetButtonDown("Cancel")) Back();
     }
 
-    public void Activate(AbilityInfo infoA, int rankA, AbilityInfo infoB, int rankB, AbilityInfo newInfo, Ability newAbility)
+    public void Activate(AbilityInfo oldInfo, int oldRank, AbilityInfo newInfo, Ability newAbility)
     {
         Pause.GameplayPause();
-        AbilityA.Activate(infoA, rankA);
-        AbilityB.Activate(infoB, rankB);
+        OldAbility.Activate(oldInfo, oldRank);
         NewAbility.Activate(newInfo, newAbility.Rank);
         switchingAbility = newAbility;
     }
@@ -28,7 +26,6 @@ public class SwitchActivesMenu : MonoBehaviour
         maskHabilities.DeactivateAbility(slot);
         maskHabilities.ActivateAbility(switchingAbility, slot);
 
-        // Tela de confirmação depois daqui
         Back();
     }
 
