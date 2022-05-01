@@ -1411,7 +1411,7 @@ RectTransform:
   - {fileID: 1534798316}
   - {fileID: 1114352620}
   m_Father: {fileID: 1094858587}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -3041,7 +3041,7 @@ RectTransform:
   - {fileID: 1294577535}
   - {fileID: 1049065912}
   m_Father: {fileID: 1094858587}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -4799,7 +4799,7 @@ RectTransform:
   - {fileID: 462488571}
   - {fileID: 655765578}
   m_Father: {fileID: 1094858587}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -5570,7 +5570,7 @@ RectTransform:
   m_Children:
   - {fileID: 1252648780}
   m_Father: {fileID: 1094858587}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0.2}
@@ -5946,11 +5946,11 @@ RectTransform:
   - {fileID: 956237481}
   - {fileID: 1424961239}
   - {fileID: 2147469530}
-  - {fileID: 1178367592}
   - {fileID: 309084845}
   - {fileID: 868439722}
   - {fileID: 605670233}
   - {fileID: 990113454}
+  - {fileID: 1178367592}
   m_Father: {fileID: 1691574821}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6180,7 +6180,7 @@ GameObject:
   - component: {fileID: 1178367594}
   - component: {fileID: 1178367593}
   m_Layer: 5
-  m_Name: Background de UI somente do editor
+  m_Name: Pause Backpanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6198,7 +6198,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1094858587}
-  m_RootOrder: 5
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -6218,7 +6218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.5882353}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -6645,6 +6645,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AcceptInput: 1
+  maskHabilities: {fileID: 1973256479}
+  PausePanel: {fileID: 1178367591}
+  ActiveA:
+    DefaultSprite: {fileID: 0}
+    AbilityIcon: {fileID: 0}
+    AbilityName: {fileID: 0}
+    Rank1: {fileID: 0}
+    Rank2: {fileID: 0}
+    Rank3: {fileID: 0}
+    Button: {fileID: 0}
+  ActiveB:
+    DefaultSprite: {fileID: 0}
+    AbilityIcon: {fileID: 0}
+    AbilityName: {fileID: 0}
+    Rank1: {fileID: 0}
+    Rank2: {fileID: 0}
+    Rank3: {fileID: 0}
+    Button: {fileID: 0}
+  Passive:
+    DefaultSprite: {fileID: 0}
+    AbilityIcon: {fileID: 0}
+    AbilityName: {fileID: 0}
+    Rank1: {fileID: 0}
+    Rank2: {fileID: 0}
+    Rank3: {fileID: 0}
+    Button: {fileID: 0}
 --- !u!1 &1252648777
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,6 +3,9 @@ using UnityEngine;
 public class PauseController : MonoBehaviour
 {
     public bool AcceptInput = true;
+    public MaskHabilities maskHabilities;
+    public GameObject PausePanel;
+    public AbilityView ActiveA, ActiveB, Passive;
     float playerTimeScale = 1, gameplayTimeScale = 1;
     bool playerPaused;
 
@@ -18,9 +21,14 @@ public class PauseController : MonoBehaviour
     {
         playerTimeScale = Time.timeScale;
         Time.timeScale = 0;
+        PausePanel.SetActive(true);
     }
 
-    void Unpause() => Time.timeScale = playerTimeScale;
+    void Unpause() 
+    {
+        Time.timeScale = playerTimeScale;
+        PausePanel.SetActive(false);
+    } 
 
     public void GameplayPause()
     {
