@@ -259,7 +259,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 53619098}
-  - component: {fileID: 53619102}
   - component: {fileID: 53619101}
   - component: {fileID: 53619100}
   - component: {fileID: 53619099}
@@ -361,33 +360,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 53619097}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &53619102
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 53619097}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87214f58d37669e4aa28d0a13bcfc264, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalHealth: 0
-  currentHealth: 0
-  receivedAttackDirection: 0
-  DamageReceived: 0
-  selfKnockbackReceived: 0.1
-  DeathType: 0
-  hitSound:
-  - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  Collider: {fileID: 0}
-  ParticleSystem: {fileID: 0}
-  Renderer: []
-  RigidBody: {fileID: 0}
-  audioSource: {fileID: 768045833}
-  BehavioursToDisable: []
-  GameObjectsToDeactivate: []
 --- !u!1 &116529973
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,7 +369,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 116529977}
-  - component: {fileID: 116529978}
   - component: {fileID: 116529976}
   - component: {fileID: 116529975}
   - component: {fileID: 116529974}
@@ -499,33 +470,6 @@ Transform:
   m_Father: {fileID: 1774677439}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &116529978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 116529973}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87214f58d37669e4aa28d0a13bcfc264, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalHealth: 0
-  currentHealth: 0
-  receivedAttackDirection: 0
-  DamageReceived: 0
-  selfKnockbackReceived: 0.1
-  DeathType: 0
-  hitSound:
-  - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  Collider: {fileID: 0}
-  ParticleSystem: {fileID: 0}
-  Renderer: []
-  RigidBody: {fileID: 0}
-  audioSource: {fileID: 768045833}
-  BehavioursToDisable: []
-  GameObjectsToDeactivate: []
 --- !u!1 &118477141
 GameObject:
   m_ObjectHideFlags: 0
@@ -822,7 +766,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 207031550}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -1004,9 +948,14 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+  wantedLayer:
+    serializedVersion: 2
+    m_Bits: 8
   _rb: {fileID: 0}
   moveSpeed: 3
   hitDistance: 0.2
+  _groundArea: {fileID: 0}
+  isPlayerInMyPatrolArea: 0
 --- !u!1 &225659082
 GameObject:
   m_ObjectHideFlags: 0
@@ -1107,22 +1056,6 @@ PrefabInstance:
     - target: {fileID: 1154210218694514591, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 2516737084365969926, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.0000002
-      objectReference: {fileID: 0}
-    - target: {fileID: 2516737084365969926, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3259206447251639621, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3.0000002
-      objectReference: {fileID: 0}
-    - target: {fileID: 3259206447251639621, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
@@ -1335,7 +1268,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0eaf89d5a421b9748bd6308021dbe8ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item: {fileID: 11400000, guid: 4d9743ca75544704a999073d256925b4, type: 2}
+  Upgrade: 0
+  item: {fileID: 0}
+  assignedAbility:
+    Type: 0
+    Rank: 0
   myColliders: []
   myRenderers: []
   myParticleSystem: {fileID: 0}
@@ -1592,7 +1529,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 465044977}
-  - component: {fileID: 465044981}
   - component: {fileID: 465044980}
   - component: {fileID: 465044979}
   - component: {fileID: 465044978}
@@ -1694,33 +1630,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 465044976}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &465044981
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 465044976}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87214f58d37669e4aa28d0a13bcfc264, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalHealth: 0
-  currentHealth: 0
-  receivedAttackDirection: 0
-  DamageReceived: 0
-  selfKnockbackReceived: 0.1
-  DeathType: 0
-  hitSound:
-  - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  Collider: {fileID: 0}
-  ParticleSystem: {fileID: 0}
-  Renderer: []
-  RigidBody: {fileID: 0}
-  audioSource: {fileID: 768045833}
-  BehavioursToDisable: []
-  GameObjectsToDeactivate: []
 --- !u!1 &529635984
 GameObject:
   m_ObjectHideFlags: 0
@@ -2377,7 +2286,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 752172345}
-  - component: {fileID: 752172349}
   - component: {fileID: 752172348}
   - component: {fileID: 752172347}
   - component: {fileID: 752172346}
@@ -2479,33 +2387,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 752172344}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &752172349
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 752172344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87214f58d37669e4aa28d0a13bcfc264, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalHealth: 0
-  currentHealth: 0
-  receivedAttackDirection: 0
-  DamageReceived: 0
-  selfKnockbackReceived: 0.1
-  DeathType: 0
-  hitSound:
-  - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  Collider: {fileID: 0}
-  ParticleSystem: {fileID: 0}
-  Renderer: []
-  RigidBody: {fileID: 0}
-  audioSource: {fileID: 768045833}
-  BehavioursToDisable: []
-  GameObjectsToDeactivate: []
 --- !u!1 &752359285
 GameObject:
   m_ObjectHideFlags: 0
@@ -2769,7 +2650,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 867226476}
-  - component: {fileID: 867226480}
   - component: {fileID: 867226479}
   - component: {fileID: 867226478}
   - component: {fileID: 867226477}
@@ -2871,33 +2751,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 867226475}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &867226480
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 867226475}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87214f58d37669e4aa28d0a13bcfc264, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalHealth: 0
-  currentHealth: 0
-  receivedAttackDirection: 0
-  DamageReceived: 0
-  selfKnockbackReceived: 0.1
-  DeathType: 0
-  hitSound:
-  - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  Collider: {fileID: 0}
-  ParticleSystem: {fileID: 0}
-  Renderer: []
-  RigidBody: {fileID: 0}
-  audioSource: {fileID: 768045833}
-  BehavioursToDisable: []
-  GameObjectsToDeactivate: []
 --- !u!1 &919076110
 GameObject:
   m_ObjectHideFlags: 0
@@ -3807,7 +3660,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1219498835}
-  - component: {fileID: 1219498839}
   - component: {fileID: 1219498838}
   - component: {fileID: 1219498837}
   - component: {fileID: 1219498836}
@@ -3909,33 +3761,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1219498834}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1219498839
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1219498834}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87214f58d37669e4aa28d0a13bcfc264, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalHealth: 0
-  currentHealth: 0
-  receivedAttackDirection: 0
-  DamageReceived: 0
-  selfKnockbackReceived: 0.1
-  DeathType: 0
-  hitSound:
-  - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  Collider: {fileID: 0}
-  ParticleSystem: {fileID: 0}
-  Renderer: []
-  RigidBody: {fileID: 0}
-  audioSource: {fileID: 768045833}
-  BehavioursToDisable: []
-  GameObjectsToDeactivate: []
 --- !u!1 &1221236379
 GameObject:
   m_ObjectHideFlags: 0
@@ -4304,7 +4129,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1260303436}
-  - component: {fileID: 1260303440}
   - component: {fileID: 1260303439}
   - component: {fileID: 1260303438}
   - component: {fileID: 1260303437}
@@ -4406,33 +4230,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1260303435}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1260303440
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1260303435}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87214f58d37669e4aa28d0a13bcfc264, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalHealth: 0
-  currentHealth: 0
-  receivedAttackDirection: 0
-  DamageReceived: 0
-  selfKnockbackReceived: 0.1
-  DeathType: 0
-  hitSound:
-  - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  Collider: {fileID: 0}
-  ParticleSystem: {fileID: 0}
-  Renderer: []
-  RigidBody: {fileID: 0}
-  audioSource: {fileID: 768045833}
-  BehavioursToDisable: []
-  GameObjectsToDeactivate: []
 --- !u!1 &1279148157
 GameObject:
   m_ObjectHideFlags: 0
@@ -6289,7 +6086,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2096704919}
-  - component: {fileID: 2096704923}
   - component: {fileID: 2096704922}
   - component: {fileID: 2096704921}
   - component: {fileID: 2096704920}
@@ -6391,33 +6187,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2096704918}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &2096704923
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2096704918}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87214f58d37669e4aa28d0a13bcfc264, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TotalHealth: 0
-  currentHealth: 0
-  receivedAttackDirection: 0
-  DamageReceived: 0
-  selfKnockbackReceived: 0.1
-  DeathType: 0
-  hitSound:
-  - {fileID: 8300000, guid: 9d8555cccc60ce244929e3aa640d1e82, type: 3}
-  Collider: {fileID: 0}
-  ParticleSystem: {fileID: 0}
-  Renderer: []
-  RigidBody: {fileID: 0}
-  audioSource: {fileID: 768045833}
-  BehavioursToDisable: []
-  GameObjectsToDeactivate: []
 --- !u!1 &2138677391
 GameObject:
   m_ObjectHideFlags: 0

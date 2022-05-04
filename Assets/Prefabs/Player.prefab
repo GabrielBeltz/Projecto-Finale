@@ -133,6 +133,7 @@ Transform:
   - {fileID: 6674576254330828150}
   - {fileID: 1154210220103111484}
   - {fileID: 1154210218571004443}
+  - {fileID: 4572539959911186040}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -190,7 +191,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 72
   TotalHealth: 6
-  CurrentHealth: 6
   _knockbackTime: 0.3
   _selfKnockBackTime: 0.1
   _groundImpactKnockbackTime: 0.5
@@ -217,7 +217,9 @@ MonoBehaviour:
     m_Bits: 520
   _grounderOffset: -1
   _grounderRadius: 0.2
+  _frontFeet: {fileID: 1630211411477464471}
   IsGrounded: 1
+  actualGroundObject: {fileID: 0}
   PlInputs: {fileID: 0}
 --- !u!114 &1434490607661563655
 MonoBehaviour:
@@ -259,8 +261,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Passive: 0
   Actives: 
-  AbilitiesInfos: {fileID: 11400000, guid: 9cc26427eb4a7124db637588ed837724, type: 2}
-  SwitchActivesMenu: {fileID: 0}
   chanceDash: 1
   chanceMobility: 1
   chanceAttack: 1
@@ -270,6 +270,10 @@ MonoBehaviour:
   chanceKnives: 1
   chanceRanged: 1
   chanceShield: 1
+  AbilitiesInfos: {fileID: 11400000, guid: 9cc26427eb4a7124db637588ed837724, type: 2}
+  SwitchActivesMenu: {fileID: 0}
+  SwitchPassiveMenu: {fileID: 0}
+  UpgradeAbilitiesMenu: {fileID: 0}
 --- !u!114 &2635058737366346552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -340,8 +344,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
+  m_Offset: {x: -0.0026426911, y: 0.013379037}
+  m_Size: {x: 0.88900816, y: 1.8886768}
   m_Direction: 0
 --- !u!114 &972638010
 MonoBehaviour:
@@ -486,6 +490,36 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1 &1630211411477464471
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4572539959911186040}
+  m_Layer: 10
+  m_Name: FrontFeet
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4572539959911186040
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1630211411477464471}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.01, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1154210218694514585}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1445805795
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1396,6 +1430,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 0f706b9f024b82c4ea47ff5f6a767a55, type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0f706b9f024b82c4ea47ff5f6a767a55, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1180127164541043522, guid: 0f706b9f024b82c4ea47ff5f6a767a55, type: 3}
       propertyPath: m_Layer

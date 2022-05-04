@@ -83,10 +83,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LayerMask _groundMask;
     [SerializeField] LayerMask _wallsMask;
     [SerializeField] float _grounderOffset = -1, _grounderRadius = 0.2f;
+    [SerializeField] GameObject _frontFeet;
     float _fullHealHeight;
     public bool IsGrounded;
     public static event Action OnTouchedGround;
     private readonly Collider2D[] _ground = new Collider2D[1];
+    public GameObject actualGroundObject;
 
     bool _hasDashed, _dashing;
     float _timeStartedDash;
@@ -94,9 +96,19 @@ public class PlayerController : MonoBehaviour
 
     FootStepController FootStepController;
     [HideInInspector] public PlayerInputs PlInputs;
+    public static PlayerController instance;
 
     void Start()
     {
+        if(instance != null && instance != this.gameObject)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            instance = this;
+        }
+
         PlInputs = GetComponent<PlayerInputs>();
         Hearts = new List<InstantiatedUIHP>();
         _timeOfLastAttack = 0;
@@ -116,9 +128,14 @@ public class PlayerController : MonoBehaviour
     {
         PlInputs.GatherUnpausedInputs();
         if(!(Time.timeScale > 0)) return;
+        PlInputs.GatherInputs();
+        GetGroundObject();
+    }
+
+    private void LateUpdate()
+    {
         HandleGrounding();
         HandleWalling();
-        PlInputs.GatherInputs();
         HandleJumping();
 
         if (!IsKnockbacked && !MyAnimator.GetBool("FellDown"))
@@ -175,6 +192,20 @@ public class PlayerController : MonoBehaviour
         RaycastHit2D[] hits = new RaycastHit2D[1];
         WallOnLeft = Physics2D.RaycastNonAlloc(transform.position, Vector2.left, hits, 0.55f, _wallsMask) > 0 && !IsGrounded;
         WallOnRight = Physics2D.RaycastNonAlloc(transform.position, Vector2.right, hits, 0.55f, _wallsMask) > 0 && !IsGrounded;
+    }
+
+    private void GetGroundObject()
+    {
+        RaycastHit2D hitResult = Physics2D.Raycast(_frontFeet.transform.position, -Vector2.up, 0.5f);
+
+        if(hitResult.collider != null)
+        {
+            actualGroundObject = hitResult.collider.gameObject;
+        }
+        else
+        {
+            actualGroundObject = _frontFeet.gameObject;
+        }
     }
 
     #endregion

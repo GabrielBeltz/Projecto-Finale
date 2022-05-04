@@ -6,15 +6,26 @@ public class ChargerBehaviour : MonoBehaviour
 {
     public Transform frontFeet;
     public ContactFilter2D contactFilter2D;
+    public LayerMask wantedLayer;
     [SerializeField] private Rigidbody2D _rb;
+    private BoxCollider2D _myPatrolAreaCollider;
     public float moveSpeed, hitDistance;
     private float _modifiedSpeed;
     RaycastHit2D[] hit = new RaycastHit2D[1];
-
+    [SerializeField] GameObject _groundArea;
+    [SerializeField] private bool isPlayerInMyPatrolArea = false;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+
+        Invoke("GetGroundObject", 0.3f);
+    }
+
+    private void Update()
+    {
+        IsPlayerInMyPatrolArea();
+        isPlayerInMyPatrolArea = IsPlayerInMyPatrolArea();
     }
 
     private void FixedUpdate()
@@ -37,6 +48,22 @@ public class ChargerBehaviour : MonoBehaviour
 
             Rotate();
         }
+    }
+
+    private void GetGroundObject()
+    {
+        RaycastHit2D hitResult = Physics2D.Raycast(frontFeet.position, -Vector2.up, 0.5f);
+
+        if(hitResult.collider != null)
+        {
+            Debug.Log(hitResult.collider.name);
+            _groundArea = hitResult.collider.gameObject;
+        }
+    }
+
+    private bool IsPlayerInMyPatrolArea()
+    {
+        return _groundArea.GetInstanceID() == PlayerController.instance.actualGroundObject.GetInstanceID() ? true : false;
     }
 
     private bool IsFacingRight()
