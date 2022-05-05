@@ -19,7 +19,7 @@ public class ChargerBehaviour : MonoBehaviour
 
     private void Start()
     {
-        _rb = GetComponent<Rigidbody2D>();
+        _rb = this.GetComponent<Rigidbody2D>();
         Invoke("GetGroundObject", 0.3f);
         _player = GameObject.Find("Player").GetComponent<Transform>();
         _isPlayerInMyPatrolArea = false;
