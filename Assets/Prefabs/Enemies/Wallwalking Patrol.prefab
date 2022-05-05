@@ -212,12 +212,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8351924a1bc15d243b52eb608537554d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  totalCalculatedChance: 0
   BaseChance: 5
   ChancePerFloor: 4
   ChancePerExtraJump: -100
   ChancePerDashRank: -100
   DependsOn: {fileID: 0}
   InverseDependsOn: {fileID: 0}
+  ChanceIfNotSpawnedTarget: {fileID: 0}
+  ChanceIfNotSpawned: 0
 --- !u!114 &6414420016722338308
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,7 +234,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  playerKnockback: 1000
+  playerKnockback: 400
 --- !u!114 &8505685576588254485
 MonoBehaviour:
   m_ObjectHideFlags: 0
