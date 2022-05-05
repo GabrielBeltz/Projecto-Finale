@@ -110,7 +110,7 @@ public class ChargerBehaviour : MonoBehaviour
 
     private bool IsPlayerInMyPatrolArea()
     {
-        return _groundArea.GetInstanceID() == PlayerController.instance.actualGroundObject.GetInstanceID() ? true : false;
+        return _groundArea.GetInstanceID() == PlayerController.Instance.actualGroundObject.GetInstanceID() ? true : false;
     }
 
     private bool IsFacingRight()

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerInputs : MonoBehaviour
@@ -6,6 +7,7 @@ public class PlayerInputs : MonoBehaviour
     public PlayerController player;
     public MaskHabilities habilities;
     public PauseController PauseController;
+    public Action CallAbilityA, CallAbilityB;
 
     private void Start()
     {
@@ -26,13 +28,13 @@ public class PlayerInputs : MonoBehaviour
         Inputs.Y = Input.GetAxis("Vertical");
         if(Input.GetButtonDown("AbilityA")) 
         {
-            player.CallAbilityA?.Invoke();
+            CallAbilityA?.Invoke();
             Inputs.A.active = true;
         }
         else Inputs.A.active = false;
         if(Input.GetButtonDown("AbilityB")) 
         {
-            player.CallAbilityB?.Invoke();
+            CallAbilityB?.Invoke();
             Inputs.B.active = true;
         }
         else Inputs.B.active = false;
@@ -55,14 +57,14 @@ public class PlayerInputs : MonoBehaviour
                 player.ExecuteJump(true);
                 return;
             }
-            else if(!player._hasJumped)
+            else if(!player.HasJumped)
             {
 
                 if(player.IsGrounded) player.ExecuteJump(false);
-                else if(Time.time < player._timeLeftGrounded + player._coyoteTime) player.ExecuteJump(true);
-                else if(player._doubleJumpCharged)
+                else if(Time.time < player.TimeLeftGrounded + player._coyoteTime) player.ExecuteJump(true);
+                else if(player.DoubleJumpCharged)
                 {
-                    player._doubleJumpCharged = false;
+                    player.DoubleJumpCharged = false;
                     player.ExecuteJump(true);
                 }
             }

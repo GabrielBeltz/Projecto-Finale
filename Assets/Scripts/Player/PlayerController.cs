@@ -10,29 +10,21 @@ public class PlayerController : MonoBehaviour
     [Header("Abilities")]
     public int MobilityRank;
     public int AttackRank, HookRank, TantrumRank, DashRank, KnivesRank, RangedRank, ShieldRank, HealthRank;
-    public Action CallAbilityA, CallAbilityB;
-    [HideInInspector]public MaskHabilities AbilitiesController;
+    [HideInInspector] public MaskHabilities AbilitiesController;
     float RegainedHealth;
     
     [Header("Walking")]
     [SerializeField] float _baseWalkSpeed = 8f;
     [SerializeField] float _jumpManeuverabilityPercentage;
-    float _moddedWalkSpeed { get => StatsManager.Instance.MoveSpeed.totalValue * _baseWalkSpeed; }
+    public float WalkSpeed { get => StatsManager.Instance.MoveSpeed.totalValue * _baseWalkSpeed; }
 
     [Header("Jumping")]
     [SerializeField] float _initialJumpSpeed = 20;
-    public float _fallingAcceleration = 7.5f, _timeUntilMaxFallingSpeed = 2, _coyoteTime = 0.2f, _jumpTime, _extraJumpTime, _gravityScale;
-    [HideInInspector] public bool _hasJumped, _fallImpact, _doubleJumpCharged;
+    public float _fallingAcceleration = 7.5f, _timeUntilMaxFallingSpeed = 2, _coyoteTime = 0.2f, _jumpTime, _extraJumpTime;
+    [HideInInspector] public bool HasJumped, FallImpact, DoubleJumpCharged, WallOnRight, WallOnLeft, OnWall;
     float _maxFallSpeed => (-_initialJumpSpeed - (_fallingAcceleration * _timeUntilMaxFallingSpeed)) * (CurrentHealth > 0 ? 1 : 3);
-    [HideInInspector] public float GripTimer, _timeLeftGrounded, gripMaxTime = 3f;
-    public static event Action OnJump;
-    [HideInInspector] public bool WallOnRight, WallOnLeft, OnWall;
-
-    [Header("Dashing")]
-    [SerializeField] float _dashLength = 0.2f;
-    [SerializeField] float _dashCooldown = 3f, _dashSpeed = 30;
-    float _dashCooldownTimer;
-    public static event Action OnStartDashing, OnStopDashing;
+    public float GripMaxTime = 3f, GravityScale;
+    [HideInInspector] public float TimeLeftGrounded, GripTimer;
 
     [Header("Combat")]
     public PlayerMeleeAttack DefaultAttack;
@@ -51,8 +43,8 @@ public class PlayerController : MonoBehaviour
     }
     public int ModdedTotalHealth { get => Mathf.FloorToInt(TotalHealth * StatsManager.Instance.Health.totalValue); }
     [SerializeField] float _knockbackTime, _selfKnockBackTime, _groundImpactKnockbackTime, _extraUngroundedKnockbackTime;
-    [SerializeField] float _timeOfLastAttack = 10f;
-    [SerializeField] AttackFeedback _attackFeedback;
+    float _timeOfLastAttack = 10f;
+    AttackFeedback _attackFeedback;
     PlayerMeleeAttack _lastAttack;
     float _knockbackTimer;
     public bool IsKnockbacked 
@@ -60,7 +52,6 @@ public class PlayerController : MonoBehaviour
         get => _knockbackTimer > Time.time; 
         set => _knockbackTimer = value ? Mathf.Infinity : Time.time;
     }
-    public static Action OnPlayerDeath, OnPlayerFullHealth;
 
     [Header("Interactions")]
     public float InteractionRadius;
@@ -82,33 +73,32 @@ public class PlayerController : MonoBehaviour
     [Header("CollisorDetections")]
     [SerializeField] LayerMask _groundMask;
     [SerializeField] LayerMask _wallsMask;
-    [SerializeField] float _grounderOffset = -1, _grounderRadius = 0.2f;
+    float _grounderOffset = -1, _grounderRadius = 0.2f;
     [SerializeField] GameObject _frontFeet;
     float _fullHealHeight;
     public bool IsGrounded;
-    public static event Action OnTouchedGround;
     private readonly Collider2D[] _ground = new Collider2D[1];
-    public GameObject actualGroundObject;
-
-    bool _hasDashed, _dashing;
-    float _timeStartedDash;
-    Vector3 _dashDir;
+    [HideInInspector] public GameObject actualGroundObject;
 
     FootStepController FootStepController;
     [HideInInspector] public PlayerInputs PlInputs;
-    public static PlayerController instance;
+    public static PlayerController Instance;
+    PlayerDash dashController;
+
+    //Actions
+    public Action OnTouchedGround, OnPlayerDeath, OnPlayerFullHealth, OnJump;
+    public Action<Vector3> OnPlayerReceiveKnockback;
+
+    private void Awake()
+    {
+        if(Instance != null && Instance != this) Destroy(this.gameObject);
+        else Instance = this;
+    }
 
     void Start()
     {
-        if(instance != null && instance != this.gameObject)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            instance = this;
-        }
-
+        _attackFeedback = GetComponentInChildren<AttackFeedback>();
+        dashController = GetComponent<PlayerDash>();
         PlInputs = GetComponent<PlayerInputs>();
         Hearts = new List<InstantiatedUIHP>();
         _timeOfLastAttack = 0;
@@ -116,7 +106,7 @@ public class PlayerController : MonoBehaviour
         _lastAttack = DefaultAttack;
         FootStepController = GetComponentInChildren<FootStepController>();
         _fullHealHeight = transform.position.y + 2f;
-        GripTimer = gripMaxTime;
+        GripTimer = GripMaxTime;
         CurrentHealth = ModdedTotalHealth;
 
         OnPlayerDeath += PlayerDeath;
@@ -129,7 +119,6 @@ public class PlayerController : MonoBehaviour
         PlInputs.GatherUnpausedInputs();
         if(!(Time.timeScale > 0)) return;
         PlInputs.GatherInputs();
-        GetGroundObject();
     }
 
     private void LateUpdate()
@@ -141,7 +130,7 @@ public class PlayerController : MonoBehaviour
         if (!IsKnockbacked && !MyAnimator.GetBool("FellDown"))
         {
             HandleWalking();
-            HandleDashing(DashRank);
+            dashController.HandleDashing(DashRank);
         }
 
         HandleAnimation();
@@ -156,7 +145,9 @@ public class PlayerController : MonoBehaviour
     {
         var grounded = Physics2D.OverlapCircleNonAlloc(transform.position + new Vector3(0, _grounderOffset, 0), _grounderRadius, _ground, _groundMask) > 0;
 
-        if(grounded) GripTimer = Mathf.Clamp(GripTimer + Time.deltaTime, 0, gripMaxTime);
+        actualGroundObject = grounded ? _ground[0].gameObject : gameObject;
+
+        if(grounded) GripTimer = Mathf.Clamp(GripTimer + Time.deltaTime, 0, GripMaxTime);
 
         if(!IsGrounded && grounded)
         {
@@ -164,7 +155,7 @@ public class PlayerController : MonoBehaviour
 
             if(0 < CurrentHealth)
             {
-                if(_fallImpact) 
+                if(FallImpact) 
                 {
                     _knockbackTimer = Time.time + _groundImpactKnockbackTime;
                     MyAnimator.SetBool("FellDown", true);
@@ -173,16 +164,15 @@ public class PlayerController : MonoBehaviour
                 else FootStepController.PlayOneShot(FootStepController.RandomSolidClip(), 0.5f);
             }
 
-            _doubleJumpCharged = MobilityRank > 2;
+            DoubleJumpCharged = MobilityRank > 2;
             IsGrounded = true;
-            _hasDashed = false;
-            _hasJumped = false;
+            HasJumped = false;
             OnTouchedGround?.Invoke();
         }
         else if(IsGrounded && !grounded)
         {
             IsGrounded = false;
-            _timeLeftGrounded = Time.time;
+            TimeLeftGrounded = Time.time;
         }
     }
 
@@ -192,20 +182,6 @@ public class PlayerController : MonoBehaviour
         RaycastHit2D[] hits = new RaycastHit2D[1];
         WallOnLeft = Physics2D.RaycastNonAlloc(transform.position, Vector2.left, hits, 0.55f, _wallsMask) > 0 && !IsGrounded;
         WallOnRight = Physics2D.RaycastNonAlloc(transform.position, Vector2.right, hits, 0.55f, _wallsMask) > 0 && !IsGrounded;
-    }
-
-    private void GetGroundObject()
-    {
-        RaycastHit2D hitResult = Physics2D.Raycast(_frontFeet.transform.position, -Vector2.up, 0.5f);
-
-        if(hitResult.collider != null)
-        {
-            actualGroundObject = hitResult.collider.gameObject;
-        }
-        else
-        {
-            actualGroundObject = _frontFeet.gameObject;
-        }
     }
 
     #endregion
@@ -225,10 +201,10 @@ public class PlayerController : MonoBehaviour
     private void HandleWalking()
     {
         _rb.velocity = IsGrounded
-            ? new Vector2(_moddedWalkSpeed * PlInputs.Inputs.RawX, _rb.velocity.y)
-            : new Vector2(_moddedWalkSpeed * _jumpManeuverabilityPercentage * PlInputs.Inputs.RawX, _rb.velocity.y);
+            ? new Vector2(WalkSpeed * PlInputs.Inputs.RawX, _rb.velocity.y)
+            : new Vector2(WalkSpeed * _jumpManeuverabilityPercentage * PlInputs.Inputs.RawX, _rb.velocity.y);
 
-        MyAnimator.SetFloat("Speed", Mathf.Abs(_baseWalkSpeed * PlInputs.Inputs.RawX));
+        MyAnimator.SetFloat("Speed", Mathf.Abs(WalkSpeed * PlInputs.Inputs.RawX));
     }
 
     #endregion
@@ -237,34 +213,34 @@ public class PlayerController : MonoBehaviour
 
     private void HandleJumping()
     {
-        if (Mathf.Approximately(_rb.velocity.y, 0) && !IsGrounded) _hasJumped = false;
+        if (Mathf.Approximately(_rb.velocity.y, 0) && !IsGrounded) HasJumped = false;
         if(_rb.velocity.y < 0) _rb.velocity = new Vector2(_rb.velocity.x, Mathf.Clamp(_rb.velocity.y, _maxFallSpeed, 0));
-        _fallImpact = _rb.velocity.y <= _maxFallSpeed * 0.95f;
+        FallImpact = _rb.velocity.y <= _maxFallSpeed * 0.95f;
 
         if(OnWall && GripTimer > 0)
         {
             GripTimer -= Time.deltaTime;
             _rb.gravityScale = 0;
             if(IsKnockbacked) return;
-            _rb.velocity = new Vector2(0, -_gravityScale / 2);
-            if(MobilityRank > 1) _rb.velocity = new Vector2(0, (_gravityScale / 2) * PlInputs.Inputs.RawY);
+            _rb.velocity = new Vector2(0, -GravityScale / 2);
+            if(MobilityRank > 1) _rb.velocity = new Vector2(0, (GravityScale / 2) * PlInputs.Inputs.RawY);
             return;
         }
 
-        if (_hasJumped)
+        if(HasJumped)
         {
-            if ((Input.GetButton("Jump") && Time.time < _timeLeftGrounded + _extraJumpTime + _jumpTime)) _rb.gravityScale = 0;
-            else if (Time.time > _timeLeftGrounded + _jumpTime) _hasJumped = false;
+            if((Input.GetButton("Jump") && Time.time < TimeLeftGrounded + _extraJumpTime + _jumpTime)) _rb.gravityScale = 0;
+            else if(Time.time > TimeLeftGrounded + _jumpTime) HasJumped = false;
         }
-        else if(!_dashing) _rb.gravityScale = _gravityScale;
+        else if(!dashController.Dashing) _rb.gravityScale = GravityScale;
     }
 
     public void ExecuteJump(bool coyoteJump)
     {
         PlaySound(Audioclips[0]);
         MyAnimator.SetBool("FellDown", false);
-        _timeLeftGrounded = coyoteJump? _timeLeftGrounded : Time.time;
-        _hasJumped = true;
+        TimeLeftGrounded = coyoteJump? TimeLeftGrounded : Time.time;
+        HasJumped = true;
         _rb.velocity = new Vector2(_rb.velocity.x, _initialJumpSpeed);
         if(OnWall) 
         {
@@ -273,53 +249,6 @@ public class PlayerController : MonoBehaviour
             SetFacingDirection(Mathf.Sign(transform.lossyScale.x) < 0);
         } 
         OnJump?.Invoke();
-    }
-
-    #endregion
-
-    #region Dash
-
-    public void HandleDashing(int rank)
-    {
-        if(rank < 1) return;
-
-        if (_dashCooldownTimer < Time.time)
-        {
-            if (PlInputs.GetInput("Dash") && !_hasDashed && PlInputs.Inputs.RawX != 0)
-            {
-                _dashDir = new Vector3(PlInputs.Inputs.RawX, 0, 0).normalized;
-
-                _dashCooldownTimer = Time.time + _dashCooldown;
-                _hasDashed = true;
-                _dashing = true;
-                _timeStartedDash = Time.time;
-                _rb.gravityScale = 0;
-                OnStartDashing?.Invoke();
-            }
-        }
-
-        if(!_dashing) return; 
-        if(Time.time >= _timeStartedDash + (_dashLength * StatsManager.Instance.DashLength.totalValue)) EndDash();
-        
-        if(!_dashing) return; 
-        _rb.velocity = _dashDir * _dashSpeed;
-        _rb.gravityScale = 0;
-
-        if(rank < 2) return;
-        gameObject.layer = 11;
-
-        if(rank < 3) return;
-        gameObject.layer = 12;
-    }
-
-    void EndDash() 
-    {
-        _dashing = false;
-        _rb.velocity = new Vector3(Mathf.Clamp(_rb.velocity.x, PlInputs.Inputs.RawX * -_moddedWalkSpeed, PlInputs.Inputs.RawX * _moddedWalkSpeed), _rb.velocity.y > 3 ? 3 : _rb.velocity.y);
-        _rb.gravityScale = _gravityScale;
-        if(IsGrounded) _hasDashed = false;
-        OnStopDashing?.Invoke();
-        gameObject.layer = 10;
     }
 
     #endregion
@@ -422,18 +351,22 @@ public class PlayerController : MonoBehaviour
 
     public void ReceiveDamage(int damageAmount, Vector3 knockback)
     {
-        CurrentHealth -= damageAmount;
-        if(knockback != Vector3.zero)
+        if(damageAmount > 0)
         {
+            CurrentHealth -= damageAmount;
             // Hurt Sound
-            if(_dashing) EndDash();
-            float knockbackResistance = StatsManager.Instance.KnockbackResistance.totalValue;
-            _rb.velocity = Vector3.zero;
-            _rb.AddForce(new Vector2(knockback.x, knockback.y * 1.5f) * knockbackResistance, ForceMode2D.Force);
-            _knockbackTimer = IsGrounded ? Time.time + (_knockbackTime * knockbackResistance) : Time.time + ((_knockbackTime + _extraUngroundedKnockbackTime) * knockbackResistance);
         }
-        
+
+        if(knockback != Vector3.zero) ReceiveKnockback(knockback);
         if(CurrentHealth < 1) OnPlayerDeath?.Invoke();
+    }
+
+    public void ReceiveKnockback(Vector3 knockback)
+    {
+        float knockbackResistance = StatsManager.Instance.KnockbackResistance.totalValue;
+        _rb.velocity = Vector3.zero;
+        _rb.AddForce(new Vector2(knockback.x, knockback.y * 1.5f) * knockbackResistance, ForceMode2D.Force);
+        _knockbackTimer = IsGrounded ? Time.time + (_knockbackTime * knockbackResistance) : Time.time + ((_knockbackTime + _extraUngroundedKnockbackTime) * knockbackResistance);
     }
 
     public void ReceiveHealing(int healingAmount) => CurrentHealth = Mathf.Min(CurrentHealth + healingAmount, ModdedTotalHealth);

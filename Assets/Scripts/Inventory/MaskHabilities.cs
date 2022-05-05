@@ -6,8 +6,8 @@ public class MaskHabilities : MonoBehaviour
 {
     public AbilityPassiveSlots Passive;
     public AbilityActiveSlots[] Actives;
-    
-    public int chanceDash = 1, chanceMobility = 1, chanceAttack = 1, chanceHealth  = 1, chanceHook = 1, chanceTantrum = 1, chanceKnives = 1, chanceRanged = 1, chanceShield = 1;
+
+    public int chanceDash = 1, chanceMobility = 1, chanceAttack = 1, chanceHealth = 1, chanceHook = 1, chanceTantrum = 1, chanceKnives = 1, chanceRanged = 1, chanceShield = 1;
 
     [Header("References")]
     public AbilitiesInfos AbilitiesInfos;

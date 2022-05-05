@@ -107,6 +107,7 @@ GameObject:
   - component: {fileID: 1154210218694514588}
   - component: {fileID: 1434490607661563655}
   - component: {fileID: 428705585108110159}
+  - component: {fileID: 6213519470223404255}
   - component: {fileID: 2635058737366346552}
   - component: {fileID: 1154210218694514584}
   - component: {fileID: 1154210218694514586}
@@ -133,7 +134,6 @@ Transform:
   - {fileID: 6674576254330828150}
   - {fileID: 1154210220103111484}
   - {fileID: 1154210218571004443}
-  - {fileID: 4572539959911186040}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -167,19 +167,16 @@ MonoBehaviour:
   _coyoteTime: 0.1
   _jumpTime: 0.05
   _extraJumpTime: 0.2
-  _gravityScale: 10
-  _hasJumped: 0
-  _fallImpact: 0
-  _doubleJumpCharged: 0
-  GripTimer: 0
-  _timeLeftGrounded: 0
-  gripMaxTime: 3
+  HasJumped: 0
+  FallImpact: 0
+  DoubleJumpCharged: 0
   WallOnRight: 0
   WallOnLeft: 0
   OnWall: 0
-  _dashLength: 0.1
-  _dashCooldown: 3
-  _dashSpeed: 60
+  GripMaxTime: 3
+  GravityScale: 10
+  TimeLeftGrounded: 0
+  GripTimer: 3
   DefaultAttack: {fileID: 11400000, guid: 1d957a92dec18a84d9498d3938502dbe, type: 2}
   _playerAttacks:
   - {fileID: 11400000, guid: 1d957a92dec18a84d9498d3938502dbe, type: 2}
@@ -195,8 +192,6 @@ MonoBehaviour:
   _selfKnockBackTime: 0.1
   _groundImpactKnockbackTime: 0.5
   _extraUngroundedKnockbackTime: 0.2
-  _timeOfLastAttack: 10
-  _attackFeedback: {fileID: 1154210218571004440}
   InteractionRadius: 2
   InteractionLayer:
     serializedVersion: 2
@@ -215,9 +210,7 @@ MonoBehaviour:
   _wallsMask:
     serializedVersion: 2
     m_Bits: 520
-  _grounderOffset: -1
-  _grounderRadius: 0.2
-  _frontFeet: {fileID: 1630211411477464471}
+  _frontFeet: {fileID: 0}
   IsGrounded: 1
   actualGroundObject: {fileID: 0}
   PlInputs: {fileID: 0}
@@ -274,6 +267,23 @@ MonoBehaviour:
   SwitchActivesMenu: {fileID: 0}
   SwitchPassiveMenu: {fileID: 0}
   UpgradeAbilitiesMenu: {fileID: 0}
+--- !u!114 &6213519470223404255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1154210218694514591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92624e79a9a8ec94a8ff8f3f32a7647b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HasDashed: 0
+  Dashing: 0
+  _dashLength: 0.2
+  _dashCooldown: 3
+  _dashSpeed: 30
 --- !u!114 &2635058737366346552
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -286,7 +296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c33b42d6b2da77e428e6e5d8578dae05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerController: {fileID: 0}
+  PlayerController: {fileID: 1154210218694514588}
   Damage:
     name: 
     Multipliers: []
@@ -490,36 +500,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1 &1630211411477464471
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4572539959911186040}
-  m_Layer: 10
-  m_Name: FrontFeet
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4572539959911186040
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1630211411477464471}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.01, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1154210218694514585}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1445805795
 AudioSource:
   m_ObjectHideFlags: 0
