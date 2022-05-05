@@ -365,7 +365,7 @@ public class PlayerController : MonoBehaviour
     {
         float knockbackResistance = StatsManager.Instance.KnockbackResistance.totalValue;
         _rb.velocity = Vector3.zero;
-        _rb.AddForce(new Vector2(knockback.x, knockback.y * 1.5f) * knockbackResistance, ForceMode2D.Force);
+        _rb.AddForce(new Vector2(knockback.x, knockback.y * 1.5f) * knockbackResistance, ForceMode2D.Impulse);
         _knockbackTimer = IsGrounded ? Time.time + (_knockbackTime * knockbackResistance) : Time.time + ((_knockbackTime + _extraUngroundedKnockbackTime) * knockbackResistance);
     }
 

@@ -18,7 +18,7 @@ public class EnemyContactDamage : MonoBehaviour
         if(collision.gameObject.layer == 12) return;
         if (collision.gameObject.CompareTag("Player"))
         {
-            Vector3 knockingKnocking = (playerController.transform.position - this.transform.position).normalized * playerKnockback;
+            Vector3 knockingKnocking = (playerController.transform.position - transform.position).normalized * playerKnockback;
             playerController.ReceiveDamage(damage, knockingKnocking);
         }
     }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ChargerBehaviour : MonoBehaviour
@@ -99,43 +97,19 @@ public class ChargerBehaviour : MonoBehaviour
 
     private void GetGroundObject()
     {
-        RaycastHit2D hitResult = Physics2D.Raycast(frontFeet.position, -Vector2.up, 0.5f);
-
-        if(hitResult.collider != null)
-        {
-            Debug.Log(hitResult.collider.name);
-            _groundArea = hitResult.collider.gameObject;
-        }
+        RaycastHit2D[] hitResult = new RaycastHit2D[1];
+        Physics2D.Raycast(frontFeet.position, -Vector2.up, contactFilter2D, hitResult, 0.5f);
+        _groundArea = hitResult[0].collider == null? gameObject : hitResult[0].collider.gameObject;
     }
 
-    private bool IsPlayerInMyPatrolArea()
-    {
-        return _groundArea.GetInstanceID() == PlayerController.Instance.actualGroundObject.GetInstanceID() ? true : false;
-    }
+    private bool IsPlayerInMyPatrolArea() => _groundArea.GetInstanceID() == PlayerController.Instance.actualGroundObject.GetInstanceID() ? true : false;
+    private bool IsFacingRight() => transform.localScale.x > Mathf.Epsilon;
 
-    private bool IsFacingRight()
-    {
-        return transform.localScale.x > Mathf.Epsilon;
-    }
-
-    private void Rotate()
-    {
-        this.transform.localScale = new Vector2(-Mathf.Sign(_rb.velocity.x), this.transform.localScale.y);
-    }
+    private void Rotate() => transform.localScale = new Vector2(-Mathf.Sign(_rb.velocity.x), transform.localScale.y);
 
     private void RotateAll()
     {
-        if(IsFacingRight())
-        {
-            //Move Right
-            frontFeet.rotation = Quaternion.Euler(new Vector3(0f, 0f, -180f));
-        }
-        else
-        {
-            //Move Left
-            frontFeet.rotation = Quaternion.Euler(new Vector3(0f, 0f, 0f));
-        }
-
+        frontFeet.rotation = IsFacingRight()? Quaternion.Euler(new Vector3(0f, 0f, -180f)) : Quaternion.Euler(new Vector3(0f, 0f, 0f)) ;
         Rotate();
     }
 
