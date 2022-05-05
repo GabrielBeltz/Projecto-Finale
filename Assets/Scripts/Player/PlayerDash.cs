@@ -8,7 +8,7 @@ public class PlayerDash : MonoBehaviour
     Vector3 _dashDir;
 
     Rigidbody2D _rb;
-    PlayerInputs plInputs;
+    PlayerInputs inputs;
 
     [Header("Dashing")]
     [SerializeField] float _dashLength = 0.2f;
@@ -19,6 +19,7 @@ public class PlayerDash : MonoBehaviour
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+        inputs = GetComponent<PlayerInputs>();
     }
 
     private void Start()
@@ -33,9 +34,9 @@ public class PlayerDash : MonoBehaviour
 
         if (_dashCooldownTimer < Time.time)
         {
-            if (plInputs.GetInput("Dash") && !HasDashed && plInputs.Inputs.RawX != 0)
+            if (inputs.GetInput("Dash") && !HasDashed && inputs.Inputs.RawX != 0)
             {
-                _dashDir = new Vector3(plInputs.Inputs.RawX, 0, 0).normalized;
+                _dashDir = new Vector3(inputs.Inputs.RawX, 0, 0).normalized;
 
                 _dashCooldownTimer = Time.time + _dashCooldown;
                 HasDashed = true;
@@ -65,7 +66,7 @@ public class PlayerDash : MonoBehaviour
     {
         float speed = PlayerController.Instance.WalkSpeed;
         Dashing = false;
-        _rb.velocity = new Vector3(Mathf.Clamp(_rb.velocity.x, plInputs.Inputs.RawX * -speed, plInputs.Inputs.RawX * speed), _rb.velocity.y > 3 ? 3 : _rb.velocity.y);
+        _rb.velocity = new Vector3(Mathf.Clamp(_rb.velocity.x, inputs.Inputs.RawX * -speed, inputs.Inputs.RawX * speed), _rb.velocity.y > 3 ? 3 : _rb.velocity.y);
         _rb.gravityScale = PlayerController.Instance.GravityScale;
         if(PlayerController.Instance.IsGrounded) HasDashed = false;
         OnStopDashing?.Invoke();

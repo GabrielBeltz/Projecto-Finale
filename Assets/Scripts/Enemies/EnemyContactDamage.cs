@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyContactDamage : MonoBehaviour
@@ -15,7 +13,7 @@ public class EnemyContactDamage : MonoBehaviour
 
     private void OnTriggerEnter2D (Collider2D collision)
     {
-        if(collision.gameObject.layer == 12) return;
+        if(collision.gameObject.layer > 10) return;
         if (collision.gameObject.CompareTag("Player"))
         {
             Vector3 knockingKnocking = (playerController.transform.position - transform.position).normalized * playerKnockback;

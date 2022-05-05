@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float _baseWalkSpeed = 8f;
     [SerializeField] float _jumpManeuverabilityPercentage;
     public float WalkSpeed { get => StatsManager.Instance.MoveSpeed.totalValue * _baseWalkSpeed; }
+    float _shieldSpeedMultiplier = 1f;
 
     [Header("Jumping")]
     [SerializeField] float _initialJumpSpeed = 20;
@@ -83,7 +84,8 @@ public class PlayerController : MonoBehaviour
     FootStepController FootStepController;
     [HideInInspector] public PlayerInputs PlInputs;
     public static PlayerController Instance;
-    PlayerDash dashController;
+    PlayerDash dash;
+    PlayerShield shield;
 
     //Actions
     public Action OnTouchedGround, OnPlayerDeath, OnPlayerFullHealth, OnJump;
@@ -98,7 +100,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _attackFeedback = GetComponentInChildren<AttackFeedback>();
-        dashController = GetComponent<PlayerDash>();
+        dash = GetComponent<PlayerDash>();
+        shield = GetComponent<PlayerShield>();
         PlInputs = GetComponent<PlayerInputs>();
         Hearts = new List<InstantiatedUIHP>();
         _timeOfLastAttack = 0;
@@ -129,8 +132,9 @@ public class PlayerController : MonoBehaviour
 
         if (!IsKnockbacked && !MyAnimator.GetBool("FellDown"))
         {
+            _shieldSpeedMultiplier = shield.HandleShield(ShieldRank);
             HandleWalking();
-            dashController.HandleDashing(DashRank);
+            dash.HandleDashing(DashRank);
         }
 
         HandleAnimation();
@@ -201,8 +205,8 @@ public class PlayerController : MonoBehaviour
     private void HandleWalking()
     {
         _rb.velocity = IsGrounded
-            ? new Vector2(WalkSpeed * PlInputs.Inputs.RawX, _rb.velocity.y)
-            : new Vector2(WalkSpeed * _jumpManeuverabilityPercentage * PlInputs.Inputs.RawX, _rb.velocity.y);
+            ? new Vector2(WalkSpeed * (PlInputs.Inputs.RawX * _shieldSpeedMultiplier), _rb.velocity.y)
+            : new Vector2(WalkSpeed * _jumpManeuverabilityPercentage * (PlInputs.Inputs.RawX * _shieldSpeedMultiplier), _rb.velocity.y);
 
         MyAnimator.SetFloat("Speed", Mathf.Abs(WalkSpeed * PlInputs.Inputs.RawX));
     }
@@ -232,7 +236,7 @@ public class PlayerController : MonoBehaviour
             if((Input.GetButton("Jump") && Time.time < TimeLeftGrounded + _extraJumpTime + _jumpTime)) _rb.gravityScale = 0;
             else if(Time.time > TimeLeftGrounded + _jumpTime) HasJumped = false;
         }
-        else if(!dashController.Dashing) _rb.gravityScale = GravityScale;
+        else if(!dash.Dashing) _rb.gravityScale = GravityScale;
     }
 
     public void ExecuteJump(bool coyoteJump)
