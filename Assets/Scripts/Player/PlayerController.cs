@@ -85,6 +85,7 @@ public class PlayerController : MonoBehaviour
     PlayerDash dash;
     PlayerShield shield;
     PlayerHook hook;
+    PlayerTantrum tantrum;
 
     //Actions
     public Action OnTouchedGround, OnPlayerDeath, OnPlayerFullHealth, OnJump;
@@ -102,6 +103,7 @@ public class PlayerController : MonoBehaviour
         dash = GetComponent<PlayerDash>();
         shield = GetComponent<PlayerShield>();
         hook = GetComponent<PlayerHook>();
+        tantrum = GetComponent<PlayerTantrum>();
         PlInputs = GetComponent<PlayerInputs>();
         Hearts = new List<InstantiatedUIHP>();
         _timeOfLastAttack = 0;
@@ -130,6 +132,7 @@ public class PlayerController : MonoBehaviour
             HandleWalking();
             dash.HandleDashing(AbilityRanks.DashRank);
             hook.HandleHooking(AbilityRanks.HookRank);
+            tantrum.HandleTantrum(AbilityRanks.TantrumRank);
         }
 
         HandleAnimation();

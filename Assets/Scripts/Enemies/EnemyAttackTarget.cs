@@ -121,6 +121,12 @@ public class EnemyAttackTarget : MonoBehaviour
 
     public void ReceiveAttackCall(PlayerMeleeAttack playerMeleeAttack, Vector3 pos) => onAttackReceived?.Invoke(playerMeleeAttack, pos);
 
+    public void ReceiveDamageCall(float damage, Vector3 pos)
+    {
+        ReceiveDamage(damage);
+        if(DamageReceived > 0) PlayCalculatedHitSound(null, pos);
+    }
+
     void ReceiveAttack(PlayerMeleeAttack playerMeleeAttack, Vector3 pos)
     {
         if(playerMeleeAttack.direction == receivedAttackDirection || receivedAttackDirection == AttackDirection.Front)
