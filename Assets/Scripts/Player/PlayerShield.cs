@@ -20,7 +20,7 @@ public class PlayerShield : MonoBehaviour
 
         if(rank < 1) return 1f;
 
-        if(inputs.GetInput("Shield") && !Active && cooldownTimer < 0) SetActive(true, rank);
+        if(inputs.GetInputDown("Shield") && !Active && cooldownTimer < 0) SetActive(true, rank);
 
         return GetMoveMultiplier(rank);
     }

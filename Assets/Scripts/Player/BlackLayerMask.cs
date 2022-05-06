@@ -9,7 +9,7 @@ public class BlackLayerMask : MonoBehaviour
 
     private void Awake() => myCam ??= Camera.main;
 
-    private void Update()
+    private void LateUpdate()
     {
         myPos = myCam.WorldToScreenPoint(transform.position);
         screen = new Vector2(Screen.width, Screen.height);

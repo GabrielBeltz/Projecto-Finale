@@ -7,37 +7,31 @@ public class PlayerInputs : MonoBehaviour
     public PlayerController player;
     public MaskHabilities habilities;
     public PauseController PauseController;
-    public Action CallAbilityA, CallAbilityB;
+    PlayerHook hook;
 
     private void Start()
     {
-        Inputs.A = new AbilityButtonInput();
-        Inputs.B = new AbilityButtonInput();
+        if(Inputs.A == null) Inputs.A = new AbilityButtonInput();
+        if(Inputs.B == null) Inputs.B = new AbilityButtonInput();
+        hook = GetComponent<PlayerHook>();
     }
 
-    public void GatherUnpausedInputs()
-    {
-        if(Input.GetButtonDown("Cancel")) PauseController.PlayerPause();
-    }
+    private void Update() => GatherInputs();
 
     public void GatherInputs()
     {
+        if(Input.GetButtonDown("Cancel")) PauseController.PlayerPause();
+
+        if(!(Time.timeScale > 0)) return; // Se o jogo tiver pausado não coleta mais inputs.
+        
         Inputs.RawX = (int)Input.GetAxisRaw("Horizontal");
         Inputs.RawY = (int)Input.GetAxisRaw("Vertical");
         Inputs.X = Input.GetAxis("Horizontal");
         Inputs.Y = Input.GetAxis("Vertical");
-        if(Input.GetButtonDown("AbilityA")) 
-        {
-            CallAbilityA?.Invoke();
-            Inputs.A.active = true;
-        }
-        else Inputs.A.active = false;
-        if(Input.GetButtonDown("AbilityB")) 
-        {
-            CallAbilityB?.Invoke();
-            Inputs.B.active = true;
-        }
-        else Inputs.B.active = false;
+        Inputs.A.down = Input.GetButtonDown("AbilityA");
+        Inputs.A.up = Input.GetButtonUp("AbilityA");
+        Inputs.B.down = Input.GetButtonDown("AbilityB");
+        Inputs.B.up = Input.GetButtonUp("AbilityB");
 
         player.WallOnRight &= Inputs.RawX > 0;
         player.WallOnLeft &= Inputs.RawX < 0;
@@ -52,6 +46,14 @@ public class PlayerInputs : MonoBehaviour
 
         if(Input.GetButtonDown("Jump"))
         {
+            if(hook.Traveling)
+            {
+                hook.Traveling = false;
+                PlayerController.Instance.TimeLeftGrounded = Time.time;
+                PlayerController.Instance._rb.velocity = Vector3.zero;
+                PlayerController.Instance.FallImpact = false;
+            }
+
             if(player.OnWall)
             {
                 player.ExecuteJump(true);
@@ -77,7 +79,8 @@ public class PlayerInputs : MonoBehaviour
         else Inputs.B.name = name;
     }
 
-    public bool GetInput(string name) => Inputs.A.name == name ? Inputs.A.active : Inputs.B.name == name? Inputs.B.active : false;
+    public bool GetInputDown(string name) => Inputs.A.name == name ? Inputs.A.down : Inputs.B.name == name? Inputs.B.down : false;
+    public bool GetInputUp(string name) => Inputs.A.name == name ? Inputs.A.up : Inputs.B.name == name? Inputs.B.up : false;
 
     [System.Serializable]
     public struct FrameInputs
@@ -91,6 +94,6 @@ public class PlayerInputs : MonoBehaviour
     public class AbilityButtonInput
     {
         public string name;
-        public bool active;
+        public bool down, up;
     }
 }

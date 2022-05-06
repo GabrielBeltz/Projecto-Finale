@@ -1093,18 +1093,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 868439725}
     - target: {fileID: 428705585108110159, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
-      propertyPath: Actives.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 428705585108110159, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
-      propertyPath: texts.Array.data[0]
-      value: 
-      objectReference: {fileID: 1424961240}
-    - target: {fileID: 428705585108110159, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
-      propertyPath: texts.Array.data[1]
-      value: 
-      objectReference: {fileID: 2147469531}
-    - target: {fileID: 428705585108110159, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
       propertyPath: UpgradeAbilitiesMenu
       value: 
       objectReference: {fileID: 605670236}

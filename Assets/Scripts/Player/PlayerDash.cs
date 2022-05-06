@@ -34,7 +34,7 @@ public class PlayerDash : MonoBehaviour
 
         if (_dashCooldownTimer < Time.time)
         {
-            if (inputs.GetInput("Dash") && !HasDashed && inputs.Inputs.RawX != 0)
+            if (inputs.GetInputDown("Dash") && !HasDashed && inputs.Inputs.RawX != 0)
             {
                 _dashDir = new Vector3(inputs.Inputs.RawX, 0, 0).normalized;
 

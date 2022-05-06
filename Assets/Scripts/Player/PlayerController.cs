@@ -5,11 +5,10 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
-    Rigidbody2D _rb;
+    [HideInInspector] public Rigidbody2D _rb;
 
-    [Header("Abilities")]
-    public int MobilityRank;
-    public int AttackRank, HookRank, TantrumRank, DashRank, KnivesRank, RangedRank, ShieldRank, HealthRank;
+    public AbilityRank AbilityRanks; 
+
     [HideInInspector] public MaskHabilities AbilitiesController;
     float RegainedHealth;
     
@@ -75,7 +74,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] LayerMask _groundMask;
     [SerializeField] LayerMask _wallsMask;
     float _grounderOffset = -1, _grounderRadius = 0.2f;
-    [SerializeField] GameObject _frontFeet;
     float _fullHealHeight;
     public bool IsGrounded;
     private readonly Collider2D[] _ground = new Collider2D[1];
@@ -86,6 +84,7 @@ public class PlayerController : MonoBehaviour
     public static PlayerController Instance;
     PlayerDash dash;
     PlayerShield shield;
+    PlayerHook hook;
 
     //Actions
     public Action OnTouchedGround, OnPlayerDeath, OnPlayerFullHealth, OnJump;
@@ -102,6 +101,7 @@ public class PlayerController : MonoBehaviour
         _attackFeedback = GetComponentInChildren<AttackFeedback>();
         dash = GetComponent<PlayerDash>();
         shield = GetComponent<PlayerShield>();
+        hook = GetComponent<PlayerHook>();
         PlInputs = GetComponent<PlayerInputs>();
         Hearts = new List<InstantiatedUIHP>();
         _timeOfLastAttack = 0;
@@ -117,24 +117,19 @@ public class PlayerController : MonoBehaviour
         OnPlayerFullHealth += PlayerFullHeal;
     }
 
-    void Update()
-    {
-        PlInputs.GatherUnpausedInputs();
-        if(!(Time.timeScale > 0)) return;
-        PlInputs.GatherInputs();
-    }
-
     private void LateUpdate()
     {
+        // Não mudar a ordem desses métodos pra evitar bug. Se for adicionar alguma coisa, coloque num lugar apropriado ou no fim.
         HandleGrounding();
         HandleWalling();
         HandleJumping();
 
         if (!IsKnockbacked && !MyAnimator.GetBool("FellDown"))
         {
-            _shieldSpeedMultiplier = shield.HandleShield(ShieldRank);
+            _shieldSpeedMultiplier = shield.HandleShield(AbilityRanks.ShieldRank);
             HandleWalking();
-            dash.HandleDashing(DashRank);
+            dash.HandleDashing(AbilityRanks.DashRank);
+            hook.HandleHooking(AbilityRanks.HookRank);
         }
 
         HandleAnimation();
@@ -168,7 +163,7 @@ public class PlayerController : MonoBehaviour
                 else FootStepController.PlayOneShot(FootStepController.RandomSolidClip(), 0.5f);
             }
 
-            DoubleJumpCharged = MobilityRank > 2;
+            DoubleJumpCharged = AbilityRanks.MobilityRank > 2;
             IsGrounded = true;
             HasJumped = false;
             OnTouchedGround?.Invoke();
@@ -182,7 +177,7 @@ public class PlayerController : MonoBehaviour
 
     void HandleWalling()
     {
-        if(MobilityRank < 1) return;
+        if(AbilityRanks.MobilityRank < 1) return;
         RaycastHit2D[] hits = new RaycastHit2D[1];
         WallOnLeft = Physics2D.RaycastNonAlloc(transform.position, Vector2.left, hits, 0.55f, _wallsMask) > 0 && !IsGrounded;
         WallOnRight = Physics2D.RaycastNonAlloc(transform.position, Vector2.right, hits, 0.55f, _wallsMask) > 0 && !IsGrounded;
@@ -227,7 +222,7 @@ public class PlayerController : MonoBehaviour
             _rb.gravityScale = 0;
             if(IsKnockbacked) return;
             _rb.velocity = new Vector2(0, -GravityScale / 2);
-            if(MobilityRank > 1) _rb.velocity = new Vector2(0, (GravityScale / 2) * PlInputs.Inputs.RawY);
+            if(AbilityRanks.MobilityRank > 1) _rb.velocity = new Vector2(0, (GravityScale / 2) * PlInputs.Inputs.RawY);
             return;
         }
 
@@ -272,9 +267,9 @@ public class PlayerController : MonoBehaviour
 
     public void Attack()
     {
-        Vector3 attackPos = this.transform.position + ((GetAttackDirection() * (AttackRank > 1 ? _lastAttack.range : (_lastAttack.range /2))));
+        Vector3 attackPos = this.transform.position + ((GetAttackDirection() * (AbilityRanks.AttackRank > 1 ? _lastAttack.range : (_lastAttack.range /2))));
         float attackRotation = Quaternion.LookRotation(GetAttackDirection(), GetAttackDirection()).eulerAngles.x;
-        Vector3 attackSize = AttackRank > 2 ? new Vector3(0.4f, 1.2f, _lastAttack.range) : AttackRank > 1 ? new Vector3(0.25f, 0.75f, _lastAttack.range) : new Vector3(0.25f, 0.75f, _lastAttack.range / 2);
+        Vector3 attackSize = AbilityRanks.AttackRank > 2 ? new Vector3(0.4f, 1.2f, _lastAttack.range) : AbilityRanks.AttackRank > 1 ? new Vector3(0.25f, 0.75f, _lastAttack.range) : new Vector3(0.25f, 0.75f, _lastAttack.range / 2);
 
         RaycastHit2D[] attackColliders = Physics2D.BoxCastAll(attackPos, attackSize, attackRotation, GetAttackDirection(), _lastAttack.range/2, _attackLayerMask);
 
@@ -288,7 +283,7 @@ public class PlayerController : MonoBehaviour
                 selfKnockbackReceived = target.selfKnockbackReceived;
 
                 #region Vampirirism
-                if(HealthRank > 2)
+                if(AbilityRanks.HealthRank > 2)
                 {
                     RegainedHealth += _lastAttack.damage * 0.05f;
                     if(RegainedHealth > 1)
@@ -308,7 +303,7 @@ public class PlayerController : MonoBehaviour
                 _rb.AddForce(_lastAttack.selfKnockback * selfKnockbackReceived * -GetAttackDirection(), ForceMode2D.Force);
             }
 
-            if(AttackRank < 3)
+            if(AbilityRanks.AttackRank < 3)
             {
                 i = attackColliders.Length;
                 attackSize = new Vector3(attackSize.x, attackSize.y, Vector2.Distance(attackPos, attackColliders[0].point));
@@ -448,13 +443,16 @@ public class PlayerController : MonoBehaviour
 
     void ResetSkills() 
     { 
-        MobilityRank = 0;
-        AttackRank = 0;
-        HookRank = 0;
-        TantrumRank = 0;
-        DashRank = 0;
-        KnivesRank = 0;
-        RangedRank = 0;
-        ShieldRank = 0;
+        AbilityRanks.MobilityRank = 0;
+        AbilityRanks.AttackRank = 0;
+        AbilityRanks.HookRank = 0;
+        AbilityRanks.TantrumRank = 0;
+        AbilityRanks.DashRank = 0;
+        AbilityRanks.KnivesRank = 0;
+        AbilityRanks.RangedRank = 0;
+        AbilityRanks.ShieldRank = 0;
     }
+
+    [System.Serializable]
+    public class AbilityRank { public int MobilityRank, AttackRank, HookRank, TantrumRank, DashRank, KnivesRank, RangedRank, ShieldRank, HealthRank; }
 }
