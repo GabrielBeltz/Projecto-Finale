@@ -56,8 +56,16 @@ public class PlayerHook : MonoBehaviour
         Time.timeScale = rank > 2 ? 0.01f : rank > 1? 0.33f : 0.67f;
     }
 
+    public void EndAiming()
+    {
+        hookAim.SetActive(false);
+        aiming = false;
+        Time.timeScale = 1f;
+    }
+
     void LaunchHook()
     {
+        if(!aiming) return;
         hookAim.SetActive(false);
         aiming = false;
         Time.timeScale = 1f;
@@ -67,13 +75,12 @@ public class PlayerHook : MonoBehaviour
         if(Physics2D.Raycast(transform.position, aimDirection, contactFilter2D, raycastHit, ModifiedRange) > 0)
         {
             EnemyAttackTarget target;
-            if(!raycastHit[0].collider.gameObject.TryGetComponent<EnemyAttackTarget>(out target))
+            if(!raycastHit[0].collider.gameObject.TryGetComponent<EnemyAttackTarget>(out target)) hitPosition = raycastHit[0].point;
+            else if(!(target.DamageReceived > 0)) hitPosition = raycastHit[0].point;
+            else if(rank > 2)
             {
-                hitPosition = raycastHit[0].point;
-                raycastHit[0].point = Vector2.zero;
+                //knockback???
             }
-            if(!(target.DamageReceived > 0)) hitPosition = raycastHit[0].point;
-            //else knockback no rank 3
         }
         else hitPosition = transform.position + ((Vector3)aimDirection * ModifiedRange);
 
@@ -100,9 +107,10 @@ public class PlayerHook : MonoBehaviour
             lineRenderer.SetPosition(0, Vector3.zero);
             lineRenderer.SetPosition(1, hookHead.transform.position - transform.position);
 
+            float distHeadToPoint = Vector2.Distance(hookHead.transform.position, hitPosition);
             if(Vector2.Distance(hookHead.transform.position, transform.position) > ModifiedRange) break;
-            if(Vector2.Distance(hookHead.transform.position, hitPosition) < 0.1f) break;
-            Physics2D.Raycast(transform.position, aimDirection, contactFilter2D, newRaycastHit, ModifiedRange);
+            if(distHeadToPoint < 0.1f) break;
+            Physics2D.Raycast(transform.position, aimDirection, contactFilter2D, newRaycastHit, distHeadToPoint);
             if(newRaycastHit[0].collider != null)
             {
                 if(raycastHit[0].collider != null)

@@ -21,6 +21,13 @@ public class PauseController : MonoBehaviour
     {
         playerTimeScale = Time.timeScale;
         Time.timeScale = 0;
+        AbilitiesEnum passive, activeA, activeB;
+        System.Enum.TryParse<AbilitiesEnum>(PlayerController.Instance.AbilitiesController.Passive.ToString(), out passive);
+        System.Enum.TryParse<AbilitiesEnum>(PlayerController.Instance.AbilitiesController.ActiveA.ToString(), out activeA);
+        System.Enum.TryParse<AbilitiesEnum>(PlayerController.Instance.AbilitiesController.ActiveB.ToString(), out activeB);
+        Passive.Activate(PlayerController.Instance.AbilitiesController.AbilitiesInfos.GetFullInfo(passive.ToString()), PlayerController.Instance.AbilitiesController.GetAbilityRank(passive));
+        ActiveA.Activate(PlayerController.Instance.AbilitiesController.AbilitiesInfos.GetFullInfo(activeA.ToString()), PlayerController.Instance.AbilitiesController.GetAbilityRank(activeA));
+        ActiveB.Activate(PlayerController.Instance.AbilitiesController.AbilitiesInfos.GetFullInfo(activeB.ToString()), PlayerController.Instance.AbilitiesController.GetAbilityRank(activeB));
         PausePanel.SetActive(true);
     }
 

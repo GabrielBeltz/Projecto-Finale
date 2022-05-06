@@ -17,7 +17,11 @@ public class AbilityView
     {
         if(info != null) 
         {
-            if(info.icon != null && AbilityIcon != null) AbilityIcon.overrideSprite = info.icon;
+            if(AbilityIcon != null)
+            {
+                AbilityIcon.enabled = info.icon != null;
+                if(info.icon != null) AbilityIcon.overrideSprite = info.icon;
+            }
             if(AbilityName != null) AbilityName.text = info.name;
             if(Rank1 != null) 
             { 
@@ -38,6 +42,7 @@ public class AbilityView
         }
         else
         {
+            if(AbilityIcon != null) AbilityIcon.enabled = false;
             AbilityName.text = "Empty Slot";
             if(Rank1 != null) 
             { 

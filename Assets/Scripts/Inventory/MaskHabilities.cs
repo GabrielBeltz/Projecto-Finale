@@ -19,9 +19,7 @@ public class MaskHabilities : MonoBehaviour
 
     Item tempObjRef;
 
-    int dashIndex = -1, mobilityIndex = -1, attackIndex = -1, hookIndex = -1, healthIndex = -1, tantrumIndex = -1, knivesIndex = -1, rangedIndex = -1, shieldIndex = -1, lastIndex = -1;
-
-    void Awake() 
+    void Awake()
     { 
         playerController = GetComponent<PlayerController>();
         playerController.AbilitiesController = this;
@@ -68,7 +66,7 @@ public class MaskHabilities : MonoBehaviour
 
         if(isPassive)
         {
-            if(Passive == AbilityPassiveSlots.None) ActivateAbility(gObj.assignedAbility.Type, -1);
+            if(Passive == AbilityPassiveSlots.None) ActivateAbility(gObj.assignedAbility.Type, 2);
             else
             {
                 SwitchPassiveMenu.Activate(
@@ -132,7 +130,6 @@ public class MaskHabilities : MonoBehaviour
                 break;
             case AbilitiesEnum.Mobility:
                 playerController.AbilityRanks.MobilityRank = 0;
-                StatsManager.Instance.MoveSpeed.Reset();
                 break;
             case AbilitiesEnum.Attack:
                 playerController.AbilityRanks.AttackRank = 0;
@@ -257,14 +254,6 @@ public class MaskHabilities : MonoBehaviour
         ActivateAbility(tempAbility, slot);
     }
 
-    void ShowItemInfo(int index, int rank) => StartCoroutine(ItemInfo(index, rank));
-
-    IEnumerator ItemInfo(int index, int rank)
-    {
-        yield return null;
-        // ????
-    }
-
     #region Abilities Activation
 
     void ActivateDash(int slot) 
@@ -275,10 +264,9 @@ public class MaskHabilities : MonoBehaviour
             if(slot == 0) ActiveA = AbilityActiveSlots.Dash;
             else ActiveB = AbilityActiveSlots.Dash;
             playerController.AbilityRanks.DashRank = 1;
-            if(dashIndex == -1) dashIndex = lastIndex;
         }
         else playerController.AbilityRanks.DashRank++;
-        ShowItemInfo(dashIndex, playerController.AbilityRanks.DashRank);
+        ShowItemInfo(slot, playerController.AbilityRanks.DashRank, AbilitiesEnum.Dash);
     }
 
     void ActivateAttack(int slot) 
@@ -287,11 +275,10 @@ public class MaskHabilities : MonoBehaviour
         {
             Passive = AbilityPassiveSlots.Attack;
             playerController.AbilityRanks.AttackRank = 1;
-            if(attackIndex == -1) attackIndex = lastIndex;
         }
         else playerController.AbilityRanks.AttackRank++;
         StatsManager.Instance.Damage.AddMultiplier($"Attack Rank {playerController.AbilityRanks.AttackRank}", 0.5f / playerController.AbilityRanks.AttackRank);
-        ShowItemInfo(attackIndex, playerController.AbilityRanks.AttackRank);
+        ShowItemInfo(slot, playerController.AbilityRanks.AttackRank, AbilitiesEnum.Attack);
     }
 
     void ActivateMobility(int slot) 
@@ -300,12 +287,10 @@ public class MaskHabilities : MonoBehaviour
         {
             Passive = AbilityPassiveSlots.Mobility;
             playerController.AbilityRanks.MobilityRank = 1;
-            if(mobilityIndex == -1) mobilityIndex = lastIndex;
         }
         else playerController.AbilityRanks.MobilityRank++;
 
-        StatsManager.Instance.MoveSpeed.AddMultiplier($"Mobility Rank {playerController.AbilityRanks.MobilityRank}", 0.05f);
-        ShowItemInfo(mobilityIndex, playerController.AbilityRanks.MobilityRank);
+        ShowItemInfo(slot, playerController.AbilityRanks.MobilityRank, AbilitiesEnum.Mobility);
     }
 
     void ActivateHook(int slot) 
@@ -316,11 +301,10 @@ public class MaskHabilities : MonoBehaviour
             if(slot == 0) ActiveA = AbilityActiveSlots.Hook;
             else ActiveB = AbilityActiveSlots.Hook;
             playerController.AbilityRanks.HookRank = 1;
-            if(hookIndex == -1) hookIndex = lastIndex;
         }
         else playerController.AbilityRanks.HookRank++;
             
-        ShowItemInfo(hookIndex, playerController.AbilityRanks.HookRank);
+        ShowItemInfo(slot, playerController.AbilityRanks.HookRank, AbilitiesEnum.Hook);
     }
 
     void ActivateHealth(int slot) 
@@ -329,7 +313,6 @@ public class MaskHabilities : MonoBehaviour
         {
             Passive = AbilityPassiveSlots.Health;
             playerController.AbilityRanks.HealthRank = 1;
-            if(healthIndex == -1) healthIndex = lastIndex;
         }
         else playerController.AbilityRanks.HealthRank++;
 
@@ -340,7 +323,7 @@ public class MaskHabilities : MonoBehaviour
             RecalculateHealth(oldHealth);
         }
         StatsManager.Instance.KnockbackResistance.AddMultiplier($"Health Rank {playerController.AbilityRanks.HealthRank}", -0.1f * playerController.AbilityRanks.HealthRank);
-        ShowItemInfo(healthIndex, playerController.AbilityRanks.HealthRank);
+        ShowItemInfo(slot, playerController.AbilityRanks.HealthRank, AbilitiesEnum.Health);
     }
 
     void RecalculateHealth(int oldHealth)
@@ -358,11 +341,10 @@ public class MaskHabilities : MonoBehaviour
             if(slot == 0) ActiveA = AbilityActiveSlots.Tantrum;
             else ActiveB = AbilityActiveSlots.Tantrum;
             playerController.AbilityRanks.TantrumRank = 1;
-            if(tantrumIndex == -1) tantrumIndex = lastIndex;
         }
         else playerController.AbilityRanks.TantrumRank++;
 
-        ShowItemInfo(tantrumIndex, playerController.AbilityRanks.TantrumRank);
+        ShowItemInfo(slot, playerController.AbilityRanks.TantrumRank, AbilitiesEnum.Tantrum);
     }
 
     void ActivateKnives(int slot) 
@@ -373,11 +355,10 @@ public class MaskHabilities : MonoBehaviour
             if(slot == 0) ActiveA = AbilityActiveSlots.Knives;
             else ActiveB = AbilityActiveSlots.Knives;
             playerController.AbilityRanks.KnivesRank = 1;
-            if(knivesIndex == -1) knivesIndex = lastIndex;
         }
         else playerController.AbilityRanks.KnivesRank++;
 
-        ShowItemInfo(knivesIndex, playerController.AbilityRanks.KnivesRank);
+        ShowItemInfo(slot, playerController.AbilityRanks.KnivesRank, AbilitiesEnum.Knives);
     }
 
     void ActivateRanged(int slot) 
@@ -388,11 +369,10 @@ public class MaskHabilities : MonoBehaviour
             if(slot == 0) ActiveA = AbilityActiveSlots.Ranged;
             else ActiveB = AbilityActiveSlots.Ranged;
             playerController.AbilityRanks.RangedRank = 1;
-            if(rangedIndex == -1) rangedIndex = lastIndex;
         }
         else playerController.AbilityRanks.RangedRank++;
         
-        ShowItemInfo(rangedIndex, playerController.AbilityRanks.RangedRank);
+        ShowItemInfo(slot, playerController.AbilityRanks.RangedRank, AbilitiesEnum.Ranged);
     }
 
     void ActivateShield(int slot) 
@@ -403,17 +383,16 @@ public class MaskHabilities : MonoBehaviour
             if(slot == 0) ActiveA = AbilityActiveSlots.Shield;
             else ActiveB = AbilityActiveSlots.Shield;
             playerController.AbilityRanks.ShieldRank = 1;
-            if(shieldIndex == -1) shieldIndex = lastIndex;
         }
         else playerController.AbilityRanks.ShieldRank++;
 
-        ShowItemInfo(shieldIndex, playerController.AbilityRanks.ShieldRank);
+        ShowItemInfo(slot, playerController.AbilityRanks.ShieldRank, AbilitiesEnum.Shield);
     }
 
     #endregion
 
     #region Utils
-    int GetAbilityRank(AbilitiesEnum ability)
+    public int GetAbilityRank(AbilitiesEnum ability)
     {
         switch(ability)
         {
@@ -462,7 +441,9 @@ public class MaskHabilities : MonoBehaviour
                 break;
         }
     }
-
+    
+    void ShowItemInfo(int slot, int rank, AbilitiesEnum type) => playerController.HUDController.ShowAbility(slot, rank, AbilitiesInfos.GetFullInfo(type.ToString()));
+    
     #endregion
 
     [System.Serializable]

@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
         set
         {
             _currentHealth = value;
-            InterfacePlayerHP();
+            OnPlayerHealthChanged?.Invoke(CurrentHealth, ModdedTotalHealth);
         }
     }
     public int ModdedTotalHealth { get => Mathf.FloorToInt(TotalHealth * StatsManager.Instance.Health.totalValue); }
@@ -60,15 +60,10 @@ public class PlayerController : MonoBehaviour
     [Header("Scene References")]
     public Animator MyAnimator;
     [SerializeField] AudioSource _soundEmitter;
-    public Transform UIScaler;
+    public HUDController HUDController;
 
     [Header("Audios")]
     public List<AudioClip> Audioclips;
-
-    [Header("UI")]
-    public GameObject HealthIconPrefab;
-    public Vector2 FullHDHealthIconsPivot;
-    List<InstantiatedUIHP> Hearts;
 
     [Header("CollisorDetections")]
     [SerializeField] LayerMask _groundMask;
@@ -90,6 +85,7 @@ public class PlayerController : MonoBehaviour
     //Actions
     public Action OnTouchedGround, OnPlayerDeath, OnPlayerFullHealth, OnJump;
     public Action<Vector3> OnPlayerReceiveKnockback;
+    public Action<int, int> OnPlayerHealthChanged; 
 
     private void Awake()
     {
@@ -105,7 +101,6 @@ public class PlayerController : MonoBehaviour
         hook = GetComponent<PlayerHook>();
         tantrum = GetComponent<PlayerTantrum>();
         PlInputs = GetComponent<PlayerInputs>();
-        Hearts = new List<InstantiatedUIHP>();
         _timeOfLastAttack = 0;
         _rb = GetComponent<Rigidbody2D>();
         _lastAttack = DefaultAttack;
@@ -162,6 +157,7 @@ public class PlayerController : MonoBehaviour
                     _knockbackTimer = Time.time + _groundImpactKnockbackTime;
                     MyAnimator.SetBool("FellDown", true);
                     PlaySound(Audioclips[1]);
+                    hook.EndAiming();
                 }
                 else FootStepController.PlayOneShot(FootStepController.RandomSolidClip(), 0.5f);
             }
@@ -401,48 +397,8 @@ public class PlayerController : MonoBehaviour
     }
 
     #endregion
-
-    #region UI Handling
-
-    public void InterfacePlayerHP()
-    {
-        for(int i = 0; i < ModdedTotalHealth; i++)
-        {
-            if(Hearts.Count <= i)
-            {
-                Hearts.Add(new InstantiatedUIHP(Instantiate(HealthIconPrefab, UIScaler)));
-            }
-            else if(!Hearts[i].Prefab.activeSelf) Hearts[i].Prefab.SetActive(true);
-            Hearts[i].rect.anchoredPosition = new Vector2(FullHDHealthIconsPivot.x * (i + 1), (FullHDHealthIconsPivot.y - 1080f));
-            Hearts[i].image.color = i < CurrentHealth ? Color.white : Color.black;
-        }
-
-        if(ModdedTotalHealth < Hearts.Count)
-        {
-            for(int i = 0; i < Hearts.Count - ModdedTotalHealth; i++)
-            {
-                Hearts[Hearts.Count - i - 1].Prefab.SetActive(false);
-            }
-        }
-    }
-
-    #endregion
     
     public void PlaySound(AudioClip clipToPlay) => _soundEmitter.PlayOneShot(clipToPlay);
-
-    public class InstantiatedUIHP
-    {
-        public GameObject Prefab;
-        public Image image;
-        public RectTransform rect;
-
-        public InstantiatedUIHP(GameObject instantiatedPrefab)
-        {
-            Prefab = instantiatedPrefab;
-            image = Prefab.GetComponent<Image>();
-            rect = Prefab.GetComponent<RectTransform>();
-        }
-    }
 
     void ResetSkills() 
     { 

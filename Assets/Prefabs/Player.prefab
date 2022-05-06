@@ -322,12 +322,10 @@ MonoBehaviour:
     m_Bits: 256
   MyAnimator: {fileID: 2962523971559447657}
   _soundEmitter: {fileID: 1154210220103111485}
-  UIScaler: {fileID: 0}
+  HUDController: {fileID: 0}
   Audioclips:
   - {fileID: 8300000, guid: 8781f5a6891be9949bd3c2e6c4d311d5, type: 3}
   - {fileID: 8300000, guid: 2ace38f714a9fba4e885d00beca4500d, type: 3}
-  HealthIconPrefab: {fileID: 6292870668279087758, guid: 360f07f1fca8a634e9b69de49af51097, type: 3}
-  FullHDHealthIconsPivot: {x: 75, y: 1005}
   _groundMask:
     serializedVersion: 2
     m_Bits: 8
@@ -387,8 +385,8 @@ MonoBehaviour:
     Health: 1
     Hook: 1
     Tantrum: 1
-    Knives: 1
-    Ranged: 1
+    Knives: 0
+    Ranged: 0
     Shield: 1
   AbilitiesInfos: {fileID: 11400000, guid: 9cc26427eb4a7124db637588ed837724, type: 2}
   SwitchActivesMenu: {fileID: 0}
@@ -436,7 +434,7 @@ MonoBehaviour:
     useOutsideNormalAngle: 0
     layerMask:
       serializedVersion: 2
-      m_Bits: 584
+      m_Bits: 585
     minDepth: 0
     maxDepth: 0
     minNormalAngle: 0

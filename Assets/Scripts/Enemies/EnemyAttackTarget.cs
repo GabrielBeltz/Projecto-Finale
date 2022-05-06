@@ -151,15 +151,9 @@ public class EnemyAttackTarget : MonoBehaviour
             rdrdrdr.enabled = false;
         }
 
-        foreach(MonoBehaviour behav in BehavioursToDisable)
-        {
-            behav.enabled = false;
-        }
+        foreach(MonoBehaviour behav in BehavioursToDisable) behav.enabled = false;
 
-        foreach(var gObj in GameObjectsToDeactivate)
-        {
-            gObj.SetActive(false);
-        }
+        foreach(var gObj in GameObjectsToDeactivate) gObj.SetActive(false);
 
         if(RigidBody == null) return;
 

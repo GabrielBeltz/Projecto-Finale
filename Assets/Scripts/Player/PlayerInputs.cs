@@ -8,6 +8,7 @@ public class PlayerInputs : MonoBehaviour
     public MaskHabilities habilities;
     public PauseController PauseController;
     PlayerHook hook;
+    bool HeldA, HeldB;
 
     private void Start()
     {
@@ -22,52 +23,63 @@ public class PlayerInputs : MonoBehaviour
     {
         if(Input.GetButtonDown("Cancel")) PauseController.PlayerPause();
 
-        if(!(Time.timeScale > 0)) return; // Se o jogo tiver pausado não coleta mais inputs.
-        
-        Inputs.RawX = (int)Input.GetAxisRaw("Horizontal");
-        Inputs.RawY = (int)Input.GetAxisRaw("Vertical");
-        Inputs.X = Input.GetAxis("Horizontal");
-        Inputs.Y = Input.GetAxis("Vertical");
-        Inputs.A.down = Input.GetButtonDown("AbilityA");
-        Inputs.A.up = Input.GetButtonUp("AbilityA");
-        Inputs.B.down = Input.GetButtonDown("AbilityB");
-        Inputs.B.up = Input.GetButtonUp("AbilityB");
-
-        player.WallOnRight &= Inputs.RawX > 0;
-        player.WallOnLeft &= Inputs.RawX < 0;
-        player.OnWall = player.WallOnLeft || player.WallOnRight;
-        player.OnWall &= player.GripTimer > 0.5f;
-
-        if(player.CurrentHealth > 0 && Inputs.RawX != 0 && !player.IsKnockbacked) player.MyAnimator.SetBool("FellDown", false);
-        if(player.IsKnockbacked || player.MyAnimator.GetBool("FellDown")) return;
-        if(Inputs.X != 0) player.SetFacingDirection(Inputs.X < 0);
-        if(Input.GetButtonDown("Fire1")) player.ExecuteAttack();
-        if(Input.GetButtonDown("Submit")) player.ExecuteInteraction();
-
-        if(Input.GetButtonDown("Jump"))
+        if(Time.timeScale == 0)
         {
-            if(hook.Traveling)
-            {
-                hook.Traveling = false;
-                PlayerController.Instance.TimeLeftGrounded = Time.time;
-                PlayerController.Instance._rb.velocity = Vector3.zero;
-                PlayerController.Instance.FallImpact = false;
-            }
+            HeldA = HeldA || Input.GetButtonUp("AbilityA");
+            HeldB = HeldB || Input.GetButtonUp("AbilityB");
+        }
+        else // Se o jogo tiver pausado não coleta mais inputs.
+        {
+            Inputs.RawX = (int)Input.GetAxisRaw("Horizontal");
+            Inputs.RawY = (int)Input.GetAxisRaw("Vertical");
+            Inputs.X = Input.GetAxis("Horizontal");
+            Inputs.Y = Input.GetAxis("Vertical");
+            Inputs.A.down = Input.GetButtonDown("AbilityA");
+            Inputs.A.up = Input.GetButtonUp("AbilityA");
+            Inputs.B.down = Input.GetButtonDown("AbilityB");
+            Inputs.B.up = Input.GetButtonUp("AbilityB");
 
-            if(player.OnWall)
-            {
-                player.ExecuteJump(true);
-                return;
-            }
-            else if(!player.HasJumped)
-            {
+            if(HeldA) Inputs.A.up = true;
+            if(HeldB) Inputs.B.up = true;
+            HeldA = false;
+            HeldB = false;
 
-                if(player.IsGrounded) player.ExecuteJump(false);
-                else if(Time.time < player.TimeLeftGrounded + player._coyoteTime) player.ExecuteJump(true);
-                else if(player.DoubleJumpCharged)
+            player.WallOnRight &= Inputs.RawX > 0;
+            player.WallOnLeft &= Inputs.RawX < 0;
+            player.OnWall = player.WallOnLeft || player.WallOnRight;
+            player.OnWall &= player.GripTimer > 0.5f;
+
+            if(player.CurrentHealth > 0 && Inputs.RawX != 0 && !player.IsKnockbacked) player.MyAnimator.SetBool("FellDown", false);
+            if(player.IsKnockbacked || player.MyAnimator.GetBool("FellDown")) return;
+            if(Inputs.X != 0) player.SetFacingDirection(Inputs.X < 0);
+            if(Input.GetButtonDown("Fire1")) player.ExecuteAttack();
+            if(Input.GetButtonDown("Submit")) player.ExecuteInteraction();
+
+            if(Input.GetButtonDown("Jump"))
+            {
+                if(hook.Traveling)
                 {
-                    player.DoubleJumpCharged = false;
+                    hook.Traveling = false;
+                    PlayerController.Instance.TimeLeftGrounded = Time.time;
+                    PlayerController.Instance._rb.velocity = Vector3.zero;
+                    PlayerController.Instance.FallImpact = false;
+                }
+
+                if(player.OnWall)
+                {
                     player.ExecuteJump(true);
+                    return;
+                }
+                else if(!player.HasJumped)
+                {
+
+                    if(player.IsGrounded) player.ExecuteJump(false);
+                    else if(Time.time < player.TimeLeftGrounded + player._coyoteTime) player.ExecuteJump(true);
+                    else if(player.DoubleJumpCharged)
+                    {
+                        player.DoubleJumpCharged = false;
+                        player.ExecuteJump(true);
+                    }
                 }
             }
         }
