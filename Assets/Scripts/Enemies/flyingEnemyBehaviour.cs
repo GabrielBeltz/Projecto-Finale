@@ -10,7 +10,7 @@ public class flyingEnemyBehaviour : MonoBehaviour
     public GameObject Knife;
     public Transform KnifeFloatingPoint;
     public SpriteRenderer mySprite;
-    public Collider2D KnifeHitbox;
+    public Collider2D KnifeHitbox, myHitbox;
     public ParticleSystem TeleportParticleSystem;
     IEnumerator vulnerableTimer;
 
@@ -86,10 +86,12 @@ public class flyingEnemyBehaviour : MonoBehaviour
         else yield return new WaitForSeconds(VulnerableTime);
         
         Vulnerable = false;
+        myHitbox.enabled = true;
     }
 
     IEnumerator TeleportToRandomLocation()
     {
+        myHitbox.enabled = false;
         TeleportParticleSystem.Stop();
         Vulnerable = true;
         mySprite.enabled = false;
