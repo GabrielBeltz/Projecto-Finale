@@ -148,7 +148,7 @@ public class PlayerController : MonoBehaviour
 
         if(!IsGrounded && grounded)
         {
-            if(CurrentHealth == 0 && transform.position.y < _fullHealHeight) OnPlayerFullHealth?.Invoke(); 
+            if(CurrentHealth < 1 && transform.position.y < _fullHealHeight) OnPlayerFullHealth?.Invoke(); 
 
             if(0 < CurrentHealth)
             {

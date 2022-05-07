@@ -693,7 +693,7 @@ GameObject:
   - component: {fileID: 116529981}
   - component: {fileID: 116529980}
   - component: {fileID: 116529979}
-  m_Layer: 3
+  m_Layer: 14
   m_Name: Ground
   m_TagString: SolidGround
   m_Icon: {fileID: 0}
@@ -713,7 +713,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.009563446, y: -2.0454707}
+  m_Offset: {x: 0.009563446, y: -10.721998}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -724,7 +724,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 19.958904, y: 7.5060797}
+  m_Size: {x: 19.958904, y: 24.85913}
   m_EdgeRadius: 0
 --- !u!212 &116529975
 SpriteRenderer:
@@ -8042,7 +8042,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1041189960}
   - component: {fileID: 1041189961}
-  m_Layer: 3
+  m_Layer: 14
   m_Name: AudioEmitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}

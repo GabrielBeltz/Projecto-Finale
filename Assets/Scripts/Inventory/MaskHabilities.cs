@@ -23,6 +23,7 @@ public class MaskHabilities : MonoBehaviour
     { 
         playerController = GetComponent<PlayerController>();
         playerController.AbilitiesController = this;
+        playerController.OnPlayerDeath += DeactivateAllAbilities;
     } 
 
     public Ability GetRandomAbility()
@@ -99,6 +100,13 @@ public class MaskHabilities : MonoBehaviour
         tempObjRef.EndInteraction(tempAbilityRef);
     }
 
+    void DeactivateAllAbilities()
+    {
+        DeactivateAbility(0);
+        DeactivateAbility(1);
+        DeactivateAbility(2);
+    }
+
     public void DeactivateAbility(int slot)
     {
         AbilitiesEnum tempAbility;
@@ -159,7 +167,7 @@ public class MaskHabilities : MonoBehaviour
                 break;
         }
 
-        tempObjRef.EndInteraction(output);
+        if(tempObjRef != null) tempObjRef.EndInteraction(output);
     }
 
     AbilitiesEnum PickSemiRandomActive(int totalChance)

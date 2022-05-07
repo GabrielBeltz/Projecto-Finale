@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6826904669710489296}
   - component: {fileID: 1156973141050903399}
   m_Layer: 3
-  m_Name: Platform 3
+  m_Name: Platform 3 (Collider Bugado)
   m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

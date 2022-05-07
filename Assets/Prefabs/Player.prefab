@@ -312,7 +312,7 @@ MonoBehaviour:
   DashAttack: {fileID: 11400000, guid: 48765d8ebbde2314280604fbd5e86240, type: 2}
   _attackLayerMask:
     serializedVersion: 2
-    m_Bits: 72
+    m_Bits: 16456
   _knockbackTime: 0.3
   _selfKnockBackTime: 0.1
   _groundImpactKnockbackTime: 0.5
@@ -329,7 +329,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 2ace38f714a9fba4e885d00beca4500d, type: 3}
   _groundMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 16392
   _wallsMask:
     serializedVersion: 2
     m_Bits: 520
