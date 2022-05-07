@@ -10,32 +10,19 @@ public class Item : MonoBehaviour
     public Renderer[] myRenderers;
     public ParticleSystem myParticleSystem;
 
-    private void Start() => assignedAbility = Upgrade? new Ability() : StatsManager.Instance.PlayerController.AbilitiesController.GetRandomAbility();
-
-    public void NewAbility() => StatsManager.Instance.PlayerController.AbilitiesController.NewAbilityInteraction(this);
-
-    public void UpgradeAbility() => StatsManager.Instance.PlayerController.AbilitiesController.UpgradeInteraction();
-
-    public void EndInteraction(Ability input)
-    {   
-        assignedAbility = input;
-        Deactivate();
-    }
-
-    public void Deactivate()
+    void OnEnable() 
     {
-        if(assignedAbility.Rank > 0) return;
-
-        if(myParticleSystem != null) myParticleSystem.Stop(false, ParticleSystemStopBehavior.StopEmitting);
-
-        foreach(var col in myColliders)
-        {
-            col.enabled = false;
-        }
-
-        foreach(var rdr in myRenderers)
-        {
-            rdr.enabled = false;
-        }
+        if(PlayerController.Instance != null) assignedAbility = Upgrade? new Ability() : PlayerController.Instance.AbilitiesController.GetRandomAbility();
     }
+
+    public void NewAbility() => PlayerController.Instance.AbilitiesController.NewAbilityInteraction(this);
+
+    public void UpgradeAbility() => PlayerController.Instance.AbilitiesController.UpgradeInteraction();
+
+    public void EndInteraction(Ability input) 
+    { 
+        assignedAbility = input;
+        if(assignedAbility.Rank > 0) return;
+        gameObject.SetActive(false);
+    } 
 }

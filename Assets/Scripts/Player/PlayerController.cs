@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
     [Header("Scene References")]
     public Animator MyAnimator;
     [SerializeField] AudioSource _soundEmitter;
-    public HUDController HUDController;
+    [HideInInspector] public HUDController HUDController;
 
     [Header("Audios")]
     public List<AudioClip> Audioclips;
@@ -91,20 +91,22 @@ public class PlayerController : MonoBehaviour
     {
         if(Instance != null && Instance != this) Destroy(this.gameObject);
         else Instance = this;
-    }
 
-    void Start()
-    {
+        AbilitiesController = GetComponent<MaskHabilities>();
         _attackFeedback = GetComponentInChildren<AttackFeedback>();
         dash = GetComponent<PlayerDash>();
         shield = GetComponent<PlayerShield>();
         hook = GetComponent<PlayerHook>();
         tantrum = GetComponent<PlayerTantrum>();
         PlInputs = GetComponent<PlayerInputs>();
-        _timeOfLastAttack = 0;
         _rb = GetComponent<Rigidbody2D>();
-        _lastAttack = DefaultAttack;
         FootStepController = GetComponentInChildren<FootStepController>();
+    }
+
+    void Start()
+    {
+        _timeOfLastAttack = 0;
+        _lastAttack = DefaultAttack;
         _fullHealHeight = transform.position.y + 2f;
         GripTimer = GripMaxTime;
         CurrentHealth = ModdedTotalHealth;

@@ -15,7 +15,6 @@ public class EnemyAttackTarget : MonoBehaviour
     [Header("Mortes")]
     public EnemyDeathType DeathType;
     public AudioClip[] hitSound;
-    bool hasRespawnBehaviour;
 
     [Header("Needed to Work")]
 #if UNITY_EDITOR
@@ -52,17 +51,12 @@ public class EnemyAttackTarget : MonoBehaviour
                 var aS = GetComponentInChildren<AudioSource>();
                 audioSource = aS != null ? aS : null;
             }
-
-        hasRespawnBehaviour = TryGetComponent(out RespawnBehaviour respawn);
-        if(respawn != null) hasRespawnBehaviour &= respawn.respawningTime > 0;
     }
 
     private void OnEnable()
     {
         currentHealth = TotalHealth;
         onAttackReceived += ReceiveAttack;
-
-        if(hasRespawnBehaviour) DeathType = EnemyDeathType.DisableAllButAudio;
 
         if(DamageReceived > 0)
         {
@@ -89,7 +83,7 @@ public class EnemyAttackTarget : MonoBehaviour
     private void Start()
     {
         float b = StatsManager.Instance.Damage.totalValue;
-        float a = StatsManager.Instance.PlayerController.DefaultAttack.damage;
+        float a = PlayerController.Instance.DefaultAttack.damage;
         defaultPlayerDamage = a * b;
     }
 
@@ -178,7 +172,8 @@ public class EnemyAttackTarget : MonoBehaviour
     void PlayHitSound()
     {
         if (audioSource.isPlaying) audioSource.Stop();
-
+        if(hitSound.Length < 1) return;
+        
         audioSource.clip = hitSound[Random.Range(0, hitSound.Length)];
         audioSource.Play();
     }

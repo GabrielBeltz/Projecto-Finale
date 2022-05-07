@@ -2006,6 +2006,10 @@ PrefabInstance:
       propertyPath: UIScaler
       value: 
       objectReference: {fileID: 2023705477}
+    - target: {fileID: 1154210218694514588, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
+      propertyPath: HUDController
+      value: 
+      objectReference: {fileID: 1232676431}
     - target: {fileID: 1154210218694514591, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
       propertyPath: m_Name
       value: Player

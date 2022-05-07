@@ -8,10 +8,10 @@ public class MaskHabilities : MonoBehaviour
     public AbilityActiveSlots ActiveA, ActiveB;
 
     public Chances SpawnChances;
+    Chances startingChances;
 
     [Header("References")]
     public AbilitiesInfos AbilitiesInfos;
-    private PlayerController playerController;
     public SwitchActivesMenu SwitchActivesMenu;
     public SwitchPassiveMenu SwitchPassiveMenu;
     public UpgradeAbilitiesMenu UpgradeAbilitiesMenu;
@@ -19,11 +19,11 @@ public class MaskHabilities : MonoBehaviour
 
     Item tempObjRef;
 
-    void Awake()
-    { 
-        playerController = GetComponent<PlayerController>();
-        playerController.AbilitiesController = this;
-        playerController.OnPlayerDeath += DeactivateAllAbilities;
+    void Start()
+    {
+        startingChances = SpawnChances;
+        PlayerController.Instance.AbilitiesController = this;
+        PlayerController.Instance.OnPlayerDeath += DeactivateAllAbilities;
     } 
 
     public Ability GetRandomAbility()
@@ -105,6 +105,7 @@ public class MaskHabilities : MonoBehaviour
         DeactivateAbility(0);
         DeactivateAbility(1);
         DeactivateAbility(2);
+        SpawnChances = startingChances;
     }
 
     public void DeactivateAbility(int slot)
@@ -134,36 +135,36 @@ public class MaskHabilities : MonoBehaviour
         switch(tempAbility)
         {
             case AbilitiesEnum.Dash:
-                playerController.AbilityRanks.DashRank = 0;
+                PlayerController.Instance.AbilityRanks.DashRank = 0;
                 break;
             case AbilitiesEnum.Mobility:
-                playerController.AbilityRanks.MobilityRank = 0;
+                PlayerController.Instance.AbilityRanks.MobilityRank = 0;
                 break;
             case AbilitiesEnum.Attack:
-                playerController.AbilityRanks.AttackRank = 0;
+                PlayerController.Instance.AbilityRanks.AttackRank = 0;
                 StatsManager.Instance.Damage.Reset();
                 break;
             case AbilitiesEnum.Health:
-                playerController.AbilityRanks.HealthRank = 0;
-                int oldHealth = playerController.ModdedTotalHealth;
+                PlayerController.Instance.AbilityRanks.HealthRank = 0;
+                int oldHealth = PlayerController.Instance.ModdedTotalHealth;
                 StatsManager.Instance.Health.Reset();
                 StatsManager.Instance.KnockbackResistance.Reset();
                 RecalculateHealth(oldHealth);
                 break;
             case AbilitiesEnum.Hook:
-                playerController.AbilityRanks.HookRank = 0;
+                PlayerController.Instance.AbilityRanks.HookRank = 0;
                 break;
             case AbilitiesEnum.Tantrum:
-                playerController.AbilityRanks.TantrumRank = 0;
+                PlayerController.Instance.AbilityRanks.TantrumRank = 0;
                 break;
             case AbilitiesEnum.Knives:
-                playerController.AbilityRanks.KnivesRank = 0;
+                PlayerController.Instance.AbilityRanks.KnivesRank = 0;
                 break;
             case AbilitiesEnum.Ranged:
-                playerController.AbilityRanks.RangedRank = 0;
+                PlayerController.Instance.AbilityRanks.RangedRank = 0;
                 break;
             case AbilitiesEnum.Shield:
-                playerController.AbilityRanks.ShieldRank = 0;
+                PlayerController.Instance.AbilityRanks.ShieldRank = 0;
                 break;
         }
 
@@ -266,135 +267,135 @@ public class MaskHabilities : MonoBehaviour
 
     void ActivateDash(int slot) 
     { 
-        if(playerController.AbilityRanks.DashRank < 1)
+        if(PlayerController.Instance.AbilityRanks.DashRank < 1)
         {
-            playerController.PlInputs.SetInput("Dash", slot == 0);
+            PlayerController.Instance.PlInputs.SetInput("Dash", slot == 0);
             if(slot == 0) ActiveA = AbilityActiveSlots.Dash;
             else ActiveB = AbilityActiveSlots.Dash;
-            playerController.AbilityRanks.DashRank = 1;
+            PlayerController.Instance.AbilityRanks.DashRank = 1;
         }
-        else playerController.AbilityRanks.DashRank++;
-        ShowItemInfo(slot, playerController.AbilityRanks.DashRank, AbilitiesEnum.Dash);
+        else PlayerController.Instance.AbilityRanks.DashRank++;
+        ShowItemInfo(slot, PlayerController.Instance.AbilityRanks.DashRank, AbilitiesEnum.Dash);
     }
 
     void ActivateAttack(int slot) 
     { 
-        if(playerController.AbilityRanks.AttackRank < 1)
+        if(PlayerController.Instance.AbilityRanks.AttackRank < 1)
         {
             Passive = AbilityPassiveSlots.Attack;
-            playerController.AbilityRanks.AttackRank = 1;
+            PlayerController.Instance.AbilityRanks.AttackRank = 1;
         }
-        else playerController.AbilityRanks.AttackRank++;
-        StatsManager.Instance.Damage.AddMultiplier($"Attack Rank {playerController.AbilityRanks.AttackRank}", 0.5f / playerController.AbilityRanks.AttackRank);
-        ShowItemInfo(slot, playerController.AbilityRanks.AttackRank, AbilitiesEnum.Attack);
+        else PlayerController.Instance.AbilityRanks.AttackRank++;
+        StatsManager.Instance.Damage.AddMultiplier($"Attack Rank {PlayerController.Instance.AbilityRanks.AttackRank}", 0.5f / PlayerController.Instance.AbilityRanks.AttackRank);
+        ShowItemInfo(slot, PlayerController.Instance.AbilityRanks.AttackRank, AbilitiesEnum.Attack);
     }
 
     void ActivateMobility(int slot) 
     {
-        if(playerController.AbilityRanks.MobilityRank < 1)
+        if(PlayerController.Instance.AbilityRanks.MobilityRank < 1)
         {
             Passive = AbilityPassiveSlots.Mobility;
-            playerController.AbilityRanks.MobilityRank = 1;
+            PlayerController.Instance.AbilityRanks.MobilityRank = 1;
         }
-        else playerController.AbilityRanks.MobilityRank++;
+        else PlayerController.Instance.AbilityRanks.MobilityRank++;
 
-        ShowItemInfo(slot, playerController.AbilityRanks.MobilityRank, AbilitiesEnum.Mobility);
+        ShowItemInfo(slot, PlayerController.Instance.AbilityRanks.MobilityRank, AbilitiesEnum.Mobility);
     }
 
     void ActivateHook(int slot) 
     {
-        if(playerController.AbilityRanks.HookRank < 1)
+        if(PlayerController.Instance.AbilityRanks.HookRank < 1)
         {
-            playerController.PlInputs.SetInput("Hook", slot == 0);
+            PlayerController.Instance.PlInputs.SetInput("Hook", slot == 0);
             if(slot == 0) ActiveA = AbilityActiveSlots.Hook;
             else ActiveB = AbilityActiveSlots.Hook;
-            playerController.AbilityRanks.HookRank = 1;
+            PlayerController.Instance.AbilityRanks.HookRank = 1;
         }
-        else playerController.AbilityRanks.HookRank++;
+        else PlayerController.Instance.AbilityRanks.HookRank++;
             
-        ShowItemInfo(slot, playerController.AbilityRanks.HookRank, AbilitiesEnum.Hook);
+        ShowItemInfo(slot, PlayerController.Instance.AbilityRanks.HookRank, AbilitiesEnum.Hook);
     }
 
     void ActivateHealth(int slot) 
     { 
-        if(playerController.AbilityRanks.HealthRank < 1)
+        if(PlayerController.Instance.AbilityRanks.HealthRank < 1)
         {
             Passive = AbilityPassiveSlots.Health;
-            playerController.AbilityRanks.HealthRank = 1;
+            PlayerController.Instance.AbilityRanks.HealthRank = 1;
         }
-        else playerController.AbilityRanks.HealthRank++;
+        else PlayerController.Instance.AbilityRanks.HealthRank++;
 
-        if(playerController.AbilityRanks.HealthRank < 3)
+        if(PlayerController.Instance.AbilityRanks.HealthRank < 3)
         {
-            int oldHealth = playerController.ModdedTotalHealth;
-            StatsManager.Instance.Health.AddMultiplier($"Health Rank {playerController.AbilityRanks.HealthRank}", 0.3334f);
+            int oldHealth = PlayerController.Instance.ModdedTotalHealth;
+            StatsManager.Instance.Health.AddMultiplier($"Health Rank {PlayerController.Instance.AbilityRanks.HealthRank}", 0.3334f);
             RecalculateHealth(oldHealth);
         }
-        StatsManager.Instance.KnockbackResistance.AddMultiplier($"Health Rank {playerController.AbilityRanks.HealthRank}", -0.1f * playerController.AbilityRanks.HealthRank);
-        ShowItemInfo(slot, playerController.AbilityRanks.HealthRank, AbilitiesEnum.Health);
+        StatsManager.Instance.KnockbackResistance.AddMultiplier($"Health Rank {PlayerController.Instance.AbilityRanks.HealthRank}", -0.1f * PlayerController.Instance.AbilityRanks.HealthRank);
+        ShowItemInfo(slot, PlayerController.Instance.AbilityRanks.HealthRank, AbilitiesEnum.Health);
     }
 
     void RecalculateHealth(int oldHealth)
     {
-        int currentDamage = oldHealth - playerController.CurrentHealth;
-        if(currentDamage > playerController.CurrentHealth) playerController.ReceiveDamage(currentDamage, Vector3.zero);
-        else playerController.CurrentHealth = playerController.ModdedTotalHealth - currentDamage;
+        int currentDamage = oldHealth - PlayerController.Instance.CurrentHealth;
+        if(currentDamage > PlayerController.Instance.CurrentHealth) PlayerController.Instance.ReceiveDamage(currentDamage, Vector3.zero);
+        else PlayerController.Instance.CurrentHealth = PlayerController.Instance.ModdedTotalHealth - currentDamage;
     } 
 
     void ActivateTantrum(int slot) 
     { 
-        if(playerController.AbilityRanks.TantrumRank < 1)
+        if(PlayerController.Instance.AbilityRanks.TantrumRank < 1)
         {
-            playerController.PlInputs.SetInput("Tantrum", slot == 0);
+            PlayerController.Instance.PlInputs.SetInput("Tantrum", slot == 0);
             if(slot == 0) ActiveA = AbilityActiveSlots.Tantrum;
             else ActiveB = AbilityActiveSlots.Tantrum;
-            playerController.AbilityRanks.TantrumRank = 1;
+            PlayerController.Instance.AbilityRanks.TantrumRank = 1;
         }
-        else playerController.AbilityRanks.TantrumRank++;
+        else PlayerController.Instance.AbilityRanks.TantrumRank++;
 
-        ShowItemInfo(slot, playerController.AbilityRanks.TantrumRank, AbilitiesEnum.Tantrum);
+        ShowItemInfo(slot, PlayerController.Instance.AbilityRanks.TantrumRank, AbilitiesEnum.Tantrum);
     }
 
     void ActivateKnives(int slot) 
     { 
-        if(playerController.AbilityRanks.KnivesRank < 1)
+        if(PlayerController.Instance.AbilityRanks.KnivesRank < 1)
         {
-            playerController.PlInputs.SetInput("Knives", slot == 0);
+            PlayerController.Instance.PlInputs.SetInput("Knives", slot == 0);
             if(slot == 0) ActiveA = AbilityActiveSlots.Knives;
             else ActiveB = AbilityActiveSlots.Knives;
-            playerController.AbilityRanks.KnivesRank = 1;
+            PlayerController.Instance.AbilityRanks.KnivesRank = 1;
         }
-        else playerController.AbilityRanks.KnivesRank++;
+        else PlayerController.Instance.AbilityRanks.KnivesRank++;
 
-        ShowItemInfo(slot, playerController.AbilityRanks.KnivesRank, AbilitiesEnum.Knives);
+        ShowItemInfo(slot, PlayerController.Instance.AbilityRanks.KnivesRank, AbilitiesEnum.Knives);
     }
 
     void ActivateRanged(int slot) 
     {
-        if(playerController.AbilityRanks.RangedRank < 1)
+        if(PlayerController.Instance.AbilityRanks.RangedRank < 1)
         {
-            playerController.PlInputs.SetInput("Ranged", slot == 0);
+            PlayerController.Instance.PlInputs.SetInput("Ranged", slot == 0);
             if(slot == 0) ActiveA = AbilityActiveSlots.Ranged;
             else ActiveB = AbilityActiveSlots.Ranged;
-            playerController.AbilityRanks.RangedRank = 1;
+            PlayerController.Instance.AbilityRanks.RangedRank = 1;
         }
-        else playerController.AbilityRanks.RangedRank++;
+        else PlayerController.Instance.AbilityRanks.RangedRank++;
         
-        ShowItemInfo(slot, playerController.AbilityRanks.RangedRank, AbilitiesEnum.Ranged);
+        ShowItemInfo(slot, PlayerController.Instance.AbilityRanks.RangedRank, AbilitiesEnum.Ranged);
     }
 
     void ActivateShield(int slot) 
     {
-        if(playerController.AbilityRanks.ShieldRank < 1)
+        if(PlayerController.Instance.AbilityRanks.ShieldRank < 1)
         {
-            playerController.PlInputs.SetInput("Shield", slot == 0);
+            PlayerController.Instance.PlInputs.SetInput("Shield", slot == 0);
             if(slot == 0) ActiveA = AbilityActiveSlots.Shield;
             else ActiveB = AbilityActiveSlots.Shield;
-            playerController.AbilityRanks.ShieldRank = 1;
+            PlayerController.Instance.AbilityRanks.ShieldRank = 1;
         }
-        else playerController.AbilityRanks.ShieldRank++;
+        else PlayerController.Instance.AbilityRanks.ShieldRank++;
 
-        ShowItemInfo(slot, playerController.AbilityRanks.ShieldRank, AbilitiesEnum.Shield);
+        ShowItemInfo(slot, PlayerController.Instance.AbilityRanks.ShieldRank, AbilitiesEnum.Shield);
     }
 
     #endregion
@@ -404,15 +405,15 @@ public class MaskHabilities : MonoBehaviour
     {
         switch(ability)
         {
-            case AbilitiesEnum.Dash: return playerController.AbilityRanks.DashRank;
-            case AbilitiesEnum.Mobility: return playerController.AbilityRanks.MobilityRank;
-            case AbilitiesEnum.Attack: return playerController.AbilityRanks.AttackRank;
-            case AbilitiesEnum.Health: return playerController.AbilityRanks.HealthRank;
-            case AbilitiesEnum.Hook: return playerController.AbilityRanks.HookRank;
-            case AbilitiesEnum.Tantrum: return playerController.AbilityRanks.TantrumRank;
-            case AbilitiesEnum.Knives: return playerController.AbilityRanks.KnivesRank;
-            case AbilitiesEnum.Ranged: return playerController.AbilityRanks.RangedRank;
-            default: return playerController.AbilityRanks.ShieldRank;
+            case AbilitiesEnum.Dash: return PlayerController.Instance.AbilityRanks.DashRank;
+            case AbilitiesEnum.Mobility: return PlayerController.Instance.AbilityRanks.MobilityRank;
+            case AbilitiesEnum.Attack: return PlayerController.Instance.AbilityRanks.AttackRank;
+            case AbilitiesEnum.Health: return PlayerController.Instance.AbilityRanks.HealthRank;
+            case AbilitiesEnum.Hook: return PlayerController.Instance.AbilityRanks.HookRank;
+            case AbilitiesEnum.Tantrum: return PlayerController.Instance.AbilityRanks.TantrumRank;
+            case AbilitiesEnum.Knives: return PlayerController.Instance.AbilityRanks.KnivesRank;
+            case AbilitiesEnum.Ranged: return PlayerController.Instance.AbilityRanks.RangedRank;
+            default: return PlayerController.Instance.AbilityRanks.ShieldRank;
         }
     }
 
@@ -450,7 +451,7 @@ public class MaskHabilities : MonoBehaviour
         }
     }
     
-    void ShowItemInfo(int slot, int rank, AbilitiesEnum type) => playerController.HUDController.ShowAbility(slot, rank, AbilitiesInfos.GetFullInfo(type.ToString()));
+    void ShowItemInfo(int slot, int rank, AbilitiesEnum type) => PlayerController.Instance.HUDController.ShowAbility(slot, rank, AbilitiesInfos.GetFullInfo(type.ToString()));
     
     #endregion
 

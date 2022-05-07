@@ -52,7 +52,7 @@ public class PlayerTantrum : MonoBehaviour
 
     IEnumerator ResetGameObject()
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.25f);
         TantrumGameObject.SetActive(false);
     }
 }
