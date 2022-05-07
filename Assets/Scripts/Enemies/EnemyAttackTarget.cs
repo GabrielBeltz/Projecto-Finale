@@ -96,8 +96,8 @@ public class EnemyAttackTarget : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.layer == 12) 
-        { 
-            ReceiveDamage(defaultPlayerDamage);
+        {
+            ReceiveAttackCall(PlayerController.Instance.DashAttack, collision.transform.position);
             PlaySoundAtMyPosition();
         }
     }

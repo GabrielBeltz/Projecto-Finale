@@ -26,8 +26,7 @@ public class EnemyPatrolWalls : MonoBehaviour
     void Update()
     {
         modifiedSpeed = speed * Mathf.Sign(transform.localScale.x);
-
-        if (target.isKnockbacked) modifiedSpeed = 0;
+        if(target!= null) if(target.isKnockbacked) modifiedSpeed = 0;
 
         if(neverRotates)
         {

@@ -27,10 +27,10 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public float TimeLeftGrounded, GripTimer;
 
     [Header("Combat")]
-    public PlayerMeleeAttack DefaultAttack;
-    [SerializeField] List<PlayerMeleeAttack> _playerAttacks;
-    [SerializeField] LayerMask _attackLayerMask;
     public int TotalHealth;
+    [SerializeField] List<PlayerMeleeAttack> _playerAttacks;
+    public PlayerMeleeAttack DefaultAttack, DashAttack;
+    [SerializeField] LayerMask _attackLayerMask;
     int _currentHealth;
     public int CurrentHealth
     {

@@ -170,7 +170,6 @@ GameObject:
   - component: {fileID: 6414420016722338308}
   - component: {fileID: 8505685576588254485}
   - component: {fileID: 6316516566706879890}
-  - component: {fileID: 6316516566706879891}
   - component: {fileID: 6871864164816524321}
   - component: {fileID: 7972514517262028906}
   m_Layer: 6
@@ -271,7 +270,7 @@ MonoBehaviour:
   rotaDown: {fileID: 1923148513974575335}
   rotaUp: {fileID: 5612225134543327112}
   frontFeet: {fileID: 7122912228403170251}
-  target: {fileID: 6316516566706879891}
+  target: {fileID: 0}
 --- !u!114 &6316516566706879890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -284,41 +283,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87214f58d37669e4aa28d0a13bcfc264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TotalHealth: 5
-  currentHealth: 5
-  receivedAttackDirection: 0
-  DamageReceived: 0
+  TotalHealth: 1
+  currentHealth: 1
+  receivedAttackDirection: 4
+  DamageReceived: 1
   selfKnockbackReceived: 0
-  DeathType: 0
-  hitSound:
-  - {fileID: 8300000, guid: 8495341369f80d24592aa1a35b6d47c7, type: 3}
-  - {fileID: 8300000, guid: 98c262d4a67a21d4c8ac462eaacfe917, type: 3}
+  DeathType: 1
+  hitSound: []
   Collider: {fileID: 0}
   ParticleSystem: {fileID: 0}
   Renderer: []
   RigidBody: {fileID: 6871864164816524321}
   audioSource: {fileID: 5087293631567823256}
-  BehavioursToDisable:
-  - {fileID: 6316516566706879891}
-  - {fileID: 8505685576588254485}
-  GameObjectsToDeactivate:
-  - {fileID: 0}
---- !u!114 &6316516566706879891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6316516566706879897}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 758fce21837004140b2890d66ea02b2e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyAttackTarget: {fileID: 0}
-  rb: {fileID: 0}
-  knockbackTime: 0.2
-  knockbackReceived: 0
+  BehavioursToDisable: []
+  GameObjectsToDeactivate: []
 --- !u!50 &6871864164816524321
 Rigidbody2D:
   serializedVersion: 4

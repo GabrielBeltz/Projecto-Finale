@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class flyingEnemyBehaviour : MonoBehaviour
 {
-    public bool Vulnerable, CanTeleport = true, Attacking;
+    public bool Vulnerable, Attacking;
     [Range(0.00001f, 1f)] public float KnifeSpeed;
     public float VulnerableTime = 1f, minimalDistanceToAttack = 10f, overshootDistance = 5, lerpCutoff = 0.9f, CatchUpDistance = 20f;
     public LayerMask DoesntTeleportInside;
@@ -12,22 +12,24 @@ public class flyingEnemyBehaviour : MonoBehaviour
     public SpriteRenderer mySprite;
     public Collider2D KnifeHitbox;
     public ParticleSystem TeleportParticleSystem;
+    IEnumerator vulnerableTimer;
 
     private void Update()
     {
-        mySprite.flipX = transform.position.x - PlayerController.Instance.transform.position.x > 0;
+        mySprite.flipX = transform.position.x - PlayerController.Instance.transform.position.x < 0;
+        if(transform.lossyScale.x > 0) mySprite.flipX = !mySprite.flipX;
         KnifeFloatingPoint.localPosition = new Vector3(mySprite.flipX? -0.8f : 0.8f, KnifeFloatingPoint.localPosition.y, KnifeFloatingPoint.localPosition.z);
         if(!Attacking) 
         {
             Knife.transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, -1f), (PlayerController.Instance.transform.position - Knife.transform.position).normalized);
-            Knife.transform.localPosition = KnifeFloatingPoint.position;
+            Knife.transform.position = KnifeFloatingPoint.position;
         }
 
         if(Vulnerable) return;
-        if(PlayerController.Instance.transform.position.y - transform.position.y < -CatchUpDistance && CanTeleport) StartCoroutine(TeleportToRandomLocation());
-        if(transform.position.y - PlayerController.Instance.transform.position.y < -CatchUpDistance && CanTeleport) StartCoroutine(TeleportToRandomLocation());
-        if(Vector2.Distance(transform.position, PlayerController.Instance.transform.position) > minimalDistanceToAttack) StartCoroutine(Attack());
-        else if(CanTeleport) StartCoroutine(TeleportToRandomLocation());
+        if(PlayerController.Instance.transform.position.y - transform.position.y < -CatchUpDistance) StartCoroutine(TeleportToRandomLocation());
+        else if(transform.position.y - PlayerController.Instance.transform.position.y < -CatchUpDistance) StartCoroutine(TeleportToRandomLocation());
+        else if(Vector2.Distance(transform.position, PlayerController.Instance.transform.position) > minimalDistanceToAttack) StartCoroutine(Attack());
+        else StartCoroutine(TeleportToRandomLocation());
     }
 
     IEnumerator Attack()
@@ -61,7 +63,14 @@ public class flyingEnemyBehaviour : MonoBehaviour
         Knife.transform.position = KnifeFloatingPoint.position;
         Attacking = false;
         KnifeHitbox.enabled = false;
-        StartCoroutine(VulnerableTimer(false));
+        CallVulnerable(false);
+    }
+
+    void CallVulnerable(bool value)
+    {
+        if(vulnerableTimer != null) StopCoroutine(vulnerableTimer);
+        vulnerableTimer = VulnerableTimer(value);
+        StartCoroutine(vulnerableTimer);
     }
 
     IEnumerator VulnerableTimer(bool teleport)
@@ -73,7 +82,6 @@ public class flyingEnemyBehaviour : MonoBehaviour
             Knife.SetActive(true);
             mySprite.enabled = true;
             yield return new WaitForSeconds(VulnerableTime * 0.25f);
-            CanTeleport = true;
         }
         else yield return new WaitForSeconds(VulnerableTime);
         
@@ -83,7 +91,7 @@ public class flyingEnemyBehaviour : MonoBehaviour
     IEnumerator TeleportToRandomLocation()
     {
         TeleportParticleSystem.Stop();
-        CanTeleport = false;
+        Vulnerable = true;
         mySprite.enabled = false;
         Knife.SetActive(false);
         int counter = 0;
@@ -101,7 +109,7 @@ public class flyingEnemyBehaviour : MonoBehaviour
 
         transform.position = CheckPosition;
         TeleportParticleSystem.Play();
-        StartCoroutine(VulnerableTimer(true));
+        CallVulnerable(true);
     }
 
     Vector2 GetSemirandomPosition()

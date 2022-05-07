@@ -301,17 +301,18 @@ MonoBehaviour:
   GravityScale: 10
   TimeLeftGrounded: 0
   GripTimer: 3
-  DefaultAttack: {fileID: 11400000, guid: 1d957a92dec18a84d9498d3938502dbe, type: 2}
+  TotalHealth: 6
   _playerAttacks:
+  - {fileID: 11400000, guid: 252fda0541908804cb00862c6c2425d9, type: 2}
+  - {fileID: 11400000, guid: f7cf13109c001c74ab445f6fea9309a5, type: 2}
   - {fileID: 11400000, guid: 1d957a92dec18a84d9498d3938502dbe, type: 2}
   - {fileID: 11400000, guid: 8246970d06e193a4e9882187cf016a65, type: 2}
   - {fileID: 11400000, guid: 77639c4dde859fd4f9432ea4a110260f, type: 2}
-  - {fileID: 11400000, guid: f7cf13109c001c74ab445f6fea9309a5, type: 2}
-  - {fileID: 11400000, guid: 252fda0541908804cb00862c6c2425d9, type: 2}
+  DefaultAttack: {fileID: 11400000, guid: 1d957a92dec18a84d9498d3938502dbe, type: 2}
+  DashAttack: {fileID: 11400000, guid: 48765d8ebbde2314280604fbd5e86240, type: 2}
   _attackLayerMask:
     serializedVersion: 2
     m_Bits: 72
-  TotalHealth: 6
   _knockbackTime: 0.3
   _selfKnockBackTime: 0.1
   _groundImpactKnockbackTime: 0.5
