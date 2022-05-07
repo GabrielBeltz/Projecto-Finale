@@ -25,6 +25,7 @@ public class HUDController : MonoBehaviour
         Hearts = new List<InstantiatedUIHP>();
         PlayerController.Instance.OnPlayerHealthChanged += InterfacePlayerHP;
         PlayerController.Instance.HUDController = this;
+        InterfacePlayerHP(PlayerController.Instance.CurrentHealth, PlayerController.Instance.ModdedTotalHealth);
     }
 
     public void InterfacePlayerHP(int currentHealth, int maxHealth)
