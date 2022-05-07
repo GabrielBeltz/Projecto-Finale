@@ -80,8 +80,8 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 9.6, y: 15.958442}
+  m_DrawMode: 1
+  m_Size: {x: 7, y: 10}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -154,11 +154,11 @@ PolygonCollider2D:
     border: {x: 0, y: 2.1, z: 0, w: 4.12}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 5.09, y: 7.17}
-    newSize: {x: 9.6, y: 15.958442}
+    newSize: {x: 7, y: 10}
     adaptiveTilingThreshold: 0.5
-    drawMode: 0
+    drawMode: 1
     adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_AutoTiling: 1
   m_Points:
     m_Paths:
     - - {x: -1.025, y: -3.465}

@@ -15,6 +15,7 @@ public class PlayerInputs : MonoBehaviour
         if(Inputs.A == null) Inputs.A = new AbilityButtonInput();
         if(Inputs.B == null) Inputs.B = new AbilityButtonInput();
         hook = GetComponent<PlayerHook>();
+        PlayerController.Instance.OnPlayerDeath += ResetInputs;
     }
 
     private void Update() => GatherInputs();
@@ -57,13 +58,7 @@ public class PlayerInputs : MonoBehaviour
 
             if(Input.GetButtonDown("Jump"))
             {
-                if(hook.Traveling)
-                {
-                    hook.Traveling = false;
-                    PlayerController.Instance.TimeLeftGrounded = Time.time;
-                    PlayerController.Instance._rb.velocity = Vector3.zero;
-                    PlayerController.Instance.FallImpact = false;
-                }
+                if(hook.Traveling) hook.UnnatachHook();
 
                 if(player.OnWall)
                 {
@@ -89,6 +84,12 @@ public class PlayerInputs : MonoBehaviour
     {     
         if(AbilityA)Inputs.A.name = name;
         else Inputs.B.name = name;
+    }
+
+    void ResetInputs()
+    {
+        SetInput("", true);
+        SetInput("", false);
     }
 
     public bool GetInputDown(string name) => Inputs.A.name == name ? Inputs.A.down : Inputs.B.name == name? Inputs.B.down : false;

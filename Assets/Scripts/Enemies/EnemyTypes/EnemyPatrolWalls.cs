@@ -60,7 +60,7 @@ public class EnemyPatrolWalls : MonoBehaviour
         rb.velocity *= -modifiedSpeed;
     }
 
-    void Rotate() => this.transform.rotation = Quaternion.LookRotation(transform.forward, hit[0].normal);
+    void Rotate() => transform.rotation = Quaternion.LookRotation(transform.forward, hit[0].normal);
 
     public void Backtrack()
     {

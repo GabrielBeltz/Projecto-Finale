@@ -43,7 +43,7 @@ public class AbilityView
         else
         {
             if(AbilityIcon != null) AbilityIcon.enabled = false;
-            AbilityName.text = "Empty Slot";
+            if(AbilityName != null) AbilityName.text = "Empty Slot";
             if(Rank1 != null) 
             { 
                 Rank1.text = "Rank 1 Description";

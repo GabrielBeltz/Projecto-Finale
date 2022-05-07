@@ -20,10 +20,11 @@ public class PlayerHook : MonoBehaviour
     [SerializeField] LineRenderer lineRenderer;
     IEnumerator hookTraveling;
 
-    private void Awake()
+    private void Start()
     {
         originalHookAimScale = hookAim.transform.localScale;   
         inputs = GetComponent<PlayerInputs>();
+        PlayerController.Instance.OnPlayerDeath += UnnatachHook;
     }
 
     public void HandleHooking(int rank)
@@ -46,7 +47,15 @@ public class PlayerHook : MonoBehaviour
         hookAim.transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, -1f), aimDirection);
         hookAim.transform.position = transform.position + (Vector3)aimDirection;
         hookAim.transform.localScale = new Vector3(originalHookAimScale.x * Mathf.Sign(transform.lossyScale.x), originalHookAimScale.y, 1f);
-    } 
+    }
+
+    public void UnnatachHook()
+    {
+        Traveling = false;
+        PlayerController.Instance.TimeLeftGrounded = Time.time;
+        PlayerController.Instance._rb.velocity = Vector3.zero;
+        PlayerController.Instance.FallImpact = false;
+    }
 
     void StartAiming()
     {

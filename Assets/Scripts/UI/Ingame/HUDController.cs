@@ -24,6 +24,7 @@ public class HUDController : MonoBehaviour
     {
         Hearts = new List<InstantiatedUIHP>();
         PlayerController.Instance.OnPlayerHealthChanged += InterfacePlayerHP;
+        PlayerController.Instance.OnPlayerDeath += NullifyAbilities;
         PlayerController.Instance.HUDController = this;
         InterfacePlayerHP(PlayerController.Instance.CurrentHealth, PlayerController.Instance.ModdedTotalHealth);
     }
@@ -39,6 +40,13 @@ public class HUDController : MonoBehaviour
         }
 
         if(maxHealth < Hearts.Count) for(int i = 0; i < Hearts.Count - maxHealth; i++) Hearts[Hearts.Count - i - 1].Prefab.SetActive(false);
+    }
+
+    void NullifyAbilities()
+    {
+        ShowAbility(0, 0, null);
+        ShowAbility(1, 0, null);
+        ShowAbility(2, 0, null);
     }
 
     public void ShowAbility(int slot, int rank, AbilityInfo ability)

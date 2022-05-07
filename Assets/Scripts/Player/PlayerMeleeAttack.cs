@@ -24,5 +24,5 @@ public class ComboInfo
 [System.Serializable]
 public enum AttackDirection
 {
-    Front, Back, Up, Down
+    Front, Back, Up, Down, Special
 }
