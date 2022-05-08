@@ -22,7 +22,6 @@ public class MaskHabilities : MonoBehaviour
     void Start()
     {
         startingChances = SpawnChances;
-        PlayerController.Instance.AbilitiesController = this;
         PlayerController.Instance.OnPlayerDeath += DeactivateAllAbilities;
     } 
 

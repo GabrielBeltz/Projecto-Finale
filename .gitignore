@@ -27,6 +27,7 @@ ExportedObj/
 *.VC.db
 *.log
 *.psd
+*.psd.meta
 
 # Unity3D generated meta files
 *.pidb.meta
@@ -38,4 +39,3 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
-Assets/Sprites/TeleportParticle.psd.meta

@@ -264,15 +264,17 @@ public class PlayerController : MonoBehaviour
         Attack();
     }
 
-    public Vector3 GetAttackDirection() => Input.GetAxisRaw("Vertical") != 0 ? Input.GetAxisRaw("Vertical") > 0 ? this.transform.up : -this.transform.up : this.transform.right * -this.transform.localScale.x;
+    Vector3 GetAttackDirection() => Input.GetAxisRaw("Vertical") != 0 ? Input.GetAxisRaw("Vertical") > 0 ? transform.up : -transform.up : transform.right * -transform.localScale.x;
 
     public void Attack()
     {
-        Vector3 attackPos = this.transform.position + ((GetAttackDirection() * (AbilityRanks.AttackRank > 1 ? _lastAttack.range : (_lastAttack.range /2))));
-        float attackRotation = Quaternion.LookRotation(GetAttackDirection(), GetAttackDirection()).eulerAngles.x;
+        Vector3 attackDirection = GetAttackDirection();
+        Vector3 attackPos = transform.position + ((attackDirection * (AbilityRanks.AttackRank > 1 ? _lastAttack.range : (_lastAttack.range /2))));
+        float attackRotation = attackDirection.y != 0 ? 90 * attackDirection.y : 0;
+        
         Vector3 attackSize = AbilityRanks.AttackRank > 2 ? new Vector3(0.4f, 1.2f, _lastAttack.range) : AbilityRanks.AttackRank > 1 ? new Vector3(0.25f, 0.75f, _lastAttack.range) : new Vector3(0.25f, 0.75f, _lastAttack.range / 2);
 
-        RaycastHit2D[] attackColliders = Physics2D.BoxCastAll(attackPos, attackSize, attackRotation, GetAttackDirection(), _lastAttack.range/2, _attackLayerMask);
+        RaycastHit2D[] attackColliders = Physics2D.BoxCastAll(attackPos, attackSize, attackRotation, attackDirection, _lastAttack.range/2, _attackLayerMask);
 
         for(int i = 0; i < attackColliders.Length; i++)
         {
@@ -301,7 +303,7 @@ public class PlayerController : MonoBehaviour
                 _rb.velocity = Vector3.zero;
                 float multiplier = Mathf.Clamp(selfKnockbackReceived, 0, 1);
                 _knockbackTimer = Time.time + (_selfKnockBackTime * multiplier);
-                _rb.AddForce(_lastAttack.selfKnockback * selfKnockbackReceived * -GetAttackDirection(), ForceMode2D.Force);
+                _rb.AddForce(_lastAttack.selfKnockback * selfKnockbackReceived * -attackDirection, ForceMode2D.Force);
             }
 
             if(AbilityRanks.AttackRank < 3)
@@ -312,13 +314,13 @@ public class PlayerController : MonoBehaviour
         }
 
         if(attackColliders.Length < 1)
-            if (PlInputs.Inputs.RawX == 0f) _rb.AddForce(GetAttackDirection() * _lastAttack.selfKnockback, ForceMode2D.Force);
+            if (PlInputs.Inputs.RawX == 0f) _rb.AddForce(attackDirection * _lastAttack.selfKnockback, ForceMode2D.Force);
 
         _soundEmitter.Stop();
 
         PlaySound(_lastAttack.sound);
 
-        _attackFeedback.CallFeedback(attackSize, attackPos, attackRotation, _lastAttack.cooldown);
+        _attackFeedback.CallFeedback(attackSize, attackPos, attackRotation, _lastAttack.cooldown, attackColliders.Length > 0);
         MyAnimator.SetTrigger(_lastAttack.animatorTrigger);
     }
 
