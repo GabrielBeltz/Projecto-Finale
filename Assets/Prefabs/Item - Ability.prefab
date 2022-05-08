@@ -9,12 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6533333189427638919}
-  - component: {fileID: 8628568253731690847}
+  - component: {fileID: 1116089578601576627}
   - component: {fileID: 1167011670243933684}
   - component: {fileID: 3625858474199416430}
   - component: {fileID: 2814564422206130422}
   - component: {fileID: 2825183676446285711}
-  - component: {fileID: 1116089578601576627}
   m_Layer: 8
   m_Name: Item - Ability
   m_TagString: Untagged
@@ -37,14 +36,44 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8628568253731690847
-MeshFilter:
+--- !u!114 &1116089578601576627
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 847184027023553439}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67209ce492f13f7409bc4029c8e3a488, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InteractionIndex: 0
+  lastIndex: 0
+  Interactions:
+  - ID: 
+    indexMod: 0
+    events:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1167011670243933684}
+          m_TargetAssemblyTypeName: Item, Assembly-CSharp
+          m_MethodName: NewAbility
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    getKeysMode: 0
+    getKeys: []
+    setKeys: []
+  OnExitInteraction:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &1167011670243933684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4875,43 +4904,6 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &1116089578601576627
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 847184027023553439}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 67209ce492f13f7409bc4029c8e3a488, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  InteractionIndex: 0
-  lastIndex: 0
-  Interactions:
-  - indexMod: 0
-    events:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1167011670243933684}
-          m_TargetAssemblyTypeName: Item, Assembly-CSharp
-          m_MethodName: NewAbility
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-    getKeysMode: 0
-    getKeys: []
-    setKeys: []
-  OnExitInteraction:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!95 &7654062618670191717
 Animator:
   serializedVersion: 3

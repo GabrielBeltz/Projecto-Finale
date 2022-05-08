@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5153139582085714183}
   - component: {fileID: 944243132709215860}
-  - component: {fileID: 3420780631974288878}
   - component: {fileID: 1321115176877693747}
+  - component: {fileID: 3420780631974288878}
   - component: {fileID: 1650960329887993886}
   m_Layer: 8
   m_Name: Item - Upgrade
@@ -56,22 +56,6 @@ MonoBehaviour:
   myRenderers:
   - {fileID: 1650960329887993886}
   myParticleSystem: {fileID: 0}
---- !u!58 &3420780631974288878
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1650960329887993887}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.18257093}
-  serializedVersion: 2
-  m_Radius: 0.68257093
 --- !u!114 &1321115176877693747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,7 +71,8 @@ MonoBehaviour:
   InteractionIndex: 0
   lastIndex: 0
   Interactions:
-  - indexMod: 0
+  - ID: 
+    indexMod: 0
     events:
       m_PersistentCalls:
         m_Calls:
@@ -121,6 +106,22 @@ MonoBehaviour:
   OnExitInteraction:
     m_PersistentCalls:
       m_Calls: []
+--- !u!58 &3420780631974288878
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650960329887993887}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.18257093}
+  serializedVersion: 2
+  m_Radius: 0.68257093
 --- !u!212 &1650960329887993886
 SpriteRenderer:
   m_ObjectHideFlags: 0

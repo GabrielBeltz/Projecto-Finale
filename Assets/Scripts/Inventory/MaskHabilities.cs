@@ -105,6 +105,7 @@ public class MaskHabilities : MonoBehaviour
         DeactivateAbility(1);
         DeactivateAbility(2);
         SpawnChances = startingChances;
+        InteractionManager.Instance.SetKey("Abilities", 0);
     }
 
     public void DeactivateAbility(int slot)

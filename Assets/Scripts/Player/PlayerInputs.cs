@@ -7,6 +7,7 @@ public class PlayerInputs : MonoBehaviour
     public PlayerController player;
     public MaskHabilities habilities;
     public PauseController PauseController;
+    public bool CanMove = true;
     PlayerHook hook;
     bool HeldA, HeldB;
 
@@ -31,10 +32,10 @@ public class PlayerInputs : MonoBehaviour
         }
         else // Se o jogo tiver pausado não coleta mais inputs.
         {
-            Inputs.RawX = (int)Input.GetAxisRaw("Horizontal");
-            Inputs.RawY = (int)Input.GetAxisRaw("Vertical");
-            Inputs.X = Input.GetAxis("Horizontal");
-            Inputs.Y = Input.GetAxis("Vertical");
+            Inputs.RawX = CanMove? (int)Input.GetAxisRaw("Horizontal") : 0;
+            Inputs.RawY = CanMove? (int)Input.GetAxisRaw("Vertical") : 0;
+            Inputs.X = CanMove? Input.GetAxis("Horizontal") : 0;
+            Inputs.Y = CanMove? Input.GetAxis("Vertical") : 0;
             Inputs.A.down = Input.GetButtonDown("AbilityA");
             Inputs.A.up = Input.GetButtonUp("AbilityA");
             Inputs.B.down = Input.GetButtonDown("AbilityB");
@@ -56,7 +57,7 @@ public class PlayerInputs : MonoBehaviour
             if(Input.GetButtonDown("Fire1")) player.ExecuteAttack();
             if(Input.GetButtonDown("Submit")) player.ExecuteInteraction();
 
-            if(Input.GetButtonDown("Jump"))
+            if(Input.GetButtonDown("Jump") && CanMove)
             {
                 if(hook.Traveling) hook.UnnatachHook();
 

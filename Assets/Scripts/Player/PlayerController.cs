@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public float TimeLeftGrounded, GripTimer;
 
     [Header("Combat")]
+    public int DeathCount = 0;
     public int TotalHealth;
     [SerializeField] List<PlayerMeleeAttack> _playerAttacks;
     public PlayerMeleeAttack DefaultAttack, DashAttack;
@@ -382,6 +383,7 @@ public class PlayerController : MonoBehaviour
 
     void PlayerDeath()
     {
+        DeathCount++;
         MyAnimator.SetFloat("Speed", 0);
         MyAnimator.SetBool("FellDown", true);
         gameObject.layer = 7;

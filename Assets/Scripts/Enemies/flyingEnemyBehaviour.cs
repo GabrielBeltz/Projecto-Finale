@@ -26,7 +26,7 @@ public class flyingEnemyBehaviour : MonoBehaviour
         }
 
         if(Vulnerable) return;
-        if(PlayerController.Instance.transform.position.y - transform.position.y < -CatchUpDistance) StartCoroutine(TeleportToRandomLocation());
+        if(PlayerController.Instance.transform.position.y - transform.position.y < -CatchUpDistance) return;
         else if(transform.position.y - PlayerController.Instance.transform.position.y < -CatchUpDistance) StartCoroutine(TeleportToRandomLocation());
         else if(Vector2.Distance(transform.position, PlayerController.Instance.transform.position) > minimalDistanceToAttack) StartCoroutine(Attack());
         else StartCoroutine(TeleportToRandomLocation());

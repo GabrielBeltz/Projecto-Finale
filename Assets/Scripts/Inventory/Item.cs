@@ -20,9 +20,10 @@ public class Item : MonoBehaviour
     public void UpgradeAbility() => PlayerController.Instance.AbilitiesController.UpgradeInteraction();
 
     public void EndInteraction(Ability input) 
-    { 
+    {
         assignedAbility = input;
         if(assignedAbility.Rank > 0) return;
+        InteractionManager.Instance.SetKey("Abilities", InteractionManager.Instance.GetKeyInt("Abilities") + 1);
         gameObject.SetActive(false);
     } 
 }

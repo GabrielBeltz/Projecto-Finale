@@ -59,7 +59,7 @@ MonoBehaviour:
   minimalDistanceToAttack: 15
   overshootDistance: 5
   lerpCutoff: 0.4
-  CatchUpDistance: 20
+  CatchUpDistance: 15
   DoesntTeleportInside:
     serializedVersion: 2
     m_Bits: 1608

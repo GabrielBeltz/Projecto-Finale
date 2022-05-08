@@ -232,7 +232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 1
-  playerKnockback: 10
+  playerKnockback: 15
 --- !u!114 &8505685576588254485
 MonoBehaviour:
   m_ObjectHideFlags: 0

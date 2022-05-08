@@ -14,18 +14,18 @@ public class Interactable : MonoBehaviour
     {
         if(Interactions.Length == 0)
         {
-            Debug.LogWarning($"Interações não setadas. [Clique aqui para achar o objeto na hierarquia]", this);
+            Debug.LogWarning($"{gameObject.name} Não possui interações setadas.", this);
             enabled = false;
         }
-        else
-        {
-            OnInteract += SetInteracting;
-        }
+        else OnInteract += SetInteracting;
     }
+
+    private void OnDisable() => SetInteracting(false);
 
     public virtual void Interact()
     {
-        CheckOverridingInteraction();
+        OnInteract?.Invoke(true);
+        if(Interactions[lastIndex].indexMod == 0) CheckOverridingInteraction();
 
         Interactions[InteractionIndex].events?.Invoke();
 
@@ -45,7 +45,6 @@ public class Interactable : MonoBehaviour
         }
         else
         {
-            OnInteract?.Invoke(true);
             lastIndex = InteractionIndex;
             InteractionIndex = nextInteractionIndex;
         }
@@ -53,12 +52,11 @@ public class Interactable : MonoBehaviour
 
     void SetInteracting(bool value)
     {
+        Debug.Log($"SetInteracting {value}");
+        PlayerController.Instance.PlInputs.CanMove = !value;
         _interacting = value;
 
-        if(!value)
-        {
-            OnExitInteraction?.Invoke();
-        }
+        if(!value) OnExitInteraction?.Invoke();
     }
 
     void CheckOverridingInteraction()
@@ -69,25 +67,48 @@ public class Interactable : MonoBehaviour
         {
             if (Interactions[i].getKeys.Length > 0)
             {
-                switch(Interactions[i].getKeysMode)
+                if(Interactions[i].ChecksBool)
                 {
-                    case Interaction.InteractionKeysMode.OR:
-                        for (int j = 0; j < Interactions[i].getKeys.Length; j++)
-                        {
-                            overrideInteraction = InteractionManager.Instance.GetKey(Interactions[i].getKeys[j]);
-                            overrideIndex = i;
-                        }
-                        break;
-                    case Interaction.InteractionKeysMode.AND:
-                        overrideInteraction = true;
-                        for (int j = 0; j < Interactions[i].getKeys.Length; j++)
-                        {
-                            overrideInteraction &= InteractionManager.Instance.GetKey(Interactions[i].getKeys[j]);
-                            overrideIndex = i;
-                        }
-                        break;
+                    switch(Interactions[i].getKeysMode)
+                    {
+
+                        case Interaction.InteractionKeysMode.OR:
+                            for (int j = 0; j < Interactions[i].getKeys.Length; j++)
+                            {
+                                overrideInteraction = InteractionManager.Instance.GetKey(Interactions[i].getKeys[j]);
+                                overrideIndex = i;
+                            }
+                            break;
+                        case Interaction.InteractionKeysMode.AND:
+                            overrideInteraction = true;
+                            for (int j = 0; j < Interactions[i].getKeys.Length; j++)
+                            {
+                                overrideInteraction &= InteractionManager.Instance.GetKey(Interactions[i].getKeys[j]);
+                                overrideIndex = i;
+                            }
+                            break;
+                    }
                 }
-                
+                if(Interactions[i].ChecksInt)
+                {
+                    for (int j = 0; j < Interactions[i].getKeys.Length; j++)
+                    {
+                        switch(Interactions[i].getKeys[j].intComparisonMode)
+                        {
+                            case InteractionKey.IntComparisonMode.Equals:
+                                overrideInteraction = InteractionManager.Instance.GetKeyEquals(Interactions[i].getKeys[j].name, Interactions[i].getKeys[j].intValue);
+                                break;
+                            case InteractionKey.IntComparisonMode.GreaterThan:
+                                overrideInteraction = InteractionManager.Instance.GetKeyGreaterThan(Interactions[i].getKeys[j].name, Interactions[i].getKeys[j].intValue);
+                                break;
+                            case InteractionKey.IntComparisonMode.LowerThan:overrideInteraction = InteractionManager.Instance.GetKeyLowerThan(Interactions[i].getKeys[j].name, Interactions[i].getKeys[j].intValue);
+                                break;
+                            default:
+                                break;
+                        }
+                        overrideIndex = i;
+                    }
+                }
             }
         }
 
