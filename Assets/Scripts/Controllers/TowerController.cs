@@ -70,6 +70,7 @@ public class TowerController : MonoBehaviour
 
     void NewLevel()
     {
+        if(_newLevel + 1 > LevelPools.Count) return;
         if(_spawnedLevels[_newLevel] != null) return;
         Level level;
         _lastLevel = _newLevel;
