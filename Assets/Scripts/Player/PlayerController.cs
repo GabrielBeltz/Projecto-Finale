@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,6 +29,8 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public float TimeLeftGrounded, GripTimer;
 
     [Header("Combat")]
+    public bool Invulnerable;
+    public float InvulnerableTimeAfterDamage;
     public int DeathCount = 0;
     public int TotalHealth;
     [SerializeField] List<PlayerMeleeAttack> _playerAttacks;
@@ -359,6 +362,8 @@ public class PlayerController : MonoBehaviour
 
     public void ReceiveDamage(int damageAmount, Vector3 knockback)
     {
+        if(Invulnerable) return;
+
         if(damageAmount > 0)
         {
             CurrentHealth -= damageAmount;
@@ -367,6 +372,14 @@ public class PlayerController : MonoBehaviour
 
         if(knockback != Vector3.zero) ReceiveKnockback(knockback);
         if(CurrentHealth < 1) OnPlayerDeath?.Invoke();
+        StartCoroutine(InvulnerableTimer());
+    }
+
+    IEnumerator InvulnerableTimer()
+    {
+        Invulnerable = true;
+        yield return new WaitForSeconds(InvulnerableTimeAfterDamage);
+        Invulnerable = false;
     }
 
     public void ReceiveKnockback(Vector3 knockback)

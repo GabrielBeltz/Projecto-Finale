@@ -287,6 +287,7 @@ MonoBehaviour:
   AbilitiesController: {fileID: 0}
   _baseWalkSpeed: 15
   _jumpManeuverabilityPercentage: 1
+  StopMoving: 0
   _initialJumpSpeed: 18
   _fallingAcceleration: 20
   _timeUntilMaxFallingSpeed: 2
@@ -303,6 +304,9 @@ MonoBehaviour:
   GravityScale: 10
   TimeLeftGrounded: 0
   GripTimer: 3
+  Invulnerable: 0
+  InvulnerableTimeAfterDamage: 1
+  DeathCount: 0
   TotalHealth: 6
   _playerAttacks:
   - {fileID: 11400000, guid: 252fda0541908804cb00862c6c2425d9, type: 2}
@@ -366,6 +370,7 @@ MonoBehaviour:
   player: {fileID: 1154210218694514588}
   habilities: {fileID: 428705585108110159}
   PauseController: {fileID: 0}
+  CanMove: 1
 --- !u!114 &428705585108110159
 MonoBehaviour:
   m_ObjectHideFlags: 0
