@@ -52,7 +52,6 @@ public class Interactable : MonoBehaviour
 
     void SetInteracting(bool value)
     {
-        Debug.Log($"SetInteracting {value}");
         PlayerController.Instance.PlInputs.CanMove = !value;
         _interacting = value;
 

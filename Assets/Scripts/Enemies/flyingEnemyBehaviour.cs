@@ -4,8 +4,8 @@ using UnityEngine;
 public class flyingEnemyBehaviour : MonoBehaviour
 {
     public bool Vulnerable, Attacking;
-    [Range(0.00001f, 1f)] public float KnifeSpeed;
-    public float VulnerableTime = 1f, minimalDistanceToAttack = 10f, overshootDistance = 5, lerpCutoff = 0.9f, CatchUpDistance = 20f;
+    [Range(0.00001f, 1f)] public float KnifeSpeedAttacking = 0.4f, KnifeSpeedGoingBack = 0.2f;
+    public float VulnerableTime = 1f, minimalDistanceToAttack = 10f, overshootDistance = 5, lerpCutoff = 0.9f, goingBackExtraCutoff, CatchUpDistance = 20f;
     public LayerMask DoesntTeleportInside;
     public GameObject Knife;
     public Transform KnifeFloatingPoint;
@@ -42,7 +42,7 @@ public class flyingEnemyBehaviour : MonoBehaviour
         Knife.transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, -1f), (PlayerController.Instance.transform.position - KnifeFloatingPoint.position).normalized);
         Knife.SetActive(true);
 
-        for(float i = 0; i < 1; i += 1 * Time.deltaTime* KnifeSpeed)
+        for(float i = 0; i < 1; i += 1 * Time.deltaTime* KnifeSpeedAttacking)
         {
             yield return new WaitForSeconds(Time.deltaTime);
 
@@ -52,12 +52,13 @@ public class flyingEnemyBehaviour : MonoBehaviour
 
         Knife.transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, -1f), (KnifeFloatingPoint.position - Knife.transform.position).normalized);
 
-        for(float i = 1; i > 0; i -= 1 * Time.deltaTime * KnifeSpeed * 1.33f)
+        for(float i = 1; i > 0; i -= 1 * Time.deltaTime * KnifeSpeedGoingBack)
         {
             yield return new WaitForSeconds(Time.deltaTime);
             
             Knife.transform.position = Vector3.Lerp(KnifeFloatingPoint.position, Knife.transform.position, i);
-            if(1 - lerpCutoff + 0.1f > i) break;
+            if(1 - lerpCutoff + goingBackExtraCutoff + 0.05f > i) KnifeHitbox.enabled = false;
+            if(1 - lerpCutoff + goingBackExtraCutoff > i) break;
         }
         
         Knife.transform.position = KnifeFloatingPoint.position;
@@ -81,7 +82,7 @@ public class flyingEnemyBehaviour : MonoBehaviour
             yield return new WaitForSeconds(VulnerableTime * 0.25f);
             Knife.SetActive(true);
             mySprite.enabled = true;
-            yield return new WaitForSeconds(VulnerableTime * 0.25f);
+            yield return new WaitForSeconds(VulnerableTime * 0.5f);
         }
         else yield return new WaitForSeconds(VulnerableTime);
         
@@ -106,7 +107,7 @@ public class flyingEnemyBehaviour : MonoBehaviour
             yield return new WaitForSeconds(Time.deltaTime);
             Collider2D[] colision = new Collider2D[1];
             CheckPosition = GetSemirandomPosition();
-            found = Physics2D.OverlapBoxNonAlloc(CheckPosition, transform.localScale, 0, colision, DoesntTeleportInside) == 0;
+            found = Physics2D.OverlapBoxNonAlloc(CheckPosition, transform.localScale * 1.25f, 0, colision, DoesntTeleportInside) == 0;
         }
 
         transform.position = CheckPosition;
@@ -118,8 +119,13 @@ public class flyingEnemyBehaviour : MonoBehaviour
     {
         Vector2 screenXLimits = new Vector2(0, 1f);
         if(PlayerController.Instance.transform.position.x > 7f) screenXLimits.y = 0.5f;
-        if(PlayerController.Instance.transform.position.x < -7f) screenXLimits.x = 0.5f;
-        Vector2 ScreenPosition = new Vector3(Random.Range(screenXLimits.x, screenXLimits.y) * Screen.width, 0.9f * Screen.height, 0f);
+        else if(PlayerController.Instance.transform.position.x < -7f) screenXLimits.x = 0.5f;
+        else
+        {
+            bool side = Random.Range(0, 2) == 0;
+            screenXLimits = side? new Vector2(0.7f, 1f) : new Vector2(0, 0.3f);
+        }
+        Vector2 ScreenPosition = new Vector3(Random.Range(screenXLimits.x, screenXLimits.y) * Screen.width, 0.8f * Screen.height, 0f);
         return Camera.main.ScreenToWorldPoint(ScreenPosition);
     }
 }

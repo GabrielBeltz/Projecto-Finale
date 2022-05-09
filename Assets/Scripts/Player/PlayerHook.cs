@@ -6,6 +6,7 @@ public class PlayerHook : MonoBehaviour
     public float AimTurningSpeed => rank > 2? 0.05f : 0.1f;
     public float BaseRange = 10f, PlayerSpeed = 10f, HookSpeed = 20f;
     public bool Traveling;
+    bool jump;
     public ContactFilter2D contactFilter2D;
     RaycastHit2D[] raycastHit = new RaycastHit2D[1];
     float ModifiedRange => rank > 2 ? BaseRange * 1.75f : rank> 1 ? BaseRange * 1.5f : BaseRange;
@@ -43,18 +44,26 @@ public class PlayerHook : MonoBehaviour
 
     void AimHook()
     {
+        PlayerController.Instance.StopMoving = true;
         if(inputs.Inputs.RawX != 0 || inputs.Inputs.RawY != 0) aimDirection = Vector3.Slerp(aimDirection, new Vector3(inputs.Inputs.RawX, inputs.Inputs.RawY, 0), AimTurningSpeed);
         hookAim.transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, -1f), aimDirection);
         hookAim.transform.position = transform.position + (Vector3)aimDirection;
         hookAim.transform.localScale = new Vector3(originalHookAimScale.x * Mathf.Sign(transform.lossyScale.x), originalHookAimScale.y, 1f);
     }
 
-    public void UnnatachHook()
+    public void UnnatachHook() => UnnatachHook(false); 
+    public void UnnatachHook(bool Jump)
     {
+        Time.timeScale = 1f;
         Traveling = false;
-        PlayerController.Instance.TimeLeftGrounded = Time.time;
-        PlayerController.Instance._rb.velocity = Vector3.zero;
-        PlayerController.Instance.FallImpact = false;
+
+        if(Jump) jump = true;
+        else
+        {
+            PlayerController.Instance.TimeLeftGrounded = Time.time;
+            PlayerController.Instance._rb.velocity = Vector3.zero;
+            PlayerController.Instance.FallImpact = false;
+        }
     }
 
     void StartAiming()
@@ -75,6 +84,7 @@ public class PlayerHook : MonoBehaviour
     void LaunchHook()
     {
         if(!aiming) return;
+        PlayerController.Instance.StopMoving = false;
         hookAim.SetActive(false);
         aiming = false;
         Time.timeScale = 1f;
@@ -167,6 +177,12 @@ public class PlayerHook : MonoBehaviour
             PlayerController.Instance._rb.velocity = Vector3.zero;
             transform.position = target;
             yield return new WaitForSeconds(0.01f);
+        }
+
+        if(jump) 
+        {
+            PlayerController.Instance.ExecuteJump(false);
+            jump = false; 
         }
 
         lineRenderer.enabled = false;

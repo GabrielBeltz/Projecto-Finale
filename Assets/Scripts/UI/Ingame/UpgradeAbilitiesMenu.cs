@@ -31,6 +31,7 @@ public class UpgradeAbilitiesMenu : MonoBehaviour
 
     public void UpgradeAbility(int slot)
     {
+        PlayerController.Instance.ExecuteInteraction();
         maskHabilities.UpgradeAbility(slot);
         Back();
     }

@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float _jumpManeuverabilityPercentage;
     public float WalkSpeed { get => StatsManager.Instance.MoveSpeed.totalValue * _baseWalkSpeed; }
     float _shieldSpeedMultiplier = 1f;
+    [HideInInspector] public bool StopMoving;
 
     [Header("Jumping")]
     [SerializeField] float _initialJumpSpeed = 20;
@@ -161,6 +162,7 @@ public class PlayerController : MonoBehaviour
                     MyAnimator.SetBool("FellDown", true);
                     PlaySound(Audioclips[1]);
                     hook.EndAiming();
+                    _rb.velocity = Vector3.zero;
                 }
                 else FootStepController.PlayOneShot(FootStepController.RandomSolidClip(), 0.5f);
             }
@@ -201,11 +203,14 @@ public class PlayerController : MonoBehaviour
 
     private void HandleWalking()
     {
-        _rb.velocity = IsGrounded
+        if(StopMoving) _rb.velocity = new Vector3(0, _rb.velocity.y, 0);
+        else
+        {
+            _rb.velocity = IsGrounded
             ? new Vector2(WalkSpeed * (PlInputs.Inputs.RawX * _shieldSpeedMultiplier), _rb.velocity.y)
             : new Vector2(WalkSpeed * _jumpManeuverabilityPercentage * (PlInputs.Inputs.RawX * _shieldSpeedMultiplier), _rb.velocity.y);
-
-        MyAnimator.SetFloat("Speed", Mathf.Abs(WalkSpeed * PlInputs.Inputs.RawX));
+            MyAnimator.SetFloat("Speed", Mathf.Abs(WalkSpeed * PlInputs.Inputs.RawX));
+        }
     }
 
     #endregion

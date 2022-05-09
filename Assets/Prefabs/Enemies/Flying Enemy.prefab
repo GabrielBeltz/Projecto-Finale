@@ -54,11 +54,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Vulnerable: 0
   Attacking: 0
-  KnifeSpeed: 0.4
+  KnifeSpeedAttacking: 0.4
+  KnifeSpeedGoingBack: 0.05
   VulnerableTime: 3
-  minimalDistanceToAttack: 15
+  minimalDistanceToAttack: 10
   overshootDistance: 5
   lerpCutoff: 0.4
+  goingBackExtraCutoff: 0.325
   CatchUpDistance: 15
   DoesntTeleportInside:
     serializedVersion: 2
@@ -85,7 +87,7 @@ MonoBehaviour:
   currentHealth: 5
   receivedAttackDirection: 0
   DamageReceived: 1
-  selfKnockbackReceived: 0
+  selfKnockbackReceived: 0.5
   DeathType: 0
   hitSound: []
   Collider: {fileID: 1759778827360215166}
@@ -112,7 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalCalculatedChance: 0
-  BaseChance: 50
+  BaseChance: 100
   ChancePerFloor: 1
   ChancePerExtraJump: 0
   ChancePerDashRank: 0
@@ -140,7 +142,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 1d7b4e5639638724f8776d058de7dd84, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5178,7 +5180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f971500e7f1a0724db5482e92000e071, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 2
+  damage: 1
   playerKnockback: 3
 --- !u!61 &1759778828661595682
 BoxCollider2D:
@@ -5289,7 +5291,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 4
+      scalar: 1
       minScalar: 5
       maxCurve:
         serializedVersion: 2

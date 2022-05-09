@@ -59,16 +59,14 @@ public class PlayerInputs : MonoBehaviour
 
             if(Input.GetButtonDown("Jump") && CanMove)
             {
-                if(hook.Traveling) hook.UnnatachHook();
-
-                if(player.OnWall)
+                if(hook.Traveling) hook.UnnatachHook(true);
+                else if(player.OnWall)
                 {
                     player.ExecuteJump(true);
                     return;
                 }
                 else if(!player.HasJumped)
                 {
-
                     if(player.IsGrounded) player.ExecuteJump(false);
                     else if(Time.time < player.TimeLeftGrounded + player._coyoteTime) player.ExecuteJump(true);
                     else if(player.DoubleJumpCharged)

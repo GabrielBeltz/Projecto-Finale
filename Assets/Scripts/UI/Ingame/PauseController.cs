@@ -49,4 +49,9 @@ public class PauseController : MonoBehaviour
         AcceptInput = true;
         Time.timeScale = gameplayTimeScale;
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }
