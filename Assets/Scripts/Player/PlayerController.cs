@@ -431,11 +431,9 @@ public class PlayerController : MonoBehaviour
         AbilityRanks.HookRank = 0;
         AbilityRanks.TantrumRank = 0;
         AbilityRanks.DashRank = 0;
-        AbilityRanks.KnivesRank = 0;
-        AbilityRanks.RangedRank = 0;
         AbilityRanks.ShieldRank = 0;
     }
 
     [System.Serializable]
-    public class AbilityRank { public int MobilityRank, AttackRank, HookRank, TantrumRank, DashRank, KnivesRank, RangedRank, ShieldRank, HealthRank; }
+    public class AbilityRank { public int MobilityRank, AttackRank, HookRank, TantrumRank, DashRank, ShieldRank, HealthRank; }
 }

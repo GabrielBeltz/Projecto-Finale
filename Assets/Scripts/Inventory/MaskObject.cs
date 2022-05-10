@@ -5,9 +5,9 @@ public class MaskObject : ItemObject
     public void Awake() => type = ItemType.AbilityItem;
 }
 
-public enum AbilitiesEnum { None, Dash, Mobility, Attack, Health, Hook, Tantrum, Knives, Ranged, Shield }
+public enum AbilitiesEnum { None, Dash, Mobility, Attack, Health, Hook, Tantrum, Shield }
 public enum AbilityPassiveSlots { None, Mobility, Attack, Health }
-public enum AbilityActiveSlots { None, Dash, Hook, Tantrum, Knives, Shield, Ranged }
+public enum AbilityActiveSlots { None, Dash, Hook, Tantrum, Shield }
 [System.Serializable]
 public struct Ability
 {

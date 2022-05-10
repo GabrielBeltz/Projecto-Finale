@@ -280,8 +280,6 @@ MonoBehaviour:
     HookRank: 0
     TantrumRank: 0
     DashRank: 0
-    KnivesRank: 0
-    RangedRank: 0
     ShieldRank: 0
     HealthRank: 0
   AbilitiesController: {fileID: 0}
@@ -323,7 +321,7 @@ MonoBehaviour:
   _selfKnockBackTime: 0.1
   _groundImpactKnockbackTime: 0.5
   _extraUngroundedKnockbackTime: 0.2
-  InteractionRadius: 2
+  InteractionRadius: 5
   InteractionLayer:
     serializedVersion: 2
     m_Bits: 256
@@ -393,8 +391,6 @@ MonoBehaviour:
     Health: 1
     Hook: 1
     Tantrum: 1
-    Knives: 0
-    Ranged: 0
     Shield: 1
   AbilitiesInfos: {fileID: 11400000, guid: 9cc26427eb4a7124db637588ed837724, type: 2}
   SwitchActivesMenu: {fileID: 0}

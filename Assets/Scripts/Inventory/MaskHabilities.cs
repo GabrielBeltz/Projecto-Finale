@@ -21,14 +21,14 @@ public class MaskHabilities : MonoBehaviour
 
     void Start()
     {
-        startingChances = SpawnChances;
+        SpawnChances = new Chances();
         PlayerController.Instance.OnPlayerDeath += DeactivateAllAbilities;
     } 
 
     public Ability GetRandomAbility()
     {
         Ability temp = new Ability();
-        int activeChance = SpawnChances.Dash + SpawnChances.Hook + SpawnChances.Knives + SpawnChances.Tantrum + SpawnChances.Ranged + SpawnChances.Shield;
+        int activeChance = SpawnChances.Dash + SpawnChances.Hook + SpawnChances.Tantrum + SpawnChances.Shield;
         int passiveChance = SpawnChances.Mobility + SpawnChances.Attack + SpawnChances.Health;
 
         bool passive = Random.Range(0, activeChance + passiveChance) < passiveChance;
@@ -104,7 +104,7 @@ public class MaskHabilities : MonoBehaviour
         DeactivateAbility(0);
         DeactivateAbility(1);
         DeactivateAbility(2);
-        SpawnChances = startingChances;
+        SpawnChances = new Chances();
         InteractionManager.Instance.SetKey("Abilities", 0);
     }
 
@@ -157,12 +157,6 @@ public class MaskHabilities : MonoBehaviour
             case AbilitiesEnum.Tantrum:
                 PlayerController.Instance.AbilityRanks.TantrumRank = 0;
                 break;
-            case AbilitiesEnum.Knives:
-                PlayerController.Instance.AbilityRanks.KnivesRank = 0;
-                break;
-            case AbilitiesEnum.Ranged:
-                PlayerController.Instance.AbilityRanks.RangedRank = 0;
-                break;
             case AbilitiesEnum.Shield:
                 PlayerController.Instance.AbilityRanks.ShieldRank = 0;
                 break;
@@ -184,20 +178,10 @@ public class MaskHabilities : MonoBehaviour
             SpawnChances.Hook = 0;
             return AbilitiesEnum.Hook;
         }
-        else if(roll < SpawnChances.Dash + SpawnChances.Hook + SpawnChances.Knives)
-        {
-            SpawnChances.Knives = 0;
-            return AbilitiesEnum.Knives;
-        }
-        else if(roll < SpawnChances.Dash + SpawnChances.Hook + SpawnChances.Knives + SpawnChances.Tantrum) 
+        else if(roll < SpawnChances.Dash + SpawnChances.Hook + SpawnChances.Tantrum) 
         {
             SpawnChances.Tantrum = 0;
             return AbilitiesEnum.Tantrum;
-        }
-        else if(roll < SpawnChances.Dash + SpawnChances.Hook + SpawnChances.Knives + SpawnChances.Tantrum + SpawnChances.Ranged) 
-        {
-            SpawnChances.Ranged = 0;
-            return AbilitiesEnum.Ranged;
         }
 
         SpawnChances.Shield = 0;
@@ -276,6 +260,7 @@ public class MaskHabilities : MonoBehaviour
         }
         else PlayerController.Instance.AbilityRanks.DashRank++;
         ShowItemInfo(slot, PlayerController.Instance.AbilityRanks.DashRank, AbilitiesEnum.Dash);
+        SpawnChances.Dash = 0;
     }
 
     void ActivateAttack(int slot) 
@@ -288,6 +273,7 @@ public class MaskHabilities : MonoBehaviour
         else PlayerController.Instance.AbilityRanks.AttackRank++;
         StatsManager.Instance.Damage.AddMultiplier($"Attack Rank {PlayerController.Instance.AbilityRanks.AttackRank}", 0.5f / PlayerController.Instance.AbilityRanks.AttackRank);
         ShowItemInfo(slot, PlayerController.Instance.AbilityRanks.AttackRank, AbilitiesEnum.Attack);
+        SpawnChances.Attack = 0;
     }
 
     void ActivateMobility(int slot) 
@@ -300,6 +286,7 @@ public class MaskHabilities : MonoBehaviour
         else PlayerController.Instance.AbilityRanks.MobilityRank++;
 
         ShowItemInfo(slot, PlayerController.Instance.AbilityRanks.MobilityRank, AbilitiesEnum.Mobility);
+        SpawnChances.Mobility = 0;
     }
 
     void ActivateHook(int slot) 
@@ -314,6 +301,7 @@ public class MaskHabilities : MonoBehaviour
         else PlayerController.Instance.AbilityRanks.HookRank++;
             
         ShowItemInfo(slot, PlayerController.Instance.AbilityRanks.HookRank, AbilitiesEnum.Hook);
+        SpawnChances.Hook = 0;
     }
 
     void ActivateHealth(int slot) 
@@ -333,6 +321,7 @@ public class MaskHabilities : MonoBehaviour
         }
         StatsManager.Instance.KnockbackResistance.AddMultiplier($"Health Rank {PlayerController.Instance.AbilityRanks.HealthRank}", -0.1f * PlayerController.Instance.AbilityRanks.HealthRank);
         ShowItemInfo(slot, PlayerController.Instance.AbilityRanks.HealthRank, AbilitiesEnum.Health);
+        SpawnChances.Health = 0;
     }
 
     void RecalculateHealth(int oldHealth)
@@ -354,34 +343,7 @@ public class MaskHabilities : MonoBehaviour
         else PlayerController.Instance.AbilityRanks.TantrumRank++;
 
         ShowItemInfo(slot, PlayerController.Instance.AbilityRanks.TantrumRank, AbilitiesEnum.Tantrum);
-    }
-
-    void ActivateKnives(int slot) 
-    { 
-        if(PlayerController.Instance.AbilityRanks.KnivesRank < 1)
-        {
-            PlayerController.Instance.PlInputs.SetInput("Knives", slot == 0);
-            if(slot == 0) ActiveA = AbilityActiveSlots.Knives;
-            else ActiveB = AbilityActiveSlots.Knives;
-            PlayerController.Instance.AbilityRanks.KnivesRank = 1;
-        }
-        else PlayerController.Instance.AbilityRanks.KnivesRank++;
-
-        ShowItemInfo(slot, PlayerController.Instance.AbilityRanks.KnivesRank, AbilitiesEnum.Knives);
-    }
-
-    void ActivateRanged(int slot) 
-    {
-        if(PlayerController.Instance.AbilityRanks.RangedRank < 1)
-        {
-            PlayerController.Instance.PlInputs.SetInput("Ranged", slot == 0);
-            if(slot == 0) ActiveA = AbilityActiveSlots.Ranged;
-            else ActiveB = AbilityActiveSlots.Ranged;
-            PlayerController.Instance.AbilityRanks.RangedRank = 1;
-        }
-        else PlayerController.Instance.AbilityRanks.RangedRank++;
-        
-        ShowItemInfo(slot, PlayerController.Instance.AbilityRanks.RangedRank, AbilitiesEnum.Ranged);
+        SpawnChances.Tantrum = 0;
     }
 
     void ActivateShield(int slot) 
@@ -396,6 +358,7 @@ public class MaskHabilities : MonoBehaviour
         else PlayerController.Instance.AbilityRanks.ShieldRank++;
 
         ShowItemInfo(slot, PlayerController.Instance.AbilityRanks.ShieldRank, AbilitiesEnum.Shield);
+        SpawnChances.Shield = 0;
     }
 
     #endregion
@@ -411,8 +374,6 @@ public class MaskHabilities : MonoBehaviour
             case AbilitiesEnum.Health: return PlayerController.Instance.AbilityRanks.HealthRank;
             case AbilitiesEnum.Hook: return PlayerController.Instance.AbilityRanks.HookRank;
             case AbilitiesEnum.Tantrum: return PlayerController.Instance.AbilityRanks.TantrumRank;
-            case AbilitiesEnum.Knives: return PlayerController.Instance.AbilityRanks.KnivesRank;
-            case AbilitiesEnum.Ranged: return PlayerController.Instance.AbilityRanks.RangedRank;
             default: return PlayerController.Instance.AbilityRanks.ShieldRank;
         }
     }
@@ -439,12 +400,6 @@ public class MaskHabilities : MonoBehaviour
             case AbilitiesEnum.Tantrum:
                 ActivateTantrum(slot);
                 break;
-            case AbilitiesEnum.Knives:
-                ActivateKnives(slot);
-                break;
-            case AbilitiesEnum.Ranged:
-                ActivateRanged(slot);
-                break;
             case AbilitiesEnum.Shield:
                 ActivateShield(slot);
                 break;
@@ -452,12 +407,15 @@ public class MaskHabilities : MonoBehaviour
     }
     
     void ShowItemInfo(int slot, int rank, AbilitiesEnum type) => PlayerController.Instance.HUDController.ShowAbility(slot, rank, AbilitiesInfos.GetFullInfo(type.ToString()));
-    
+
     #endregion
 
     [System.Serializable]
     public class Chances
     {
-        public int Dash = 1, Mobility = 1, Attack = 1, Health = 1, Hook = 1, Tantrum = 1, Knives = 1, Ranged = 1, Shield = 1;
+        public int Dash = 1, Mobility = 1, Attack = 1, Health = 1, Hook = 1, Tantrum = 1, Shield = 1;
+        public Chances()
+        {
+        }
     }
 }
