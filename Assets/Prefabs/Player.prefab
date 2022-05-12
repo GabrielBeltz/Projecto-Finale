@@ -5909,9 +5909,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   solidGroundClip:
-  - {fileID: 8300000, guid: 88223fd4a1d0d5f4290f0b3ac394a69b, type: 3}
-  - {fileID: 8300000, guid: 0203dc709784d7c4d99c10bec9c23d3e, type: 3}
-  - {fileID: 8300000, guid: b9512ee5ecc3fc248b660b32a052bbcd, type: 3}
+  - {fileID: 8300000, guid: 936fcf7a72cf25d4e97c840acd98f3ed, type: 3}
+  - {fileID: 8300000, guid: e552f6f513e96e04a83fcf7a3db6743d, type: 3}
+  - {fileID: 8300000, guid: 31a4569ef1253a04abb7e41876ed1047, type: 3}
   woodGroundClip:
   - {fileID: 8300000, guid: 0d3a9d9be79845a4aaf0e7837c45149f, type: 3}
   - {fileID: 8300000, guid: 9e97dca3dae852743aa66fd2d5662a08, type: 3}
