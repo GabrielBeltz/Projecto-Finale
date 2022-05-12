@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2138677392}
-  m_IndirectSpecularColor: {r: 0.28304, g: 0.36937052, b: 0.5010973, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -722,57 +722,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7912477971478462192, guid: 60685c47884ce7740a3f7a2b2441698a, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7912477971478462192, guid: 60685c47884ce7740a3f7a2b2441698a, type: 3}
-      propertyPath: knockbackTime
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7912477971478462192, guid: 60685c47884ce7740a3f7a2b2441698a, type: 3}
-      propertyPath: knockbackReceived
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7912477971478462193, guid: 60685c47884ce7740a3f7a2b2441698a, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7912477971478462193, guid: 60685c47884ce7740a3f7a2b2441698a, type: 3}
-      propertyPath: selfKnockbackReceived
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7912477971478462193, guid: 60685c47884ce7740a3f7a2b2441698a, type: 3}
-      propertyPath: receivedAttackDirection
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7912477971478462194, guid: 60685c47884ce7740a3f7a2b2441698a, type: 3}
-      propertyPath: m_Size.x
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 7912477971478462194, guid: 60685c47884ce7740a3f7a2b2441698a, type: 3}
-      propertyPath: m_Offset.x
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7912477971478462197, guid: 60685c47884ce7740a3f7a2b2441698a, type: 3}
-      propertyPath: m_Size.x
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7912477971478462197, guid: 60685c47884ce7740a3f7a2b2441698a, type: 3}
-      propertyPath: m_Offset.x
-      value: -0.4
-      objectReference: {fileID: 0}
     - target: {fileID: 7912477971478462199, guid: 60685c47884ce7740a3f7a2b2441698a, type: 3}
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7912477971478462199, guid: 60685c47884ce7740a3f7a2b2441698a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.23
+      value: 3.31
       objectReference: {fileID: 0}
     - target: {fileID: 7912477971478462199, guid: 60685c47884ce7740a3f7a2b2441698a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.59
+      value: 6.85
       objectReference: {fileID: 0}
     - target: {fileID: 7912477971478462199, guid: 60685c47884ce7740a3f7a2b2441698a, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3472,11 +3432,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e83e57fbcdba434a90a83006afdf06b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalPosition: {x: 18.439999, y: 4.2699995, z: -1.2}
-  respawningTime: 3
-  Collider: {fileID: 0}
-  Renderer: []
-  RigidBody: {fileID: 0}
+  GameObjectsToRespawnOnPlayerDeath: []
 --- !u!1 &1219498834
 GameObject:
   m_ObjectHideFlags: 0
@@ -3775,11 +3731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e83e57fbcdba434a90a83006afdf06b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalPosition: {x: -35.52, y: 1.26, z: 0}
-  respawningTime: 10
-  Collider: {fileID: 0}
-  Renderer: []
-  RigidBody: {fileID: 0}
+  GameObjectsToRespawnOnPlayerDeath: []
 --- !u!1 &1232676428
 GameObject:
   m_ObjectHideFlags: 0
@@ -4745,11 +4697,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e83e57fbcdba434a90a83006afdf06b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalPosition: {x: -6.0299997, y: 3.9, z: -1.2}
-  respawningTime: 3
-  Collider: {fileID: 0}
-  Renderer: []
-  RigidBody: {fileID: 0}
+  GameObjectsToRespawnOnPlayerDeath: []
 --- !u!114 &1485075091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5628,11 +5576,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e83e57fbcdba434a90a83006afdf06b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalPosition: {x: 7.63, y: 3.9, z: -1.14}
-  respawningTime: 3
-  Collider: {fileID: 0}
-  Renderer: []
-  RigidBody: {fileID: 0}
+  GameObjectsToRespawnOnPlayerDeath: []
 --- !u!4 &1852986588
 Transform:
   m_ObjectHideFlags: 0

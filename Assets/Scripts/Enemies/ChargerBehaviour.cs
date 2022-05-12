@@ -7,8 +7,11 @@ public class ChargerBehaviour : MonoBehaviour
     public Transform frontFeet;
     public ContactFilter2D contactFilter2D;
     public LayerMask wantedLayer;
+    [SerializeField] private AudioClip[] steps = new AudioClip[8];
+    private Animator _animator;
     private Transform _player;
     private RaycastHit2D[] _hit = new RaycastHit2D[1];
+    private AudioSource _soundEmiter;
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private float _moveSpeed, _hitDistance, _modifiedSpeed;
     [SerializeField] private GameObject _groundArea;
@@ -18,12 +21,15 @@ public class ChargerBehaviour : MonoBehaviour
     private void Start()
     {
         _rb = this.GetComponent<Rigidbody2D>();
-        Invoke("GetGroundObject", 0.3f);
+        _soundEmiter = GetComponent<AudioSource>();
+        _animator = GetComponent<Animator>();
         _player = GameObject.Find("Player").GetComponent<Transform>();
+        Invoke("GetGroundObject", 0.3f);
         _isPlayerInMyPatrolArea = false;
         _finishAttackMode = true;
         _getPlayerPos = false;
         currentState = State.Patrol;
+        _animator.SetBool("PlayerDetected", false);
     }
 
     private void Update()
@@ -49,6 +55,7 @@ public class ChargerBehaviour : MonoBehaviour
     {
         _getPlayerPos = false;
         _finishAttackMode = false;
+        _animator.SetBool("PlayerDetected", false);
 
         if(!_isPlayerInMyPatrolArea)
         {
@@ -68,6 +75,7 @@ public class ChargerBehaviour : MonoBehaviour
 
     private void Attack()
     {
+        _animator.SetBool("PlayerDetected", true);
         if(!_getPlayerPos)
         {
             bool playerToTheRight = _player.position.x > transform.position.x ? true : false;
@@ -111,6 +119,16 @@ public class ChargerBehaviour : MonoBehaviour
     {
         frontFeet.rotation = IsFacingRight()? Quaternion.Euler(new Vector3(0f, 0f, -180f)) : Quaternion.Euler(new Vector3(0f, 0f, 0f)) ;
         Rotate();
+    }
+
+    public void Step()
+    {
+        _soundEmiter.PlayOneShot(steps[Random.Range(0, 3)]);
+    }
+
+    public void HeavyStep()
+    {
+        _soundEmiter.PlayOneShot(steps[Random.Range(4, 8)]);
     }
 
     private void OnDrawGizmos()

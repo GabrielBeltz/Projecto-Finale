@@ -36,6 +36,7 @@ public class PlayerDash : MonoBehaviour
         {
             if (inputs.GetInputDown("Dash") && !HasDashed)
             {
+                FindObjectOfType<AudioManager>().Play("Dash");
                 if(inputs.Inputs.RawX != 0) _dashDir = new Vector3(inputs.Inputs.RawX, 0, 0).normalized;
                 else _dashDir = new Vector3(Mathf.Sign(-transform.lossyScale.x), 0,0).normalized;
 

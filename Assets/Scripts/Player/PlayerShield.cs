@@ -31,6 +31,7 @@ public class PlayerShield : MonoBehaviour
     {
         Active = active;
         ShieldSprite.enabled = active;
+        FindObjectOfType<AudioManager>().Play("ShieldUp");
         if(active) 
         {
             cooldownTimer = Cooldown;
@@ -46,6 +47,7 @@ public class PlayerShield : MonoBehaviour
     IEnumerator Deactivate(float duration)
     {
         yield return new WaitForSeconds(duration);
+        FindObjectOfType<AudioManager>().Play("ShieldDown");
         Deactivate();
     }
 
