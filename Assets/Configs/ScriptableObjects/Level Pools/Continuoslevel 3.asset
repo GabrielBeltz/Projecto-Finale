@@ -10,13 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9e360a9444ee07f42878313ea3bdb424, type: 3}
-  m_Name: Level Fixed Loot
+  m_Name: Continuoslevel 3
   m_EditorClassIdentifier: 
-  IsFixed: 1
+  IsFixed: 0
   Levels:
   - ID: 0
-    Prefab: {fileID: 1384126574900293311, guid: b46a7bf7e9a9d1240a29cfe567c72c1b, type: 3}
-  - ID: 1
-    Prefab: {fileID: 4838169689694792541, guid: 9f98d1758e57d0f41917c4a2c59eb566, type: 3}
-  - ID: 2
-    Prefab: {fileID: 5110531867463615523, guid: 5041d04e05b6e0d4690890322f2f218b, type: 3}
+    Prefab: {fileID: 7012053553459298686, guid: 91ebaeb89fe7f484c8194801c17d1a6d, type: 3}

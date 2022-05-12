@@ -88,7 +88,7 @@ public class TowerController : MonoBehaviour
 
         lastLevels.Add(level);
 
-        if(Random.Range(1, 3) == 2) _spawnedLevels[_newLevel].transform.localScale = new Vector3(-1, 1, 1);
+       if(Random.Range(1, 3) == 2) _spawnedLevels[_newLevel].transform.localScale = new Vector3(-1, 1, 1);
     }
 
     void ResetAllLevels()
