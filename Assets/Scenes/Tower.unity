@@ -12459,7 +12459,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7786459, y: 1}
+    m_SensorSize: {x: 1.7777778, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -14563,6 +14563,69 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1812338655}
   m_CullTransparentMesh: 1
+--- !u!1 &1822977336
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1822977338}
+  - component: {fileID: 1822977337}
+  m_Layer: 0
+  m_Name: AudioController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1822977337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1822977336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca989e30e7c15b742b4f0f4361b5594d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - soundName: ButtonClick
+    soundIndex: 0
+    audioClip: {fileID: 8300000, guid: ff7c06a7f92e0274bb679f84642b5924, type: 3}
+    volume: 0.5
+    pitch: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+    rolloffMode: 0
+    maxDistance: 0
+  - soundName: ButtonEnter
+    soundIndex: 1
+    audioClip: {fileID: 8300000, guid: ee1f4c20260f47f49a211f0255cf2a4c, type: 3}
+    volume: 0.5
+    pitch: 0
+    playOnAwake: 0
+    source: {fileID: 0}
+    rolloffMode: 0
+    maxDistance: 0
+  audioMixer: {fileID: 24300002, guid: f096cc8a90319844fb297b7b4ce869a3, type: 2}
+--- !u!4 &1822977338
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1822977336}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1835835492
 GameObject:
   m_ObjectHideFlags: 0
