@@ -4,8 +4,9 @@ using UnityEngine;
 public class flyingEnemyBehaviour : MonoBehaviour
 {
     public bool Vulnerable, Attacking;
-    [Range(0.00001f, 1f)] public float KnifeSpeedAttacking = 0.4f, KnifeSpeedGoingBack = 0.2f;
-    public float VulnerableTime = 1f, minimalDistanceToAttack = 10f, overshootDistance = 5, lerpCutoff = 0.9f, goingBackExtraCutoff, CatchUpDistance = 20f;
+    [Range(0.2f, 10f)] public float TimeToReachPlayer = 1.5f, TimeToGoBack = 2.5f;
+    [Range(0, 1f)] public float AccelerationGoing = 0.75f, AccelerationComing = 0.25f;
+    public float VulnerableTime = 1f, minimalDistanceToAttack = 10f, overshootDistance = 5, lerpCutoff = 2f, CatchUpDistance = 20f;
     public LayerMask DoesntTeleportInside;
     public GameObject Knife;
     public Transform KnifeFloatingPoint;
@@ -41,24 +42,30 @@ public class flyingEnemyBehaviour : MonoBehaviour
         Knife.transform.position = KnifeFloatingPoint.position;
         Knife.transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, -1f), (PlayerController.Instance.transform.position - KnifeFloatingPoint.position).normalized);
         Knife.SetActive(true);
+        Vector3 startingPoint = KnifeFloatingPoint.position;
 
-        for(float i = 0; i < 1; i += 1 * Time.deltaTime* KnifeSpeedAttacking)
+        float TimeComparison = Time.time;
+
+        for(float i = Time.time ; i < TimeComparison + TimeToReachPlayer; i = Time.time)
         {
             yield return new WaitForSeconds(Time.deltaTime);
 
-            Knife.transform.position = Vector3.Lerp(Knife.transform.position, attackTarget, i);
-            if(i > lerpCutoff) break;
+            float positionPercentage = Mathf.InverseLerp(TimeComparison, TimeComparison + TimeToReachPlayer, Time.time);
+            Vector3 SmoothedTarget = Vector3.Lerp(startingPoint, Knife.transform.position, AccelerationGoing);
+            Knife.transform.position = Vector3.Lerp(SmoothedTarget, attackTarget, positionPercentage);
         }
 
         Knife.transform.rotation = Quaternion.LookRotation(new Vector3(0, 0, -1f), (KnifeFloatingPoint.position - Knife.transform.position).normalized);
+        TimeComparison = Time.time;
+        startingPoint = Knife.transform.position;
 
-        for(float i = 1; i > 0; i -= 1 * Time.deltaTime * KnifeSpeedGoingBack)
+        for (float i = Time.time; i < TimeComparison + TimeToGoBack; i = Time.time)
         {
             yield return new WaitForSeconds(Time.deltaTime);
-            
-            Knife.transform.position = Vector3.Lerp(KnifeFloatingPoint.position, Knife.transform.position, i);
-            if(1 - lerpCutoff + goingBackExtraCutoff + 0.05f > i) KnifeHitbox.enabled = false;
-            if(1 - lerpCutoff + goingBackExtraCutoff > i) break;
+
+            float positionPercentage = Mathf.InverseLerp(TimeComparison, TimeComparison + TimeToGoBack, Time.time);
+            Vector3 SmoothedTarget = Vector3.Lerp(startingPoint, Knife.transform.position, AccelerationComing);
+            Knife.transform.position = Vector3.Lerp(KnifeFloatingPoint.position, SmoothedTarget, 1 - positionPercentage);
         }
         
         Knife.transform.position = KnifeFloatingPoint.position;
