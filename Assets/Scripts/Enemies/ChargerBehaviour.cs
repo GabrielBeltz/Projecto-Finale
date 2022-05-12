@@ -59,18 +59,12 @@ public class ChargerBehaviour : MonoBehaviour
 
         if(!_isPlayerInMyPatrolArea)
         {
-            _modifiedSpeed = _moveSpeed * Mathf.Sign(transform.localScale.x);
+            _modifiedSpeed = _moveSpeed * Mathf.Sign(transform.lossyScale.x);
             _rb.velocity = new Vector2(_modifiedSpeed, 0f);
 
-            if(Physics2D.Raycast(frontFeet.position, frontFeet.right, contactFilter2D, _hit, _hitDistance) > Mathf.Epsilon || Physics2D.Raycast(frontFeet.position, -Vector3.up, contactFilter2D, _hit, _hitDistance * 3f) == 0f)
-            {
-                RotateAll();
-            }
+            if(Physics2D.Raycast(frontFeet.position, frontFeet.right, contactFilter2D, _hit, _hitDistance) > Mathf.Epsilon || Physics2D.Raycast(frontFeet.position, -Vector3.up, contactFilter2D, _hit, _hitDistance * 3f) == 0f) Rotate();
         }
-        else
-        {
-            currentState = State.Attack;
-        }
+        else currentState = State.Attack;
     }
 
     private void Attack()
@@ -80,27 +74,22 @@ public class ChargerBehaviour : MonoBehaviour
         {
             bool playerToTheRight = _player.position.x > transform.position.x ? true : false;
 
-            if(playerToTheRight != IsFacingRight())
-            {
-                RotateAll();
-            }
+            if(playerToTheRight != IsFacingRight()) Rotate();
             _getPlayerPos = true;
         }
 
         if(!_finishAttackMode)
         {
-            _modifiedSpeed = _moveSpeed * Mathf.Sign(transform.localScale.x) * 3f;
+            _modifiedSpeed = _moveSpeed * Mathf.Sign(transform.lossyScale.x) * 3f;
             _rb.velocity = new Vector2(_modifiedSpeed, 0f);
-            
-            if(Physics2D.Raycast(frontFeet.position, frontFeet.right, contactFilter2D, _hit, _hitDistance) > Mathf.Epsilon || Physics2D.Raycast(frontFeet.position, -Vector3.up, contactFilter2D, _hit, _hitDistance * 3f) == 0f)
+
+            if(Physics2D.Raycast(frontFeet.position, frontFeet.right, contactFilter2D, _hit, _hitDistance) > Mathf.Epsilon || Physics2D.Raycast(frontFeet.position, -Vector3.up, contactFilter2D, _hit, _hitDistance * 3f) == 0f) 
             {
                 _finishAttackMode = true;
+                Rotate();
             }
         }
-        else
-        {
-            currentState = State.Patrol;
-        }
+        else currentState = State.Patrol;
     }
 
     private void GetGroundObject()
@@ -111,25 +100,12 @@ public class ChargerBehaviour : MonoBehaviour
     }
 
     private bool IsPlayerInMyPatrolArea() => _groundArea.GetInstanceID() == PlayerController.Instance.actualGroundObject.GetInstanceID() ? true : false;
-    private bool IsFacingRight() => transform.localScale.x > Mathf.Epsilon;
+    private bool IsFacingRight() => transform.lossyScale.x > Mathf.Epsilon;
 
-    private void Rotate() => transform.localScale = new Vector2(-Mathf.Sign(_rb.velocity.x), transform.localScale.y);
+    private void Rotate() => transform.localScale = new Vector2(-transform.localScale.x, transform.localScale.y);
 
-    private void RotateAll()
-    {
-        frontFeet.rotation = IsFacingRight()? Quaternion.Euler(new Vector3(0f, 0f, -180f)) : Quaternion.Euler(new Vector3(0f, 0f, 0f)) ;
-        Rotate();
-    }
-
-    public void Step()
-    {
-        _soundEmiter.PlayOneShot(steps[Random.Range(0, 3)]);
-    }
-
-    public void HeavyStep()
-    {
-        _soundEmiter.PlayOneShot(steps[Random.Range(4, 8)]);
-    }
+    public void Step() => _soundEmiter.PlayOneShot(steps[Random.Range(0, 3)]);
+    public void HeavyStep() => _soundEmiter.PlayOneShot(steps[Random.Range(4, 8)]);
 
     private void OnDrawGizmos()
     {
