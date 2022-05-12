@@ -12,6 +12,9 @@ public class AttackFeedback : MonoBehaviour
     {
         myRenderer = GetComponent<Renderer>();
         particles = GetComponentInChildren<ParticleSystem>();
+        Material m = myRenderer.material;
+        m.renderQueue++;
+        myRenderer.material = m;
     }
 
     public void CallFeedback(Vector3 size, Vector3 pos, float rotation, float time, bool hit)
