@@ -27,8 +27,8 @@ public class PlayerInputs : MonoBehaviour
 
         if(Time.timeScale == 0)
         {
-            HeldA = HeldA || Input.GetButtonUp("AbilityA");
-            HeldB = HeldB || Input.GetButtonUp("AbilityB");
+            HeldA = HeldA || Input.GetButtonUp("AbilityA") && !CanMove;
+            HeldB = HeldB || Input.GetButtonUp("AbilityB") && !CanMove;
         }
         else // Se o jogo tiver pausado não coleta mais inputs.
         {
@@ -36,10 +36,10 @@ public class PlayerInputs : MonoBehaviour
             Inputs.RawY = CanMove? (int)Input.GetAxisRaw("Vertical") : 0;
             Inputs.X = CanMove? Input.GetAxis("Horizontal") : 0;
             Inputs.Y = CanMove? Input.GetAxis("Vertical") : 0;
-            Inputs.A.down = Input.GetButtonDown("AbilityA");
-            Inputs.A.up = Input.GetButtonUp("AbilityA");
-            Inputs.B.down = Input.GetButtonDown("AbilityB");
-            Inputs.B.up = Input.GetButtonUp("AbilityB");
+            Inputs.A.down = CanMove? Input.GetButtonDown("AbilityA") : false;
+            Inputs.A.up = CanMove? Input.GetButtonUp("AbilityA") : false;
+            Inputs.B.down = CanMove? Input.GetButtonDown("AbilityB") : false;
+            Inputs.B.up = CanMove? Input.GetButtonUp("AbilityB") : false;
 
             if(HeldA) Inputs.A.up = true;
             if(HeldB) Inputs.B.up = true;
@@ -52,9 +52,10 @@ public class PlayerInputs : MonoBehaviour
             player.OnWall &= player.GripTimer > 0.5f;
 
             if(player.CurrentHealth > 0 && Inputs.RawX != 0 && !player.IsKnockbacked) player.MyAnimator.SetBool("FellDown", false);
+
             if(player.IsKnockbacked || player.MyAnimator.GetBool("FellDown")) return;
-            if(Inputs.X != 0) player.SetFacingDirection(Inputs.X < 0);
-            if(Input.GetButtonDown("Fire1")) player.ExecuteAttack();
+
+            if(Input.GetButtonDown("Fire1") && CanMove) player.ExecuteAttack();
             if(Input.GetButtonDown("Submit")) player.ExecuteInteraction();
 
             if(Input.GetButtonDown("Jump") && CanMove)
