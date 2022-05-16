@@ -3122,16 +3122,16 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Controls:
 
-    Jump - Z
+    Jump - Z, K
 
-    Attack - X
+    Attack - X, I
 
-    Active Ability A - C
+    Active Ability A -
+    C, J
 
-    Active
-    Ability B - V
+    Active Ability B - V, L
 
-    Confirm - E
+    Confirm - E, Enter
 
     Back - Esc'
   m_isRightToLeft: 0
@@ -9741,7 +9741,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1178367592
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12459,7 +12459,7 @@ MonoBehaviour:
     ModeOverride: 0
     LensShift: {x: 0, y: 0}
     GateFit: 2
-    m_SensorSize: {x: 1.7777778, y: 1}
+    m_SensorSize: {x: 1.7786459, y: 1}
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
