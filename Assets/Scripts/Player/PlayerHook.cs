@@ -156,6 +156,7 @@ public class PlayerHook : MonoBehaviour
     {
         Traveling = true;
         Vector3 target = hit.point + hit.normal;
+        RaycastHit2D[] hits = new RaycastHit2D[1];
 
         for(float i = 0; i < 1; i += 0.01f)
         {
@@ -176,6 +177,8 @@ public class PlayerHook : MonoBehaviour
             hookGameObject.transform.localScale = new Vector3(1f * Mathf.Sign(transform.lossyScale.x), 1f, 1f);
             PlayerController.Instance._rb.velocity = Vector3.zero;
             transform.position = target;
+            Traveling = Physics2D.CircleCastNonAlloc(hit.point, 0.05f, Vector2.zero, hits, 0, contactFilter2D.layerMask) > 0;
+
             yield return new WaitForSeconds(0.01f);
         }
 
