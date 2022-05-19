@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,8 +11,9 @@ public class PlayerController : MonoBehaviour
 
     [HideInInspector] public MaskHabilities AbilitiesController;
     float RegainedHealth;
-    
+
     [Header("Walking")]
+    public Transform model;
     [SerializeField] float _baseWalkSpeed = 8f;
     [SerializeField] float _jumpManeuverabilityPercentage;
     public float WalkSpeed { get => StatsManager.Instance.MoveSpeed.totalValue * _baseWalkSpeed; }
@@ -139,19 +139,36 @@ public class PlayerController : MonoBehaviour
 
         HandleAnimation();
     }
+    
+    public void CorrectFacingDirection()
+    {
+        if(Mathf.Sign(transform.lossyScale.x) < 0) transform.localScale = new Vector3(-1, 1, 1);
+    }
 
-
-    public void SetFacingDirection(bool left) => this.transform.localScale = left ? new Vector3(1, 1, 1) : new Vector3(-1, 1, 1);
+    public void SetFacingDirection(bool left)
+    {
+        // Flipar o X do sprite renderer futuramente
+        model.transform.localScale = new Vector3(-0.3f, 0.3f, left? 0.3f : -0.3f);
+    }
 
     #region ColisorDetections
 
-    private void HandleGrounding()
+        private void HandleGrounding()
     {
         var grounded = Physics2D.OverlapCircleNonAlloc(transform.position + new Vector3(0, _grounderOffset, 0), _grounderRadius, _ground, _groundMask) > 0;
 
         actualGroundObject = grounded ? _ground[0].gameObject : gameObject;
-
-        if(grounded) GripTimer = Mathf.Clamp(GripTimer + Time.deltaTime, 0, GripMaxTime);
+        Transform parent = null;
+        if(grounded)
+        {
+            platformov platMover;
+            if(_ground[0].TryGetComponent<platformov>(out platMover))
+            {
+                if(platMover.rot == 0f) parent = platMover.transform;
+            }
+            GripTimer = Mathf.Clamp(GripTimer + Time.deltaTime, 0, GripMaxTime);
+            transform.SetParent(parent);
+        }
 
         if(!IsGrounded && grounded)
         {
@@ -196,6 +213,8 @@ public class PlayerController : MonoBehaviour
 
     void HandleAnimation()
     {
+        if(PlInputs.Inputs.X != 0) SetFacingDirection(_rb.velocity.x < 0);
+        CorrectFacingDirection();
         MyAnimator.SetBool("Grounded", IsGrounded);
         MyAnimator.SetFloat("VerticalSpeed", _rb.velocity.y);
     }
