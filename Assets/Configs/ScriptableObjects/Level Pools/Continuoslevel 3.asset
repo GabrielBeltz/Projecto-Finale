@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e360a9444ee07f42878313ea3bdb424, type: 3}
   m_Name: Continuoslevel 3
   m_EditorClassIdentifier: 
-  IsFixed: 0
+  IsFixed: 1
   Levels:
   - ID: 0
     Prefab: {fileID: 7012053553459298686, guid: 91ebaeb89fe7f484c8194801c17d1a6d, type: 3}

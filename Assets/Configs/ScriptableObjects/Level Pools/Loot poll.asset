@@ -13,4 +13,24 @@ MonoBehaviour:
   m_Name: Loot poll
   m_EditorClassIdentifier: 
   IsFixed: 0
-  Levels: []
+  Levels:
+  - ID: 0
+    Prefab: {fileID: 2825730546520803661, guid: 5a76e78e5cf92cb47851fef312805ca8, type: 3}
+  - ID: 1
+    Prefab: {fileID: 4389749196068670741, guid: 76e418371b481fe4189e1e1ea31dd8bd, type: 3}
+  - ID: 2
+    Prefab: {fileID: 7688418468922494455, guid: 426a6e0184923fb498c21f1fabe481dd, type: 3}
+  - ID: 3
+    Prefab: {fileID: 5731410178674651222, guid: e28e29e455786c347a983f36d815ab26, type: 3}
+  - ID: 4
+    Prefab: {fileID: 2825730546520803661, guid: 5a76e78e5cf92cb47851fef312805ca8, type: 3}
+  - ID: 5
+    Prefab: {fileID: 5176565589455371290, guid: ef03cb60a5f50224180cff49357ebb64, type: 3}
+  - ID: 6
+    Prefab: {fileID: 2075574711104881442, guid: cb38cda614aa5544bb7dd66c146984f9, type: 3}
+  - ID: 7
+    Prefab: {fileID: 4257428262655880920, guid: ef8e2c1aada401d4d8d6f09ee14b5ac0, type: 3}
+  - ID: 8
+    Prefab: {fileID: 3855248428293256797, guid: 829e4bc391165b34dac0a53a2e612a83, type: 3}
+  - ID: 10
+    Prefab: {fileID: 1384126574900293311, guid: 5595c1d2d65801045934ff8136ab9902, type: 3}

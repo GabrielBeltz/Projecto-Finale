@@ -329,7 +329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TotalHealth: 5
   currentHealth: 5
-  receivedAttackDirection: 1
+  receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 1
   DeathType: 0

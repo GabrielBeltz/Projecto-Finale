@@ -17,6 +17,7 @@ public class LevelPool : ScriptableObject
 
     public Level GetLevel() => Levels[Random.Range(0, Levels.Count)];
 }
+  
 
 [System.Serializable]
 public class Level

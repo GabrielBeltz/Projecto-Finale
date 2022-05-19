@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 
+
 public class PlayerInputs : MonoBehaviour
 {
     public FrameInputs Inputs;
@@ -10,6 +11,8 @@ public class PlayerInputs : MonoBehaviour
     public bool CanMove = true;
     PlayerHook hook;
     bool HeldA, HeldB;
+
+
 
     private void Start()
     {
@@ -54,10 +57,10 @@ public class PlayerInputs : MonoBehaviour
             if(player.CurrentHealth > 0 && Inputs.RawX != 0 && !player.IsKnockbacked) player.MyAnimator.SetBool("FellDown", false);
             if(player.IsKnockbacked || player.MyAnimator.GetBool("FellDown")) return;
             if(Inputs.X != 0) player.SetFacingDirection(Inputs.X < 0);
-            if(Input.GetButtonDown("Fire1")) player.ExecuteAttack();
-            if(Input.GetButtonDown("Submit")) player.ExecuteInteraction();
+            if(Input.GetButtonDown("Fire1")|| Input.GetButtonDown("Ps4-buttonsquare")) player.ExecuteAttack();
+            if(Input.GetButtonDown("Submit")|| Input.GetButtonDown("Ps4 - button O"))  player.ExecuteInteraction();
 
-            if(Input.GetButtonDown("Jump") && CanMove)
+            if(Input.GetButtonDown("Jump")|| Input.GetButtonDown("Ps4-buttonx") && CanMove)
             {
                 if(hook.Traveling) hook.UnnatachHook(true);
                 else if(player.OnWall)
