@@ -283,6 +283,7 @@ MonoBehaviour:
     ShieldRank: 0
     HealthRank: 0
   AbilitiesController: {fileID: 0}
+  model: {fileID: 6674576254330828150}
   _baseWalkSpeed: 15
   _jumpManeuverabilityPercentage: 1
   StopMoving: 0

@@ -14,56 +14,44 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   list:
   - name: Attack
-    icon: {fileID: 21300000, guid: 9359813109d8c754f83081e70441703d, type: 3}
+    icon: {fileID: 21300000, guid: 33d28fe62071fbf4986e0929db10d71b, type: 3}
     ranks:
     - Description: Attacks do more damage.
     - Description: Attacks reach further.
     - Description: Attacks pierce and hit all targets in its range.
   - name: Mobility
-    icon: {fileID: -2413806693520163455, guid: e9c36924689c2764e9b24fb3c57bfb79, type: 3}
+    icon: {fileID: 21300000, guid: 8a47b803cabac7548a6e69369c96562c, type: 3}
     ranks:
     - Description: Slide and jump off walls.
     - Description: Can climb up and down on walls.
     - Description: Extra jump while airborne.
   - name: Health
-    icon: {fileID: 21300000, guid: 2f83422af9731274baae51691165d5c6, type: 3}
+    icon: {fileID: 21300000, guid: 00bb18aef37f8754aa4bfd4e65b5a906, type: 3}
     ranks:
     - Description: Max health goes to 8.
     - Description: Max health goes to 10.
     - Description: A fraction all attacks come back as health.
   - name: Dash
-    icon: {fileID: -2413806693520163455, guid: e9c36924689c2764e9b24fb3c57bfb79, type: 3}
+    icon: {fileID: 21300000, guid: 5d93a983c119159478d944d33fcd8922, type: 3}
     ranks:
     - Description: Perform a dash while moving.
     - Description: While dashing, ignore enemies and attacks.
     - Description: Dashing through enemies damages them.
   - name: Hook
-    icon: {fileID: -2413806693520163455, guid: e9c36924689c2764e9b24fb3c57bfb79, type: 3}
+    icon: {fileID: 21300000, guid: 8725989997f77a94298e378bd920ba76, type: 3}
     ranks:
     - Description: While airborne, throw a hook that pulls you.
     - Description: Your hook range increases.
     - Description: Hooking enemies stuns them for a short time.
   - name: Tantrum
-    icon: {fileID: -2413806693520163455, guid: e9c36924689c2764e9b24fb3c57bfb79, type: 3}
+    icon: {fileID: 21300000, guid: e3f432a3e75f7634196d8d144226b956, type: 3}
     ranks:
     - Description: Damage all enemies in a range.
     - Description: Tantrum reaches farther and does more damage.
     - Description: Tantrum reaches farther and does more damage.
-  - name: Knives
-    icon: {fileID: -2413806693520163455, guid: e9c36924689c2764e9b24fb3c57bfb79, type: 3}
-    ranks:
-    - Description: 3 weak daggers that hits the closest enemy.
-    - Description: Increases the number of daggers to 5.
-    - Description: 7 daggers that search for a second enemy
   - name: Shield
-    icon: {fileID: -2413806693520163455, guid: e9c36924689c2764e9b24fb3c57bfb79, type: 3}
+    icon: {fileID: 21300000, guid: 32f2892fb2f179b41b41ff6462249375, type: 3}
     ranks:
     - Description: A shield that lasts 1 second but stops your movement.
     - Description: You can move at 50% speed when shielded.
     - Description: You can move at full speed when shielded.
-  - name: Ranged
-    icon: {fileID: -2413806693520163455, guid: e9c36924689c2764e9b24fb3c57bfb79, type: 3}
-    ranks:
-    - Description: Throw boomerangs that comes back if it hits an enemy.
-    - Description: Boomerangs come back after hitting anything.
-    - Description: the boomerang wil eliminate humanity. happy ending :)
