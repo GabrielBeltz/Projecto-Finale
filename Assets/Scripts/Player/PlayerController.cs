@@ -257,8 +257,8 @@ public class PlayerController : MonoBehaviour
 
         if(HasJumped)
         {
-            if((Input.GetButton("Jump") && Time.time < TimeLeftGrounded + _extraJumpTime + _jumpTime)) _rb.gravityScale = 0;
-            else if(Time.time > TimeLeftGrounded + _jumpTime) HasJumped = false;
+            if ((Input.GetButton("Jump") && Time.time < TimeLeftGrounded + _extraJumpTime + _jumpTime)) _rb.gravityScale = 0;
+            else if (Time.time > TimeLeftGrounded + _jumpTime) HasJumped = false;
         }
         else if(!dash.Dashing) _rb.gravityScale = GravityScale;
     }

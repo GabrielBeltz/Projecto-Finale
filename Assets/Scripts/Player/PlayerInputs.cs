@@ -55,10 +55,10 @@ public class PlayerInputs : MonoBehaviour
 
             if(player.IsKnockbacked || player.MyAnimator.GetBool("FellDown")) return;
 
-            if(Input.GetButtonDown("Fire1") && CanMove) player.ExecuteAttack();
-            if(Input.GetButtonDown("Submit")) player.ExecuteInteraction();
+            if(Input.GetButtonDown("Fire1") && CanMove ) player.ExecuteAttack();
+            if(Input.GetButtonDown("Submit") ) player.ExecuteInteraction();
 
-            if(Input.GetButtonDown("Jump") && CanMove)
+            if(Input.GetButtonDown("Jump") && CanMove  && CanMove)
             {
                 if(hook.Traveling) hook.UnnatachHook(true);
                 else if(player.OnWall)
