@@ -2043,6 +2043,34 @@ PrefabInstance:
       propertyPath: PauseController
       value: 
       objectReference: {fileID: 1232676430}
+    - target: {fileID: 7426547834575076236, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7426547834575076236, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.071
+      objectReference: {fileID: 0}
+    - target: {fileID: 8520029815053138701, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
+      propertyPath: m_Positions.Array.data[1].x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8520029815053138701, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
+      propertyPath: m_Positions.Array.data[1].y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8520029815053138701, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8520029815053138701, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8520029815053138701, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.r
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfbdff0806cfceb4a855240570d3c9d2, type: 3}
 --- !u!1 &284881360
@@ -9741,7 +9769,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1178367592
 RectTransform:
   m_ObjectHideFlags: 0

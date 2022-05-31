@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PlayerHook : MonoBehaviour
 {
-    public float AimTurningSpeed => rank > 2? 0.05f : 0.1f;
+    public float AimTurningSpeed => rank > 2? 0.05f : rank > 1 ? 0.1f : 1f;
     public float BaseRange = 10f, PlayerSpeed = 10f, HookSpeed = 20f;
     public bool Traveling;
     bool jump;
@@ -123,6 +123,8 @@ public class PlayerHook : MonoBehaviour
 
             hookGameObject.transform.localScale = new Vector3(1f * Mathf.Sign(transform.lossyScale.x), 1f, 1f);
             hookHead.transform.position = Vector3.Lerp(hookHead.transform.position, hitPosition, i);
+            hookHead.transform.parent.LookAt(hitPosition);
+            hookHead.transform.parent.rotation = Quaternion.Euler(hookHead.transform.parent.rotation.eulerAngles.x, -90f, 0f);
             lineRenderer.SetPosition(0, Vector3.zero);
             lineRenderer.SetPosition(1, hookHead.transform.position - transform.position);
 
@@ -165,6 +167,7 @@ public class PlayerHook : MonoBehaviour
             PlayerController.Instance._rb.velocity = Vector3.zero;
             transform.position = Vector3.Lerp(transform.position, target, i);
             hookHead.transform.position = hit.point;
+            Traveling = Physics2D.CircleCastNonAlloc(hit.point, 0.05f, Vector2.zero, hits, 0, contactFilter2D.layerMask) > 0;
 
             if(!Traveling) break;
 

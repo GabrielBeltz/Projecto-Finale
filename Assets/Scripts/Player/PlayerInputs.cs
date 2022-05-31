@@ -58,7 +58,7 @@ public class PlayerInputs : MonoBehaviour
             if(Input.GetButtonDown("Fire1") && CanMove ) player.ExecuteAttack();
             if(Input.GetButtonDown("Submit") ) player.ExecuteInteraction();
 
-            if(Input.GetButtonDown("Jump") && CanMove  && CanMove)
+            if(Input.GetButtonDown("Jump") && CanMove)
             {
                 if(hook.Traveling) hook.UnnatachHook(true);
                 else if(player.OnWall)
