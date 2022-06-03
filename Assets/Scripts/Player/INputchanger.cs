@@ -21,17 +21,17 @@ public class INputchanger : MonoBehaviour
     {
         for (int i = 0; i < 20 ; i++)
         {
-            if (Input.GetKeyDown("joystick " + valor + " button " + i)) {          
+            if (Input.GetKeyDown("joystick button " + i)) {          
                 print("controle" + i);
             }
-            if (Input.GetKeyDown("joystick 3 button " + i))
+            /*if (Input.GetKeyDown("joystick 3 button " + i))
             {
                 print("Controle Xbox " + i);
             }
             if (Input.GetKeyDown("joystick 4 button " + i))
             {
                 print("Controle Generico " + i);
-            }
+            }*/
         }
 }
 }
