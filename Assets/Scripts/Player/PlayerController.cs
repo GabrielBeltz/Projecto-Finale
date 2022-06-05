@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
     [Header("CollisorDetections")]
     [SerializeField] LayerMask _groundMask;
     [SerializeField] LayerMask _wallsMask;
-    float _grounderOffset = -1, _grounderRadius = 0.2f;
+    float _grounderOffset = -1.125f, _grounderRadius = 0.2f;
     float _fullHealHeight;
     public bool IsGrounded;
     private readonly Collider2D[] _ground = new Collider2D[1];
@@ -86,6 +86,7 @@ public class PlayerController : MonoBehaviour
     PlayerShield shield;
     PlayerHook hook;
     PlayerTantrum tantrum;
+    int lastXInput;
 
     //Actions
     public Action OnTouchedGround, OnPlayerDeath, OnPlayerFullHealth, OnJump;
@@ -145,11 +146,7 @@ public class PlayerController : MonoBehaviour
         if(Mathf.Sign(transform.lossyScale.x) < 0) transform.localScale = new Vector3(-1, 1, 1);
     }
 
-    public void SetFacingDirection(bool left)
-    {
-        // Flipar o X do sprite renderer futuramente
-        model.transform.localScale = new Vector3(-0.3f, 0.3f, left? 0.3f : -0.3f);
-    }
+    public void SetFacingDirection(bool left) => model.transform.localScale = new Vector3(left? 1f : -1f, 1f, 1f);
 
     #region ColisorDetections
 
@@ -213,9 +210,11 @@ public class PlayerController : MonoBehaviour
 
     void HandleAnimation()
     {
-        if(PlInputs.Inputs.X != 0) SetFacingDirection(_rb.velocity.x < 0);
+        if(PlInputs.Inputs.RawX != 0) lastXInput = PlInputs.Inputs.RawX;
+        SetFacingDirection(lastXInput > 0);
         CorrectFacingDirection();
         MyAnimator.SetBool("Grounded", IsGrounded);
+        MyAnimator.SetBool("OnWall", OnWall);
         MyAnimator.SetFloat("VerticalSpeed", _rb.velocity.y);
     }
 
@@ -292,7 +291,7 @@ public class PlayerController : MonoBehaviour
         Attack();
     }
 
-    Vector3 GetAttackDirection() => Input.GetAxisRaw("Vertical") != 0 ? Input.GetAxisRaw("Vertical") > 0 ? transform.up : -transform.up : transform.right * -transform.localScale.x;
+    Vector3 GetAttackDirection() => Input.GetAxisRaw("Vertical") != 0 ? Input.GetAxisRaw("Vertical") > 0 ? transform.up : -transform.up : transform.right * model.localScale.x;
 
     public void Attack()
     {

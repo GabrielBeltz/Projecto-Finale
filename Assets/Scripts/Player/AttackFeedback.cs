@@ -30,6 +30,7 @@ public class AttackFeedback : MonoBehaviour
         particles.transform.SetParent(null);
         transform.position = pos;
         transform.localScale = new Vector3(rotation != 0 ? -size.z : size.z, size.y, size.x);
+        if(rotation == 0f) rotation = transform.localPosition.x > 0 ? 180f : 0f;
         transform.localRotation = Quaternion.Euler(0,0, rotation);
         myRenderer.enabled = true;
         particles.transform.position = Vector3.Lerp(transform.parent.position, pos, 0.25f);
