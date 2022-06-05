@@ -215,6 +215,7 @@ public class PlayerController : MonoBehaviour
         CorrectFacingDirection();
         MyAnimator.SetBool("Grounded", IsGrounded);
         MyAnimator.SetBool("OnWall", OnWall);
+        MyAnimator.SetBool("Dash", dash.Dashing);
         MyAnimator.SetFloat("VerticalSpeed", _rb.velocity.y);
     }
 
