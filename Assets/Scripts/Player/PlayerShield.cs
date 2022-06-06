@@ -8,10 +8,15 @@ public class PlayerShield : MonoBehaviour
     public float DurationBase = 1f, Cooldown;
     public bool Active;
     public SpriteRenderer ShieldSprite;
+    public AudioSource audioSource;
+    public AudioClip shieldupsoud,shieldownsoud;
 
     float cooldownTimer;
 
-    private void Awake() => inputs = GetComponent<PlayerInputs>();
+    private void Awake() {
+        audioSource = GetComponent<AudioSource>();
+  
+        inputs = GetComponent<PlayerInputs>(); }
 
     public float HandleShield(int rank)
     {
@@ -29,10 +34,12 @@ public class PlayerShield : MonoBehaviour
 
     void SetActive(bool active, int rank)
     {
+        audioSource.clip = shieldupsoud;
         Active = active;
         ShieldSprite.enabled = active;
-        FindObjectOfType<AudioManager>().Play("ShieldUp");
-        if(active) 
+        
+        audioSource.Play();
+        if (active) 
         {
             cooldownTimer = Cooldown;
             gameObject.layer = 11;
@@ -47,7 +54,7 @@ public class PlayerShield : MonoBehaviour
     IEnumerator Deactivate(float duration)
     {
         yield return new WaitForSeconds(duration);
-        FindObjectOfType<AudioManager>().Play("ShieldDown");
+        audioSource.clip = shieldownsoud;
         Deactivate();
     }
 

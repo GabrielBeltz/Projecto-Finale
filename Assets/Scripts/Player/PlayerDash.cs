@@ -4,6 +4,8 @@ using UnityEngine;
 public class PlayerDash : MonoBehaviour
 {
     public bool HasDashed, Dashing;
+    public AudioClip Dashsound;
+    public AudioSource audioSource;
     float _timeStartedDash;
     Vector3 _dashDir;
 
@@ -20,6 +22,8 @@ public class PlayerDash : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         inputs = GetComponent<PlayerInputs>();
+        audioSource = GetComponent<AudioSource>();
+     
     }
 
     private void Start()
@@ -34,10 +38,11 @@ public class PlayerDash : MonoBehaviour
 
         if (_dashCooldownTimer < Time.time)
         {
-            if (inputs.GetInputDown("Dash") && !HasDashed)
-            {
-                FindObjectOfType<AudioManager>().Play("Dash");
-                if(inputs.Inputs.RawX != 0) _dashDir = new Vector3(inputs.Inputs.RawX, 0, 0).normalized;
+                if (inputs.GetInputDown("Dash") && !HasDashed)
+                {
+                audioSource.clip = Dashsound;
+                audioSource.Play();
+                if (inputs.Inputs.RawX != 0) _dashDir = new Vector3(inputs.Inputs.RawX, 0, 0).normalized;
                 else _dashDir = new Vector3(Mathf.Sign(-transform.lossyScale.x), 0,0).normalized;
 
                 _dashCooldownTimer = Time.time + _dashCooldown;
