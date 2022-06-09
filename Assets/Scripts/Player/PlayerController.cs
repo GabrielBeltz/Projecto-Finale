@@ -200,8 +200,8 @@ public class PlayerController : MonoBehaviour
     {
         if(AbilityRanks.MobilityRank < 1) return;
         RaycastHit2D[] hits = new RaycastHit2D[1];
-        WallOnLeft = Physics2D.RaycastNonAlloc(transform.position, Vector2.left, hits, 0.55f, _wallsMask) > 0 && !IsGrounded;
-        WallOnRight = Physics2D.RaycastNonAlloc(transform.position, Vector2.right, hits, 0.55f, _wallsMask) > 0 && !IsGrounded;
+        WallOnLeft = Physics2D.RaycastNonAlloc(transform.position, Vector2.left, hits, 0.7f, _wallsMask) > 0 && !IsGrounded;
+        WallOnRight = Physics2D.RaycastNonAlloc(transform.position, Vector2.right, hits, 0.7f, _wallsMask) > 0 && !IsGrounded;
     }
 
     #endregion
@@ -389,7 +389,11 @@ public class PlayerController : MonoBehaviour
             // Hurt Sound
         }
 
-        if(knockback != Vector3.zero) ReceiveKnockback(knockback);
+        if(knockback != Vector3.zero) 
+        {
+            ReceiveKnockback(knockback);
+            MyAnimator.SetTrigger("Damage");
+        } 
         if(CurrentHealth < 1) OnPlayerDeath?.Invoke();
         StartCoroutine(InvulnerableTimer());
     }
@@ -420,6 +424,7 @@ public class PlayerController : MonoBehaviour
 
     void PlayerDeath()
     {
+        transform.parent = null;
         DeathCount++;
         MyAnimator.SetFloat("Speed", 0);
         MyAnimator.SetBool("FellDown", true);

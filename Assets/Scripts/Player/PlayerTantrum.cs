@@ -8,11 +8,12 @@ public class PlayerTantrum : MonoBehaviour
     public GameObject TantrumGameObject;
     PlayerInputs PlayerInputs;
     float lastAttack = -10f;
+    Animator animator;
 
     public void Awake()
     {
         PlayerInputs = GetComponent<PlayerInputs>();
-        TantrumGameObject.SetActive(false);
+        animator = TantrumGameObject.GetComponent<Animator>();
     }
 
     public void HandleTantrum(int rank)
@@ -23,6 +24,7 @@ public class PlayerTantrum : MonoBehaviour
 
     void ExecuteTantrum(int rank)
     {
+        animator.SetTrigger("Tantrum");
         lastAttack = Time.time;
         float range = TantrumAttack.range;
         float damage = TantrumAttack.damage;
@@ -46,13 +48,5 @@ public class PlayerTantrum : MonoBehaviour
         TantrumGameObject.transform.position = transform.position;
         TantrumGameObject.transform.localScale = new Vector3(range * 2, range * 2, 1f);
         TantrumGameObject.SetActive(true);
-
-        StartCoroutine(ResetGameObject());
-    }
-
-    IEnumerator ResetGameObject()
-    {
-        yield return new WaitForSeconds(0.25f);
-        TantrumGameObject.SetActive(false);
     }
 }
