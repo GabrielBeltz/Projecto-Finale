@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class MainMenuButtonController : MonoBehaviour
 {
-    public GameObject optionsPanel, backToMenu, crewPanel;
+    public GameObject optionsPanel, backToMenu, crewPanel,firstbuttunmainmenu;
+
     [SerializeField] private bool isOptionsOn;
 
     private void Start()
@@ -15,6 +17,13 @@ public class MainMenuButtonController : MonoBehaviour
         isOptionsOn = false;
         optionsPanel.SetActive(isOptionsOn);
         crewPanel.SetActive(false);
+        if (Input.GetJoystickNames() != null)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            EventSystem.current.SetSelectedGameObject(firstbuttunmainmenu);
+
+        }
+
     }
 
     public void PlayButton()
