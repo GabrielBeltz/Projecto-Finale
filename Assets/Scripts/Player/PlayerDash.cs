@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class PlayerDash : MonoBehaviour
 {
+    public Transform playerDir;
     public bool HasDashed, Dashing;
     public AudioClip Dashsound;
     public AudioSource audioSource;
@@ -40,10 +41,13 @@ public class PlayerDash : MonoBehaviour
         {
                 if (inputs.GetInputDown("Dash") && !HasDashed)
                 {
-                audioSource.clip = Dashsound;
-                audioSource.Play();
+                    if(audioSource != null)
+                    {
+                        audioSource.clip = Dashsound;
+                        audioSource.Play();
+                    }
                 if (inputs.Inputs.RawX != 0) _dashDir = new Vector3(inputs.Inputs.RawX, 0, 0).normalized;
-                else _dashDir = new Vector3(Mathf.Sign(-transform.lossyScale.x), 0,0).normalized;
+                else _dashDir = new Vector3(Mathf.Sign(playerDir.lossyScale.x), 0,0).normalized;
 
                 _dashCooldownTimer = Time.time + _dashCooldown;
                 HasDashed = true;

@@ -409,8 +409,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92624e79a9a8ec94a8ff8f3f32a7647b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerDir: {fileID: 6674576254330828150}
   HasDashed: 0
   Dashing: 0
+  Dashsound: {fileID: 0}
+  audioSource: {fileID: 0}
   _dashLength: 0.2
   _dashCooldown: 3
   _dashSpeed: 30
@@ -464,6 +467,9 @@ MonoBehaviour:
   Cooldown: 0
   Active: 0
   ShieldSprite: {fileID: 3176499773340426460}
+  audioSource: {fileID: 0}
+  shieldupsoud: {fileID: 0}
+  shieldownsoud: {fileID: 0}
 --- !u!114 &5468917609630139932
 MonoBehaviour:
   m_ObjectHideFlags: 0

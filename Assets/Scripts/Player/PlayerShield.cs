@@ -34,11 +34,14 @@ public class PlayerShield : MonoBehaviour
 
     void SetActive(bool active, int rank)
     {
-        audioSource.clip = shieldupsoud;
+        if(audioSource != null)
+        {
+            audioSource.clip = shieldupsoud;
+            audioSource.Play();
+        }
         Active = active;
         ShieldSprite.enabled = active;
         
-        audioSource.Play();
         if (active) 
         {
             cooldownTimer = Cooldown;
@@ -54,7 +57,7 @@ public class PlayerShield : MonoBehaviour
     IEnumerator Deactivate(float duration)
     {
         yield return new WaitForSeconds(duration);
-        audioSource.clip = shieldownsoud;
+        if(audioSource != null) audioSource.clip = shieldownsoud;
         Deactivate();
     }
 

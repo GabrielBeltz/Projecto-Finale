@@ -272,9 +272,9 @@ public class PlayerController : MonoBehaviour
         _rb.velocity = new Vector2(_rb.velocity.x, _initialJumpSpeed);
         if(OnWall) 
         {
-            _rb.velocity = new Vector2(_initialJumpSpeed * Mathf.Sign(transform.lossyScale.x), _initialJumpSpeed * 1.5f);
+            _rb.velocity = new Vector2(_initialJumpSpeed * Mathf.Sign(-model.lossyScale.x), _initialJumpSpeed * 1.5f);
             _knockbackTimer = Time.time + 0.2f;
-            SetFacingDirection(Mathf.Sign(transform.lossyScale.x) < 0);
+            SetFacingDirection(Mathf.Sign(model.lossyScale.x) < 0);
         } 
         OnJump?.Invoke();
     }
@@ -300,7 +300,7 @@ public class PlayerController : MonoBehaviour
         Vector3 attackPos = transform.position + ((attackDirection * (AbilityRanks.AttackRank > 1 ? _lastAttack.range : (_lastAttack.range /2))));
         float attackRotation = attackDirection.y != 0 ? 90 * attackDirection.y : 0;
         
-        Vector3 attackSize = AbilityRanks.AttackRank > 2 ? new Vector3(0.4f, 1.2f, _lastAttack.range) : AbilityRanks.AttackRank > 1 ? new Vector3(0.25f, 0.75f, _lastAttack.range) : new Vector3(0.25f, 0.75f, _lastAttack.range / 2);
+        Vector3 attackSize = AbilityRanks.AttackRank > 2 ? new Vector3(0.4f, 1.2f, _lastAttack.range * 1.5f) : AbilityRanks.AttackRank > 1 ? new Vector3(0.25f, 0.75f, _lastAttack.range * 1.25f) : new Vector3(0.25f, 0.75f, _lastAttack.range);
 
         RaycastHit2D[] attackColliders = Physics2D.BoxCastAll(attackPos, attackSize, attackRotation, attackDirection, _lastAttack.range/2, _attackLayerMask);
 

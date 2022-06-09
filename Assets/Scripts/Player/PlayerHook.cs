@@ -71,7 +71,7 @@ public class PlayerHook : MonoBehaviour
         hookAim.SetActive(true);
         aiming = true;
         aimDirection = Vector2.up;
-        Time.timeScale = rank > 2 ? 0.01f : rank > 1? 0.33f : 0.67f;
+        Time.timeScale = rank > 2 ? 0.2f : rank > 1? 0.35f : 0.5f;
     }
 
     public void EndAiming()
