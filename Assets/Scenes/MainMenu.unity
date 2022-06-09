@@ -792,6 +792,30 @@ PrefabInstance:
       propertyPath: m_Navigation.m_Mode
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2874966472914128023, guid: 7209f9c403dcb3f4dbf4629f79410e41, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.b
+      value: 0.797686
+      objectReference: {fileID: 0}
+    - target: {fileID: 2874966472914128023, guid: 7209f9c403dcb3f4dbf4629f79410e41, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 0.9017843
+      objectReference: {fileID: 0}
+    - target: {fileID: 2874966472914128023, guid: 7209f9c403dcb3f4dbf4629f79410e41, type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 0.9150943
+      objectReference: {fileID: 0}
+    - target: {fileID: 2874966472914128023, guid: 7209f9c403dcb3f4dbf4629f79410e41, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.b
+      value: 0.1792453
+      objectReference: {fileID: 0}
+    - target: {fileID: 2874966472914128023, guid: 7209f9c403dcb3f4dbf4629f79410e41, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.g
+      value: 0.1792453
+      objectReference: {fileID: 0}
+    - target: {fileID: 2874966472914128023, guid: 7209f9c403dcb3f4dbf4629f79410e41, type: 3}
+      propertyPath: m_Colors.m_HighlightedColor.r
+      value: 0.1792453
+      objectReference: {fileID: 0}
     - target: {fileID: 2874966472914128041, guid: 7209f9c403dcb3f4dbf4629f79410e41, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

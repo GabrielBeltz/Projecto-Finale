@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3791151056004628253}
   - component: {fileID: 3791151056004628254}
   - component: {fileID: 6674137879701448030}
-  - component: {fileID: 6459553016277299740}
+  - component: {fileID: 1460839692968495896}
   m_Layer: 3
   m_Name: Platform 2
   m_TagString: SolidGround
@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ddef9336b4898dd4180147319d4f5699, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 11aee083d8e9aee4b91ed95d24450f7d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -114,7 +114,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   BehavioursToDisable: []
   GameObjectsToDeactivate: []
---- !u!60 &6459553016277299740
+--- !u!60 &1460839692968495896
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,27 +131,22 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.27, y: 5.8}
+    oldSize: {x: 2.78, y: 3.08}
     newSize: {x: 5, y: 5}
     adaptiveTilingThreshold: 0.5
     drawMode: 1
     adaptiveTiling: 0
-  m_AutoTiling: 1
+  m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 2.095, y: -2.86}
-      - {x: -1.7440603, y: -2.86}
-      - {x: -2.455, y: -2.1499999}
-      - {x: -2.455, y: 2.71}
-      - {x: -0.755, y: 2.71}
-      - {x: 0.305, y: 1.65}
-      - {x: 0.305, y: 0.13}
-      - {x: 0.955, y: 0.13}
-      - {x: 1.405, y: -0.32}
-      - {x: 1.405, y: -1.1999999}
-      - {x: 2.055, y: -1.1999999}
-      - {x: 2.4632812, y: -1.604698}
-      - {x: 2.465, y: -2.5}
+    - - {x: -2.510046, y: 2.5155241}
+      - {x: -2.4811416, y: -2.4938457}
+      - {x: 2.502453, y: -2.4945695}
+      - {x: 2.499926, y: -0.83838826}
+      - {x: 1.387743, y: -0.8353926}
+      - {x: 1.3802017, y: 0.17102306}
+      - {x: 0.32370397, y: 0.16832684}
+      - {x: 0.32102567, y: 2.5227501}
 --- !u!1 &6248118298739859169
 GameObject:
   m_ObjectHideFlags: 0
