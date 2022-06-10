@@ -9,12 +9,13 @@ public class platformov : MonoBehaviour
     public Transform pos2;
     [Header("Lista de objetos destruidos para ativar")]
     public List <GameObject> alvos;
-    [Header("começar a se mover para baixo =true")]
+    [Header("começar a se mover para baixo = true")]
     public bool mv = true;
     public bool moverHorizontal, moververtical,livre =false;
     private bool enemies;
     public float vel;
     public float rot;
+   
 
 
     private void Start()
@@ -24,12 +25,13 @@ public class platformov : MonoBehaviour
             enemies = true;
         }
     }
-    void Update()
+   
+    void FixedUpdate()
     {
       
         if (alvos.Count == 0)
         {
-
+             
 
             if (rot != 0) { transform.Rotate(0, 0, rot); livre = true; }
             if (vel > 0)
@@ -68,20 +70,21 @@ public class platformov : MonoBehaviour
             if (alvos.Count == 0)
             {enemies = false;}
         }
-        
+
     }
+    
 
     public void OnCollisionEnter2D(Collision2D col)
     {
-        if (col.gameObject.tag == "Player" && livre == false || col.gameObject.tag == "Enemy" && livre == false)
-        {
-         
-            col.gameObject.transform.parent = this.transform;
+
+        if (col.gameObject.tag == "Player" && livre == false || col.gameObject.tag == "Enemy" && livre == false  ) 
+        {         
+            col.gameObject.transform.parent = transform;
         }
     }
     public void OnCollisionExit2D(Collision2D col)
     {
-        if ( col.gameObject.tag == "Player" || col.gameObject.tag == "Enemy")
+        if ( col.gameObject.tag == "Player"  || col.gameObject.tag == "Enemy" )
         {
             col.gameObject.transform.parent = null;
         }
