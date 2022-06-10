@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 491102083801248194}
   - component: {fileID: 7133171617296189780}
   - component: {fileID: 8615767673672073367}
-  - component: {fileID: 5089561795791582869}
+  - component: {fileID: 8367753738324231750}
   m_Layer: 3
   m_Name: Platform 1
   m_TagString: SolidGround
@@ -29,7 +29,8 @@ Transform:
   m_GameObject: {fileID: 491102083801248195}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3.5714285, y: 3.4013605, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 431510034184661181}
   m_Father: {fileID: 0}
@@ -80,7 +81,7 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 1
+  m_DrawMode: 0
   m_Size: {x: 7, y: 10}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
@@ -136,7 +137,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!60 &5089561795791582869
+--- !u!60 &8367753738324231750
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -156,20 +157,19 @@ PolygonCollider2D:
     oldSize: {x: 1.96, y: 2.94}
     newSize: {x: 7, y: 10}
     adaptiveTilingThreshold: 0.5
-    drawMode: 1
+    drawMode: 0
     adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_AutoTiling: 1
   m_Points:
     m_Paths:
-    - - {x: -3.4646592, y: 4.9833107}
-      - {x: -3.4922698, y: -4.968065}
-      - {x: -1.3999428, y: -4.9855843}
-      - {x: -0.3295182, y: -3.852311}
-      - {x: 3.4922693, y: -3.8623452}
-      - {x: 3.4888823, y: -0.21889913}
-      - {x: 3.4803524, y: 0.8161649}
-      - {x: 0.7067794, y: 0.8075849}
-      - {x: 0.7666268, y: 4.9709463}
+    - - {x: -0.97999996, y: 1.4699999}
+      - {x: -0.97999996, y: -1.4699999}
+      - {x: -0.415493, y: -1.4653382}
+      - {x: -0.08107902, y: -1.1480619}
+      - {x: 0.96776164, y: -1.1391066}
+      - {x: 0.9624864, y: 0.24228936}
+      - {x: 0.2143048, y: 0.24886578}
+      - {x: 0.18991339, y: 1.466636}
 --- !u!1 &6142829367641852296
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,6 +197,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 0.6377551, z: 0.09999999}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 491102083801248193}
   m_RootOrder: 0

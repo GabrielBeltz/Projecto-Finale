@@ -72,7 +72,9 @@ public class EnemyAttackTarget : MonoBehaviour
 
                     break;
                 case EnemyDeathType.DeactivateSelf:
+                    
                     onDeath += DeactivateSelf;
+                    
                     break;
             }
         }
@@ -111,6 +113,7 @@ public class EnemyAttackTarget : MonoBehaviour
         }
 
         if (hitSound.Length > 0 && audioSource != null) onAttackReceived -= PlayCalculatedHitSound;
+        Destroy(gameObject);
     }
 
     public void ReceiveAttackCall(PlayerMeleeAttack playerMeleeAttack, Vector3 pos) => onAttackReceived?.Invoke(playerMeleeAttack, pos);

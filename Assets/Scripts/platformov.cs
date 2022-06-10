@@ -7,45 +7,75 @@ public class platformov : MonoBehaviour
     [Header("Pos 1 com o eixo maior")]
     public Transform pos1;
     public Transform pos2;
-    [Header("começar a se mover para baixo = true")]
+    [Header("Lista de objetos destruidos para ativar")]
+    public List <GameObject> alvos;
+    [Header("começar a se mover para baixo =true")]
     public bool mv = true;
-    public bool moverHorizontal, moververtical;
+    public bool moverHorizontal, moververtical,livre =false;
+    private bool enemies;
     public float vel;
-    [Header("não colcoar rotação")]
     public float rot;
 
+
+    private void Start()
+    {
+        if(alvos.Count != 0)
+        {
+            enemies = true;
+        }
+    }
     void Update()
     {
-        if (vel > 0)
-        { if (moververtical == true)
-            { if (transform.localPosition.y >= pos1.localPosition.y) mv = true;
-              if (transform.localPosition.y <= pos2.localPosition.y) mv = false;
+      
+        if (alvos.Count == 0)
+        {
 
-              if (mv == false) { transform.localPosition = new Vector2(transform.localPosition.x, transform.localPosition.y + vel * Time.deltaTime); }
-               
-               else { transform.localPosition = new Vector2(transform.localPosition.x, transform.localPosition.y - vel * Time.deltaTime); }
-            }
-            {if (moverHorizontal == true)
+
+            if (rot != 0) { transform.Rotate(0, 0, rot); livre = true; }
+            if (vel > 0)
+            {
+                if (moververtical == true)
                 {
-                    if (transform.localPosition.x >= pos1.localPosition.x)
-                        mv = true;
-                    if (transform.localPosition.x <= pos2.localPosition.x)
-                        mv = false;
+                    if (transform.localPosition.y >= pos1.localPosition.y) mv = true;
+                    if (transform.localPosition.y <= pos2.localPosition.y) mv = false;
 
-                    if (mv == false) { transform.localPosition = new Vector2(transform.localPosition.x + vel * Time.deltaTime, transform.localPosition.y); }
+                    if (mv == false) { transform.localPosition = new Vector2(transform.localPosition.x, transform.localPosition.y + vel * Time.deltaTime); }
 
-                    else { transform.localPosition = new Vector2(transform.localPosition.x - vel * Time.deltaTime, transform.localPosition.y); }
+                    else { transform.localPosition = new Vector2(transform.localPosition.x, transform.localPosition.y - vel * Time.deltaTime); }
                 }
+                {
+                    if (moverHorizontal == true)
+                    {
+                        if (transform.localPosition.x >= pos1.localPosition.x)
+                            mv = true;
+                        if (transform.localPosition.x <= pos2.localPosition.x)
+                            mv = false;
 
+                        if (mv == false) { transform.localPosition = new Vector2(transform.localPosition.x + vel * Time.deltaTime, transform.localPosition.y); }
+
+                        else { transform.localPosition = new Vector2(transform.localPosition.x - vel * Time.deltaTime, transform.localPosition.y); }
+                    }
+
+                }
+                if (rot != 0) { transform.Rotate(0, 0, rot); }
             }
-            if (rot != 0) { transform.Rotate(0, 0, rot); }
         }
+        else
+        {
+            for (int x = 0; x < alvos.Count; x++)
+            {if (alvos[x] == null) { alvos.Remove(alvos[x]); }}
+          
+            if (alvos.Count == 0)
+            {enemies = false;}
+        }
+        
     }
 
     public void OnCollisionEnter2D(Collision2D col)
     {
-        if ( col.gameObject.tag == "Player" || col.gameObject.tag == "Enemy")
+        if (col.gameObject.tag == "Player" && livre == false || col.gameObject.tag == "Enemy" && livre == false)
         {
+         
             col.gameObject.transform.parent = this.transform;
         }
     }
