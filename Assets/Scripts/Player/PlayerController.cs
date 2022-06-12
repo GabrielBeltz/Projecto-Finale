@@ -151,7 +151,7 @@ public class PlayerController : MonoBehaviour
     #region ColisorDetections
 
         private void HandleGrounding()
-    {
+        {
         var grounded = Physics2D.OverlapCircleNonAlloc(transform.position + new Vector3(0, _grounderOffset, 0), _grounderRadius, _ground, _groundMask) > 0;
 
         actualGroundObject = grounded ? _ground[0].gameObject : gameObject;
@@ -173,7 +173,7 @@ public class PlayerController : MonoBehaviour
 
             if(0 < CurrentHealth)
             {
-                if(FallImpact) 
+                if(FallImpact && !FallImpact) 
                 {
                     _knockbackTimer = Time.time + _groundImpactKnockbackTime;
                     MyAnimator.SetBool("FellDown", true);
@@ -304,6 +304,8 @@ public class PlayerController : MonoBehaviour
 
         RaycastHit2D[] attackColliders = Physics2D.BoxCastAll(attackPos, attackSize, attackRotation, attackDirection, _lastAttack.range/2, _attackLayerMask);
 
+        bool hit = false;
+
         for(int i = 0; i < attackColliders.Length; i++)
         {
             float selfKnockbackReceived = 0;
@@ -312,11 +314,12 @@ public class PlayerController : MonoBehaviour
             {
                 target.ReceiveAttackCall(_lastAttack, transform.position);
                 selfKnockbackReceived = target.selfKnockbackReceived;
+                if(target.DamageReceived > 0) hit = true;
 
                 #region Vampirirism
                 if(AbilityRanks.HealthRank > 2)
                 {
-                    RegainedHealth += _lastAttack.damage * 0.05f;
+                    RegainedHealth += _lastAttack.damage * 0.1f;
                     if(RegainedHealth > 1)
                     {
                         RegainedHealth = 0;
@@ -348,7 +351,7 @@ public class PlayerController : MonoBehaviour
 
         PlaySound(_lastAttack.sound);
 
-        _attackFeedback.CallFeedback(attackSize, attackPos, attackRotation, _lastAttack.cooldown, attackColliders.Length > 0);
+        _attackFeedback.CallFeedback(attackSize, attackPos, attackRotation, _lastAttack.cooldown, hit);
         MyAnimator.SetTrigger(_lastAttack.animatorTrigger);
     }
 

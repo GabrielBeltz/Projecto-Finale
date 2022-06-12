@@ -34,7 +34,6 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.617, y: 1.76, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1759778828661595680}
   - {fileID: 1759778828131698275}
@@ -53,14 +52,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 197de1cc626b27a47b3df48bf2156c79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Vulnerable: 0
-  Attacking: 0
-  TimeToReachPlayer: 1
-  TimeToGoBack: 3
+  HeightToTeleport: {x: 0.4, y: 0.8}
+  TimeToReachPlayer: 1.5
+  TimeToGoBack: 4
   AccelerationGoing: 0.5
   AccelerationComing: 0.25
   VulnerableTime: 3
-  minimalDistanceToAttack: 10
+  minimalDistanceToAttack: 8
   overshootDistance: 10
   lerpCutoff: 0.4
   CatchUpDistance: 15
@@ -89,7 +87,7 @@ MonoBehaviour:
   currentHealth: 2
   receivedAttackDirection: 0
   DamageReceived: 1
-  selfKnockbackReceived: 0.5
+  selfKnockbackReceived: 2
   DeathType: 0
   hitSound: []
   Collider: {fileID: 1759778827360215166}
@@ -178,7 +176,7 @@ SpriteRenderer:
   m_SpriteSortPoint: 0
 --- !u!95 &1759778827360215165
 Animator:
-  serializedVersion: 4
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -191,7 +189,6 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
@@ -5030,7 +5027,6 @@ ParticleSystemRenderer:
   m_SortingLayer: 2
   m_SortingOrder: 10
   m_RenderMode: 0
-  m_MeshDistribution: 0
   m_SortMode: 0
   m_MinParticleSize: 0
   m_MaxParticleSize: 0.5
@@ -5054,10 +5050,6 @@ ParticleSystemRenderer:
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
-  m_MeshWeighting: 1
-  m_MeshWeighting1: 1
-  m_MeshWeighting2: 1
-  m_MeshWeighting3: 1
   m_MaskInteraction: 0
 --- !u!1 &1759778828131698272
 GameObject:
@@ -5085,7 +5077,6 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.8, y: 0.345, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1759778827360215167}
   m_RootOrder: 1
@@ -5121,7 +5112,6 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.006, y: 0.233, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1759778827360215167}
   m_RootOrder: 0
@@ -9977,7 +9967,6 @@ ParticleSystemRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_RenderMode: 0
-  m_MeshDistribution: 0
   m_SortMode: 0
   m_MinParticleSize: 0
   m_MaxParticleSize: 0.5
@@ -10001,8 +9990,4 @@ ParticleSystemRenderer:
   m_Mesh1: {fileID: 0}
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
-  m_MeshWeighting: 1
-  m_MeshWeighting1: 1
-  m_MeshWeighting2: 1
-  m_MeshWeighting3: 1
   m_MaskInteraction: 0

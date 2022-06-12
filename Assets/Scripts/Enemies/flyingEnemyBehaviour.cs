@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class flyingEnemyBehaviour : MonoBehaviour
 {
-    public bool Vulnerable, Attacking;
+    public Vector2 HeightToTeleport = new Vector2(0.4f, 0.8f);
+    bool Vulnerable, Attacking;
     [Range(0.2f, 10f)] public float TimeToReachPlayer = 1.5f, TimeToGoBack = 2.5f;
     [Range(0, 1f)] public float AccelerationGoing = 0.75f, AccelerationComing = 0.25f;
     public float VulnerableTime = 1f, minimalDistanceToAttack = 10f, overshootDistance = 5, lerpCutoff = 2f, CatchUpDistance = 20f;
@@ -136,7 +137,7 @@ public class flyingEnemyBehaviour : MonoBehaviour
             bool side = Random.Range(0, 2) == 0;
             screenXLimits = side? new Vector2(0.7f, 1f) : new Vector2(0, 0.3f);
         }
-        Vector2 ScreenPosition = new Vector3(Random.Range(screenXLimits.x, screenXLimits.y) * Screen.width, 0.8f * Screen.height, 0f);
+        Vector2 ScreenPosition = new Vector3(Random.Range(screenXLimits.x, screenXLimits.y) * Screen.width, Random.Range(HeightToTeleport.x, HeightToTeleport.y) * Screen.height, 0f);
         return Camera.main.ScreenToWorldPoint(ScreenPosition);
     }
 }
