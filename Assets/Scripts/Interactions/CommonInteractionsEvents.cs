@@ -4,7 +4,10 @@ public class CommonInteractionsEvents : MonoBehaviour
 {
     public void InteractionText(string text) => TextDisplayer.Instance.DisplayText(text);
 
-    public void EndInteractionText() => TextDisplayer.Instance.dialogBox.SetActive(false);
+    public void EndInteractionText() 
+    { 
+        if(TextDisplayer.Instance.dialogBox != null) TextDisplayer.Instance.dialogBox.SetActive(false);
+    } 
 
     public void LoadScene(string sceneName) => SceneTransitionManager.Instance.LoadScene(sceneName);
 

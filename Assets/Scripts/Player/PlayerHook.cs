@@ -167,7 +167,7 @@ public class PlayerHook : MonoBehaviour
             PlayerController.Instance._rb.velocity = Vector3.zero;
             transform.position = Vector3.Lerp(transform.position, target, i);
             hookHead.transform.position = hit.point;
-            Traveling = Physics2D.CircleCastNonAlloc(hit.point, 0.05f, Vector2.zero, hits, 0, contactFilter2D.layerMask) > 0;
+            Traveling = Physics2D.CircleCastNonAlloc(hit.point, 0.05f, Vector2.zero, hits, 0, contactFilter2D.layerMask) > 0 && Traveling;
 
             if(!Traveling) break;
 
@@ -180,7 +180,7 @@ public class PlayerHook : MonoBehaviour
             hookGameObject.transform.localScale = new Vector3(1f * Mathf.Sign(transform.lossyScale.x), 1f, 1f);
             PlayerController.Instance._rb.velocity = Vector3.zero;
             transform.position = target;
-            Traveling = Physics2D.CircleCastNonAlloc(hit.point, 0.05f, Vector2.zero, hits, 0, contactFilter2D.layerMask) > 0;
+            Traveling = Physics2D.CircleCastNonAlloc(hit.point, 0.05f, Vector2.zero, hits, 0, contactFilter2D.layerMask) > 0 && Traveling;
 
             yield return new WaitForSeconds(0.01f);
         }

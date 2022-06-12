@@ -15,6 +15,7 @@ public class AttackFeedback : MonoBehaviour
         Material m = myRenderer.material;
         m.renderQueue++;
         myRenderer.material = m;
+        particles.transform.SetParent(null);
     }
 
     public void CallFeedback(Vector3 size, Vector3 pos, float rotation, float time, bool hit)
@@ -27,7 +28,6 @@ public class AttackFeedback : MonoBehaviour
 
     public IEnumerator Feedback(Vector3 size, Vector3 pos, float rotation, float time, bool hit)
     {
-        particles.transform.SetParent(null);
         transform.position = pos;
         transform.localScale = new Vector3(rotation != 0 ? -size.z : size.z, size.y, size.x);
         if(rotation == 0f) rotation = transform.localPosition.x > 0 ? 180f : 0f;
