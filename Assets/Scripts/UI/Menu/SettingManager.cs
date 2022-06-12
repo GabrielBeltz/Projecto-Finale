@@ -91,6 +91,7 @@ public class SettingManager : MonoBehaviour
         if(GameObject.Find("AudioController") != null)
         {
             AudioManager.instance.UpdateVolume(gameSettings.volumeSlider);
+            Debug.Log("Audio Controller Founded");
         }
         
         audioMixer.SetFloat("VolumeExposed", gameSettings.volumeSlider);

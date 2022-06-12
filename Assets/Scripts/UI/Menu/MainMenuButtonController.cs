@@ -21,7 +21,6 @@ public class MainMenuButtonController : MonoBehaviour
         {
             EventSystem.current.SetSelectedGameObject(null);
             EventSystem.current.SetSelectedGameObject(firstbuttunmainmenu);
-
         }
 
     }
