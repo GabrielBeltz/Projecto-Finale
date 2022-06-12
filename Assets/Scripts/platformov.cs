@@ -18,13 +18,6 @@ public class platformov : MonoBehaviour
    
 
 
-    private void Start()
-    {
-        if(alvos.Count != 0)
-        {
-            enemies = true;
-        }
-    }
    
     void FixedUpdate()
     {
@@ -65,14 +58,11 @@ public class platformov : MonoBehaviour
         else
         {
             for (int x = 0; x < alvos.Count; x++)
-            {if (alvos[x] == null) { alvos.Remove(alvos[x]); }}
-          
-            if (alvos.Count == 0)
-            {enemies = false;}
+            {if (alvos[x] == null) { alvos.Remove(alvos[x]); }} 
         }
 
     }
-    
+  
 
     public void OnCollisionEnter2D(Collision2D col)
     {

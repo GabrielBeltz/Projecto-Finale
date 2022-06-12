@@ -74,6 +74,10 @@ public class flyingEnemyBehaviour : MonoBehaviour
         CallVulnerable(false);
     }
 
+    private void OnDisable()
+    {
+        Destroy(gameObject);
+    }
     void CallVulnerable(bool value)
     {
         if(vulnerableTimer != null) StopCoroutine(vulnerableTimer);

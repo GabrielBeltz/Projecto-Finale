@@ -157,7 +157,7 @@ public class EnemyAttackTarget : MonoBehaviour
         RigidBody.constraints = RigidbodyConstraints2D.FreezeAll;
     }
 
-    void DeactivateSelf() => this.gameObject.SetActive(false);
+    void DeactivateSelf() => Destroy(this.gameObject);
 
     void PlaySoundAtMyPosition()
     {
