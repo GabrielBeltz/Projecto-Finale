@@ -5,7 +5,7 @@ public class SpawnChance : MonoBehaviour
     public float totalCalculatedChance;
     bool delay;
     [Help("A chance vai de 0 a 100 em int, chance maior que 100 sempre spawna, menor que 0 nunca.")]
-    public float BaseChance;
+    public float BaseChance =0 ;
     [Help("Modificador que considera o nível atual na torre. Pode ser usado para coisas ficarem mais ou menos comuns mais alto na torre.")]
     public float ChancePerFloor;
     [Help("Modificador que considera quantos double jumps o player tem. Pode ser usado para situações que ficariam muito difíceis sem pulos extras.")]

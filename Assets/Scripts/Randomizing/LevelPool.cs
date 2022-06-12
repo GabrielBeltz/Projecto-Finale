@@ -4,7 +4,7 @@ using System.Collections.Generic;
 [System.Serializable] [CreateAssetMenu(fileName = "Level X Pool", menuName = "Level Pool")]
 public class LevelPool : ScriptableObject
 {
-    public bool IsFixed;
+    public bool IsFixed,Rot;
     public List<Level> Levels = new List<Level>();
 
     public Level GetLevelWeighted(int index) 

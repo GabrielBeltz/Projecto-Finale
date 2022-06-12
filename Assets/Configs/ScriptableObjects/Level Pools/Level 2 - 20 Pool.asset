@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Level 2 - 20 Pool
   m_EditorClassIdentifier: 
   IsFixed: 0
+  Rot: 1
   Levels:
   - ID: 0
     Prefab: {fileID: 7491838821316234113, guid: 844bd0887dea86a46b113c1e030bf2be, type: 3}
