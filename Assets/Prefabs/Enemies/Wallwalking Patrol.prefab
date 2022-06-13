@@ -285,8 +285,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87214f58d37669e4aa28d0a13bcfc264, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TotalHealth: 2
-  currentHealth: 2
+  TotalHealth: 1
+  currentHealth: 1
   receivedAttackDirection: 0
   DamageReceived: 1
   selfKnockbackReceived: 1

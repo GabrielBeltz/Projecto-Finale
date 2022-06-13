@@ -14,4 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsFixed: 0
   Rot: 0
-  Levels: []
+  Levels:
+  - ID: 0
+    Prefab: {fileID: 3442258933031855360, guid: bf2c1212d18ba0642bf1bafdb498d7da, type: 3}
+  - ID: 1
+    Prefab: {fileID: 3862479299485823496, guid: cc3d35279020e644ca285ac29515cdbe, type: 3}
+  - ID: 2
+    Prefab: {fileID: 8132974029998545427, guid: c834c0f52d017e44aa42a37ec40fcb5f, type: 3}
+  - ID: 3
+    Prefab: {fileID: 7296061992283692737, guid: da1120e52c3fee744a23de06e633bbdf, type: 3}
+  - ID: 4
+    Prefab: {fileID: 9005847069452940151, guid: b5c046c9cbdfc9a4cbdc211d47136e3d, type: 3}
+  - ID: 5
+    Prefab: {fileID: 4741063560246343745, guid: fcc136fdc50beea48b4d4b3975717708, type: 3}
+  - ID: 6
+    Prefab: {fileID: 6619425844784878992, guid: fe68dc1cce56b0a47b560c97b5b2627f, type: 3}
+  - ID: 7
+    Prefab: {fileID: 6362020447750062921, guid: 394f53790914d7442afc67d3ac502e2e, type: 3}
+  - ID: 8
+    Prefab: {fileID: 3896404182733603703, guid: 1e70a6add258c504fb5f26927840d0d8, type: 3}
+  - ID: 9
+    Prefab: {fileID: 9161964112597846714, guid: fc87b45f64ee94240bc31a78dc669cbc, type: 3}
