@@ -27,7 +27,6 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1586432055468711563}
   m_RootOrder: 0
@@ -53,7 +52,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 18.881445
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -158,7 +157,6 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1}
   m_LocalScale: {x: 1.0238907, y: 1.0676156, z: 1}
-  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 386158461935878432}
   m_Father: {fileID: 0}

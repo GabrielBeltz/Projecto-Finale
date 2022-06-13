@@ -90,10 +90,10 @@ public class TowerController : MonoBehaviour
 
         if (Random.Range(1, 3) == 2 && (LevelPools[_newLevel].Rot != false))
         { _spawnedLevels[_newLevel].transform.localScale = new Vector3(-1, 1, 1);
-            Debug.Log("vai girar");
+    
         }
             
-        else { Debug.Log("não vai girar"); }
+       
        
     }
 

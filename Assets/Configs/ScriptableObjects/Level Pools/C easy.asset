@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e360a9444ee07f42878313ea3bdb424, type: 3}
+  m_Name: C easy
+  m_EditorClassIdentifier: 
+  IsFixed: 0
+  Rot: 0
+  Levels:
+  - ID: 0
+    Prefab: {fileID: 3442258933031855360, guid: 5d68ca1cac535864ebde99f25a24e547, type: 3}
+  - ID: 1
+    Prefab: {fileID: 3862479299485823496, guid: f4d99914545277144873cc379d953cd8, type: 3}
+  - ID: 2
+    Prefab: {fileID: 8132974029998545427, guid: 22791465dabcdf94b9ef37d2afb0f6e5, type: 3}
+  - ID: 3
+    Prefab: {fileID: 9005847069452940151, guid: be1e1a4cc57e25a499687870e020dbe8, type: 3}
+  - ID: 4
+    Prefab: {fileID: 4741063560246343745, guid: 8197ea2c483c8ec4ab80fa1e5783a948, type: 3}
+  - ID: 5
+    Prefab: {fileID: 6619425844784878992, guid: af11f386616989e4ca3885ae61dd2855, type: 3}
+  - ID: 6
+    Prefab: {fileID: 6362020447750062921, guid: f01359c4eb13672479a359c23355e708, type: 3}
+  - ID: 7
+    Prefab: {fileID: 3896404182733603703, guid: c5bcdad46de6dbe43ad9e3ddc9063bff, type: 3}
+  - ID: 8
+    Prefab: {fileID: 9161964112597846714, guid: 7794733efeb491c46bdb14451ee7e3c2, type: 3}
+  - ID: 9
+    Prefab: {fileID: 7296061992283692737, guid: 35d67bdb3e12a414bbc3cdaf820b93ff, type: 3}
