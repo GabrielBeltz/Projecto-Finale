@@ -63,8 +63,9 @@ public class MaskHabilities : MonoBehaviour
         bool isPassive = gObj.assignedAbility.Type == AbilitiesEnum.Attack;
         isPassive |= gObj.assignedAbility.Type ==  AbilitiesEnum.Health;
         isPassive |= gObj.assignedAbility.Type ==  AbilitiesEnum.Mobility;
+       
 
-        if(isPassive)
+        if (isPassive)
         {
             if(Passive == AbilityPassiveSlots.None) ActivateAbility(gObj.assignedAbility.Type, 2);
             else
@@ -93,6 +94,8 @@ public class MaskHabilities : MonoBehaviour
                     gObj.assignedAbility);
                 SwitchActivesMenu.gameObject.SetActive(true);
                 tempAbilityRef = gObj.assignedAbility;
+              
+                
             }
         }
         

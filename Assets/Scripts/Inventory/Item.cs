@@ -10,20 +10,20 @@ public class Item : MonoBehaviour
     public Renderer[] myRenderers;
     public ParticleSystem myParticleSystem;
 
-    void OnEnable() 
+    void OnEnable()
     {
-        assignedAbility = Upgrade? new Ability() : PlayerController.Instance.AbilitiesController.GetRandomAbility();
+        assignedAbility = Upgrade ? new Ability() : PlayerController.Instance.AbilitiesController.GetRandomAbility();
     }
 
     public void NewAbility() => PlayerController.Instance.AbilitiesController.NewAbilityInteraction(this);
 
     public void UpgradeAbility() => PlayerController.Instance.AbilitiesController.UpgradeInteraction();
 
-    public void EndInteraction(Ability input) 
+    public void EndInteraction(Ability input)
     {
         assignedAbility = input;
-        if(assignedAbility.Rank > 0) return;
+        if (assignedAbility.Rank > 0) return;
         InteractionManager.Instance.SetKey("Abilities", InteractionManager.Instance.GetKeyInt("Abilities") + 1);
         gameObject.SetActive(false);
-    } 
+    }
 }

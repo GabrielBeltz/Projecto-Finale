@@ -6,7 +6,13 @@ public class LevelPool : ScriptableObject
 {
     public bool IsFixed,Rot;
     public List<Level> Levels = new List<Level>();
-
+    public Level tutor;
+    public int levelsortid;
+    public static LevelPool instance;
+    public void Awake()
+    {
+        instance = this;
+    }
     public Level GetLevelWeighted(int index) 
     {
         if(Levels.Count == 1 || index < 0) return GetLevel();
@@ -14,8 +20,7 @@ public class LevelPool : ScriptableObject
         temp.RemoveAt(index);
         return temp[Random.Range(0, temp.Count)];
     }
-
-    public Level GetLevel() => Levels[Random.Range(0, Levels.Count)];
+ public Level GetLevel() => Levels[Random.Range(0, Levels.Count)];
 }
   
 

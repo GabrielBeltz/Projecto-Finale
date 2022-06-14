@@ -23,6 +23,10 @@ public class EnemyPatrolWalls : MonoBehaviour
         if(StartsGoingLeft) Backtrack();
     }
 
+    private void OnDisable()
+    {
+        Destroy(gameObject);
+    }
     void Update()
     {
         modifiedSpeed = speed * Mathf.Sign(transform.localScale.x);
