@@ -13,6 +13,7 @@ public class Item : MonoBehaviour
     void OnEnable() 
     {
         assignedAbility = Upgrade? new Ability() : PlayerController.Instance.AbilitiesController.GetRandomAbility();
+        if(!Upgrade && assignedAbility.Rank == 0) gameObject.SetActive(false);
     }
 
     public void NewAbility() => PlayerController.Instance.AbilitiesController.NewAbilityInteraction(this);

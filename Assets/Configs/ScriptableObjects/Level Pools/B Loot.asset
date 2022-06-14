@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e360a9444ee07f42878313ea3bdb424, type: 3}
   m_Name: B Loot
   m_EditorClassIdentifier: 
-  IsFixed: 0
+  IsFixed: 1
   Rot: 0
   Levels:
   - ID: 0
