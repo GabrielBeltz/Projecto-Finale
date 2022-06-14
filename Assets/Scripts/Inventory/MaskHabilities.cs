@@ -8,7 +8,6 @@ public class MaskHabilities : MonoBehaviour
     public AbilityActiveSlots ActiveA, ActiveB;
 
     public Chances SpawnChances;
-    Chances startingChances;
 
     [Header("References")]
     public AbilitiesInfos AbilitiesInfos;
