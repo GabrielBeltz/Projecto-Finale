@@ -138,8 +138,8 @@ GameObject:
   - component: {fileID: 1586432055468711563}
   - component: {fileID: 8156136206898586330}
   - component: {fileID: 4502125702413002270}
-  - component: {fileID: 4158990531532193144}
-  - component: {fileID: 2532671718892462256}
+  - component: {fileID: 1370365282963270206}
+  - component: {fileID: 4256425795135574333}
   m_Layer: 3
   m_Name: Platform 5
   m_TagString: SolidGround
@@ -156,7 +156,7 @@ Transform:
   m_GameObject: {fileID: 5771072655864620194}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1}
-  m_LocalScale: {x: 1.0238907, y: 1.0676156, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children:
   - {fileID: 386158461935878432}
   m_Father: {fileID: 0}
@@ -203,7 +203,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: a9bbba46415886443991432d299bf89d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3155a80a7c544ac44bdf1c7cc8f06aba, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -242,7 +242,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   BehavioursToDisable: []
   GameObjectsToDeactivate: []
---- !u!60 &4158990531532193144
+--- !u!60 &1370365282963270206
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -258,8 +258,8 @@ PolygonCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.34496114, y: 0.32352126}
-    oldSize: {x: 2.57, y: 2.54}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 10.71, y: 10.58}
     newSize: {x: 3, y: 3}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -267,13 +267,26 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -0.8865501, y: 1.7182559}
-      - {x: -0.8865501, y: -0.441744}
-      - {x: -0.50655013, y: -0.82174397}
-      - {x: 1.6834499, y: -0.82174397}
-      - {x: 1.6834499, y: -0.451744}
-      - {x: -0.49655014, y: 1.7182559}
---- !u!60 &2532671718892462256
+    - - {x: 5.275, y: -3.8}
+      - {x: 4.1549997, y: -2.6699998}
+      - {x: 3.905, y: -2.4199998}
+      - {x: 3.885, y: -2.4099998}
+      - {x: 3.695, y: -2.21}
+      - {x: 3.485, y: -2.02}
+      - {x: 3.485, y: -2}
+      - {x: 3.465, y: -1.99}
+      - {x: -3.8049998, y: 5.27}
+      - {x: -3.8049998, y: 5.29}
+      - {x: -5.355, y: 5.29}
+      - {x: -5.355, y: -3.62}
+      - {x: -5.345, y: -3.6299999}
+      - {x: -5.335, y: -3.6299999}
+      - {x: -3.695, y: -5.2799997}
+      - {x: -3.685, y: -5.29}
+      - {x: 5.355, y: -5.29}
+      - {x: 5.355, y: -3.83}
+      - {x: 5.335, y: -3.82}
+--- !u!60 &4256425795135574333
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -286,11 +299,11 @@ PolygonCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.46, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.34496114, y: 0.32352126}
-    oldSize: {x: 2.57, y: 2.54}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 10.71, y: 10.58}
     newSize: {x: 3, y: 3}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -298,9 +311,22 @@ PolygonCollider2D:
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: -1.08, y: 1.84}
-      - {x: -1.07, y: -0.441744}
-      - {x: -0.8, y: -1}
-      - {x: 1.9, y: -1}
-      - {x: 1.6834499, y: -0.09}
-      - {x: -0.44, y: 1.84}
+    - - {x: 5.275, y: -3.8}
+      - {x: 4.1549997, y: -2.6699998}
+      - {x: 3.9049997, y: -2.4199998}
+      - {x: 3.8849998, y: -2.4099998}
+      - {x: 3.6949997, y: -2.21}
+      - {x: 3.485, y: -2.02}
+      - {x: 3.485, y: -2}
+      - {x: 3.465, y: -1.99}
+      - {x: -3.6398275, y: 5.0719905}
+      - {x: -3.9495263, y: 5.3494034}
+      - {x: -5.953751, y: 5.448408}
+      - {x: -6.2634506, y: -3.2239797}
+      - {x: -6.25345, y: -3.530995}
+      - {x: -6.2847433, y: -3.7884078}
+      - {x: -4.4382772, y: -5.6364174}
+      - {x: -3.788233, y: -5.785025}
+      - {x: 5.1278877, y: -5.4880095}
+      - {x: 5.355, y: -3.83}
+      - {x: 5.335, y: -3.82}
