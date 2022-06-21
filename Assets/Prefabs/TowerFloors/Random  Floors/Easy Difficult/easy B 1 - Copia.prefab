@@ -52,7 +52,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4592552456753238265}
   m_Layer: 0
-  m_Name: easy B 1
+  m_Name: easy B 1 - Copia
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -275,6 +275,32 @@ Transform:
   m_Father: {fileID: 4592552456753238265}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &2105909714997102499
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7422068560320208643}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0.008381128}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 15.83, y: 2.58}
+    newSize: {x: 7, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 4.0053077, y: 0.87143517}
+  m_EdgeRadius: 0
 --- !u!114 &8074888853862497012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,32 +322,6 @@ MonoBehaviour:
   livre: 0
   vel: 0
   rot: 0.5
---- !u!61 &2105909714997102499
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7422068560320208643}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.008381128}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.8, y: 0.62}
-    newSize: {x: 7, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 4.0053077, y: 0.87143517}
-  m_EdgeRadius: 0
 --- !u!1001 &278822952376331891
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -539,6 +539,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3693606681522561309}
     m_Modifications:
+    - target: {fileID: 1596831034470232401, guid: 800289e54fc86ee429f5ae56b331c698, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.x
+      value: 22.979134
+      objectReference: {fileID: 0}
+    - target: {fileID: 1596831034470232401, guid: 800289e54fc86ee429f5ae56b331c698, type: 3}
+      propertyPath: m_SpriteTilingProperty.newSize.y
+      value: 2.630633
+      objectReference: {fileID: 0}
     - target: {fileID: 2176342036875961278, guid: 800289e54fc86ee429f5ae56b331c698, type: 3}
       propertyPath: m_Name
       value: Platform 8

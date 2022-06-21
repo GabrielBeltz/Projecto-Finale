@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7133171617296189780}
   - component: {fileID: 8615767673672073367}
   - component: {fileID: 451722036792814847}
-  - component: {fileID: 170427033953714362}
+  - component: {fileID: 7454263344487392308}
   m_Layer: 3
   m_Name: Platform 1
   m_TagString: SolidGround
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 491102083801248195}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 2, y: 2.0000002, z: 1}
   m_Children:
   - {fileID: 431510034184661181}
   m_Father: {fileID: 0}
@@ -77,12 +77,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: cd2c864949a2a5a4f93d5b7130c61d97, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 16643585700d29846a4285ea68acb548, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 7, y: 10}
+  m_Size: {x: 8.17, y: 12.25}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -151,7 +151,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colorDefault: {r: 0.8, g: 0.8, b: 0.8, a: 1}
   colorSelected: {r: 0.25, g: 0.65, b: 0.8, a: 1}
---- !u!60 &170427033953714362
+--- !u!60 &7454263344487392308
 PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -166,26 +166,24 @@ PolygonCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 0.04, y: 0.34, z: 0.83, w: 1.23}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 8.17, y: 12.25}
-    newSize: {x: 7, y: 10}
+    oldSize: {x: 1.96, y: 2.94}
+    newSize: {x: 8.17, y: 12.25}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   m_Points:
     m_Paths:
-    - - {x: 1.0684977, y: 1.0252442}
-      - {x: 0.85499996, y: 6.125}
-      - {x: -4.075, y: 6.125}
-      - {x: -4.085, y: 6.105}
-      - {x: -4.085, y: -6.125}
-      - {x: -1.7249999, y: -6.125}
-      - {x: -0.30431032, y: -4.9012194}
-      - {x: 4.085, y: -4.7149997}
-      - {x: 4.085, y: 1.015}
-      - {x: 4.035, y: 1.025}
+    - - {x: -0.97999996, y: 1.4699999}
+      - {x: -0.97999996, y: -1.4699999}
+      - {x: -0.42393494, y: -1.47}
+      - {x: -0.08540726, y: -1.1314726}
+      - {x: 0.96348614, y: -1.1314725}
+      - {x: 0.97545433, y: 0.22486818}
+      - {x: 0.20386356, y: 0.23633695}
+      - {x: 0.1972549, y: 1.4699999}
 --- !u!1 &6142829367641852296
 GameObject:
   m_ObjectHideFlags: 0

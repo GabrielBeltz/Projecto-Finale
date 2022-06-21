@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 4698308671051819916}
   - component: {fileID: 590322972586015585}
   - component: {fileID: 1841229883068119676}
-  - component: {fileID: 4796106038517086347}
+  - component: {fileID: 3458608809503728803}
   m_Layer: 3
   m_Name: Platform 4
   m_TagString: SolidGround
@@ -155,7 +155,7 @@ Transform:
   m_GameObject: {fileID: 7868450860227848720}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -1}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 7402464236456082864}
   m_Father: {fileID: 0}
@@ -202,7 +202,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 75389f5771eb19d40a3e8bec025df43f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 50f985b4065be3a438f06c026df9fc4b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -241,7 +241,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   BehavioursToDisable: []
   GameObjectsToDeactivate: []
---- !u!61 &4796106038517086347
+--- !u!61 &3458608809503728803
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -256,14 +256,14 @@ BoxCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
+    border: {x: 0.39999998, y: 0, z: 0.38, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 18.9, y: 10.9}
+    oldSize: {x: 4.7, y: 2.71}
     newSize: {x: 5.375332, y: 5}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 18.9, y: 10.9}
+  m_Size: {x: 4.7, y: 2.71}
   m_EdgeRadius: 0
