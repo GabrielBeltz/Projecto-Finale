@@ -231,6 +231,8 @@ public class PlayerController : MonoBehaviour
             _rb.velocity = IsGrounded
             ? new Vector2(WalkSpeed * (PlInputs.Inputs.RawX * _shieldSpeedMultiplier), _rb.velocity.y)
             : new Vector2(WalkSpeed * _jumpManeuverabilityPercentage * (PlInputs.Inputs.RawX * _shieldSpeedMultiplier), _rb.velocity.y);
+
+            Debug.Log(_rb.velocity);
             MyAnimator.SetFloat("Speed", Mathf.Abs(WalkSpeed * PlInputs.Inputs.RawX));
         }
     }

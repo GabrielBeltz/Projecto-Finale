@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseController : MonoBehaviour
 {
@@ -50,8 +51,8 @@ public class PauseController : MonoBehaviour
         Time.timeScale = gameplayTimeScale;
     }
 
-    public void QuitGame()
+    public void BackToMainMenu()
     {
-        Application.Quit();
+        SceneManager.LoadScene(0);
     }
 }

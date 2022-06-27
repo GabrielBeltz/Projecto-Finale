@@ -40,9 +40,9 @@ MonoBehaviour:
   - name: Hook
     icon: {fileID: 21300000, guid: 8725989997f77a94298e378bd920ba76, type: 3}
     ranks:
-    - Description: While airborne, throw a hook that pulls you.
-    - Description: Your hook range increases.
-    - Description: Hooking enemies stuns them for a short time.
+    - Description: Throw a hook that pulls you, while aiming time is slower.
+    - Description: Your hook range increases and time slows further.
+    - Description: Highest range and slowest time while aiming.
   - name: Tantrum
     icon: {fileID: 21300000, guid: e3f432a3e75f7634196d8d144226b956, type: 3}
     ranks:
