@@ -28,7 +28,6 @@ public class Interactable : MonoBehaviour
         if(Interactions[lastIndex].indexMod == 0) CheckOverridingInteraction();
 
         Interactions[InteractionIndex].events?.Invoke();
-
         if (Interactions[InteractionIndex].setKeys.Length > 0)
         {
             for (int i = 0; i < Interactions[InteractionIndex].setKeys.Length; i++)
@@ -69,9 +68,7 @@ public class Interactable : MonoBehaviour
                 if(Interactions[i].ChecksBool)
                 {
                     switch(Interactions[i].getKeysMode)
-                    {
-
-                        case Interaction.InteractionKeysMode.OR:
+                    {     case Interaction.InteractionKeysMode.OR:
                             for (int j = 0; j < Interactions[i].getKeys.Length; j++)
                             {
                                 overrideInteraction = InteractionManager.Instance.GetKey(Interactions[i].getKeys[j]);
