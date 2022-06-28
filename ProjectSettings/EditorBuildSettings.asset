@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tower testes.unity
     guid: ce3e7a7ad9b45e64996e2365f0a457c5
+  - enabled: 1
+    path: Assets/Scenes/EndingScene.unity
+    guid: 2de1b21c6297b1b43b4568041d5fbba4
   m_configObjects: {}

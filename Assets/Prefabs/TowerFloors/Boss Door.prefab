@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5132077139888778972}
   - component: {fileID: 4881429283274577152}
   - component: {fileID: 6220579753611565731}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: door (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 5792702101109200775}
   - component: {fileID: 6581340838653796472}
   - component: {fileID: 1868640900909882542}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: door (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -281,7 +281,7 @@ GameObject:
   - component: {fileID: 85583916354374110}
   - component: {fileID: 3423209693849432974}
   - component: {fileID: 3866504286333491333}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: door (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -414,7 +414,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8513650932481105186}
-  m_Layer: 0
+  - component: {fileID: 5551071239403778085}
+  - component: {fileID: 4906116509017601399}
+  - component: {fileID: 5824913197451285124}
+  m_Layer: 8
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -440,6 +443,84 @@ Transform:
   m_Father: {fileID: 1384126574900293308}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &5551071239403778085
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7420400883574601993}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.15015364, y: -0.5555693}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1.8408613, y: 3.8529217}
+  m_EdgeRadius: 0
+--- !u!114 &4906116509017601399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7420400883574601993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67209ce492f13f7409bc4029c8e3a488, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InteractionIndex: 0
+  lastIndex: 0
+  Interactions:
+  - ID: 
+    indexMod: 0
+    events:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 5824913197451285124}
+          m_TargetAssemblyTypeName: CommonInteractionsEvents, Assembly-CSharp
+          m_MethodName: LoadScene
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 2
+            m_FloatArgument: 0
+            m_StringArgument: 2
+            m_BoolArgument: 0
+          m_CallState: 2
+    ChecksInt: 0
+    ChecksBool: 0
+    getKeysMode: 0
+    getKeys: []
+    setKeys: []
+  OnExitInteraction:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &5824913197451285124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7420400883574601993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0921238faf35e840876cf2169af57b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8926219219442575256
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,7 +531,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8305436677649035443}
   - component: {fileID: 194791820162785929}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: door (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -534,7 +615,7 @@ GameObject:
   - component: {fileID: 4366177125622755906}
   - component: {fileID: 8071676761731680259}
   - component: {fileID: 5205940366064096143}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
